@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portal ABC | Mi Argentina</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #f2f9fc;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  background-color: #0072bb;
+  color: white;
+  text-align: center;
+  font-weight: 700;
+  padding: 1vh 0;
+  font-size: 2.5vh;
+}
+
+header span {
+  display: block;
+  font-weight: 400;
+  font-size: 1.5vh;
+  color: #dce6f1;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contenedor {
+  width: 90%;
+  max-width: 600px;
+  background: white;
+  padding: 3vh 2vw;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  border: 2px solid #0072bb;
+  text-align: center;
+}
+
+.titulo {
+  color: #0072bb;
+  font-weight: 700;
+  font-size: 3vh;
+  margin-bottom: 2vh;
+}
+
+.subtitulo {
+  font-size: 2vh;
+  color: #555;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.btn-miarg {
+  background-color: #0072bb;
+  color: white;
+  border-radius: 50px;
+  padding: 1.5vh 3vw;
+  font-weight: 600;
+  margin-top: 2vh;
+  border: none;
+}
+
+.btn-miarg:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.toast {
+  position: fixed;
+  bottom: 2vh;
+  right: 2vw;
+  background-color: #0072bb;
+  color: white;
+  padding: 1vh 2vw;
+  border-radius: 1vh;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  font-weight: 600;
+  z-index: 1000;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+footer {
+  text-align: center;
+  color: #666;
+  font-size: 1.5vh;
+  padding: 1.5vh 0;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  Portal ABC | Mi Argentina
+  <span>Portal Oficial del Estado Argentino</span>
+</header>
+
+<main>
+  <div class="contenedor">
+    <h1 class="titulo">Certificado Académico</h1>
+
+    <div class="mb-3">
+      <input type="text" id="dniInput" class="form-control text-center"
+             placeholder="Ingrese su DNI" maxlength="8">
+    </div>
+
+    <button id="consultarBtn" class="btn-miarg" disabled>
+      Consultar estado
+    </button>
+
+    <p id="mensaje" class="subtitulo mt-4"></p>
+  </div>
+</main>
+
+<footer>
+  © 2026 Mi Argentina — Presidencia de la Nación
+</footer>
+
+<div id="toast" class="toast">¡Listo! Su certificado ya está disponible</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const dniInput = document.getElementById('dniInput');
+  const consultarBtn = document.getElementById('consultarBtn');
+  const mensaje = document.getElementById('mensaje');
+  const toast = document.getElementById('toast');
+
+  // Base simulada de datos
+  const certificados = {
+    "33131107": "2026-02-05",
+    "45511439": "2026-02-05",
+    "38500951": "2026-02-05",
+    "27239643": "2026-02-05",
+    "33825465": "2026-02-04",
+    "21136573": "2026-02-04",
+    "39629903": "2026-02-07",
+    "29899080": "2026-02-08",
+    "27726148": "2026-02-08",
+    "40792260": "2026-02-08"
+  };
+
+  // Validar DNI en tiempo real
+  dniInput.addEventListener('input', () => {
+    const dniValido = /^\d{7,8}$/.test(dniInput.value.trim());
+    consultarBtn.disabled = !dniValido;
+  });
+
+  consultarBtn.addEventListener('click', () => {
+    const dni = dniInput.value.trim();
+    mensaje.style.opacity = 1;
+
+    if (!certificados[dni]) {
+      mensaje.innerHTML = "No se encontró información para el DNI ingresado.";
+      return;
+    }
+
+    const hoy = new Date();
+    hoy.setHours(0,0,0,0);
+
+    const fechaDisponible = new Date(certificados[dni]);
+    fechaDisponible.setHours(0,0,0,0);
+
+    if (hoy >= fechaDisponible) {
+      mensaje.innerHTML = `
+        Su <strong>Certificado</strong> se encuentra
+        <strong>DISPONIBLE</strong>.
+        Puede visualizarlo en la sección <strong>Documentos</strong>
+        dentro de la App.
+      `;
+
+      setTimeout(() => toast.classList.add('show'), 800);
+      setTimeout(() => toast.classList.remove('show'), 5000);
+
+    } else {
+      const fechaFormateada = fechaDisponible.toLocaleDateString('es-AR');
+      mensaje.innerHTML = `
+        Su <strong>Certificado</strong> se encuentra en
+        <strong>PROCESO</strong>.
+        Estará disponible a partir del día
+        <strong>${fechaFormateada}</strong>.
+      `;
+    }
+  });
+});
+</script>
+
+</body>
+</html>
+
