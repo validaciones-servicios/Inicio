@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CONFIRMACIÓN | DOCUTRACKING</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<style>
+:root {
+  --color-azul:#152663;
+  --color-verde:#2ecc71;
+  --color-blanco:#fff;
+  --color-gris:#e0e0e0;
+}
+body { font-family:'Montserrat',sans-serif; background-color:var(--color-blanco); color:var(--color-azul); margin:0; padding:0; }
+.navbar { background-color:var(--color-azul); }
+.navbar-brand { color:var(--color-blanco)!important; font-weight:700; font-size:1.6rem; }
+.container { margin-top:40px; max-width:1000px; padding:0 15px; }
+h1, h4 { font-weight:700; color:var(--color-azul); }
+.card { border-radius:10px; box-shadow:0 6px 18px rgba(0,0,0,0.06); border:1px solid var(--color-gris); }
+.btn-calcular { background-color:var(--color-verde); border:none; color:white; font-weight:700; border-radius:8px; padding:10px; text-transform:uppercase; transition:all 0.3s ease; }
+.btn-calcular:hover { background-color:#25b863; }
+.resultado { font-size:1.15rem; font-weight:700; color:var(--color-verde); }
+.btn-whatsapp { background-color:#25d366; border:none; color:white; font-weight:700; border-radius:8px; padding:10px; margin-top:10px; text-transform:uppercase; transition:all 0.3s ease; }
+.btn-whatsapp:hover { background-color:#1ebe57; }
+footer { background-color:var(--color-azul); color:var(--color-blanco); text-align:center; padding:20px 0; margin-top:40px; font-weight:400; font-size:0.95rem; }
+footer a { color:var(--color-verde); text-decoration:underline; }
+@media(max-width:576px){ h1{font-size:1.6rem;} .container{margin-top:20px;} }
+</style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand" href="#">DOCUTRACKING | CONFIRMACIÓN</a>
+  </div>
+</nav>
+
+<div class="container">
+  <h1 class="text-center mb-4">Tarifas Nacionales</h1>
+  <p class="text-center mb-4">Calculá y compartí el costo de tu envío de Documentación según la provincia y localidad de destino.</p>
+
+  <div class="card p-4 mb-4">
+    <h4 class="text-center mb-3">Confirmacion de Envío</h4>
+
+    <form id="miFormulario">
+
+      <div class="form-group">
+        <label for="tipoDocumento">Tipo de documentación</label>
+        <select id="tipoDocumento" class="form-control">
+          <option value="" disabled selected>Seleccioná una opción...</option>
+          <option value="Certificado" data-precio="100000">Analítico y Título (Secundario) $100.000</option>
+          <option value="Título" data-precio="130000">Título (Universitario) $130.000</option>
+          <option value="Terciario" data-precio="150000">Analítico y Título (Terciario) $150.000</option>
+          <option value="Legalización" data-precio="190000">Matrícula $190.000</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="dni">N° DNI</label>
+        <input type="text" id="dni" class="form-control" inputmode="numeric">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="provincia">Provincia de destino</label>
+          <select id="provincia" class="form-control">
+            <option value="" disabled selected>Seleccioná una provincia...</option>
+            <option value="CABA">CABA</option>
+            <option value="Buenos_Aires">Buenos Aires</option>
+            <option value="Cordoba">Córdoba</option>
+            <option value="Santa_Fe">Santa Fe</option>
+            <option value="Mendoza">Mendoza</option>
+            <option value="Entre_Rios">Entre Ríos</option>
+            <option value="Tucuman">Tucumán</option>
+            <option value="Chaco">Chaco</option>
+            <option value="Corrientes">Corrientes</option>
+            <option value="Misiones">Misiones</option>
+            <option value="Salta">Salta</option>
+            <option value="Jujuy">Jujuy</option>
+            <option value="San_Luis">San Luis</option>
+            <option value="San_Juan">San Juan</option>
+            <option value="La_Pampa">La Pampa</option>
+            <option value="Neuquen">Neuquén</option>
+            <option value="Rio_Negro">Río Negro</option>
+            <option value="Chubut">Chubut</option>
+            <option value="Santa_Cruz">Santa Cruz</option>
+            <option value="Tierra_del_Fuego">Tierra del Fuego</option>
+          </select>
+        </div>
+
+        <div class="form-group col-md-6">
+          <label for="localidad">Localidad</label>
+          <select id="localidad" class="form-control">
+            <option value="" disabled selected>Seleccioná una localidad...</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="dia">Fecha de Envío</label>
+        <input type="date" id="dia" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="horario">Horario de Envío</label>
+        <select id="horario" class="form-control">
+          <option value="">Seleccionar horario</option>
+          <option value="09:00">09:00 hs</option>
+          <option value="10:00">10:00 hs</option>
+          <option value="11:00">11:00 hs</option>
+          <option value="12:00">12:00 hs</option>
+          <option value="13:00">13:00 hs</option>
+          <option value="14:00">14:00 hs</option>
+          <option value="15:00">15:00 hs</option>
+          <option value="16:00">16:00 hs</option>
+          <option value="17:00">17:00 hs</option>
+          <option value="18:00">18:00 hs</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="calle">Calle y número</label>
+        <input type="text" id="calle" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="entreCalles">Entre calles</label>
+        <input type="text" id="entreCalles" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="codigoPostal">Código Postal</label>
+        <input type="text" id="codigoPostal" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="referencia">Referencia del domicilio</label>
+        <input type="text" id="referencia" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="tipoEnvio">Tipo de envío</label>
+        <select id="tipoEnvio" class="form-control">
+          <option value="estandar">Estándar (5 días hábiles)</option>
+          <option value="rapido">Rápido (24hs)</option>
+        </select>
+      </div>
+
+      <button class="btn btn-calcular btn-block" type="submit">Calcular Tarifa</button>
+    </form>
+
+    <div class="text-center mt-4" id="resultadoContainer" style="display:none;">
+      <div class="card p-3 mb-2" style="background-color:#e8f5e9; color:#2e7d32;">
+        <strong>Documento:</strong> <span id="precioDoc"></span>
+      </div>
+      <div class="card p-3 mb-2" style="background-color:#fff3e0; color:#ef6c00;">
+        <strong>Envío a <span id="localidadRes"></span>, <span id="provinciaRes"></span>:</strong> <span id="precioEnvio"></span>
+      </div>
+      <div class="card p-3 mb-2" style="background-color:#e3f2fd; color:#1565c0;">
+        <strong>TOTAL:</strong> <span id="totalRes"></span>
+      </div>
+      <button class="btn btn-whatsapp" id="btnWhatsApp">ABONAR ENVÍO</button>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="mt-2">© 2026 DOCUTRACKING - Todos los derechos reservados.</div>
+</footer>
+<script>
+// ================= LOCALIDADES =================
+const localidadesPorProvincia = {
+  "CABA": ["Microcentro","Recoleta","Palermo","Caballito","Belgrano","San Telmo","Balvanera","Flores","Almagro","Villa Urquiza","Villa Devoto","Villa Lugano","La Boca","Liniers","Parque Patricios","Boedo","Villa Crespo","Chacarita","Monserrat","Retiro","Puerto Madero"],
+  "Buenos_Aires": ["La Plata","Mar del Plata","Bahía Blanca","Quilmes","Avellaneda","Lanús","Lomas de Zamora","San Isidro","Tigre","Morón","Merlo","Pilar","San Martín","Tres de Febrero","Esteban Echeverría","Ezeiza","Florencio Varela","Berazategui","Ituzaingó","Vicente López","Campana","Zárate","Necochea","Junín","Pergamino","Olavarría","Chivilcoy","Tandil","Balcarce","Pinamar","Villa Gesell","San Nicolás","Luján","Moreno","Almirante Brown","Hurlingham","San Miguel","Berisso","Ensenada","Brandsen","Cañuelas","General Rodríguez"],
+  "Cordoba": ["Córdoba Capital","Villa María","Río Cuarto","San Francisco","Alta Gracia","Jesús María","La Calera","Villa Carlos Paz"],
+  "Santa_Fe": ["Rosario","Santa Fe Capital","Rafaela","Venado Tuerto","Reconquista","Esperanza"],
+  "Mendoza": ["Mendoza Capital","San Rafael","Godoy Cruz","Maipú","Luján de Cuyo","Tunuyán"],
+  "Entre_Rios": ["Paraná","Concordia","Gualeguaychú","Concepción del Uruguay","Villaguay"],
+  "Tucuman": ["San Miguel de Tucumán","Yerba Buena","Tafí Viejo","Concepción"],
+  "Chaco": ["Resistencia","Sáenz Peña","Villa Ángela","Charata"],
+  "Corrientes": ["Corrientes Capital","Goya","Paso de los Libres"],
+  "Misiones": ["Posadas","Oberá","Eldorado","Puerto Iguazú"],
+  "Salta": ["Salta Capital","Cafayate","Orán","Rosario de la Frontera"],
+  "Jujuy": ["San Salvador de Jujuy","Palpalá","Perico","Humahuaca"],
+  "San_Luis": ["San Luis Capital","Villa Mercedes","Merlo"],
+  "San_Juan": ["San Juan Capital","Rivadavia","Rawson","Chimbas"],
+  "La_Pampa": ["Santa Rosa","General Pico","Toay"],
+  "Neuquen": ["Neuquén Capital","Plottier","Centenario","Zapala"],
+  "Rio_Negro": ["Viedma","General Roca","Cipolletti","Bariloche"],
+  "Chubut": ["Rawson","Trelew","Comodoro Rivadavia","Puerto Madryn"],
+  "Santa_Cruz": ["Río Gallegos","Caleta Olivia","El Calafate"],
+  Tierra_del_Fuego: ["Ushuaia","Río Grande"]
+};
+
+const provinciaSel = document.getElementById("provincia");
+const localidadSel = document.getElementById("localidad");
+
+provinciaSel.addEventListener("change", () => {
+  const localidades = localidadesPorProvincia[provinciaSel.value] || [];
+  localidadSel.innerHTML = '<option value="" disabled selected>Seleccioná una localidad...</option>';
+  localidades.forEach(loc => {
+    const opt = document.createElement("option");
+    opt.value = loc;
+    opt.textContent = loc;
+    localidadSel.appendChild(opt);
+  });
+});
+
+// ================= FECHAS =================
+const feriados = [
+  "2025-01-01","2025-03-24","2025-04-02","2025-05-01",
+  "2025-05-25","2025-06-20","2025-07-09",
+  "2025-12-08","2025-12-25"
+];
+
+const fechaInput = document.getElementById("dia");
+fechaInput.min = new Date().toISOString().split("T")[0];
+
+fechaInput.addEventListener("change", () => {
+  const f = new Date(fechaInput.value + "T00:00");
+  if (f.getDay() === 0 || feriados.includes(fechaInput.value)) {
+    alert("No se realizan envíos domingos ni feriados.");
+    fechaInput.value = "";
+  }
+});
+
+// ================= PRECIOS =================
+const preciosEnvioProvincia = {
+  CABA:19000, Buenos_Aires:19000, Cordoba:24000, Santa_Fe:24000, Mendoza:28000,
+  Entre_Rios:23000, Tucuman:30000, Chaco:30000, Corrientes:32000, Misiones:35000,
+  Salta:32000, Jujuy:35000, San_Luis:26000, San_Juan:27000, La_Pampa:25000,
+  Neuquen:30000, Rio_Negro:32000, Chubut:38000, Santa_Cruz:42000, Tierra_del_Fuego:50000
+};
+
+// ================= FORMULARIO =================
+document.getElementById("miFormulario").addEventListener("submit", e => {
+  e.preventDefault();
+
+  const tipoDocumento = document.getElementById("tipoDocumento");
+  const precioDoc = parseInt(tipoDocumento.selectedOptions[0].dataset.precio);
+  const prov = provinciaSel.value;
+  const localidad = localidadSel.value;
+  const envioBase = preciosEnvioProvincia[prov];
+  const precioEnvio = tipoEnvio.value === "rapido" ? envioBase + 8000 : envioBase;
+  const total = precioDoc + precioEnvio;
+
+  precioDoc.textContent = `$${precioDoc.toLocaleString("es-AR")}`;
+  precioEnvio.textContent = `$${precioEnvio.toLocaleString("es-AR")}`;
+  totalRes.textContent = `$${total.toLocaleString("es-AR")}`;
+
+  localidadRes.textContent = localidad;
+  provinciaRes.textContent = prov.replace(/_/g," ");
+  resultadoContainer.style.display = "block";
+});
+</script>
+  <script>
+document.getElementById("btnWhatsApp").addEventListener("click", () => {
+
+  const mensaje =
+`📦 *CONFIRMACIÓN DE ENVÍO – DOCUTRACKING*
+
+📄 *Tipo de documentación:* ${tipoDocumento.options[tipoDocumento.selectedIndex].text}
+🆔 *DNI:* ${dni.value}
+
+📍 *Provincia:* ${provinciaSel.value.replace(/_/g," ")}
+📍 *Localidad:* ${localidadSel.value}
+
+📅 *Fecha de envío:* ${dia.value}
+⏰ *Horario:* ${horario.value}
+
+🏠 *Dirección:* ${calle.value}
+🛣️ *Entre calles:* ${entreCalles.value}
+📮 *Código Postal:* ${codigoPostal.value}
+📌 *Referencia:* ${referencia.value}
+
+🚚 *Tipo de envío:* ${tipoEnvio.options[tipoEnvio.selectedIndex].text}
+
+💰 *Precio documentación:* ${precioDoc.textContent}
+🚚 *Costo envío:* ${precioEnvio.textContent}
+💵 *TOTAL:* ${totalRes.textContent}
+
+✔️ Quiero abonar el envío.`;
+
+  const telefono = "5491151461885";
+  const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+
+  window.open(url, "_blank");
+});
+                             </script>
+
+</body>
+</html>
+
+  
