@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>SIDCer - Consulta de estado del trámite</title>
+
+<style>
+/* =========================
+   ESTILO GENERAL (SICER)
+========================= */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #333;
+    background-color: #f5f5f5;
+    margin: 0;
+}
+
+a {
+    color: #0066aa;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* =========================
+   CONTENEDOR PRINCIPAL
+========================= */
+.wrapper {
+    width: 960px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 25px 30px 40px;
+}
+
+/* =========================
+   LOGO
+========================= */
+.logo {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.logo img {
+    max-width: 500px;
+}
+
+/* =========================
+   TEXTO INSTITUCIONAL
+========================= */
+.descripcion {
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.vermas-link {
+    display: inline-block;
+    margin-top: 8px;
+    cursor: pointer;
+}
+
+/* =========================
+   FORMULARIO
+========================= */
+.form-box {
+    width: 700px;
+    margin: 40px auto;
+}
+
+.form-row {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+select, input[type="text"] {
+    width: 320px;
+    padding: 6px;
+    font-size: 13px;
+}
+
+button {
+    padding: 7px 20px;
+    font-size: 13px;
+    background-color: #e6e6e6;
+    border: 1px solid #999;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #dcdcdc;
+}
+
+/* =========================
+   RESULTADOS
+========================= */
+.resultado {
+    display: none;
+    margin-top: 40px;
+}
+
+.resultado h3 {
+    font-size: 15px;
+    margin-bottom: 15px;
+}
+
+.resultado .dni {
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* =========================
+   TABLA
+========================= */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+th {
+    background: #efefef;
+    border: 1px solid #ccc;
+    padding: 6px;
+    text-align: left;
+}
+
+td {
+    border: 1px solid #ccc;
+    padding: 6px;
+    vertical-align: top;
+}
+
+.movimientos {
+    white-space: nowrap;
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <!-- LOGO -->
+    <div class="logo">
+        <img src="https://sicer.educacion.gob.ar/sicerws/3.0/img/logo_grande.gif" alt="Ministerio de Educación">
+    </div>
+
+    <!-- DESCRIPCIÓN -->
+    <div class="descripcion">
+        La <strong>DIRECCIÓN NACIONAL DE GESTIÓN UNIVERSITARIA (DNGU)</strong>
+        es la repartición dentro del <strong>Ministerio de Capital Humano - Secretaría de Educación - Subsecretaría de Políticas Universitarias</strong>
+        responsable de la intervención de diplomas y certificados analíticos de egresados de instituciones universitarias argentinas.
+        <a class="vermas-link" onclick="toggleVerMas()">Ver más...</a>
+
+        <div id="vermas" style="display:none; margin-top:15px;">
+            <p><strong>El Departamento de Certificación de Títulos se encarga de:</strong></p>
+            <p style="padding-left:20px;">1- <u>Documentación Universitaria para Apostillar</u></p>
+            <p style="padding-left:40px;">Documentación académica emitida para presentación en el exterior.</p>
+
+            <p style="padding-left:20px;">2- <u>Cursos Docentes</u></p>
+            <p style="padding-left:40px;">Certificados emitidos por instituciones universitarias.</p>
+
+            <p style="padding-left:20px;">3- <u>Certificación del Diploma y Certificado Analítico Final</u></p>
+            <p style="padding-left:40px;">Trámite digitalizado desde 2018.</p>
+        </div>
+    </div>
+
+    <!-- FORMULARIO -->
+    <div class="form-box">
+        <div class="form-row">
+            <label>Tipo de Documento (*)</label>
+            <select id="tipo">
+                <option value="">-- Seleccione una opción --</option>
+                <option>DNI</option>
+                <option>Cédula de Identidad</option>
+                <option>Pasaporte</option>
+            </select>
+        </div>
+
+        <div class="form-row">
+            <label>Nº Documento (*)</label>
+            <input type="text" id="dni" placeholder="Ingrese número">
+        </div>
+
+        <button onclick="buscar()">Buscar</button>
+    </div>
+
+    <!-- RESULTADOS -->
+    <div class="resultado" id="resultado">
+        <div class="dni">DNI <span id="dniResultado"></span></div>
+
+        <h3>Trámite: <strong>Diploma / Certificado Analítico</strong></h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nº Solicitud</th>
+                    <th>Tipo de Documento</th>
+                    <th>Nº Documento</th>
+                    <th>Institución</th>
+                    <th>Título</th>
+                    <th>Estado</th>
+                    <th>Último movimiento</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="tablaResultados"></tbody>
+        </table>
+    </div>
+
+</div>
+
+<script>
+/* ============================
+   DATOS AGRUPADOS POR DNI
+   (EDITÁS SOLO ESTA PARTE)
+============================ */
+const tramitesPorDNI = {
+  "27239643": [
+    {
+      solicitud: "828211",
+      tipoDoc: "DNI",
+      dni: "27239643",
+      institucion: "Universidad Nacional de La Plata (UNLP)",
+      titulo: "Médico/a",
+      estado: "Trámite Finalizado - verificación en Registro Público de Graduados Universitarios",
+      fecha: "05/12/2025 17:48"
+    }
+  ]
+
+};
+
+/* ============================
+   FUNCIONES
+============================ */
+function toggleVerMas() {
+    const v = document.getElementById("vermas");
+    v.style.display = v.style.display === "none" ? "block" : "none";
+}
+
+function buscar() {
+    const dniIngresado = document.getElementById("dni").value.trim();
+    const resultado = document.getElementById("resultado");
+    const tabla = document.getElementById("tablaResultados");
+
+    tabla.innerHTML = "";
+    resultado.style.display = "none";
+
+    if (!tramitesPorDNI[dniIngresado]) {
+        alert("No se encontraron trámites para el documento ingresado.");
+        return;
+    }
+
+    document.getElementById("dniResultado").innerText = dniIngresado;
+    resultado.style.display = "block";
+
+    tramitesPorDNI[dniIngresado].forEach(t => {
+        tabla.innerHTML += `
+            <tr>
+                <td>${t.solicitud}</td>
+                <td>${t.tipoDoc}</td>
+                <td>${t.dni}</td>
+                <td>${t.institucion}</td>
+                <td>${t.titulo}</td>
+                <td>${t.estado}</td>
+                <td>${t.fecha}</td>
+                <td class="movimientos"><a href="#">Ver movimientos</a></td>
+            </tr>
+        `;
+    });
+}
+</script>
+
+</body>
+</html>
+
+                                             
