@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RNR — Consulta de CAP</title>
+
+  <!-- Google Font (profesional) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Optional: Font Awesome for icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+  <style>
+    :root{
+      /* Paleta sugerida tipo "DocuTracking" (modificá si tenés los colores reales) */
+      --dt-primary: #0b57d0;    /* azul principal */
+      --dt-accent:  #ff7a00;    /* naranja / acento */
+      --dt-dark:    #14213d;    /* texto oscuro */
+      --dt-muted:   #6c757d;
+      --container-max: 1100px;
+      --radius: 12px;
+    }
+
+    html,body{
+      height:100%;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color: var(--dt-dark);
+      background: linear-gradient(180deg, #f8fafc 0%, #ffffff 60%);
+      -webkit-font-smoothing:antialiased;
+    }
+
+    .navbar-brand img{ height:44px; object-fit:contain; }
+
+    header .navbar{
+      background: linear-gradient(90deg, rgba(11,87,208,0.95), rgba(6,56,146,0.95));
+      border-bottom: 4px solid rgba(255,122,0,0.15);
+    }
+    .site-title{
+      color: #fff;
+      font-weight:700;
+      letter-spacing:0.2px;
+    }
+
+    main { padding: 32px 12px; }
+    .card-search{
+      border-radius: var(--radius);
+      box-shadow: 0 8px 22px rgba(4,12,32,0.06);
+      border: none;
+    }
+    .btn-dt {
+      background: linear-gradient(90deg,var(--dt-primary), #064cb2);
+      border: none;
+      color: #fff;
+      box-shadow: 0 6px 18px rgba(11,87,208,0.16);
+      border-radius: 10px;
+      padding: 10px 18px;
+      font-weight:600;
+    }
+    .btn-dt:active, .btn-dt:focus{ outline: none; box-shadow: 0 0 0 0.20rem rgba(11,87,208,0.18); }
+
+    .accent {
+      color: var(--dt-accent);
+      font-weight:600;
+    }
+
+    label { font-weight:600; font-size:0.95rem; color:var(--dt-dark); }
+
+    .help-block { color:var(--dt-muted); font-size:0.9rem; }
+
+    /* Sidebar (mobile first) */
+    .page-sidebar { position: sticky; top: 90px; padding: 12px; }
+
+    /* Loading overlay */
+    .loading-overlay {
+      display:none;
+      position:fixed;
+      top:0; left:0; right:0; bottom:0;
+      background: rgba(12,18,40,0.35);
+      z-index: 2000;
+      align-items:center;
+      justify-content:center;
+      color:#fff;
+      font-weight:600;
+    }
+    .loading-box {
+      background: rgba(255,255,255,0.06);
+      padding: 20px 28px;
+      border-radius: 12px;
+      text-align:center;
+      backdrop-filter: blur(4px);
+    }
+
+    /* Footer */
+    footer.main-footer{
+      background: linear-gradient(180deg,#031433, #07224a);
+      color:#fff;
+      padding:18px 0;
+      margin-top:30px;
+    }
+    footer a{ color: #ffd9b8; text-decoration:none; }
+
+    /* Responsive tweaks */
+    @media(min-width:992px){
+      .content-column{ padding-right: 3rem; }
+    }
+
+    /* Validation */
+    .is-invalid { border-color:#dc3545 !important; box-shadow:none; }
+    .text-verified { color: #198754; font-weight:700; }
+
+  </style>
+</head>
+<body>
+  <!-- HEADER / NAV -->
+  <header>
+    <nav class="navbar navbar-expand-lg">
+      <div class="container" style="max-width:var(--container-max);">
+       <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+  <div class="d-none d-md-block">
+    <div class="site-title">RNR</div>
+    <small class="text-white" style="opacity:.85">Verificación de CAP</small>
+  </div>
+</a>
+
+        <button class="navbar-toggler btn btn-light" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+          <i class="fa fa-bars"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navMain">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link text-white" href="Consulta.aspx">Inicio</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="#correcciones">Correcciones</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="#firma_digital">Firma Digital</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- MAIN -->
+  <main class="container" style="max-width:var(--container-max);">
+    <div class="row">
+      <!-- Content -->
+      <div class="col-lg-8 content-column">
+        <div class="card card-search p-4">
+          <h2 class="mb-1">Consulta de Certificado</h2>
+          <p class="help-block mb-3">Ingresá el <span class="accent">Código de Solicitud</span> y el <span class="accent">Código de Seguridad</span> para verificar un certificado.</p>
+
+          <form id="searchForm" onsubmit="return false;">
+            <div class="row g-3">
+              <div class="col-12 col-md-6">
+                <label for="codSolic">Código de Solicitud</label>
+                <input id="codSolic" class="form-control form-control-lg" autocomplete="off" style="text-transform:uppercase" />
+                <div id="errSolic" class="invalid-feedback"></div>
+              </div>
+
+              <div class="col-12 col-md-6">
+                <label for="codSegur">Código de Seguridad</label>
+                <input id="codSegur" class="form-control form-control-lg" autocomplete="off" style="text-transform:uppercase" />
+                <div id="errSegur" class="invalid-feedback"></div>
+              </div>
+
+              <div class="col-12">
+                <button id="btnConsultar" class="btn btn-dt btn-lg"><i class="fa fa-search me-2"></i> CONSULTAR</button>
+                <div class="mt-3" id="consultaInfo" aria-live="polite"></div>
+              </div>
+            </div>
+          </form>
+
+          <div class="mt-4 alert alert-warning">
+            <strong>ATENCIÓN:</strong> Si Ud. posee Códigos de Trámite o Códigos UER podrá consultar el certificado haciendo clic <a href="https://www.dnrec.jus.gov.ar/rnr-certificado" target="_blank">AQUI</a>, o comunicandose al 0800-666-0055.
+          </div>
+
+          <!-- Help / Info sections (kept from original) -->
+          <hr>
+          <h5 id="correcciones">Correcciones</h5>
+          <ul>
+            <li>El plazo para rectificar, actualizar o suprimir datos personales del titular del Certificado de Antecedentes Penales es de quince (31) días corridos y deberás realizarlo mediante nuestros canales de comunicación.</li>
+          </ul>
+
+          <h5 id="firma_digital" class="mt-3">Firma Digital</h5>
+          <p>El Certificado está en PDF y <em>Firmado Digitalmente</em>. Para validar la firma digital.</p>
+
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="col-lg-4">
+        <div class="card p-3 mb-3 sticky-top" style="top:90px;">
+          <h6 class="mb-2">Accesos rápidos</h6>
+          <div class="d-grid gap-2">
+            <a class="btn btn-outline-secondary" href="#correcciones">Correcciones</a>
+            <a class="btn btn-outline-secondary" href="#firma_digital">Firma Digital</a>
+            <a class="btn btn-outline-secondary" href="Content/ValidarParaSubirAlTAD.pdf" target="_blank">Instructivo TAD</a>
+          </div>
+        </div>
+
+        <div class="card p-3">
+          <h6>Contacto</h6>
+          <p class="mb-1"><strong>+54 9 11 5146-1885</strong></p>
+          <p class="mb-0">Soporte al usuario</p>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- Loading overlay -->
+  <div class="loading-overlay" id="loadingOverlay" aria-hidden="true">
+    <div class="loading-box">
+      <div class="mb-2"><i class="fa fa-spinner fa-spin fa-2x"></i></div>
+      <div>Procesando... Por favor espere.</div>
+    </div>
+  </div>
+
+  <!-- Modal resultado -->
+  <<!-- Modal resultado -->
+<div class="modal fade" id="resultModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content" style="border-radius:14px;">
+      <div class="modal-header" style="background:var(--dt-primary); color:#fff; border-top-left-radius:14px; border-top-right-radius:14px;">
+        <h5 class="modal-title"><i class="fa fa-id-card me-2"></i>Resultado de la búsqueda</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+
+      <div class="modal-body">
+        <div id="modalContent"></div>
+      </div>
+
+      <div class="modal-footer d-flex justify-content-between">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+
+        <!-- Botón PDF movido al lado de Cerrar -->
+        <a id="downloadPdfBtn" class="btn btn-dt" href="#" target="_blank" style="display:none;">
+          <i class="fa fa-download me-2"></i>Ver PDF
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- FOOTER -->
+  <footer class="main-footer">
+    <div class="container" style="max-width:var(--container-max);">
+      <div class="row align-items-center">
+        <div class="col-md-6 d-flex align-items-center gap-3">
+          <img src="imagenes/logoRNR.png" alt="Logo" style="height:46px;">
+          <div>
+            <div style="font-weight:700">Registro Nacional de Reincidencia</div>
+            <small>Verificación del Certificado </small>
+          </div>
+        </div>
+        <div class="col-md-6 text-md-end mt-3 mt-md-0">
+          <a href="Consulta.aspx" class="me-3">Inicio</a>
+          <a href="#correcciones">Correcciones</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    /*
+     * Implementación simple del "sistema de búsqueda con 1 persona"
+     * - Cambiá / agregá datos en el objeto `mockDB` abajo.
+     * - Por seguridad este código es sólo front-end. En producción validá en qel backend.
+     */
+
+    // Base de datos mock: UN registro editable.
+    const mockDB = [
+      {
+        codigoSolicitud: "031001287644",     // normalizar: uppercase/no spaces
+        codigoSeguridad: "5E9S8KL022",
+        nombre: "AGUSTINA MACHUCA",
+        dni: "41.377.021",
+        fechaNac: "21/03/1981",
+        estado: "VERIFICADO",
+        detalle: "El Numero de DNI no posee Antecedentes Penales hasta la fecha. 03/11/2025",
+        pdfUrl: "https://drive.google.com/file/d/18KQOXSvgWTbZv_uFcYqdkoCWOp7DZZjB/view?usp=drivesdk" // opcional
+      }
+    ];
+
+    // Helpers
+    function normalize(val){
+      if(!val) return "";
+      return String(val).trim().toUpperCase();
+    }
+
+    const codSolicInput = document.getElementById('codSolic');
+    const codSegurInput = document.getElementById('codSegur');
+    const errSolic = document.getElementById('errSolic');
+    const errSegur = document.getElementById('errSegur');
+    const btnConsultar = document.getElementById('btnConsultar');
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    const modal = new bootstrap.Modal(document.getElementById('resultModal'), {});
+    const modalContent = document.getElementById('modalContent');
+    const downloadPdfBtn = document.getElementById('downloadPdfBtn');
+    const consultaInfo = document.getElementById('consultaInfo');
+
+    function showLoading(show=true){
+      loadingOverlay.style.display = show ? 'flex' : 'none';
+      loadingOverlay.setAttribute('aria-hidden', show ? 'false' : 'true');
+    }
+
+    function showError(inputEl, message){
+      inputEl.classList.add('is-invalid');
+      const feedback = inputEl.nextElementSibling;
+      if(feedback) feedback.textContent = message;
+    }
+    function clearErrors(){
+      [codSolicInput, codSegurInput].forEach(i=>{
+        i.classList.remove('is-invalid');
+        const fb = i.nextElementSibling;
+        if(fb) fb.textContent = '';
+      });
+      consultaInfo.innerHTML = '';
+    }
+
+    btnConsultar.addEventListener('click', function(){
+      clearErrors();
+      const codSolic = normalize(codSolicInput.value);
+      const codSegur = normalize(codSegurInput.value);
+
+      // Validación básica
+      if(!codSolic){
+        showError(codSolicInput, 'Indique el Código de Solicitud');
+        return;
+      }
+      if(!codSegur){
+        showError(codSegurInput, 'Indique el Código de Seguridad');
+        return;
+      }
+
+      // Simular petición
+      showLoading(true);
+      setTimeout(()=>{
+        const found = mockDB.find(r => normalize(r.codigoSolicitud) === codSolic && normalize(r.codigoSeguridad) === codSegur);
+        showLoading(false);
+
+        if(found){
+          // Mostrar modal con información y VERIFICADO
+          modalContent.innerHTML = `
+            <div class="row">
+              <div class="col-md-8">
+                <h5 class="mb-1">${escapeHtml(found.nombre)} <small class="text-muted">(${escapeHtml(found.dni)})</small></h5>
+                <p class="mb-0"><strong>Fecha Nac.:</strong> ${escapeHtml(found.fechaNac)}</p>
+                <p class="mb-1 mt-2">${escapeHtml(found.detalle)}</p>
+                <p class="text-verified"><i class="fa fa-check-circle me-2"></i> ${escapeHtml(found.estado)}</p>
+              </div>
+              <div class="col-md-4 text-md-end">
+                <img src="imagenes/leyenda-firma.jpg" alt="firma" style="max-height:90px; object-fit:contain;">
+              </div>
+            </div>
+          `;
+          if(found.pdfUrl){
+            downloadPdfBtn.href = found.pdfUrl;
+            downloadPdfBtn.style.display = 'inline-block';
+          } else {
+            downloadPdfBtn.style.display = 'none';
+          }
+          modal.show();
+
+        } else {
+          // No encontrado
+          consultaInfo.innerHTML = `<div class="alert alert-danger"><i class="fa fa-exclamation-triangle me-2"></i>Códigos no válidos — no existe el certificado o los códigos son incorrectos.</div>`;
+        }
+
+      }, 700); // simula latencia
+    });
+
+    // Utility: escape HTML (seguridad básica)
+    function escapeHtml(unsafe) {
+      return String(unsafe)
+        .replaceAll('&','&amp;')
+        .replaceAll('<','&lt;')
+        .replaceAll('>','&gt;')
+        .replaceAll('"','&quot;')
+        .replaceAll("'",'&#039;');
+    }
+
+    // ENTER en inputs dispara búsqueda
+    [codSolicInput, codSegurInput].forEach(i=>{
+      i.addEventListener('keydown', function(e){
+        if(e.key === 'Enter'){
+          e.preventDefault();
+          btnConsultar.click();
+        }
+      });
+    });
+
+    // Accessibility: focus first field on load
+    window.addEventListener('load', () => {
+      codSolicInput.focus();
+    });
+
+    // --- FIN JS ---
+  </script>
+</body>
+  </html>
+  
+
+  
