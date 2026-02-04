@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Registro Federal de Egreso</title>
 
-<!-- Bootstrap 5 CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 <style>
 body {
     background-color: #f4f6f8;
@@ -32,15 +32,8 @@ header h1, header h2 {
     margin: 0;
     align-self: flex-start;
 }
-header h1 {
-    font-size: 22px;
-    font-weight: 600;
-}
-header h2 {
-    font-size: 18px;
-    font-weight: 500;
-    margin-top: 5px;
-}
+header h1 { font-size: 22px; font-weight: 600; }
+header h2 { font-size: 18px; font-weight: 500; margin-top: 5px; }
 .student-info {
     background-color: #37BBED;
     color: #fff;
@@ -50,525 +43,131 @@ header h2 {
     font-weight: 600;
     margin-bottom: 15px;
 }
-#nivelEducativo {
-    cursor: pointer;
-    text-decoration: underline;
-    color: #00aaff;
-}
-table {
-    background-color: #fff;
-    border-collapse: collapse;
-    width: 100%;
-    margin-bottom: 20px;
-}
+table { background:#fff; width:100%; }
 table th {
-    background-color: #37BBED;
-    color: #fff;
-    font-weight: 600;
+    background-color:#37BBED;
+    color:#fff;
 }
 table td, table th {
-    padding: 10px;
-    border: 1px solid #ddd;
-    vertical-align: middle;
+    padding:10px;
+    border:1px solid #ddd;
 }
-table tbody tr:nth-child(even) {
-    background-color: #d1ebfc;
-}
-table tbody tr:nth-child(odd) {
-    background-color: #b3dcf7;
-}
-table tbody tr:hover {
-    background-color: #e8f0fe;
-}
-.modal-header h3 {
-    margin: 0;
-}
-.certificate-header {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-}
-.certificate-badge img {
-    max-width: 100px;
-    margin-right: 20px;
-}
-.certificate-text h2 {
-    margin-top: 0;
-}
-.certificate-text p {
-    font-size: 15px;
-    margin-bottom: 6px;
-    word-break: break-word;
-}
-
-@media (max-width: 768px) {
-    .certificate-header {
-        flex-direction: column;
-        text-align: center;
-    }
-    .certificate-badge img {
-        margin-bottom: 10px;
-        margin-right: 0;
-    }
-    .certificate-text h2 {
-        font-size: 18px;
-    }
-    .certificate-text p {
-        font-size: 14px;
-    }
-    .modal-content {
-        border-radius: 10px;
-    }
-}
+table tbody tr:nth-child(even){ background:#d1ebfc; }
+table tbody tr:nth-child(odd){ background:#b3dcf7; }
 </style>
 </head>
+
 <body>
 
 <header>
-    <img src="https://refe.educacion.gob.ar/img/ReFE/Banner/ReFE-Banner.svg" width="330px" alt="ReFE Logo">
+    <img src="https://refe.educacion.gob.ar/img/ReFE/Banner/ReFE-Banner.svg" width="330px">
     <h1>Dirección de Validez Nacional de Títulos.</h1>
     <h2>Registro Federal de Egreso</h2>
 </header>
 
 <main class="container my-4">
-    <form id="form-busqueda" class="mb-3">
-        <div class="input-group mb-2">
-            <span class="input-group-text text-secondary" style="width: 250px;">Tipo de Documento</span>
-            <select class="form-control form-select" id="tipoDoc">
-                <option value="">-- Selecciona una opción --</option>
-                <option>DNI</option>
-                <option>LE</option>
-                <option>LC</option>
-                <option>DOCUMENTO EXTRANJERO</option>
-            </select>
-        </div>
-        <div class="input-group mb-2">
-            <span class="input-group-text text-secondary" style="width: 250px;">Número de Documento</span>
-            <input class="form-control" type="text" id="numeroDoc" placeholder="Ingrese DNI">
-        </div>
-        <div class="input-group mb-2">
-            <span class="input-group-text text-secondary" style="width: 250px;">Apellido</span>
-            <input class="form-control" type="text" id="apellido">
-        </div>
-        <div class="input-group mb-2">
-            <span class="input-group-text text-secondary" style="width: 250px;">Nombre</span>
-            <input class="form-control" type="text" id="nombre">
-        </div>
-        <div class="row mt-3">
-            <div class="col-sm-6"></div>
-            <div class="col-sm-6 text-end">
-                <a href="#" id="nuevaBusqueda" class="btn btn-primary me-2" style="width: 200px;">Nueva búsqueda</a>
-                <button type="button" class="btn btn-success" style="width: 200px; border-color: #88C517; background-color: #88C517;" id="buscarBtn">Buscar</button>
-            </div>
-        </div>
-    </form>
 
-    <div id="infoEstudiante" style="display:none;">
-        <div class="student-info" id="studentName"></div>
-        <p><span id="nivelEducativo"></span></p>
-
-        <div class="table-responsive">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Tipo de Documento</th>
-                        <th>N° de Documento</th>
-                        <th>Título</th>
-                        <th>Jurisdicción</th>
-                        <th>Institución Educativa</th>
-                        <th>CUE</th>
-                        <th>Fecha de Egreso</th>
-                        <th>Normativa Jurisdiccional</th>
-                        <th>Normativa Nacional</th>
-                        <th>N° de Serie</th>
-                        <th>Blockchain</th>
-                        <th>Ver</th>
-                    </tr>
-                </thead>
-                <tbody id="tablaBody"></tbody>
-            </table>
-        </div>
-        <p style="font-size: 14px; color: #555;">
-        Por Resolución CFE N° 440/23, los títulos son emitidos en formato digital. Para títulos emitidos desde el año 2000, ReFE es el nuevo instrumento de legalización, certificación y confronte de autenticidad de la documentación educativa correspondiente a los niveles de educación secundaria y de educación superior, para su presentación dentro del territorio argentino. Para títulos emitidos con anterioridad, consultar el circuito de legalización.
-        </p>
+<form id="form-busqueda" class="mb-3" onsubmit="return false;">
+    <div class="input-group mb-2">
+        <span class="input-group-text" style="width:250px;">Tipo de Documento</span>
+        <select class="form-control form-select" id="tipoDoc">
+            <option>DNI</option>
+        </select>
     </div>
+
+    <div class="input-group mb-2">
+        <span class="input-group-text" style="width:250px;">Número de Documento</span>
+        <input class="form-control" id="numeroDoc" placeholder="Ingrese DNI">
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-sm-6"></div>
+        <div class="col-sm-6 text-end">
+            <button type="button" class="btn btn-success" id="buscarBtn" style="width:200px;">Buscar</button>
+        </div>
+    </div>
+</form>
+
+<div id="infoEstudiante" style="display:none;">
+    <div class="student-info" id="studentName"></div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Tipo</th>
+                    <th>DNI</th>
+                    <th>Título</th>
+                    <th>Jurisdicción</th>
+                    <th>Institución</th>
+                    <th>CUE</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody id="tablaBody"></tbody>
+        </table>
+    </div>
+</div>
+
 </main>
 
-<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
 let datosEstudiantes = [
     {
         dni:"37660995",
-        nombre:"LUCAS IVAN TEMPONE ",
-        nivel:"SECUNDARIO",
+        nombre:"LUCAS IVAN TEMPONE",
         tipoDoc:"DNI",
         titulo:"ECONOMÍA Y ADMINISTRACIÓN",
         jurisdiccion:"BUENOS AIRES",
         institucion:"E DE COMERCIO N°29",
         cue:"00612275",
-        fechaEgreso:"20/12/2020",
-        normativaJur:"RESOLUCIÓN N° 302/12",
-        normativaNac:"R.M. Nº 1466/18-R.M. Nº 2206/22-DISP. N° 723/22.",
-        serie:"06-08336-2020",
-        hash:"0xc2d634539b3fd9dddce972cdc342febd2d4b162eec7f6dade5fe049402047963",
-        autoridad:"LLERAL Máxima Andre",
-        fechaSello:"2020-12-20 17:37:18.953 ART"
+        fechaEgreso:"20/12/2020"
     },
     {
         dni:"45511439",
         nombre:"EMILSE SOLANGE ALMIRÓN",
-        nivel:"SECUNDARIO",
         tipoDoc:"DNI",
         titulo:"BACHILLER",
         jurisdiccion:"TUCUMÁN",
         institucion:"COLEGIO NACIONAL BARTOLOMÉ MITRE",
         cue:"0200849-00",
-        fechaEgreso:"20/12/2022",
-        normativaJur:"RESOLUCIÓN N° 302/12",
-        normativaNac:"R.M. Nº 1466/18-R.M. Nº 2206/22-DISP. N° 723/22.",
-        serie:"06-08336-2022",
-        hash:"0xc2d634539b3fd9dddce972cdc342febd2d4b162eec7f6dade5fe049402047963",
-        autoridad:"LLERAL Máxima Andre",
-        fechaSello:"2026-01-26 13:14:18.953 ART"
-    },
-    {
-        dni:"22549",
-        nombre:"PABLO ANDRÉS GAFURI",
-        nivel:"UNIVERSITARIO",
-        tipoDoc:"DNI",
-        titulo:"TEC. SUPERIOR EN HIGIENE Y SEGURIDAD EN EL TRABAJO",
-        jurisdiccion:"NACIONAL",
-        institucion:"INSTITUTO ARGENTINO DE SEGURIDAD",
-        cue:"0200273-00",
-        fechaEgreso:"20/12/2019",
-        normativaJur:"RESOLUCIÓN N°302/12",
-        normativaNac:"R.M. Nº 1466/18-R.M. Nº 2206/22-DISP. N° 723/22.",
-        serie:"06-08336-2019",
-        hash:"0xc2d634539b3fd9dddce972cdc342febd2d4b162eec7f6dade5fe049402047963",
-        autoridad:"LLERAL Máxima Andre",
-        fechaSello:"2026-01-27 14:47:18.953 ART"
-    },
-        {
-        dni:"38500951",
-        nombre:"MACARENA SOFIA MENDOZA",
-        nivel:"SECUNDARIO",
-        tipoDoc:"DNI",
-        titulo:"PER. COMER. ESOECIALIZADO EN ADMINISTRACIÓN DE EMPRESAS",
-        jurisdiccion:"CÓRDOBA",
-        institucion:"CENTRO EDUCATIVO DE NIVEL MEDIO PARA ADULTOS N° 107",
-        cue:"9580000",
-        fechaEgreso:"14/12/2018",
-        normativaJur:"RESOLUCIÓN N° 302/12",
-        normativaNac:"R.M. Nº 1466/18-R.M. Nº 2206/22-DISP. N° 723/22.",
-        serie:"14-00037474-2024",
-        hash:"0xc2d634539b3fd9dddce972cdc342febd2d4b162eec7f6dade5fe049402047963",
-        autoridad:"LLERAL Máxima Andre",
-        fechaSello:"2024-12-10 13:43:05.999 ART"
-    },
-    {
-        dni:"25883720",
-        nombre:"FERNANDO RAÚL ANDRAGÑEZ",
-        nivel:"PROFESIONAL",
-        tipoDoc:"DNI",
-        titulo:"DIRECTOR TÉCNICO PROFESIONAL",
-        jurisdiccion:"NACIONAL",
-        institucion:"ATFA - CONMEBOL",
-        cue:"SEDE CENTRAL",
-        fechaEgreso:"20/12/2024",
-        normativaJur:"RESOLUCIÓN N° ",
-        normativaNac:"R.M. Nº 1466/18-R.M. Nº 2206/22-DISP. N° 723/22.",
-        serie:"06-8336-2024",
-        hash:"0xc2d634539b3fd9dddce972cdc342febd2d4b162eec7f6dade5fe049402047963",
-        autoridad:"LLERAL Máxima Andre",
-        fechaSello:"2026-01-28 11:14:18.953 ART"
-    }, 
-    {
-        dni:"45486120",
-        nombre:"ERIKA LUCILA ESPINDOLA",
-        nivel:"SECUNDARIO",
-        tipoDoc:"DNI",
-        titulo:"BACHILLER",
-        jurisdiccion:"CÓRDOBA",
-        institucion:"INSTITUTO SANTA ANA",
-        cue:"0601353",
-        fechaEgreso:"20/12/2020",
-        normativaJur:"RESOLUCIÓN N° 302/12",
-        normativaNac:"R.M. Nº 1466/18-R.M. Nº 2206/22-DISP. N° 723/22.",
-        serie:"06-8336-2020",
-        hash:"0xc2d634539b3fd9dddce972cdc342febd2d4b162eec7f6dade5fe049402047963",
-        autoridad:"LLERAL Máxima Andre",
-        fechaSello:"2026-01-28 13:07:18.953 ART"
-    },
-    {
-        dni:"33825465",
-        nombre:"CARLOS DAVID CHIARA",
-        nivel:"SECUNDARIO",
-        tipoDoc:"DNI",
-        titulo:"AGRONOMÍA",
-        jurisdiccion:"CÓRDOBA",
-        institucion:"I.P.E.T N°26",
-        cue:"1404474",
-        fechaEgreso:"20/12/2008",
-        normativaJur:"RESOLUCIÓN N° 302/12",
-        normativaNac:"R.M. Nº 1466/18-R.M. Nº 2206/22-DISP. N° 723/22.",
-        serie:"06-8336-2008",
-        hash:"0xc2d634539b3fd9dddce972cdc342febd2d4b162eec7f6dade5fe049402047963",
-        autoridad:"LLERAL Máxima Andre",
-        fechaSello:"2026-01-28 20:25:18.953 ART"
-    },
-    {
-        dni:"21136573",
-        nombre:"VÍCTOR LUIS ROSALES",
-        nivel:"UNIVERSITARIO",
-        tipoDoc:"DNI",
-        titulo:"LIC. EN ENFERMERÍA (3.850 Horas Cátedra)",
-        jurisdiccion:"BUENOS AIRES",
-        institucion:"UNIVERSIDAD NACIONAL DE AVELLANEDA (UNDAV)",
-        cue:"1404474",
-        fechaEgreso:"20/12/2016",
-        normativaJur:"RESOLUCIÓN N° 302/12",
-        normativaNac:"R.M. Nº 1466/18-R.M. Nº 2206/22-DISP. N° 723/22.",
-        serie:"06-8336-2016",
-        hash:"0xc2d634539b3fd9dddce972cdc342febd2d4b162eec7f6dade5fe049402047963",
-        autoridad:"LLERAL Máxima Andre",
-        fechaSello:"2026-01-28 21:41:18.953 ART"
-    },
-    {
-        dni:"18072959",
-        nombre:"MIRIAM NELIDA NEIRA",
-        nivel:"SECUNDARIO",
-        tipoDoc:"DNI",
-        titulo:"BACHILLER",
-        jurisdiccion:"BUENOS AIRES",
-        institucion:"ESCUELA DE ADULTOS N°769",
-        cue:"9580000",
-        fechaEgreso:"14/12/2022",
-        normativaJur:"RESOLUCIÓN N° 302/12",
-        normativaNac:"R.M. Nº 1466/18-R.M. Nº 2206/22-DISP. N° 723/22.",
-        serie:"14-00037474-2022",
-        hash:"0xc2d634539b3fd9dddce972cdc342febd2d4b162eec7f6dade5fe049402047963",
-        autoridad:"LLERAL Máxima Andre",
-        fechaSello:"2026-01-30 08:59:18.953 ART"
-    },
-    {
-        dni:"39629903",
-        nombre:"LUCAS NAHUEL BRITOS",
-        nivel:"SECUNDARIO",
-        tipoDoc:"DNI",
-        titulo:"BACHILLER en ECONOMÍA",
-        jurisdiccion:"BUENOS AIRES",
-        institucion:"E.E SECUNDARIA N°19 'JUANA AZURDUY'",
-        cue:"9580000",
-        fechaEgreso:"20/12/2014",
-        normativaJur:"RESOLUCIÓN N° 302/12",
-        normativaNac:"R.M. Nº 1466/18-R.M. Nº 2206/22-DISP. N° 723/22.",
-        serie:"20-00028750-2014",
-        hash:"0xc2d634539b3fd9dddce972cdc342febd2d4b162eec7f6dade5fe049402047963",
-        autoridad:"LLERAL Máxima Andre",
-        fechaSello:"2024-12-20 16:24:3.358 ART"
-    },
-    {
-        dni:"29899080",
-        nombre:"HORACIO GERMÁN MORTALE",
-        nivel:"SECUNDARIO",
-        tipoDoc:"DNI",
-        titulo:"BACHILLER en PERITO MERCANTIL",
-        jurisdiccion:"SANTA CRUZ",
-        institucion:"E.D.J.A POLIMODAL N°12 'MANUEL BELGRANO'",
-        cue:"7800227",
-        fechaEgreso:"05/12/2002",
-        normativaJur:"RESOLUCIÓN N° 302/12",
-        normativaNac:"R.M. Nº 1466/18-R.M. Nº 2206/22-DISP. N° 723/22.",
-        serie:"06-08336-2002",
-        hash:"0xc2d634539b3fd9dddce972cdc342febd2d4b162eec7f6dade5fe049402047963",
-        autoridad:"LLERAL Máxima Andre",
-        fechaSello:"2026-01-31 13:57:18.953 ART"
-    },
-    {
-        dni:"27239643",
-        nombre:"LUCIANO ALFREDO POLI",
-        nivel:"UNIVERSITARIO",
-        tipoDoc:"DNI",
-        titulo:"MÉDICO/A",
-        jurisdiccion:"BUENOS AIRES",
-        institucion:"UNIVERSIDAD NACIONAL DE LA PLATA",
-        cue:"7800227",
-        fechaEgreso:"05/12/2025",
-        normativaJur:"RESOLUCIÓN N° 302/12",
-        normativaNac:"R.M. Nº 1466/18-R.M. Nº 2206/22-DISP. N° 723/22.",
-        serie:"06-08336-2025",
-        hash:"0xc2d634539b3fd9dddce972cdc342febd2d4b162eec7f6dade5fe049402047963",
-        autoridad:"LLERAL Máxima Andre",
-        fechaSello:"2026-02-01 17:13:18.953 ART"
-    },
-    {
-        dni:"407922",
-        nombre:"ELBIO ELIAS PACHECO",
-        nivel:"SECUNDARIO",
-        tipoDoc:"DNI",
-        titulo:"BACHILLER EN CIENCIAS SOCIALES",
-        jurisdiccion:"SALTA",
-        institucion:"E.C.A.A N°5002",
-        cue:"7800227",
-        fechaEgreso:"20/12/2015",
-        normativaJur:"RESOLUCIÓN N° ",
-        normativaNac:"R.M. Nº 1466/18-R.M. Nº 2206/22-DISP. N° 723/22.",
-        serie:"06-08336-2015",
-        hash:"0xc2d634539b3fd9dddce972cdc342febd2d4b162eec7f6dade5fe049402047963",
-        autoridad:"LLERAL Máxima Andre",
-        fechaSello:"2026-02-01 18:43:18.953 ART"
-    },
-    {
-        dni:"27726148",
-        nombre:"CARLOS JAVIER PAEZ",
-        nivel:"PROFESIONAL",
-        tipoDoc:"DNI",
-        titulo:"PROFESORADO EN CIENCIAS DE LA EDUCACIÓN",
-        jurisdiccion:"SAN JUAN",
-        institucion:"INSTITUTO DE DESARROLLO Y ECONÓMICO 'IDES'",
-        cue:"500021600",
-        fechaEgreso:"20/12/2025",
-        normativaJur:"RESOLUCIÓN N° ",
-        normativaNac:"R.M. Nº 1466/18-R.M. Nº 2206/22-DISP. N° 723/22.",
-        serie:"06-08336-2025",
-        hash:"0xc2d634539b3fd9dddce972cdc342febd2d4b162eec7f6dade5fe049402047963",
-        autoridad:"LLERAL Máxima Andre",
-        fechaSello:"2026-02-02 17:40:18.953 ART"
-    },
-    {
-        dni:"35389911",
-        nombre:"GUSTAVO ALEJANDRO SORIA",
-        nivel:"UNIVERSITARIO",
-        tipoDoc:"DNI",
-        titulo:"LIC. EN PSICOLOGÍA",
-        jurisdiccion:"BUENOS AIRES",
-        institucion:"UNIVERSIDAD DE LA MARINA MERCANTE",
-        cue:"7800227",
-        fechaEgreso:"20/12/2025",
-        normativaJur:"RESOLUCIÓN N° ",
-        normativaNac:"R.M. Nº 1466/18-R.M. Nº 2206/22-DISP. N° 723/22.",
-        serie:"06-08336-2025",
-        hash:"0xc2d634539b3fd9dddce972cdc342febd2d4b162eec7f6dade5fe049402047963",
-        autoridad:"LLERAL Máxima Andre",
-        fechaSello:"2025-12-15 17:13:18.953 ART"
-    },
-    {
-        dni:"",
-        nombre:" ",
-        nivel:"",
-        tipoDoc:"DNI",
-        titulo:"",
-        jurisdiccion:"",
-        institucion:"",
-        cue:"",
-        fechaEgreso:"20/12/20",
-        normativaJur:"RESOLUCIÓN N° ",
-        normativaNac:"R.M. Nº 1466/18-R.M. Nº 2206/22-DISP. N° 723/22.",
-        serie:"",
-        hash:"0xc2d634539b3fd9dddce972cdc342febd2d4b162eec7f6dade5fe049402047963",
-        autoridad:"LLERAL Máxima Andre",
-        fechaSello:""
-    },
-    {
-        dni:"",
-        nombre:" ",
-        nivel:"",
-        tipoDoc:"DNI",
-        titulo:"",
-        jurisdiccion:"",
-        institucion:"",
-        cue:"",
-        fechaEgreso:"20/12/20",
-        normativaJur:"RESOLUCIÓN N° ",
-        normativaNac:"R.M. Nº 1466/18-R.M. Nº 2206/22-DISP. N° 723/22.",
-        serie:"",
-        hash:"0xc2d634539b3fd9dddce972cdc342febd2d4b162eec7f6dade5fe049402047963",
-        autoridad:"LLERAL Máxima Andre",
-        fechaSello:""
-    },
-    {
-        dni:"",
-        nombre:" ",
-        nivel:"",
-        tipoDoc:"DNI",
-        titulo:"",
-        jurisdiccion:"",
-        institucion:"",
-        cue:"",
-        fechaEgreso:"20/12/20",
-        normativaJur:"RESOLUCIÓN N° ",
-        normativaNac:"R.M. Nº 1466/18-R.M. Nº 2206/22-DISP. N° 723/22.",
-        serie:"",
-        hash:"0xc2d634539b3fd9dddce972cdc342febd2d4b162eec7f6dade5fe049402047963",
-        autoridad:"LLERAL Máxima Andre",
-        fechaSello:""
-    },
-        
-     ];
+        fechaEgreso:"20/12/2022"
+    }
+];
 
-document.getElementById('buscarBtn').addEventListener('click', function() {
-    const dniInput = document.getElementById('numeroDoc').value.trim();
-    const resultado = datosEstudiantes.find(e => e.dni === dniInput);
-    if (!resultado) {
+datosEstudiantes = datosEstudiantes.filter(e => e.dni);
+
+document.getElementById("buscarBtn").addEventListener("click", function(){
+
+    const dni = document.getElementById("numeroDoc")
+        .value.replace(/\D/g,'');
+
+    const resultado = datosEstudiantes.find(e => e.dni === dni);
+
+    if(!resultado){
         alert("No se encontró el DNI ingresado.");
-        document.getElementById('infoEstudiante').style.display = "none";
+        document.getElementById("infoEstudiante").style.display="none";
         return;
     }
 
-    document.getElementById('infoEstudiante').style.display = "block";
-    document.getElementById('studentName').textContent = resultado.nombre;
-    document.getElementById('nivelEducativo').innerHTML = `<span id="nivelLabel">Nivel Educativo:</span> ${resultado.nivel}`;
+    document.getElementById("infoEstudiante").style.display="block";
+    document.getElementById("studentName").textContent = resultado.nombre;
 
-    document.getElementById('tipoDoc').value = resultado.tipoDoc || 'DNI';
-    const partes = resultado.nombre.trim().split(/\s+/);
-
-document.getElementById('apellido').value = partes.pop();
-document.getElementById('nombre').value = partes.join(' ');
-
-    const tablaBody = document.getElementById('tablaBody');
-    const modalId = "modal-" + resultado.dni;
-    const prevModal = document.getElementById(modalId);
-    if (prevModal) prevModal.remove();
-
-    const modalHTML = `
-    <div class="modal fade" id="${modalId}" tabindex="-1">
-      <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h3 class="modal-title">Blockchain Nacional del Sistema Nacional de Títulos</h3>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-          </div>
-          <div class="modal-body">
-            <div class="certificate-header">
-              <div class="certificate-badge">
-                <img src="https://refe.educacion.gob.ar/img/icons/certificate.svg" alt="Certificado MINED" class="img-fluid">
-              </div>
-              <div class="certificate-text">
-                <h2>Ministerio de Educación de la República Argentina</h2>
-                <p>Certificado MINED Títulos digitales - está vigente</p>
-                <p>Hash Blockchain Federal Argentina:<br>
-                  <span>${resultado.hash}</span>
-                </p>
-                <p><strong>Autoridad Firmante:</strong> ${resultado.autoridad}</p>
-                <p><strong>Fecha Sello de Tiempo:</strong> ${resultado.fechaSello}</p>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer text-center">
-            <button type="button" class="btn btn-secondary w-100" data-bs-dismiss="modal">Cerrar</button>
-          </div>
-        </div>
-      </div>
-    </div>`;
-
-    document.body.insertAdjacentHTML('beforeend', modalHTML);
-
-    tablaBody.innerHTML = `
+    document.getElementById("tablaBody").innerHTML = `
         <tr>
             <td>${resultado.tipoDoc}</td>
             <td>${resultado.dni}</td>
             <td>${resultado.titulo}</td>
-            <td>$
+            <td>${resultado.jurisdiccion}</td>
+            <td>${resultado.institucion}</td>
+            <td>${resultado.cue}</td>
+            <td>${resultado.fechaEgreso}</td>
+        </tr>
+    `;
+});
+</script>
+
+</body>
+</html>
