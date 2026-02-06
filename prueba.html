@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>MINED - Ministerio de Educación de la Nación</title>
+<title>MINED - Ministerio de Educación de la Nación.</title>
 
 <link href="/css/app.css" rel="stylesheet">
 <link href="/css/custom.css" rel="stylesheet">
@@ -13,43 +13,51 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/js/app.js"></script>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+
 <style>
-/* PANEL DERECHO INSTITUCIONAL */
-.panel-gobar {
+.grid-custom {
+    display: grid;
+    grid-template-rows: 150px 1fr 150px;
+}
+
+/* NUEVO CONTENEDOR DERECHO */
+.panel-derecho {
     height: 100%;
     width: 100%;
-    background-color: rgba(55, 187, 237, 0.95); /* celeste institucional */
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(6px);
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 60px 40px;
     text-align: center;
+    padding: 40px;
 }
 
-.panel-gobar h4 {
+.panel-derecho h4 {
     color: #ffffff;
     font-weight: 600;
-    max-width: 520px;
-    margin: 0 auto;
-    line-height: 1.5;
+    line-height: 1.4;
 }
 
-/* BOTÓN INSTITUCIONAL */
-.btn-gobar {
+/* BOTÓN MODERNO */
+.btn-modern {
     margin-top: 40px;
-    padding: 12px 72px;
-    font-size: 15px;
+    padding: 14px 90px;
+    font-size: 16px;
     font-weight: 600;
-    border-radius: 4px;
-    background-color: #ffffff;
-    color: #1a1a1a;
-    border: 2px solid #ffffff;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    border-radius: 50px;
+    background: #ffffff;
+    color: #2c2c2c;
+    border: none;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    transition: all 0.3s ease;
 }
 
-.btn-gobar:hover {
-    background-color: transparent;
-    color: #ffffff;
+.btn-modern:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 35px rgba(0,0,0,0.35);
+    background: #f5f5f5;
 }
 </style>
 </head>
@@ -59,8 +67,14 @@
 <div class="row h-100">
 
 <!-- IZQUIERDA -->
-<div class="col-md-7 col-sm-6 bg-white h-100 d-flex align-items-center justify-content-center">
+<div class="col-md-7 col-sm-6 bg-white h-100">
+<div class="grid-custom h-100">
+
+<div class="d-flex align-items-center justify-content-center h-100">
 <img src="https://refe.educacion.gob.ar/img/ReFE/Inicio/Logo-Refe.svg" class="img-fluid">
+</div>
+
+</div>
 </div>
 
 <!-- DERECHA -->
@@ -70,14 +84,14 @@ background-image: url('https://refe.educacion.gob.ar/img/ReFE/Inicio/Imagen-Inic
 background-repeat: no-repeat;
 background-size: cover;">
 
-<div class="panel-gobar">
+<div class="panel-derecho">
 <div>
 
 <h4>
 Este registro permite verificar la autenticidad de los títulos de nivel secundario y superior emitidos a partir del 1 de noviembre del 2023
 </h4>
 
-<a href="https://refe.educacion.gob.ar/busqueda" class="btn btn-gobar">
+<a href="https://refe.educacion.gob.ar/busqueda" class="btn btn-modern">
 INGRESAR
 </a>
 
