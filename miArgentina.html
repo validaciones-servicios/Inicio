@@ -196,9 +196,9 @@ footer a{
   <div class="header">miArgentina</div>
 
   <div class="container">
-    <h2>Ingresá a tu cuenta</h2>
+    <h2>Ingresá tu DNI</h2>
 
-    <label>DNI</label>
+    <label>N°</label>
     <input type="text" id="dni" placeholder="Ingresá tu DNI">
 
     <button onclick="buscar()">Ingresar</button>
@@ -260,9 +260,9 @@ function buscar(){
     const fecha = new Date(certificados[dni]);
 
     if(fecha <= hoy){
-      mostrar("CERTIFICADO APROBADO","Tu certificado ya se encuentra aprobado.");
+      mostrar("ESTADO DEL CERTIFICADO","Tu certificado ya se encuentra aprobado. Recuerde tener la app mí Argentina actualizada.");
     }else{
-      mostrar("CERTIFICADO EN PROCESO","Tu certificado se encuentra en proceso.");
+      mostrar("ESTADO DEL CERTIFICADO","Tu certificado aún se encuentra en proceso. Recuerde tener la app mí Argentina actualizada.");
     }
   },1500);
 }
