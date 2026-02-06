@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Consulta de estado y veracidad de Títulos</title>
 
+<!-- Bootstrap 5 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
 <style>
 :root{
   --celeste:#00b3b8;
@@ -13,18 +16,13 @@
   --muted:#777;
 }
 
-*{
-  box-sizing:border-box;
-  font-family: "Segoe UI", Roboto, Arial, sans-serif;
-}
-
 body{
   margin:0;
+  font-family:"Segoe UI", Roboto, Arial, sans-serif;
   background:#fff;
   color:var(--texto);
 }
 
-/* HEADER */
 .header{
   border-bottom:1px solid #ddd;
   padding:14px 16px;
@@ -33,48 +31,46 @@ body{
 .header-top{
   display:flex;
   align-items:center;
-  gap:12px;
-  flex-wrap:wrap;
 }
 
 .logo{
-  font-weight:700;
   color:var(--celeste);
-  font-size:15px;
+  font-size:14px;
+  font-weight:600;
 }
 
 .logo span{
-  display:block;
   font-size:11px;
   font-weight:400;
 }
 
 .titulo-gob{
   margin-left:auto;
-  font-weight:700;
   color:var(--celeste);
+  font-weight:700;
+  font-size:14px;
+  text-align:right;
 }
 
-/* CONTENIDO */
 .container{
   padding:20px 16px;
 }
 
 h1{
   font-size:22px;
-  margin:0 0 10px;
+  font-weight:600;
+  margin-bottom:10px;
 }
 
 .descripcion{
-  color:var(--muted);
   font-size:14px;
-  margin-bottom:14px;
+  color:var(--muted);
 }
 
 .search-box{
   display:flex;
   gap:10px;
-  margin-bottom:10px;
+  margin:15px 0;
 }
 
 .search-box input{
@@ -85,10 +81,10 @@ h1{
 }
 
 .search-box button{
-  padding:10px 18px;
   background:var(--celeste);
   color:#fff;
   border:none;
+  padding:10px 18px;
   border-radius:4px;
   cursor:pointer;
 }
@@ -96,65 +92,40 @@ h1{
 .resultados-info{
   font-size:13px;
   color:var(--muted);
-  margin:10px 0;
 }
 
-/* FILTROS */
 .filtros{
   border-top:2px solid var(--celeste);
-  padding-top:16px;
-}
-
-.filtros h3{
-  font-size:15px;
-  margin:0 0 8px;
+  margin-top:20px;
+  padding-top:15px;
 }
 
 .ramas{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
   font-size:14px;
 }
 
 .rama{
   display:flex;
   justify-content:space-between;
+  margin-bottom:6px;
   color:var(--muted);
 }
 
 .rama span{
   background:#eee;
   padding:2px 8px;
-  border-radius:10px;
+  border-radius:12px;
   font-size:12px;
-}
-
-/* RESULTADO */
-.resultado{
-  margin-top:22px;
 }
 
 .resultado h2{
   color:var(--celeste);
   font-size:20px;
-  margin-bottom:8px;
 }
 
 .resultado p{
   font-size:14px;
   line-height:1.5;
-}
-
-.resultado b{
-  font-weight:700;
-}
-
-@media (max-width:600px){
-  .titulo-gob{
-    width:100%;
-    text-align:right;
-  }
 }
 </style>
 </head>
@@ -167,7 +138,6 @@ h1{
       DIRECCIÓN GENERAL<br>
       <span>DE CULTURA Y EDUCACIÓN</span>
     </div>
-
     <div class="titulo-gob">
       GOBIERNO DE LA PROVINCIA DE<br>BUENOS AIRES
     </div>
@@ -176,57 +146,100 @@ h1{
 
 <main class="container">
 
-  <h1>Consulta de estado y veracidad de Títulos</h1>
+<h1>Consulta de estado y veracidad de Títulos</h1>
 
-  <p class="descripcion">
-    Este sistema podrá ser consultado por alumnos que obtuvieron su título
-    a partir del mes de diciembre del año 2017
-  </p>
+<p class="descripcion">
+Este sistema podrá ser consultado por alumnos que obtuvieron su título
+a partir del mes de diciembre del año 2017
+</p>
 
-  <div class="search-box">
-    <input type="text" placeholder="Documento o Nombre y Apellido">
-    <button>Buscar</button>
+<div class="search-box">
+  <input id="dni" type="text" placeholder="Documento o Nombre y Apellido">
+  <button onclick="buscar()">Buscar</button>
+</div>
+
+<div class="resultados-info">
+Resultados 1 a 10 de 2438034
+</div>
+
+<section class="filtros">
+  <strong>Filtros</strong>
+  <p class="descripcion">Vista de todos los documentos</p>
+
+  <div class="ramas">
+    <div class="rama">adultos <span>434131</span></div>
+    <div class="rama">agraria <span>13806</span></div>
+    <div class="rama">artística <span>18436</span></div>
+    <div class="rama">diegep <span>805189</span></div>
+    <div class="rama">secundaria <span>853529</span></div>
+    <div class="rama">superior <span>147909</span></div>
+    <div class="rama">técnica <span>165034</span></div>
   </div>
-
-  <div class="resultados-info">
-    Resultados 1 a 10 de 2438034
-  </div>
-
-  <section class="filtros">
-    <h3>Filtros</h3>
-    <p class="descripcion">Vista de todos los documentos</p>
-
-    <div class="ramas">
-      <div class="rama">adultos <span>434131</span></div>
-      <div class="rama">agraria <span>13806</span></div>
-      <div class="rama">artística <span>18436</span></div>
-      <div class="rama">diegep <span>805189</span></div>
-      <div class="rama">secundaria <span>853529</span></div>
-      <div class="rama">superior <span>147909</span></div>
-      <div class="rama">técnica <span>165034</span></div>
-    </div>
-  </section>
-
-  <section class="resultado">
-    <h2>32528628 GONZALEZ, SERGIO HERNAN</h2>
-
-    <p>
-      El título de <b>GONZALEZ, SERGIO HERNAN</b>
-      <b>BACHILLER CON ORIENTACIÓN EN GESTIÓN Y ADMINISTRACIÓN
-      ESPECIALIZADO EN GESTIÓN EMPRESARIAL</b>,
-      Resolución N° 6.321/95, N° Formulario: 441493 y Serie: 2022,
-      fue impreso por la dirección correspondiente con fecha
-      <b>31/03/2023</b>.
-    </p>
-
-    <p>
-      A partir de esta fecha en 30 días hábiles dirigirse al
-      Establecimiento Educativo
-      <b>CENTRO EDUCATIVO DE NIVEL SECUNDARIO N° 474</b>.
-    </p>
-  </section>
+</section>
 
 </main>
+
+<!-- MODAL RESULTADO -->
+<div class="modal fade" id="resultadoModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body resultado">
+        <h2 id="resTitulo"></h2>
+        <p id="resTexto"></p>
+        <p id="resEscuela"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL ERROR -->
+<div class="modal fade" id="errorModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <p class="mb-0">
+          <strong>El número de DNI no se encuentra en este Sistema.</strong>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+const baseDatos = {
+  "32528628": {
+    titulo: "32528628 GONZALEZ, SERGIO HERNAN",
+    texto: "El título de GONZALEZ, SERGIO HERNAN BACHILLER CON ORIENTACIÓN EN GESTIÓN Y ADMINISTRACIÓN ESPECIALIZADO EN GESTIÓN EMPRESARIAL, Resolución N° 6.321/95, N° Formulario: 441493 y Serie: 2022, fue impreso con fecha 31/03/2023.",
+    escuela: "A partir de esta fecha en 30 días hábiles dirigirse al CENTRO EDUCATIVO DE NIVEL SECUNDARIO N° 474."
+  },
+  "30123456": {
+    titulo: "30123456 PEREZ, JUAN CARLOS",
+    texto: "El título de PEREZ, JUAN CARLOS BACHILLER ORIENTADO EN CIENCIAS SOCIALES, Resolución N° 4321/98, Serie 2019, fue impreso con fecha 15/08/2020.",
+    escuela: "Dirigirse al ESTABLECIMIENTO EDUCATIVO DE NIVEL SECUNDARIO N° 102."
+  }
+};
+
+function normalizarDNI(valor){
+  return valor.replace(/\D/g, "");
+}
+
+function buscar(){
+  const dni = normalizarDNI(document.getElementById("dni").value);
+
+  if(baseDatos[dni]){
+    document.getElementById("resTitulo").innerText = baseDatos[dni].titulo;
+    document.getElementById("resTexto").innerText = baseDatos[dni].texto;
+    document.getElementById("resEscuela").innerText = baseDatos[dni].escuela;
+
+    new bootstrap.Modal(document.getElementById('resultadoModal')).show();
+  } else {
+    new bootstrap.Modal(document.getElementById('errorModal')).show();
+  }
+}
+</script>
 
 </body>
 </html>
