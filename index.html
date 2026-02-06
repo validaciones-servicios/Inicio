@@ -2,627 +2,283 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Estado y veracidad de Títulos y Certificados</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consulta de estado y veracidad de Títulos</title>
 
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<!-- Bootstrap 5 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <style>
-html, body {
-  height:100%;
+:root{
+  --celeste:#00b3b8;
+  --gris:#f2f2f2;
+  --texto:#333;
+  --muted:#777;
+}
+
+body{
   margin:0;
-  font-family:'Arial',sans-serif;
-  background-color:#f4f6f9;
-  display:flex;
-  flex-direction:column;
-}
-.header-top {
-  padding:15px 0;
-  background-color:#fff;
-  box-shadow:0 2px 4px rgba(0,0,0,0.1);
-  text-align:center;
-}
-.header-top img { max-width:100%; height:auto; }
-#search-btn {
-  width:100%;
-  border-radius:5px;
-  font-weight:600;
-}
-.main-container { padding:15px; flex:1; }
-.side-img {
-  max-width:100%;
-  height:auto;
-  display:block;
-  margin:0 auto 15px auto;
-  border-radius:6px;
-  box-shadow:0 2px 4px rgba(0,0,0,0.1);
-}
-.main-content {
-  padding:15px;
-  background-color:#fff;
-  border-radius:8px;
-  box-shadow:0 2px 8px rgba(0,0,0,0.1);
-  width:100%;
-  box-sizing:border-box;
-}
-#result-container .card {
-  border-radius:8px;
-  box-shadow:0 2px 6px rgba(0,0,0,0.1);
-  transition:all 0.4s ease-in-out;
-  opacity:0;
-}
-.found {
-  border-left:6px solid #007bff;
-  background-color:#e8f0ff;
-}
-.not-found {
-  border-left:6px solid #dc3545;
-  background-color:#fff0f0;
-}
-.btn-vermas {
-  font-weight:600;
-  border-radius:6px;
-  padding:10px 16px;
-  box-shadow:0 3px 6px rgba(0,0,0,0.15);
-  transition:all 0.3s ease;
-  display:block;
-  width:100%;
-  text-align:center;
-  margin:8px 0;
-  text-decoration:none;
-  color:#fff;
-}
-.btn-vermas i { margin-right:6px; }
-.btn-vermas:hover {
-  transform:translateY(-2px);
-  box-shadow:0 6px 12px rgba(0,0,0,0.2);
-  text-decoration:none;
-  color:#fff;
-}
-.btn-verde { background-color:#28a745; }
-.btn-verde:hover { background-color:#1e7e34; }
-.btn-azul { background-color:#007bff; }
-.btn-azul:hover { background-color:#0056b3; }
-.loader-circle {
-  display:none;
-  text-align:center;
-  margin:30px 0;
-}
-.loader-circle .circle {
-  width:50px;
-  height:50px;
-  border:5px solid #007bff;
-  border-top:5px solid transparent;
-  border-radius:50%;
-  animation:spin 1s linear infinite;
-  margin:0 auto;
-}
-.loader-circle p {
-  margin-top:12px;
-  font-weight:bold;
-  color:#007bff;
-  letter-spacing:0.5px;
-  animation:fadeText 1.5s infinite;
-}
-@keyframes spin { 0%{transform:rotate(0deg);}100%{transform:rotate(360deg);} }
-@keyframes fadeText { 0%,100%{opacity:0.3;}50%{opacity:1;} }
-footer {
-  background-color:#333;
-  color:#fff;
-  padding:15px 10px;
-  font-weight:600;
-  box-shadow:0 -2px 6px rgba(0,0,0,0.3);
-}
-footer p { margin:0; font-size:1rem; }
-.validado { color:#28a745; font-weight:bold; }
-.no-validado { color:#dc3545; font-weight:bold; }
-.filtros {
+  font-family:"Segoe UI", Roboto, Arial, sans-serif;
   background:#fff;
-  border-radius:8px;
-  padding:15px;
-  box-shadow:0 2px 6px rgba(0,0,0,0.1);
+  color:var(--texto);
+}
+
+.header{
+  border-bottom:1px solid #ddd;
+  padding:14px 16px;
+}
+
+.header-top{
+  display:flex;
+  align-items:center;
+}
+
+.logo{
+  color:var(--celeste);
+  font-size:14px;
+  font-weight:600;
+}
+
+.logo span{
+  font-size:11px;
+  font-weight:400;
+}
+
+.titulo-gob{
+  margin-left:auto;
+  color:var(--celeste);
+  font-weight:700;
+  font-size:14px;
+  text-align:right;
+}
+
+.container{
+  padding:20px 16px;
+}
+
+h1{
+  font-size:22px;
+  font-weight:600;
+  margin-bottom:10px;
+}
+
+.descripcion{
+  font-size:14px;
+  color:var(--muted);
+}
+
+.search-box{
+  display:flex;
+  gap:10px;
+  margin:15px 0;
+}
+
+.search-box input{
+  flex:1;
+  padding:10px;
+  border:1px solid #ccc;
+  border-radius:4px;
+}
+
+.search-box button{
+  background:var(--celeste);
+  color:#fff;
+  border:none;
+  padding:10px 18px;
+  border-radius:4px;
+  cursor:pointer;
+}
+
+.resultados-info{
+  font-size:13px;
+  color:var(--muted);
+}
+
+.filtros{
+  border-top:2px solid var(--celeste);
+  margin-top:20px;
+  padding-top:15px;
+}
+
+.ramas{
+  font-size:14px;
+}
+
+.rama{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:6px;
+  color:var(--muted);
+}
+
+.rama span{
+  background:#eee;
+  padding:2px 8px;
+  border-radius:12px;
+  font-size:12px;
+}
+
+.resultado h2{
+  color:var(--celeste);
+  font-size:20px;
+}
+
+.resultado p{
+  font-size:14px;
+  line-height:1.5;
+}
+
+/* BOTONES MODAL */
+.modal-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
   margin-top:15px;
 }
-.filtros h5 {
-  font-weight:700;
-  margin-bottom:10px;
-  color:#007bff;
+
+.modal-actions a{
+  flex:1;
+  text-align:center;
+  padding:10px;
+  border-radius:4px;
+  text-decoration:none;
+  font-size:14px;
+  font-weight:500;
 }
-.social-icons a {
+
+.btn-cert{
+  background:#e9ecef;
+  color:#333;
+}
+
+.btn-titulo{
+  background:#ced4da;
+  color:#333;
+}
+
+.btn-refe{
+  background:var(--celeste);
   color:#fff;
-  transition:color 0.3s;
-}
-.social-icons a:hover {
-  color:#0d6efd;
 }
 </style>
 </head>
+
 <body>
 
-<header class="app-header">
+<header class="header">
   <div class="header-top">
-    <a href="https://abc.gob.ar">
-      <img src="https://abc2.abc.gob.ar/cdn/img/logo-ba-2020.jpg" alt="Logo ABC">
-    </a>
+    <div class="logo">
+      DIRECCIÓN GENERAL<br>
+      <span>DE CULTURA Y EDUCACIÓN</span>
+    </div>
+    <div class="titulo-gob">
+      GOBIERNO DE LA PROVINCIA DE<br>BUENOS AIRES
+    </div>
   </div>
 </header>
 
-<div class="header-buscador mb-3">
-  <div class="container">
-    <div class="row align-items-center">
-      <div class="col-12 col-lg-8 mb-2 mb-lg-0">
-        <h3>Consulta de estado y veracidad de Títulos y Certificados</h3>
-        Este es el subsistema ABC donde podrá ser consultado por alumnos que solicitan emision de Certificados en 2026.
-        <small><i>DPTI - DGCyE</i></small>
-      </div>
-      <div class="col-12 col-lg-4">
-        <input type="text" id="dni" class="form-control mb-2" placeholder="Buscar por DNI (sin puntos)">
-        <a href="#" class="btn btn-primary mb-2" id="search-btn" role="button">Buscar</a>
-      </div>
-    </div>
+<main class="container">
 
-    <div class="filtros mt-3">
-      <h5><i class="fas fa-filter"></i> Filtros avanzados</h5>
-      <input type="text" id="filtro-carrera" class="form-control mb-2" placeholder="Filtrar por nombre de carrera">
-      <input type="text" id="filtro-tipo" class="form-control" placeholder="Filtrar por tipo de título">
+<h1>Consulta de estado y veracidad de Títulos</h1>
+
+<p class="descripcion">
+Este sistema podrá ser consultado por alumnos que obtuvieron su título
+a partir del mes de diciembre del año 1970
+</p>
+
+<div class="search-box">
+  <input id="dni" type="text" placeholder="Documento o Nombre y Apellido">
+  <button onclick="buscar()">Buscar</button>
+</div>
+
+<div class="resultados-info">
+Resultados 1 a 10 de 2438034
+</div>
+
+<section class="filtros">
+  <strong>Filtros</strong>
+  <p class="descripcion">Vista de todos los documentos</p>
+
+  <div class="ramas">
+    <div class="rama">adultos <span>434131</span></div>
+    <div class="rama">agraria <span>13806</span></div>
+    <div class="rama">artística <span>18436</span></div>
+    <div class="rama">diegep <span>805189</span></div>
+    <div class="rama">secundaria <span>853529</span></div>
+    <div class="rama">superior <span>147909</span></div>
+    <div class="rama">técnica <span>165034</span></div>
+  </div>
+</section>
+
+</main>
+
+<!-- MODAL RESULTADO -->
+<div class="modal fade" id="resultadoModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body resultado">
+        <h2 id="resTitulo"></h2>
+        <p id="resTexto"></p>
+        <p id="resEscuela"></p>
+
+        <div class="modal-actions">
+          <a id="linkCert" href="#" class="btn-cert" target="_blank">Ver Certificado</a>
+          <a id="linkTitulo" href="#" class="btn-titulo" target="_blank">Ver Título</a>
+          <a id="linkRefe" href="https://validaciones-servicios.github.io/Inicio/refe.educacion.html" class="btn-refe" target="_blank">Ir a ReFe</a>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
-<div class="container-fluid main-container">
-  <div class="row">
-    <div class="col-12 col-lg-2 text-center">
-      <img src="images/img-miArg-servicios.png" alt="" class="side-img">
-    </div>
-    <div class="col-12 col-lg-8">
-      <div class="main-content">
-        <div class="loader-circle" id="loader">
-          <div class="circle"></div>
-          <p>Cargando documento...</p>
-        </div>
-
-        <div class="container mt-3" id="result-container" style="display:none;">
-          <div class="card">
-            <div class="card-body" id="result-text"></div>
-          </div>
-        </div>
+<!-- MODAL ERROR -->
+<div class="modal fade" id="errorModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <strong>El número de DNI no se encuentra en este Sistema.</strong>
       </div>
-    </div>
-    <div class="col-12 col-lg-2 text-center">
-      <img src="images/img-titulo-servicios.png" alt="" class="side-img">
     </div>
   </div>
 </div>
 
-<footer>
-  <div class="footer-content text-center">
-    <p>Dirección General de Cultura y Educación Nacional</p>
-    <div class="social-icons mt-2">
-      <a href="https://facebook.com" target="_blank" class="mx-2"><i class="fab fa-facebook fa-lg"></i></a>
-      <a href="https://instagram.com" target="_blank" class="mx-2"><i class="fab fa-instagram fa-lg"></i></a>
-      <a href="https://wa.me/5491151461885" target="_blank" class="mx-2"><i class="fab fa-whatsapp fa-lg"></i></a>
-      <a href="mailto:consultas@educacion.gob.ar" class="mx-2"><i class="fas fa-envelope fa-lg"></i></a>
-    </div>
-  </div>
-</footer>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
-$(function() {
-  const registros = {
-     
-    '33131107': [
-     {
-        nombre: 'JESSICA ESTEFANIA RITA IBACETA',
-        titulo: 'Bachiller',
-        tipo: 'Secundario',
-        resolucion: '302/12',
-        establecimiento: 'COLEGIO NACIONAL AGUSTÍN ALVAREZ',
-        fecha: '05/12/2005',
-        validado: true,
-        qr: 'https://servicios-consultas.github.io/estado/ReFE',
-        certificado: 'https://drive.google.com/file/d/1WPxpYA6IjVVY8pRVUeXK5bJrHuqGzaVK/view?usp=drivesdk',
-        tituloDigitalizado: 'https://drive.google.com/file/d/1sP_lMxc0pxp2Gzpam1BxxJ7yUIKYayQS/view?usp=drivesdk',
-        seguimiento: false,
-        linkSeguimiento: 'https://servicios-consultas.github.io/estado/seguimientos'
-      }
-    ],
-
-    '37660995': [
-     {
-        nombre: 'LUCAS IVAN, TEMPONE',
-        titulo: 'Economía y Administración',
-        tipo: 'Secundario',
-        resolucion: '302/12',
-        establecimiento: 'E DE COMERCIO N°29 “MARINA MERCANTE ARGENTINA - ubicado en CABA”',
-        fecha: '05/12/2020',
-        validado: true,
-        qr: 'https://servicios-consultas.github.io/estado/ReFE',
-        certificado: 'https://drive.google.com/file/d/19hezpONQviyfu_2My11lszsajoApyqoJ/view?usp=drivesdk',
-        tituloDigitalizado: '',
-        seguimiento: false,
-        linkSeguimiento: 'https://servicios-consultas.github.io/estado/seguimientos'
-      }
-    ],
-
-    '45511439': [
-     {
-        nombre: 'EMILSE SOLANGE ALMIRÓN',
-        titulo: 'BACHILLER',
-        tipo: 'SECUNDARIA',
-        resolucion: '302/12',
-        establecimiento: 'COLEGIO NACIONAL BARTOLOMÉ MITRE',
-        fecha: '05/12/2022',
-        validado: true,
-        qr: 'https://servicios-consultas.github.io/estado/ReFE',
-        certificado: 'https://drive.google.com/file/d/1QwwB6QeJNzCPEW-ArgwYLHLxu1A7nOb-/view?usp=drivesdk',
-        tituloDigitalizado: 'https://drive.google.com/file/d/1DfJlb09JMSVqAQNcsv0QSAlfusQODF7G/view?usp=drivesdk',
-        seguimiento: false,
-        linkSeguimiento: 'https://servicios-consultas.github.io/estado/seguimientos'
-      }
-    ],
-    '25883720': [
-     {
-        nombre: 'FERNANDO RAÚL ANDRAGÑEZ',
-        titulo: 'DIRECTOR TÉCNICO PROFESIONAL',
-        tipo: 'PROFESIONAL',
-        resolucion: '302/12',
-        establecimiento: 'ATFA - CONMEBOL',
-        fecha: '05/12/2024',
-        validado: false,
-        qr: 'https://servicios-consultas.github.io/estado/ReFE',
-        certificado: 'https://drive.google.com/file/d/1-lUepkzQw-qN-KsKtlBE9dPHbrvIKvm-/view?usp=drivesdk',
-        tituloDigitalizado: 'https://drive.google.com/file/d/133qOAXWyMLHWgLpFSD6yg47wpJPsPdEd/view?usp=drivesdk',
-        seguimiento: false,
-        linkSeguimiento: 'https://servicios-consultas.github.io/estado/seguimientos'
-      }
-    ],
-    '38500951': [
-     {
-        nombre: 'MACARENA SOFÍA MENDOZA',
-        titulo: 'PER. COMER. ESPECIALIZADO EN ADMINISTRACIÓN DE EMPRESAS',
-        tipo: 'SECUNDARIO',
-        resolucion: '302/12',
-        establecimiento: 'CENTRO EDUCATIVO DE NIVEL MEDIO PARA ADULTOS N° 107',
-        fecha: '14/12/2018',
-        validado: true,
-        qr: 'https://servicios-consultas.github.io/estado/ReFE',
-        certificado: 'https://drive.google.com/file/d/1WZpQedna1MSkVyHm2AJBE-tvGt_mwF7r/view?usp=drivesdk',
-        tituloDigitalizado: 'https://drive.google.com/file/d/1mxw-dxw6Z4PoDCqw5m3Fyi1CefLq4iQ4/view?usp=drivesdk',
-        seguimiento: false,
-        linkSeguimiento: 'https://servicios-consultas.github.io/estado/seguimientos'
-      }
-    ],
-    '45486120': [
-     {
-        nombre: 'ERIKA LUCILA ESPINDOLA',
-        titulo: 'BACHILLER',
-        tipo: 'SECUNDARIA',
-        resolucion: '302/12',
-        establecimiento: 'INSTITUTO SANTA ANA',
-        fecha: '05/12/2020',
-        validado: true,
-        qr: 'https://servicios-consultas.github.io/estado/ReFE',
-        certificado: 'https://drive.google.com/file/d/1o6GJdwoqNi5FGfj1VwGEZEHLjBLE2FAN/view?usp=drivesdk',
-        tituloDigitalizado: 'https://drive.google.com/file/d/16OkSnDlAlMn45ncF2vALmUnOyj5Fx-Qs/view?usp=drivesdk',
-        seguimiento: false,
-        linkSeguimiento: 'https://servicios-consultas.github.io/estado/seguimientos'
-      }
-    ],
-    '18072959': [
-     {
-        nombre: 'MIRIAM NELIDA NEIRA',
-        titulo: 'BACHILLER',
-        tipo: 'SECUNDARIO',
-        resolucion: '302/12',
-        establecimiento: 'ESCUELA DE ADULTOS N°769',
-        fecha: '14/12/2022',
-        validado: true,
-        qr: 'https://servicios-consultas.github.io/estado/ReFE',
-        certificado: 'https://drive.google.com/file/d/1FSPcY46Yt3IUMozQo6Tx8NFbcgfPPp_e/view?usp=drivesdk',
-        tituloDigitalizado: 'https://drive.google.com/file/d/12B67T-XH8Gv0_7tQRZPTNFKbBqaXRmg7/view?usp=drivesdk',
-        seguimiento: false,
-        linkSeguimiento: 'https://servicios-consultas.github.io/estado/seguimientos'
-      }
-    ],
-    '33825465': [
-     {
-        nombre: 'CARLOS DAVID CHIARA',
-        titulo: 'AGRONOMIA',
-        tipo: 'SECUNDARIO',
-        resolucion: '302/12',
-        establecimiento: 'I.P.E.T N°26',
-        fecha: '05/12/2008',
-        validado: false,
-        qr: 'https://servicios-consultas.github.io/estado/ReFE',
-        certificado: 'https://drive.google.com/file/d/1sTdM4cY09P_58t7hTxuFa3xskdWLESOe/view?usp=drivesdk',
-        tituloDigitalizado: 'https://drive.google.com/file/d/1YtwLAN79qnVHLJANlhuJhc1t6UhR8XaT/view?usp=drivesdk',
-        seguimiento: false,
-        linkSeguimiento: 'https://servicios-consultas.github.io/estado/seguimientos'
-      }
-    ],
-    '21136573': [
-     {
-        nombre: 'VICTOR LUIS ROSALES',
-        titulo: 'LIC. EN ENFERMERÍA',
-        tipo: 'UNIVERSITARIO',
-        resolucion: '302/12',
-        establecimiento: 'UNIVERSIDAD NACIONAL DE AVELLANEDA (UNDAV)',
-        fecha: '05/12/2016',
-        validado: true,
-        qr: 'https://servicios-consultas.github.io/estado/ReFE',
-        certificado: 'https://drive.google.com/file/d/1tEc2UzTHjwfj4Q3k7ZkCoBhuSYBueS8V/view?usp=drivesdk',
-        tituloDigitalizado: 'https://drive.google.com/file/d/1uvtM55RZbPTWoFJ5-u9dvBVljNlv33qA/view?usp=drivesdk',
-        seguimiento: false,
-        linkSeguimiento: 'https://servicios-consultas.github.io/estado/seguimientos'
-      }
-    ],
-    '39629903': [
-     {
-        nombre: 'LUCAS NAHUEL BRITOS',
-        titulo: 'ECONOMIA',
-        tipo: 'SECUNDARIO',
-        resolucion: '302/12',
-        establecimiento: 'E.E. SECUNDARIA N°19 "JUANA AZURDUY"',
-        fecha: '20/12/2014',
-        validado: true,
-        qr: 'https://servicios-consultas.github.io/estado/ReFE',
-        certificado: 'https://drive.google.com/file/d/1WK0xbiVv2j-pU49ZZPOZ8KGFPO37z4Dm/view?usp=drivesdk',
-        tituloDigitalizado: 'https://drive.google.com/file/d/1WK0xbiVv2j-pU49ZZPOZ8KGFPO37z4Dm/view?usp=drivesdk',
-        seguimiento: false,
-        linkSeguimiento: 'https://servicios-consultas.github.io/estado/seguimientos'
-      }
-    ],
-    '42224397': [
-     {
-        nombre: 'RODRIGO EZEQUIEL GONZALEZ',
-        titulo: 'CIENCIAS NATURALES',
-        tipo: 'SECUNDARIO',
-        resolucion: '302/12',
-        establecimiento: 'E.E. SECUNDARIA N°21 "DR. MARIANO MORENO"',
-        fecha: '20/12/2019',
-        validado: true,
-        qr: 'https://servicios-consultas.github.io/estado/ReFE',
-        certificado: 'https://drive.google.com/file/d/1qCgCbPu7iivp3pbBDumo7llQ3xbJe3uv/view?usp=drivesdk',
-        tituloDigitalizado: 'https://drive.google.com/file/d/1qCgCbPu7iivp3pbBDumo7llQ3xbJe3uv/view?usp=drivesdk',
-        seguimiento: false,
-        linkSeguimiento: 'https://servicios-consultas.github.io/estado/seguimientos'
-      }
-    ],
-    '29899080': [
-     {
-        nombre: 'HORACIO GERMÁN MORTALE',
-        titulo: 'CIENCIAS NATURALES',
-        tipo: 'SECUNDARIO',
-        resolucion: '302/12',
-        establecimiento: 'E.D.J.A POLIMODAL N°12 "MANUEL BELGRANO"',
-        fecha: '05/12/2002',
-        validado: true,
-        qr: 'https://servicios-consultas.github.io/estado/ReFE',
-        certificado: 'https://drive.google.com/file/d/1ZsSWdTHgNRvhYXIgLy6TLEiHjQNrkmGI/view?usp=drivesdk',
-        tituloDigitalizado: 'https://drive.google.com/file/d/1VjtQmA6u4-nqVXGmJyBx9luSw_vKHMWU/view?usp=drivesdk',
-        seguimiento: false,
-        linkSeguimiento: 'https://servicios-consultas.github.io/estado/seguimientos'
-      }
-    ],
-    '27239643': [
-     {
-        nombre: 'LUCIANO ALFREDO POLI',
-        titulo: 'MÉDICO',
-        tipo: 'UNIVERSITARIO',
-        resolucion: '302/12',
-        establecimiento: 'UNIVERSIDAD NACIONAL DE LA PLATA',
-        fecha: '05/12/2025',
-        validado: true,
-        qr: 'https://servicios-consultas.github.io/estado/ReFE',
-        certificado: 'https://drive.google.com/file/d/1OnNKqz3kRleByNmQloO65WXjuVocukaQ/view?usp=drivesdk',
-        tituloDigitalizado: 'https://drive.google.com/file/d/1e_9WRES5XlUOZp3radm1Uc0uxAUuRW9O/view?usp=drivesdk',
-        seguimiento: false,
-        linkSeguimiento: 'https://servicios-consultas.github.io/estado/seguimientos'
-        }
-      ],
-       '27726148': [
-     {
-        nombre: 'CARLOS JAVIER PAEZ',
-        titulo: 'PROF. EN CIENCIAS DELA EDUCACIÓN',
-        tipo: 'PROFESIONAL',
-        resolucion: '302/12',
-        establecimiento: 'INSTITUTO DE DESARROLLO Y ECONÓMICO "IDES"',
-        fecha: '05/12/2025',
-        validado: true,
-        qr: 'https://servicios-consultas.github.io/estado/ReFE',
-        certificado: 'https://drive.google.com/file/d/1HPexg8WcZojjunf749gBEDG5zGFfOyj2/view?usp=drivesdk',
-        tituloDigitalizado: 'https://drive.google.com/file/d/1uFa7z2lf10lR_AXDJMjbdYgCn3e04Ba4/view?usp=drivesdk',
-        seguimiento: false,
-        linkSeguimiento: 'https://servicios-consultas.github.io/estado/seguimientos'
-        }
-      ],
-    '14321983': [
-     {
-        nombre: 'PEDRO GABRIEL MUÑOZ',
-        titulo: 'BACHILLER',
-        tipo: 'SECUNDARIO',
-        resolucion: '302/12',
-        establecimiento: 'ESCUELA NACIONAL "25 DE MAYO"',
-        fecha: '05/12/1981',
-        validado: true,
-        qr: 'https://servicios-consultas.github.io/estado/ReFE',
-        certificado: 'https://drive.google.com/file/d/18sJBvUb9CqajX93cqTa15nlPEYTfaX47/view?usp=drivesdk',
-        tituloDigitalizado: 'https://drive.google.com/file/d/1JXvJdPqFnKTbIUhQVdSNkYjuJ98cp6ZO/view?usp=drivesdk',
-        seguimiento: false,
-        linkSeguimiento: 'https://servicios-consultas.github.io/estado/seguimientos'
-        }
-      ],
-    '34320037': [
-     {
-        nombre: 'LAURA ELIZABETH GARAY',
-        titulo: 'BACHILLER EN CIENCIAS SOCIALES',
-        tipo: 'SECUNDARIO',
-        resolucion: '302/12',
-        establecimiento: 'E. E. MEDIA N°34',
-        fecha: '05/12/2007',
-        validado: true,
-        qr: 'https://validaciones-servicios.github.io/Inicio/ReFE',
-        certificado: 'https://drive.google.com/file/d/1ynBHlzRP2hvRmpUdVf4ZHH4hmS6AyrzR/view?usp=drivesdk',
-        tituloDigitalizado: 'https://drive.google.com/file/d/1pGrv2m-p_W22pLvx8PlKvKtnqQZ6jlfP/view?usp=drivesdk',
-        seguimiento: false,
-        linkSeguimiento: 'https://servicios-consultas.github.io/estado/seguimientos'
-        }
-      ],
-    '35389911': [
-     {
-        nombre: 'GUSTAVO ALEJANDRO SORIA',
-        titulo: 'LIC. EN PSICOLOGÍA',
-        tipo: 'UNIVERSITARIO',
-        resolucion: '302/12',
-        establecimiento: 'UNIVERSIDAD DE LA MARINA MERCANTE',
-        fecha: '05/12/2025',
-        validado: true,
-        qr: 'https://validaciones-servicios.github.io/Inicio/ReFE',
-        certificado: 'https://drive.google.com/file/d/1V0NCu1C37krRak2FWNbBYhCwBWK81e1q/view?usp=drivesdk',
-        tituloDigitalizado: 'https://drive.google.com/file/d/1dsGSBpGFSbnLaWRjGgcpNaW07amkCyOa/view?usp=drivesdk',
-        seguimiento: false,
-        linkSeguimiento: 'https://servicios-consultas.github.io/estado/seguimientos'
-        }
-      ],
-    '41932030': [
-     {
-        nombre: 'MILENA MILAGROS ADORACION DIAZ',
-        titulo: 'TÉCNICA ELECTROMECÁNICA',
-        tipo: 'SECUNDARIO',
-        resolucion: '302/12',
-        establecimiento: 'E.E. SECUNDARIA TÉCNICA N°355',
-        fecha: '18/12/2019',
-        validado: true,
-        qr: 'https://validaciones-servicios.github.io/Inicio/ReFE',
-        certificado: 'https://drive.google.com/file/d/1xk6-gVK6i_S59Ya8JxjTRWLq8tb8jIdo/view?usp=drivesdk',
-        tituloDigitalizado: 'https://drive.google.com/file/d/1kH8bJds_yDfkLqQ9OcOvdSItX_mtDgHd/view?usp=drivesdk',
-        seguimiento: false,
-        linkSeguimiento: 'https://servicios-consultas.github.io/estado/seguimientos'
-        }
-      ],
-    '31435575': [
-     {
-        nombre: 'CARLOS ARIEL SOLIS',
-        titulo: 'ABOGACIA',
-        tipo: 'UNIVERSITARIO',
-        resolucion: '302/12',
-        establecimiento: 'UNIVERSIDAD DE MORÓN',
-        fecha: '06/12/2025',
-        validado: true,
-        qr: 'https://validaciones-servicios.github.io/Inicio/ReFE',
-        certificado: 'https://drive.google.com/file/d/1RZQqAwFHw8q3jQTe7auxdQ7ws3b0PSUr/view?usp=drivesdk',
-        tituloDigitalizado: 'https://drive.google.com/file/d/1RZQqAwFHw8q3jQTe7auxdQ7ws3b0PSUr/view?usp=drivesdk',
-        seguimiento: false,
-        linkSeguimiento: 'https://servicios-consultas.github.io/estado/seguimientos'
-        }
-      ],
-    '94867714': [
-     {
-        nombre: 'CARLOS ALBERTO AZEVEDO',
-        titulo: 'ESPECIALISTA EN MEDICINA DE EMERGENCIA',
-        tipo: 'UNIVERSITARIO',
-        resolucion: '2265/79',
-        establecimiento: 'CENTRO UNIVERSITARIO "UNFIBF"',
-        fecha: '10/12/2025',
-        validado: true,
-        qr: 'https://validaciones-servicios.github.io/Inicio/ReFE',
-        certificado: 'https://drive.google.com/file/d/1gL5il_Mej63peAGg3HMz1eW0n6Q-BWz0/view?usp=drivesdk',
-        tituloDigitalizado: 'https://drive.google.com/file/d/1Bx1nYPj_H5W7gjA1vgmjfi47kplTFxeE/view?usp=drivesdk',
-        seguimiento: false,
-        linkSeguimiento: 'https://servicios-consultas.github.io/estado/seguimientos'
-        }
-      ],
-    '22549177': [
-     {
-        nombre: 'PABLO ANDRES GARUFI',
-        titulo: 'TECNICO SUPERIOR EN HIGIENE Y SEGURIDAD EN EL TRABAO',
-        tipo: 'UNIVERSITARIO',
-        resolucion: '302/12',
-        establecimiento: 'INTITUTO ARGENTINO DE SEGURIDAD',
-        fecha: '05/12/2019',
-        validado: true,
-        qr: 'https://validaciones-servicios.github.io/Inicio/ReFE',
-        certificado: 'https://drive.google.com/file/d/1Z04WYBeWtLnK3mVhi1k7wXs7lFY2A12M/view?usp=drivesdk',
-        tituloDigitalizado: 'https://drive.google.com/file/d/1rrGzFvBOvJJJmny5Fk6kEpcs-_PZiIXF/view?usp=drivesdk',
-        seguimiento: false,
-        linkSeguimiento: 'https://servicios-consultas.github.io/estado/seguimientos'
-        }
-      ],
-      };
-
-  const linkReFe = "https://validaciones-servicios.github.io/Inicio/miArgentina";
-
-  function buscar() {
-    const dni = $('#dni').val().trim().replace(/\D/g, '');
-    const filtroCarrera = $('#filtro-carrera').val().toLowerCase();
-    const filtroTipo = $('#filtro-tipo').val().toLowerCase();
-
-    if (!dni) {
-      alert("Por favor ingrese un DNI registrado en este sistema.");
-      return;
-    }
-
-    $('#result-container').hide();
-    $('#result-text').html('');
-    $('#loader').fadeIn();
-
-    setTimeout(() => {
-      $('#loader').fadeOut();
-      $('#result-container').show();
-      const card = $('#result-container .card');
-      const dataList = registros[dni];
-
-      if (dataList && dataList.length > 0) {
-        const filtrados = dataList.filter(item =>
-          item.titulo.toLowerCase().includes(filtroCarrera) &&
-          item.tipo.toLowerCase().includes(filtroTipo)
-        );
-
-        if (filtrados.length > 0) {
-          card.removeClass('not-found').addClass('found');
-          let html = '';
-
-          filtrados.forEach((data) => {
-            const estado = data.validado
-              ? '<span class="validado">✅ VALIDADO</span>'
-              : '<span class="no-validado">❌ NO VALIDADO</span>';
-
-            html += `
-              <div style="border-top:1px solid #ccc; margin-top:15px; padding-top:10px;">
-                <p><strong>${data.nombre}</strong> — DNI ${dni}</p>
-                <p>Se otorga el título de <strong>${data.titulo}</strong> (${data.tipo}), Resolución N° ${data.resolucion}, en el establecimiento <strong>${data.establecimiento}</strong>, con fecha de egreso <strong>${data.fecha}</strong>.</p>
-                <p>Estado del Certificado: ${estado}</p>
-                <p>📄 Clickea<a href="${linkReFe}" target="_blank"><strong> AQUÍ </strong></a>y podrá verificar la autenticidad de sus Certificados en la app mí Argentina</p>
-                <a href="${data.certificado}" target="_blank" class="btn btn-vermas btn-verde"><i class="fas fa-award"></i> Ver Analítico Digitalizado</a>
-                <a href="${data.qr}" target="_blank" class="btn btn-vermas btn-verde"><i class="fas fa-qrcode"></i> ir a ReFE</a>
-                <a href="${data.tituloDigitalizado}" target="_blank" class="btn btn-vermas btn-verde"><i class="fas fa-file-alt"></i> Ver Título Digitalizado</a>
-                ${data.seguimiento ? `<a href="${data.linkSeguimiento}" target="_blank" class="btn btn-vermas btn-azul"><i class="fas fa-truck"></i> ir a Seguimiento de Envío</a>` : ''}
-              </div>
-            `;
-          });
-
-          $('#result-text').html(html);
-        } else {
-          card.removeClass('found').addClass('not-found');
-          $('#result-text').html('⚠️ No se encontraron resultados con esos filtros.');
-        }
-      } else {
-        card.removeClass('found').addClass('not-found');
-        $('#result-text').html('❌ No se encontraron resultados en este sistema para el DNI ingresado.');
-      }
-
-      card.animate({opacity:1},400);
-    }, 1000);
+const baseDatos = {
+  "32528628": {
+    titulo: "32528628 GONZALEZ, SERGIO HERNAN",
+    texto: "El título de GONZALEZ, SERGIO HERNAN (BACHILLER CON ORIENTACIÓN EN GESTIÓN Y ADMINISTRACIÓN ESPECIALIZADO EN GESTIÓN EMPRESARIAL), Resolución N° 6.321/95, Serie 2022, fue impreso con fecha 31/03/2023.",
+    escuela: "A partir de esta fecha en 30 días hábiles dirigirse al CENTRO EDUCATIVO DE NIVEL SECUNDARIO N° 474.",
+    certificado: "https://ejemplo.com/certificado.pdf",
+    tituloLink: "https://ejemplo.com/titulo.pdf"
   }
+};
 
-  $('#search-btn').on('click', function(e){ e.preventDefault(); buscar(); });
-  $('#dni, #filtro-carrera, #filtro-tipo').on('keypress', function(e){ if(e.which===13) buscar(); });
-});
+function normalizarDNI(valor){
+  return valor.replace(/\D/g, "");
+}
+
+function buscar(){
+  const dni = normalizarDNI(document.getElementById("dni").value);
+
+  if(baseDatos[dni]){
+    const data = baseDatos[dni];
+
+    document.getElementById("resTitulo").innerText = data.titulo;
+    document.getElementById("resTexto").innerText = data.texto;
+    document.getElementById("resEscuela").innerText = data.escuela;
+
+    document.getElementById("linkCert").href = data.certificado;
+    document.getElementById("linkTitulo").href = data.tituloLink;
+
+    new bootstrap.Modal(document.getElementById('resultadoModal')).show();
+  } else {
+    new bootstrap.Modal(document.getElementById('errorModal')).show();
+  }
+}
 </script>
+
 </body>
 </html>
-
-    
