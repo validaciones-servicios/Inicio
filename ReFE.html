@@ -270,7 +270,7 @@ Para títulos emitidos con anterioridad, consultar el circuito de legalización 
 const datosEstudiantes = [
   {
     dni:"37660995",
-    nombre:"LUCAS IVAN DE LA TEMPONE",
+    nombre:"LUCAS IVAN TEMPONE",
     tipoDoc:"DNI",
     titulo:"ECONOMÍA Y ADMINISTRACIÓN",
     jurisdiccion:"BUENOS AIRES",
@@ -318,15 +318,15 @@ if (partes.length >= 1) {
   apellidoInput = apellido;
   nombreInput = nombres;
 
-  apellido.value = apellidoInput;
-  nombre.value = nombreInput;
-
+  apellido.value = r.apellido;
+nombre.value = r.nombre;
+  
   // ---- BLOQUEAR EDICIÓN ----
   apellido.readOnly = true;
   nombre.readOnly = true;
 
   infoEstudiante.style.display="block";
-  studentName.textContent = r.nombre;
+  studentName.textContent = `${r.nombre} ${r.apellido}`;
   tipoDoc.value = r.tipoDoc;
 
   tablaBody.innerHTML = `
