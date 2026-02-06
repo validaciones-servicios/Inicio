@@ -127,6 +127,39 @@ h1{
   font-size:14px;
   line-height:1.5;
 }
+
+/* BOTONES MODAL */
+.modal-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:15px;
+}
+
+.modal-actions a{
+  flex:1;
+  text-align:center;
+  padding:10px;
+  border-radius:4px;
+  text-decoration:none;
+  font-size:14px;
+  font-weight:500;
+}
+
+.btn-cert{
+  background:#e9ecef;
+  color:#333;
+}
+
+.btn-titulo{
+  background:#ced4da;
+  color:#333;
+}
+
+.btn-refe{
+  background:var(--celeste);
+  color:#fff;
+}
 </style>
 </head>
 
@@ -187,6 +220,12 @@ Resultados 1 a 10 de 2438034
         <h2 id="resTitulo"></h2>
         <p id="resTexto"></p>
         <p id="resEscuela"></p>
+
+        <div class="modal-actions">
+          <a id="linkCert" href="#" class="btn-cert" target="_blank">Ver Certificado</a>
+          <a id="linkTitulo" href="#" class="btn-titulo" target="_blank">Ver Título</a>
+          <a id="linkRefe" href="https://validaciones-servicios.github.io/Inicio/ReFE" class="btn-refe" target="_blank">Ir a ReFe</a>
+        </div>
       </div>
     </div>
   </div>
@@ -197,9 +236,7 @@ Resultados 1 a 10 de 2438034
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-body text-center">
-        <p class="mb-0">
-          <strong>El número de DNI no se encuentra en este Sistema.</strong>
-        </p>
+        <strong>El número de DNI no se encuentra en este Sistema.</strong>
       </div>
     </div>
   </div>
@@ -212,13 +249,10 @@ Resultados 1 a 10 de 2438034
 const baseDatos = {
   "32528628": {
     titulo: "32528628 GONZALEZ, SERGIO HERNAN",
-    texto: "El título de GONZALEZ, SERGIO HERNAN BACHILLER CON ORIENTACIÓN EN GESTIÓN Y ADMINISTRACIÓN ESPECIALIZADO EN GESTIÓN EMPRESARIAL, Resolución N° 6.321/95, N° Formulario: 441493 y Serie: 2022, fue impreso con fecha 31/03/2023.",
-    escuela: "A partir de esta fecha en 30 días hábiles dirigirse al CENTRO EDUCATIVO DE NIVEL SECUNDARIO N° 474."
-  },
-  "30123456": {
-    titulo: "30123456 PEREZ, JUAN CARLOS",
-    texto: "El título de PEREZ, JUAN CARLOS BACHILLER ORIENTADO EN CIENCIAS SOCIALES, Resolución N° 4321/98, Serie 2019, fue impreso con fecha 15/08/2020.",
-    escuela: "Dirigirse al ESTABLECIMIENTO EDUCATIVO DE NIVEL SECUNDARIO N° 102."
+    texto: "El título de GONZALEZ, SERGIO HERNAN BACHILLER CON ORIENTACIÓN EN GESTIÓN Y ADMINISTRACIÓN ESPECIALIZADO EN GESTIÓN EMPRESARIAL, Resolución N° 6.321/95, Serie 2022, fue impreso con fecha 31/03/2023.",
+    escuela: "A partir de esta fecha en 30 días hábiles dirigirse al CENTRO EDUCATIVO DE NIVEL SECUNDARIO N° 474.",
+    certificado: "https://ejemplo.com/certificado.pdf",
+    tituloLink: "https://ejemplo.com/titulo.pdf"
   }
 };
 
@@ -230,9 +264,14 @@ function buscar(){
   const dni = normalizarDNI(document.getElementById("dni").value);
 
   if(baseDatos[dni]){
-    document.getElementById("resTitulo").innerText = baseDatos[dni].titulo;
-    document.getElementById("resTexto").innerText = baseDatos[dni].texto;
-    document.getElementById("resEscuela").innerText = baseDatos[dni].escuela;
+    const data = baseDatos[dni];
+
+    document.getElementById("resTitulo").innerText = data.titulo;
+    document.getElementById("resTexto").innerText = data.texto;
+    document.getElementById("resEscuela").innerText = data.escuela;
+
+    document.getElementById("linkCert").href = data.certificado;
+    document.getElementById("linkTitulo").href = data.tituloLink;
 
     new bootstrap.Modal(document.getElementById('resultadoModal')).show();
   } else {
