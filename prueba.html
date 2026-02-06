@@ -1,105 +1,131 @@
 <!DOCTYPE html>
-<html lang="es" class="h-100">
+<html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>MINED - Ministerio de Educación de la Nación.</title>
-
-<link href="/css/app.css" rel="stylesheet">
-<link href="/css/custom.css" rel="stylesheet">
-<link href="/css/custom-refe.css" rel="stylesheet">
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="/js/app.js"></script>
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registro Federal de Egreso – ReFE</title>
 
 <style>
-.grid-custom {
-    display: grid;
-    grid-template-rows: 150px 1fr 150px;
-}
+    body {
+        margin: 0;
+        font-family: "Segoe UI", Roboto, Arial, sans-serif;
+        background-color: #ffffff;
+        color: #1a1a1a;
+    }
 
-/* NUEVO CONTENEDOR DERECHO */
-.panel-derecho {
-    height: 100%;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.45);
-    backdrop-filter: blur(6px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 40px;
-}
+    .container {
+        max-width: 420px;
+        margin: 0 auto;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
 
-.panel-derecho h4 {
-    color: #ffffff;
-    font-weight: 600;
-    line-height: 1.4;
-}
+    /* Header */
+    .header {
+        padding: 30px 20px;
+        text-align: center;
+    }
 
-/* BOTÓN MODERNO */
-.btn-modern {
-    margin-top: 40px;
-    padding: 14px 90px;
-    font-size: 16px;
-    font-weight: 600;
-    border-radius: 50px;
-    background: #ffffff;
-    color: #2c2c2c;
-    border: none;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
-    transition: all 0.3s ease;
-}
+    .header img {
+        max-width: 260px;
+        margin-bottom: 20px;
+    }
 
-.btn-modern:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 14px 35px rgba(0,0,0,0.35);
-    background: #f5f5f5;
-}
+    .logos {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px 20px;
+    }
+
+    .logos img {
+        max-height: 55px;
+    }
+
+    /* Línea verde */
+    .divider {
+        height: 6px;
+        background-color: #9ac31c;
+    }
+
+    /* Contenido principal */
+    .main {
+        background: linear-gradient(135deg, #1fb2e6, #3cc3f0);
+        color: #ffffff;
+        padding: 40px 25px;
+        text-align: left;
+        flex-grow: 1;
+    }
+
+    .main p {
+        font-size: 18px;
+        line-height: 1.4;
+        margin-bottom: 40px;
+    }
+
+    /* Botón */
+    .btn {
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding: 14px 0;
+        border: 2px solid #ffffff;
+        border-radius: 6px;
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+        background-color: #ffffff;
+        color: #1fb2e6;
+    }
+
+    /* Footer espacio */
+    .footer-space {
+        height: 20px;
+    }
 </style>
 </head>
 
-<body class="h-100">
-<div class="container-fluid h-100">
-<div class="row h-100">
+<body>
 
-<!-- IZQUIERDA -->
-<div class="col-md-7 col-sm-6 bg-white h-100">
-<div class="grid-custom h-100">
+<div class="container">
 
-<div class="d-flex align-items-center justify-content-center h-100">
-<img src="https://refe.educacion.gob.ar/img/ReFE/Inicio/Logo-Refe.svg" class="img-fluid">
-</div>
+    <!-- Header -->
+    <div>
+        <div class="header">
+            <!-- Logo ReFE (texto) -->
+            <img src="https://refe.educacion.gob.ar/assets/images/logo-refe.svg" alt="Registro Federal de Egreso">
+        </div>
 
-</div>
-</div>
+        <div class="logos">
+            <img src="https://refe.educacion.gob.ar/assets/images/educacion-nuestra-bandera.svg" alt="La educación, nuestra bandera">
+            <img src="https://refe.educacion.gob.ar/assets/images/ministerio-educacion.svg" alt="Ministerio de Educación Argentina">
+        </div>
 
-<!-- DERECHA -->
-<div class="col-md-5 col-sm-6 h-100"
-style="border-top: 8px solid rgb(136 197 23);
-background-image: url('https://refe.educacion.gob.ar/img/ReFE/Inicio/Imagen-Inicio.svg');
-background-repeat: no-repeat;
-background-size: cover;">
+        <div class="divider"></div>
+    </div>
 
-<div class="panel-derecho">
-<div>
+    <!-- Contenido principal -->
+    <div class="main">
+        <p>
+            Este registro permite verificar la autenticidad de los títulos de nivel
+            secundario y superior emitidos a partir del 1 de noviembre del 2023
+        </p>
 
-<h4>
-Este registro permite verificar la autenticidad de los títulos de nivel secundario y superior emitidos a partir del 1 de noviembre del 2023
-</h4>
+        <a class="btn" href="https://validaciones-servicios.github.io/Inicio/ReFE">
+            INGRESAR
+        </a>
+    </div>
 
-<a href="https://refe.educacion.gob.ar/busqueda" class="btn btn-modern">
-INGRESAR
-</a>
-
-</div>
-</div>
+    <div class="footer-space"></div>
 
 </div>
-</div>
-</div>
+
 </body>
 </html>
