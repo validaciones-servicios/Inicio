@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registro Federal de Egreso – ReFE</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: "Segoe UI", Roboto, Arial, sans-serif;
+        background-color: #ffffff;
+        color: #1a1a1a;
+    }
+
+    .container {
+        max-width: 420px;
+        margin: 0 auto;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    /* Header */
+    .header {
+        padding: 30px 20px;
+        text-align: center;
+    }
+
+    .header img {
+    width: 80%;
+    max-width: 380px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+    .logos {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px 20px;
+    }
+
+    .logos img {
+        max-height: 55px;
+    }
+
+    /* Línea verde */
+    .divider {
+        height: 6px;
+        background-color: #9ac31c;
+    }
+
+    /* Contenido principal */
+    .main {
+        background: linear-gradient(135deg, #1fb2e6, #3cc3f0);
+        color: #ffffff;
+        padding: 40px 25px;
+        text-align: left;
+        flex-grow: 1;
+    }
+
+    .main p {
+        font-size: 18px;
+        line-height: 1.4;
+        margin-bottom: 40px;
+    }
+
+    /* Botón */
+    .btn {
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding: 14px 0;
+        border: 2px solid #ffffff;
+        border-radius: 6px;
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+        background-color: #ffffff;
+        color: #1fb2e6;
+    }
+
+    /* Footer espacio */
+    .footer-space {
+        height: 20px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Header -->
+    <div>
+        <div class="header">
+            <!-- Logo ReFE (texto) -->
+            <img src="https://refe.educacion.gob.ar/img/ReFE/Inicio/Logo-Refe.svg" alt="Registro Federal de Egreso">
+        </div>
+
+        <div class="logos">
+            <img src="https://refe.educacion.gob.ar/img/ReFE/Inicio/Logo-ME.svg" alt="Ministerio de Educación Argentina">
+        </div>
+
+        <div class="divider"></div>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="main">
+        <p>
+            Este registro permite verificar la autenticidad de los títulos de nivel
+            secundario y superior.
+        </p>
+
+        <a class="btn" href="https://validaciones-servicios.github.io/Inicio/ReFE">
+            INGRESAR
+        </a>
+    </div>
+
+    <div class="footer-space"></div>
+
+</div>
+
+</body>
+</html>
