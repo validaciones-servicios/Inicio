@@ -282,52 +282,28 @@ const datosEstudiantes = [
     hash:"0xABC"
   }
 ];
-];
-
-// conectores habituales de apellidos compuestos
-const conectores = ["DE","DEL","DE LA","DE LAS","DE LOS","LA","LAS","LOS","SAN","SANTA"];
 
 buscarBtn.onclick = () => {
   const dni = numeroDoc.value.trim();
   const r = datosEstudiantes.find(e => e.dni === dni);
 
   if(!r){
-  alert("No se encontró el DNI");
-  infoEstudiante.style.display="none";
-  apellido.readOnly = false;   // ← línea 1
-  nombre.readOnly = false;     // ← línea 2
-  return;
-}
-  // ---- DETECCIÓN DE APELLIDO COMPUESTO ----
-  const partes = r.nombre.split(" ");
-  let apellido = partes.pop();
-
-if (partes.length >= 2) {
-  const posibleCompuesto = partes.slice(-2).join(" ") + " " + apellido;
-  if (conectores.includes(posibleCompuesto)) {
-    apellido = partes.splice(-2).join(" ") + " " + apellido;
+    alert("No se encontró el DNI");
+    infoEstudiante.style.display = "none";
+    apellido.readOnly = false;
+    nombre.readOnly = false;
+    return;
   }
-}
 
-if (partes.length >= 1) {
-  const posibleSimple = partes[partes.length - 1] + " " + apellido;
-  if (conectores.includes(posibleSimple)) {
-    apellido = partes.pop() + " " + apellido;
-  }
-}
-  const nombres = partes.join(" ");
-
-  apellidoInput = apellido;
-  nombreInput = nombres;
-
+  // completar campos desde los datos
   apellido.value = r.apellido;
-nombre.value = r.nombre;
-  
-  // ---- BLOQUEAR EDICIÓN ----
+  nombre.value = r.nombre;
+
+  // bloquear edición
   apellido.readOnly = true;
   nombre.readOnly = true;
 
-  infoEstudiante.style.display="block";
+  infoEstudiante.style.display = "block";
   studentName.textContent = `${r.nombre} ${r.apellido}`;
   tipoDoc.value = r.tipoDoc;
 
@@ -348,7 +324,7 @@ nombre.value = r.nombre;
 
 nuevaBusqueda.onclick = () => {
   document.getElementById("form-busqueda").reset();
-  infoEstudiante.style.display="none";
+  infoEstudiante.style.display = "none";
   apellido.readOnly = false;
   nombre.readOnly = false;
 };
