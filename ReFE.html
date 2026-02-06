@@ -270,7 +270,7 @@ th{
 const datosEstudiantes = [
   {
     dni:"37660995",
-    nombre:"LUCAS IVAN TEMPONE",
+    nombre:"LUCAS IVAN DE LA TEMPONE",
     tipoDoc:"DNI",
     titulo:"ECONOMÍA Y ADMINISTRACIÓN",
     jurisdiccion:"BUENOS AIRES",
@@ -282,15 +282,46 @@ const datosEstudiantes = [
   }
 ];
 
+// conectores habituales de apellidos compuestos
+const conectores = ["DE","DEL","DE LA","DE LAS","DE LOS","LA","LAS","LOS","SAN","SANTA"];
+
 buscarBtn.onclick = () => {
   const dni = numeroDoc.value.trim();
   const r = datosEstudiantes.find(e => e.dni === dni);
 
   if(!r){
-    alert("No se encontró el DNI");
-    infoEstudiante.style.display="none";
-    return;
+  alert("No se encontró el DNI");
+  infoEstudiante.style.display="none";
+  apellido.readOnly = false;   // ← línea 1
+  nombre.readOnly = false;     // ← línea 2
+  return;
+}
+  // ---- DETECCIÓN DE APELLIDO COMPUESTO ----
+  const partes = r.nombre.split(" ");
+  let apellido = partes.pop();
+
+  while(partes.length){
+    const posible = partes[partes.length - 1];
+    const combinado = posible + " " + apellido;
+
+    if(conectores.includes(posible) || conectores.includes(combinado)){
+      apellido = partes.pop() + " " + apellido;
+    } else {
+      break;
+    }
   }
+
+  const nombres = partes.join(" ");
+
+  apellidoInput = apellido;
+  nombreInput = nombres;
+
+  apellido.value = apellidoInput;
+  nombre.value = nombreInput;
+
+  // ---- BLOQUEAR EDICIÓN ----
+  apellido.readOnly = true;
+  nombre.readOnly = true;
 
   infoEstudiante.style.display="block";
   studentName.textContent = r.nombre;
@@ -314,6 +345,8 @@ buscarBtn.onclick = () => {
 nuevaBusqueda.onclick = () => {
   document.getElementById("form-busqueda").reset();
   infoEstudiante.style.display="none";
+  apellido.readOnly = false;
+  nombre.readOnly = false;
 };
 </script>
 
