@@ -173,7 +173,7 @@ button:disabled{
   <div class="header">miArgentina</div>
 
   <div class="container">
-    <h2>Ingresá a tu cuenta</h2>
+    <h2>Ingresá tu número de DNI</h2>
 
     <label>DNI</label>
     <input type="text" id="dni" placeholder="Ingresá tu DNI">
@@ -228,9 +228,9 @@ function buscar(){
     const fecha = new Date(certificados[dni]);
 
     if(fecha <= hoy){
-      mostrar("CERTIFICADO APROBADO","Tu certificado ya se encuentra aprobado.");
+      mostrar("ESTADO","Tu certificado ya se encuentra APROBADO.");
     }else{
-      mostrar("CERTIFICADO EN PROCESO","Tu certificado se encuentra en proceso.");
+      mostrar("ESTADO","Tu certificado se encuentra en PROCESO.");
     }
   },1500);
 }
