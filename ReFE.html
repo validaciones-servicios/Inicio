@@ -163,6 +163,14 @@ th{
   color:#fff;
 }
 
+/* BLOCKCHAIN ICON */
+.blockchain-icon img{
+  width:24px;
+  height:auto;
+  display:block;
+  margin:auto;
+}
+
 /* FOOTER TEXT */
 .info-text{
   font-size:13px;
@@ -225,11 +233,11 @@ th{
   </div>
 
   <div class="blockchain-link">
-  Si deseas ver tu título en la aplicación mí Argentina,
-  <a href="https://validaciones-servicios.github.io/Inicio/miArgentina" target="_blank" rel="noopener">
-    haz click aquí
-  </a>
-</div>
+    Si deseas ver tu título en la aplicación mi Argentina,
+    <a href="https://validaciones-servicios.github.io/Inicio/miArgentina" target="_blank" rel="noopener">
+      haz click aquí
+    </a>
+  </div>
 
   <div class="buttons">
     <button type="button" class="btn btn-reset" id="nuevaBusqueda">Nueva búsqueda</button>
@@ -279,8 +287,7 @@ const datosEstudiantes = [
     institucion:"E DE COMERCIO N°29",
     cue:"00612275",
     fechaEgreso:"20/12/2020",
-    serie:"06-08336-2020",
-    hash:"0xABC"
+    serie:"06-08336-2020"
   }
 ];
 
@@ -296,11 +303,8 @@ buscarBtn.onclick = () => {
     return;
   }
 
-  // completar campos desde los datos
   apellido.value = r.apellido;
   nombre.value = r.nombre;
-
-  // bloquear edición
   apellido.readOnly = true;
   nombre.readOnly = true;
 
@@ -318,7 +322,9 @@ buscarBtn.onclick = () => {
       <td>${r.cue}</td>
       <td>${r.fechaEgreso}</td>
       <td>${r.serie}</td>
-      <td>${r.hash}</td>
+      <td class="blockchain-icon">
+        <img src="https://bfa.ar/themes/bfa/logo.svg" alt="Blockchain" title="Blockchain verificado">
+      </td>
     </tr>
   `;
 };
