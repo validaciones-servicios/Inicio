@@ -176,4 +176,146 @@ th{
     max-width:900px;
   }
   .form-label{
-    min-width:30
+    min-width:30%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-top">
+    <img src="https://refe.educacion.gob.ar/img/ReFE/Banner/ReFE-Banner.svg" alt="ReFE">
+  </div>
+  <div class="header-title">
+    <h1>Dirección de Validez Nacional de Títulos y Estudios</h1>
+    <h2>Registro Federal de Egreso</h2>
+  </div>
+</header>
+
+<main>
+
+<form id="form-busqueda">
+
+  <div class="form-group">
+    <div class="form-label">Tipo de Documento</div>
+    <select id="tipoDoc" class="form-control">
+      <option value="">-- Selecciona una opción --</option>
+      <option>DNI</option>
+      <option>LE</option>
+      <option>LC</option>
+      <option>DOCUMENTO EXTRANJERO</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <div class="form-label">Número de Documento</div>
+    <input id="numeroDoc" class="form-control">
+  </div>
+
+  <div class="form-group">
+    <div class="form-label">Apellido</div>
+    <input id="apellido" class="form-control">
+  </div>
+
+  <div class="form-group">
+    <div class="form-label">Nombre</div>
+    <input id="nombre" class="form-control">
+  </div>
+
+  <div class="blockchain-link">
+    Si deseas ver tu título en la Blockchain Federal Argentina,
+    <a href="#">haz click aquí</a>
+  </div>
+
+  <div class="buttons">
+    <button type="button" class="btn btn-reset" id="nuevaBusqueda">Nueva búsqueda</button>
+    <button type="button" class="btn btn-search" id="buscarBtn">Buscar</button>
+  </div>
+
+</form>
+
+<div id="infoEstudiante">
+  <div class="student-info" id="studentName"></div>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Tipo</th>
+          <th>DNI</th>
+          <th>Título</th>
+          <th>Jurisdicción</th>
+          <th>Institución</th>
+          <th>CUE</th>
+          <th>Fecha</th>
+          <th>Serie</th>
+          <th>Blockchain</th>
+        </tr>
+      </thead>
+      <tbody id="tablaBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="info-text">
+  A partir del 1 de noviembre de 2023, por Resolución CFE N° 440/23,
+  los títulos son emitidos en formato digital…
+</div>
+
+</main>
+
+<script>
+const datosEstudiantes = [
+  {
+    dni:"37660995",
+    nombre:"LUCAS IVAN TEMPONE",
+    tipoDoc:"DNI",
+    titulo:"ECONOMÍA Y ADMINISTRACIÓN",
+    jurisdiccion:"BUENOS AIRES",
+    institucion:"E DE COMERCIO N°29",
+    cue:"00612275",
+    fechaEgreso:"20/12/2020",
+    serie:"06-08336-2020",
+    hash:"0xABC"
+  }
+];
+
+buscarBtn.onclick = () => {
+  const dni = numeroDoc.value.trim();
+  const r = datosEstudiantes.find(e => e.dni === dni);
+
+  if(!r){
+    alert("No se encontró el DNI");
+    infoEstudiante.style.display="none";
+    return;
+  }
+
+  infoEstudiante.style.display="block";
+  studentName.textContent = r.nombre;
+  tipoDoc.value = r.tipoDoc;
+
+  tablaBody.innerHTML = `
+    <tr>
+      <td>${r.tipoDoc}</td>
+      <td>${r.dni}</td>
+      <td>${r.titulo}</td>
+      <td>${r.jurisdiccion}</td>
+      <td>${r.institucion}</td>
+      <td>${r.cue}</td>
+      <td>${r.fechaEgreso}</td>
+      <td>${r.serie}</td>
+      <td>${r.hash}</td>
+    </tr>
+  `;
+};
+
+nuevaBusqueda.onclick = () => {
+  document.getElementById("form-busqueda").reset();
+  infoEstudiante.style.display="none";
+};
+</script>
+
+</body>
+</html>
