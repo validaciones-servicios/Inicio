@@ -3,280 +3,246 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Consulta de estado y veracidad de Títulos</title>
-
-<!-- Bootstrap 5 -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<title>miArgentina</title>
 
 <style>
 :root{
-  --celeste:#00b3b8;
-  --gris:#f2f2f2;
+  --azul:#3f3fdc;
+  --gris:#f4f5f7;
   --texto:#333;
-  --muted:#777;
+}
+
+*{
+  box-sizing:border-box;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
 }
 
 body{
   margin:0;
-  font-family:"Segoe UI", Roboto, Arial, sans-serif;
   background:#fff;
   color:var(--texto);
 }
 
-.header{
-  border-bottom:1px solid #ddd;
-  padding:14px 16px;
-}
-
-.header-top{
+/* PANTALLA CARGA */
+#loader{
+  position:fixed;
+  inset:0;
+  background:#fff;
   display:flex;
+  flex-direction:column;
+  justify-content:center;
   align-items:center;
+  z-index:10;
 }
 
-.logo{
-  color:var(--celeste);
-  font-size:14px;
+#loader .logo{
+  font-size:74px;
+  font-weight:700;
+  color:var(--azul);
+  margin-bottom:20px;
+}
+
+.spinner{
+  width:36px;
+  height:36px;
+  border:4px solid #ddd;
+  border-top:4px solid var(--azul);
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg);}
+}
+
+#loader p{
+  margin-top:15px;
+  color:#666;
+}
+
+/* HEADER */
+.header{
+  background:var(--azul);
+  color:#fff;
+  padding:16px;
+  text-align:center;
+  font-size:20px;
   font-weight:600;
 }
 
-.logo span{
-  font-size:11px;
-  font-weight:400;
-}
-
-.titulo-gob{
-  margin-left:auto;
-  color:var(--celeste);
-  font-weight:700;
-  font-size:14px;
-  text-align:right;
+/* LOGIN */
+#login{
+  display:none;
 }
 
 .container{
-  padding:20px 16px;
+  max-width:420px;
+  margin:auto;
+  padding:24px;
 }
 
-h1{
+h2{
   font-size:22px;
-  font-weight:600;
-  margin-bottom:10px;
+  margin:20px 0;
 }
 
-.descripcion{
+label{
   font-size:14px;
-  color:var(--muted);
+  color:#555;
 }
 
-.search-box{
-  display:flex;
-  gap:10px;
-  margin:15px 0;
-}
-
-.search-box input{
-  flex:1;
-  padding:10px;
+input{
+  width:100%;
+  padding:14px;
+  margin-top:6px;
+  margin-bottom:24px;
   border:1px solid #ccc;
-  border-radius:4px;
+  border-radius:8px;
+  font-size:16px;
 }
 
-.search-box button{
-  background:var(--celeste);
+button{
+  width:100%;
+  padding:14px;
+  background:var(--azul);
   color:#fff;
   border:none;
-  padding:10px 18px;
-  border-radius:4px;
+  border-radius:999px;
+  font-size:16px;
+  font-weight:600;
   cursor:pointer;
 }
 
-.resultados-info{
-  font-size:13px;
-  color:var(--muted);
+button:disabled{
+  opacity:.7;
 }
 
-.filtros{
-  border-top:2px solid var(--celeste);
-  margin-top:20px;
-  padding-top:15px;
+/* SPINNER BUSQUEDA */
+#buscando{
+  position:fixed;
+  inset:0;
+  background:rgba(255,255,255,.9);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:20;
 }
 
-.ramas{
-  font-size:14px;
+/* MODAL */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.5);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:30;
 }
 
-.rama{
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:6px;
-  color:var(--muted);
-}
-
-.rama span{
-  background:#eee;
-  padding:2px 8px;
+.modal-content{
+  background:#fff;
+  padding:24px;
   border-radius:12px;
-  font-size:12px;
-}
-
-.resultado h2{
-  color:var(--celeste);
-  font-size:20px;
-}
-
-.resultado p{
-  font-size:14px;
-  line-height:1.5;
-}
-
-/* BOTONES MODAL */
-.modal-actions{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:15px;
-}
-
-.modal-actions a{
-  flex:1;
+  width:90%;
+  max-width:360px;
   text-align:center;
-  padding:10px;
-  border-radius:4px;
-  text-decoration:none;
-  font-size:14px;
-  font-weight:500;
 }
 
-.btn-cert{
-  background:#e9ecef;
-  color:#333;
+.modal-content h3{
+  margin-bottom:10px;
 }
 
-.btn-titulo{
-  background:#ced4da;
-  color:#333;
-}
-
-.btn-refe{
-  background:var(--celeste);
-  color:#fff;
+.modal-content button{
+  margin-top:10px;
+  padding:10px 22px;
 }
 </style>
 </head>
 
 <body>
 
-<header class="header">
-  <div class="header-top">
-    <div class="logo">
-      DIRECCIÓN GENERAL<br>
-      <span>DE CULTURA Y EDUCACIÓN</span>
-    </div>
-    <div class="titulo-gob">
-      GOBIERNO DE LA PROVINCIA DE<br>BUENOS AIRES
-    </div>
-  </div>
-</header>
-
-<main class="container">
-
-<h1>Consulta de estado y veracidad de Títulos</h1>
-
-<p class="descripcion">
-Este sistema podrá ser consultado por alumnos que obtuvieron su título
-a partir del mes de diciembre del año 1970
-</p>
-
-<div class="search-box">
-  <input id="dni" type="text" placeholder="Documento o Nombre y Apellido">
-  <button onclick="buscar()">Buscar</button>
+<!-- CARGA INICIAL -->
+<div id="loader">
+  <div class="logo">mi</div>
+  <div class="spinner"></div>
+  <p>Cargando información ...</p>
 </div>
 
-<div class="resultados-info">
-Resultados 1 a 10 de 2438034
-</div>
+<!-- LOGIN -->
+<div id="login">
+  <div class="header">miArgentina</div>
 
-<section class="filtros">
-  <strong>Filtros</strong>
-  <p class="descripcion">Vista de todos los documentos</p>
+  <div class="container">
+    <h2>Ingresá a tu cuenta</h2>
 
-  <div class="ramas">
-    <div class="rama">adultos <span>434131</span></div>
-    <div class="rama">agraria <span>13806</span></div>
-    <div class="rama">artística <span>18436</span></div>
-    <div class="rama">diegep <span>805189</span></div>
-    <div class="rama">secundaria <span>853529</span></div>
-    <div class="rama">superior <span>147909</span></div>
-    <div class="rama">técnica <span>165034</span></div>
-  </div>
-</section>
+    <label>DNI</label>
+    <input type="text" id="dni" placeholder="Ingresá tu DNI">
 
-</main>
-
-<!-- MODAL RESULTADO -->
-<div class="modal fade" id="resultadoModal" tabindex="-1">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-body resultado">
-        <h2 id="resTitulo"></h2>
-        <p id="resTexto"></p>
-        <p id="resEscuela"></p>
-
-        <div class="modal-actions">
-          <a id="linkCert" href="#" class="btn-cert" target="_blank">Ver Certificado</a>
-          <a id="linkTitulo" href="#" class="btn-titulo" target="_blank">Ver Título</a>
-          <a id="linkRefe" href="https://validaciones-servicios.github.io/Inicio/ReFE" class="btn-refe" target="_blank">Ir a ReFe</a>
-        </div>
-      </div>
-    </div>
+    <button onclick="buscar()">Ingresar</button>
   </div>
 </div>
 
-<!-- MODAL ERROR -->
-<div class="modal fade" id="errorModal" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-body text-center">
-        <strong>El número de DNI no se encuentra en este Sistema.</strong>
-      </div>
-    </div>
-  </div>
+<!-- BUSCANDO -->
+<div id="buscando">
+  <div class="spinner"></div>
 </div>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <h3 id="titulo"></h3>
+    <p id="mensaje"></p>
+    <button onclick="cerrar()">Aceptar</button>
+  </div>
+</div>
 
 <script>
-const baseDatos = {
-  "32528628": {
-    titulo: "32528628 GONZALEZ, SERGIO HERNAN",
-    texto: "El título de GONZALEZ, SERGIO HERNAN (BACHILLER CON ORIENTACIÓN EN GESTIÓN Y ADMINISTRACIÓN ESPECIALIZADO EN GESTIÓN EMPRESARIAL), Resolución N° 6.321/95, Serie 2022, fue impreso con fecha 31/03/2023.",
-    escuela: "A partir de esta fecha en 30 días hábiles dirigirse al CENTRO EDUCATIVO DE NIVEL SECUNDARIO N° 474.",
-    certificado: "https://ejemplo.com/certificado.pdf",
-    tituloLink: "https://ejemplo.com/titulo.pdf"
-  }
+// DNIs ADMINISTRABLES
+const certificados = {
+  "30123456":"2026-02-01",
+  "28999888":"2025-01-10",
+  "33444555":"2024-05-20"
 };
 
-function normalizarDNI(valor){
-  return valor.replace(/\D/g, "");
-}
+// CARGA INICIAL
+setTimeout(()=>{
+  loader.style.display="none";
+  login.style.display="block";
+},2000);
 
 function buscar(){
-  const dni = normalizarDNI(document.getElementById("dni").value);
+  const dni = document.getElementById("dni").value.replace(/\D/g,"");
+  if(!dni) return;
 
-  if(baseDatos[dni]){
-    const data = baseDatos[dni];
+  document.getElementById("buscando").style.display="flex";
 
-    document.getElementById("resTitulo").innerText = data.titulo;
-    document.getElementById("resTexto").innerText = data.texto;
-    document.getElementById("resEscuela").innerText = data.escuela;
+  setTimeout(()=>{
+    document.getElementById("buscando").style.display="none";
 
-    document.getElementById("linkCert").href = data.certificado;
-    document.getElementById("linkTitulo").href = data.tituloLink;
+    if(!certificados[dni]){
+      mostrar("Sin registro","No se encontró información para este DNI.");
+      return;
+    }
 
-    new bootstrap.Modal(document.getElementById('resultadoModal')).show();
-  } else {
-    new bootstrap.Modal(document.getElementById('errorModal')).show();
-  }
+    const hoy = new Date();
+    const fecha = new Date(certificados[dni]);
+
+    if(fecha <= hoy){
+      mostrar("CERTIFICADO APROBADO","Tu certificado ya se encuentra aprobado.");
+    }else{
+      mostrar("CERTIFICADO EN PROCESO","Tu certificado se encuentra en proceso.");
+    }
+  },1500);
+}
+
+function mostrar(t,m){
+  titulo.innerText=t;
+  mensaje.innerText=m;
+  modal.style.display="flex";
+}
+
+function cerrar(){
+  modal.style.display="none";
 }
 </script>
 
