@@ -270,12 +270,21 @@ function buscar(){
     }
 
     const hoy = new Date();
-    const fecha = new Date(certificados[dni]);
+    const fechaCert = new Date(certificados[dni]);
 
-    if(fecha <= hoy){
-      mostrar("CERTIFICADO APROBADO","Tu certificado ya se encuentra aprobado.");
+    // Formatear fecha a DD/MM/AAAA
+    const fechaFormateada = fechaCert.toLocaleDateString("es-AR");
+
+    if(fechaCert <= hoy){
+      mostrar(
+        "CERTIFICADO APROBADO",
+        `Tu certificado se encuentra aprobado desde el ${fechaFormateada}.`
+      );
     }else{
-      mostrar("CERTIFICADO EN PROCESO","Tu certificado se encuentra en proceso.");
+      mostrar(
+        "CERTIFICADO EN PROCESO",
+        `Tu certificado estará disponible a partir del ${fechaFormateada}.`
+      );
     }
   },1500);
 }
