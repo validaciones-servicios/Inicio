@@ -300,17 +300,19 @@ buscarBtn.onclick = () => {
   const partes = r.nombre.split(" ");
   let apellido = partes.pop();
 
-  while(partes.length){
-    const posible = partes[partes.length - 1];
-    const combinado = posible + " " + apellido;
-
-    if(conectores.includes(posible) || conectores.includes(combinado)){
-      apellido = partes.pop() + " " + apellido;
-    } else {
-      break;
-    }
+if (partes.length >= 2) {
+  const posibleCompuesto = partes.slice(-2).join(" ") + " " + apellido;
+  if (conectores.includes(posibleCompuesto)) {
+    apellido = partes.splice(-2).join(" ") + " " + apellido;
   }
+}
 
+if (partes.length >= 1) {
+  const posibleSimple = partes[partes.length - 1] + " " + apellido;
+  if (conectores.includes(posibleSimple)) {
+    apellido = partes.pop() + " " + apellido;
+  }
+}
   const nombres = partes.join(" ");
 
   apellidoInput = apellido;
