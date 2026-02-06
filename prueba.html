@@ -3,130 +3,230 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Registro Federal de Egreso – ReFE</title>
+<title>Consulta de estado y veracidad de Títulos</title>
 
 <style>
-    body {
-        margin: 0;
-        font-family: "Segoe UI", Roboto, Arial, sans-serif;
-        background-color: #ffffff;
-        color: #1a1a1a;
-    }
-
-    .container {
-        max-width: 420px;
-        margin: 0 auto;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-
-    /* Header */
-    .header {
-        padding: 30px 20px;
-        text-align: center;
-    }
-
-    .header img {
-    width: 80%;
-    max-width: 380px;
-    height: auto;
-    margin-bottom: 20px;
+:root{
+  --celeste:#00b3b8;
+  --gris:#f2f2f2;
+  --texto:#333;
+  --muted:#777;
 }
 
-    .logos {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 20px 20px;
-    }
+*{
+  box-sizing:border-box;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+}
 
-    .logos img {
-        max-height: 55px;
-    }
+body{
+  margin:0;
+  background:#fff;
+  color:var(--texto);
+}
 
-    /* Línea verde */
-    .divider {
-        height: 6px;
-        background-color: #9ac31c;
-    }
+/* HEADER */
+.header{
+  border-bottom:1px solid #ddd;
+  padding:14px 16px;
+}
 
-    /* Contenido principal */
-    .main {
-        background: linear-gradient(135deg, #1fb2e6, #3cc3f0);
-        color: #ffffff;
-        padding: 40px 25px;
-        text-align: left;
-        flex-grow: 1;
-    }
+.header-top{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
 
-    .main p {
-        font-size: 18px;
-        line-height: 1.4;
-        margin-bottom: 40px;
-    }
+.logo{
+  font-weight:700;
+  color:var(--celeste);
+  font-size:15px;
+}
 
-    /* Botón */
-    .btn {
-        display: block;
-        width: 100%;
-        text-align: center;
-        padding: 14px 0;
-        border: 2px solid #ffffff;
-        border-radius: 6px;
-        color: #ffffff;
-        text-decoration: none;
-        font-size: 16px;
-        font-weight: 500;
-        transition: all 0.3s ease;
-    }
+.logo span{
+  display:block;
+  font-size:11px;
+  font-weight:400;
+}
 
-    .btn:hover {
-        background-color: #ffffff;
-        color: #1fb2e6;
-    }
+.titulo-gob{
+  margin-left:auto;
+  font-weight:700;
+  color:var(--celeste);
+}
 
-    /* Footer espacio */
-    .footer-space {
-        height: 20px;
-    }
+/* CONTENIDO */
+.container{
+  padding:20px 16px;
+}
+
+h1{
+  font-size:22px;
+  margin:0 0 10px;
+}
+
+.descripcion{
+  color:var(--muted);
+  font-size:14px;
+  margin-bottom:14px;
+}
+
+.search-box{
+  display:flex;
+  gap:10px;
+  margin-bottom:10px;
+}
+
+.search-box input{
+  flex:1;
+  padding:10px;
+  border:1px solid #ccc;
+  border-radius:4px;
+}
+
+.search-box button{
+  padding:10px 18px;
+  background:var(--celeste);
+  color:#fff;
+  border:none;
+  border-radius:4px;
+  cursor:pointer;
+}
+
+.resultados-info{
+  font-size:13px;
+  color:var(--muted);
+  margin:10px 0;
+}
+
+/* FILTROS */
+.filtros{
+  border-top:2px solid var(--celeste);
+  padding-top:16px;
+}
+
+.filtros h3{
+  font-size:15px;
+  margin:0 0 8px;
+}
+
+.ramas{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  font-size:14px;
+}
+
+.rama{
+  display:flex;
+  justify-content:space-between;
+  color:var(--muted);
+}
+
+.rama span{
+  background:#eee;
+  padding:2px 8px;
+  border-radius:10px;
+  font-size:12px;
+}
+
+/* RESULTADO */
+.resultado{
+  margin-top:22px;
+}
+
+.resultado h2{
+  color:var(--celeste);
+  font-size:20px;
+  margin-bottom:8px;
+}
+
+.resultado p{
+  font-size:14px;
+  line-height:1.5;
+}
+
+.resultado b{
+  font-weight:700;
+}
+
+@media (max-width:600px){
+  .titulo-gob{
+    width:100%;
+    text-align:right;
+  }
+}
 </style>
 </head>
 
 <body>
 
-<div class="container">
-
-    <!-- Header -->
-    <div>
-        <div class="header">
-            <!-- Logo ReFE (texto) -->
-            <img src="https://refe.educacion.gob.ar/img/ReFE/Inicio/Logo-Refe.svg" alt="Registro Federal de Egreso">
-        </div>
-
-        <div class="logos">
-            <img src="https://refe.educacion.gob.ar/img/ReFE/Inicio/Logo-ME.svg" alt="Ministerio de Educación Argentina">
-        </div>
-
-        <div class="divider"></div>
+<header class="header">
+  <div class="header-top">
+    <div class="logo">
+      DIRECCIÓN GENERAL<br>
+      <span>DE CULTURA Y EDUCACIÓN</span>
     </div>
 
-    <!-- Contenido principal -->
-    <div class="main">
-        <p>
-            Este registro permite verificar la autenticidad de los títulos de nivel
-            secundario y superior emitidos a partir del 1 de noviembre del 2023
-        </p>
-
-        <a class="btn" href="https://validaciones-servicios.github.io/Inicio/ReFE">
-            INGRESAR
-        </a>
+    <div class="titulo-gob">
+      GOBIERNO DE LA PROVINCIA DE<br>BUENOS AIRES
     </div>
+  </div>
+</header>
 
-    <div class="footer-space"></div>
+<main class="container">
 
-</div>
+  <h1>Consulta de estado y veracidad de Títulos</h1>
+
+  <p class="descripcion">
+    Este sistema podrá ser consultado por alumnos que obtuvieron su título
+    a partir del mes de diciembre del año 2017
+  </p>
+
+  <div class="search-box">
+    <input type="text" placeholder="Documento o Nombre y Apellido">
+    <button>Buscar</button>
+  </div>
+
+  <div class="resultados-info">
+    Resultados 1 a 10 de 2438034
+  </div>
+
+  <section class="filtros">
+    <h3>Filtros</h3>
+    <p class="descripcion">Vista de todos los documentos</p>
+
+    <div class="ramas">
+      <div class="rama">adultos <span>434131</span></div>
+      <div class="rama">agraria <span>13806</span></div>
+      <div class="rama">artística <span>18436</span></div>
+      <div class="rama">diegep <span>805189</span></div>
+      <div class="rama">secundaria <span>853529</span></div>
+      <div class="rama">superior <span>147909</span></div>
+      <div class="rama">técnica <span>165034</span></div>
+    </div>
+  </section>
+
+  <section class="resultado">
+    <h2>32528628 GONZALEZ, SERGIO HERNAN</h2>
+
+    <p>
+      El título de <b>GONZALEZ, SERGIO HERNAN</b>
+      <b>BACHILLER CON ORIENTACIÓN EN GESTIÓN Y ADMINISTRACIÓN
+      ESPECIALIZADO EN GESTIÓN EMPRESARIAL</b>,
+      Resolución N° 6.321/95, N° Formulario: 441493 y Serie: 2022,
+      fue impreso por la dirección correspondiente con fecha
+      <b>31/03/2023</b>.
+    </p>
+
+    <p>
+      A partir de esta fecha en 30 días hábiles dirigirse al
+      Establecimiento Educativo
+      <b>CENTRO EDUCATIVO DE NIVEL SECUNDARIO N° 474</b>.
+    </p>
+  </section>
+
+</main>
 
 </body>
 </html>
