@@ -76,7 +76,7 @@ body{
 .header{
   background:var(--azul);
   color:#fff;
-  padding:16px;
+  padding:8px 16px;   /* ⬆️ menos padding vertical */
   text-align:center;
   font-size:20px;
   font-weight:600;
@@ -187,118 +187,4 @@ footer a{
   text-decoration:underline;
   margin:0 12px;
   font-size:15px;
-}
-</style>
-</head>
-
-<body>
-
-<div class="app">
-
-<!-- LOADER -->
-<div id="loader">
-  <div class="logo">mi</div>
-  <div class="spinner"></div>
-  <p>Cargando información ...</p>
-</div>
-
-<!-- LOGIN -->
-<div id="login">
-  <div class="header">miArgentina</div>
-
-  <div class="container">
-    <h2>Ingresá a tu cuenta</h2>
-
-    <label>DNI</label>
-    <input type="text" id="dni" placeholder="Ingresá tu DNI">
-
-    <button onclick="buscar()">Ingresar</button>
-  </div>
-</div>
-
-<!-- FOOTER -->
-<footer>
-  <div class="logo-footer">
-    <span>mi</span><span>Argentina</span>
-  </div>
-  <div>
-    <a href="#">Preguntas frecuentes</a>
-    <a href="#">Términos y condiciones</a>
-  </div>
-</footer>
-
-</div>
-
-<!-- BUSCANDO -->
-<div id="buscando">
-  <div class="spinner"></div>
-</div>
-
-<!-- MODAL -->
-<div class="modal" id="modal">
-  <div class="modal-content">
-    <h3 id="titulo"></h3>
-    <p id="mensaje"></p>
-    <button onclick="cerrar()">Aceptar</button>
-  </div>
-</div>
-
-<script>
-const certificados = {
-  "30123456":"2026-02-01",
-  "28999888":"2025-01-10",
-  "33444555":"2024-05-20"
-};
-
-setTimeout(()=>{
-  loader.style.display="none";
-  login.style.display="flex";
-},2000);
-
-function buscar(){
-  const dni = document.getElementById("dni").value.replace(/\D/g,"");
-  if(!dni) return;
-
-  buscando.style.display="flex";
-
-  setTimeout(()=>{
-    buscando.style.display="none";
-
-    if(!certificados[dni]){
-      mostrar("Sin registro","No se encontró información para este DNI.");
-      return;
-    }
-
-    const hoy = new Date();
-    const fechaCert = new Date(certificados[dni]);
-
-    // Formatear fecha a DD/MM/AAAA
-    const fechaFormateada = fechaCert.toLocaleDateString("es-AR");
-
-    if(fechaCert <= hoy){
-      mostrar(
-        "CERTIFICADO APROBADO",
-        `Tu certificado se encuentra aprobado desde el ${fechaFormateada}.`
-      );
-    }else{
-      mostrar(
-        "CERTIFICADO EN PROCESO",
-        `Tu certificado estará disponible a partir del ${fechaFormateada}.`
-      );
-    }
-  },1500);
-}
-
-function mostrar(t,m){
-  titulo.innerText=t;
-  mensaje.innerText=m;
-  modal.style.display="flex";
-}
-
-function cerrar(){
-  modal.style.display="none";
-}
-</script>
-
-</body>
-</html>
+  
