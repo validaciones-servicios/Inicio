@@ -5,168 +5,175 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Registro Federal de Egreso</title>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
 <style>
-body {
-    background-color: #f4f6f8;
-    font-family: Arial, sans-serif;
-    color: #333;
-}
-header {
-    margin: 20px 0;
-    background-color:#37BBED;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-header img {
-    max-height: 50px;
-    margin-bottom: 10px;
-}
-header h1, header h2 {
-    color: #fff;
-    margin: 0;
-    align-self: flex-start;
-}
-header h1 { font-size: 22px; }
-header h2 { font-size: 18px; }
-
-.student-info {
-    background-color: #37BBED;
-    color: #fff;
-    padding: 12px 18px;
-    border-radius: 8px;
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 15px;
+:root{
+  --celeste:#37BBED;
+  --verde:#8DC21F;
+  --gris:#e9ecef;
+  --texto:#333;
 }
 
-table th {
-    background-color: #37BBED;
-    color: #fff;
+*{
+  box-sizing:border-box;
+  font-family:Arial, Helvetica, sans-serif;
 }
-table tbody tr:nth-child(even){background:#d1ebfc;}
-table tbody tr:nth-child(odd){background:#b3dcf7;}
-</style>
-</head>
 
-<body>
+body{
+  margin:0;
+  background:#fff;
+  color:var(--texto);
+}
 
-<header>
-    <img src="https://refe.educacion.gob.ar/img/ReFE/Banner/ReFE-Banner.svg" width="330">
-    <h1>Dirección de Validez Nacional de Títulos.</h1>
-    <h2>Registro Federal de Egreso</h2>
-</header>
+/* HEADER */
+header{
+  background:var(--celeste);
+  padding:20px;
+}
 
-<main class="container my-4">
+.header-top{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:20px;
+}
 
-<form id="form-busqueda">
-    <div class="input-group mb-2">
-        <span class="input-group-text" style="width:250px">Tipo de Documento</span>
-        <select class="form-select" id="tipoDoc">
-            <option value="">-- Seleccione --</option>
-            <option>DNI</option>
-            <option>LE</option>
-            <option>LC</option>
-            <option>DOCUMENTO EXTRANJERO</option>
-        </select>
-    </div>
+.header-top img{
+  height:38px;
+}
 
-    <div class="input-group mb-2">
-        <span class="input-group-text" style="width:250px">Número de Documento</span>
-        <input class="form-control" id="numeroDoc">
-    </div>
+.header-title{
+  color:#fff;
+}
 
-    <div class="input-group mb-2">
-        <span class="input-group-text" style="width:250px">Apellido</span>
-        <input class="form-control" id="apellido">
-    </div>
+.header-title h1{
+  font-size:22px;
+  margin:0;
+  font-weight:600;
+}
 
-    <div class="input-group mb-2">
-        <span class="input-group-text" style="width:250px">Nombre</span>
-        <input class="form-control" id="nombre">
-    </div>
+.header-title h2{
+  font-size:18px;
+  margin:5px 0 0;
+  font-weight:400;
+}
 
-    <div class="text-end mt-3">
-        <button type="button" class="btn btn-primary me-2" id="nuevaBusqueda" style="width:200px">Nueva búsqueda</button>
-        <button type="button" class="btn btn-success" id="buscarBtn" style="width:200px">Buscar</button>
-    </div>
-</form>
+/* MAIN */
+main{
+  max-width:520px;
+  margin:0 auto;
+  padding:20px 15px;
+}
 
-<div id="infoEstudiante" style="display:none" class="mt-4">
-    <div class="student-info" id="studentName"></div>
+/* FORM */
+.form-group{
+  display:flex;
+  margin-bottom:10px;
+}
 
-    <div class="table-responsive">
-        <table class="table table-bordered">
-            <thead>
-            <tr>
-                <th>Tipo</th><th>DNI</th><th>Título</th><th>Jurisdicción</th>
-                <th>Institución</th><th>CUE</th><th>Fecha</th>
-                <th>Norm. Jur.</th><th>Norm. Nac.</th><th>Serie</th>
-                <th>Blockchain</th><th>Ver</th>
-            </tr>
-            </thead>
-            <tbody id="tablaBody"></tbody>
-        </table>
-    </div>
-</div>
+.form-label{
+  background:var(--gris);
+  padding:12px;
+  min-width:45%;
+  border-radius:6px 0 0 6px;
+  font-size:14px;
+}
 
-</main>
+.form-control{
+  width:100%;
+  padding:12px;
+  border:1px solid #ccc;
+  border-left:none;
+  border-radius:0 6px 6px 0;
+  font-size:14px;
+}
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+.form-control:focus{
+  outline:none;
+}
 
-<script>
-const datosEstudiantes = [
-    {dni:"37660995",nombre:"LUCAS IVAN TEMPONE",tipoDoc:"DNI",titulo:"ECONOMÍA Y ADMINISTRACIÓN",
-    jurisdiccion:"BUENOS AIRES",institucion:"E DE COMERCIO N°29",cue:"00612275",
-    fechaEgreso:"20/12/2020",normativaJur:"RES. 302/12",normativaNac:"RM 1466/18",
-    serie:"06-08336-2020",hash:"0xABC",autoridad:"LLERAL Máxima Andre",
-    fechaSello:"2020-12-20"}
-];
+/* LINK */
+.blockchain-link{
+  font-size:14px;
+  margin:10px 0 20px;
+}
 
-document.getElementById("buscarBtn").onclick = () => {
-    const dni = numeroDoc.value.trim();
-    const r = datosEstudiantes.find(e => e.dni === dni);
+.blockchain-link a{
+  color:var(--celeste);
+  text-decoration:none;
+}
 
-    if(!r){
-        alert("No se encontró el DNI");
-        infoEstudiante.style.display="none";
-        return;
-    }
+/* BUTTONS */
+.buttons{
+  display:flex;
+  gap:10px;
+}
 
-    infoEstudiante.style.display="block";
-    studentName.textContent = r.nombre;
-    tipoDoc.value = r.tipoDoc;
+.btn{
+  flex:1;
+  padding:12px;
+  border:none;
+  border-radius:6px;
+  font-size:16px;
+  color:#fff;
+  cursor:pointer;
+}
 
-    tablaBody.innerHTML = `
-    <tr>
-        <td>${r.tipoDoc}</td>
-        <td>${r.dni}</td>
-        <td>${r.titulo}</td>
-        <td>${r.jurisdiccion}</td>
-        <td>${r.institucion}</td>
-        <td>${r.cue}</td>
-        <td>${r.fechaEgreso}</td>
-        <td>${r.normativaJur}</td>
-        <td>${r.normativaNac}</td>
-        <td>${r.serie}</td>
-        <td>${r.hash}</td>
-        <td>
-            <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#modal">
-                <i class="fa fa-eye"></i>
-            </button>
-        </td>
-    </tr>`;
-};
+.btn-reset{
+  background:#4cc1ef;
+}
 
-document.getElementById("nuevaBusqueda").onclick = () => {
-    form-busqueda.reset();
-    infoEstudiante.style.display="none";
-};
-</script>
+.btn-search{
+  background:var(--verde);
+}
 
-</body>
-</html>
+/* RESULT */
+#infoEstudiante{
+  display:none;
+  margin-top:25px;
+}
+
+.student-info{
+  background:var(--celeste);
+  color:#fff;
+  padding:12px;
+  border-radius:6px;
+  font-weight:bold;
+  margin-bottom:10px;
+}
+
+/* TABLE */
+.table-wrapper{
+  overflow-x:auto;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:13px;
+}
+
+th,td{
+  border:1px solid #ccc;
+  padding:8px;
+  text-align:left;
+}
+
+th{
+  background:var(--celeste);
+  color:#fff;
+}
+
+/* FOOTER TEXT */
+.info-text{
+  font-size:13px;
+  margin-top:25px;
+  line-height:1.5;
+}
+
+/* RESPONSIVE DESKTOP */
+@media(min-width:768px){
+  main{
+    max-width:900px;
+  }
+  .form-label{
+    min-width:30
