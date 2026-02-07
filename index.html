@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Consulta de estado y veracidad de Títulos</title>
 
-<!-- Bootstrap 5 -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <style>
@@ -56,17 +55,6 @@ body{
   padding:20px 16px;
 }
 
-h1{
-  font-size:22px;
-  font-weight:600;
-  margin-bottom:10px;
-}
-
-.descripcion{
-  font-size:14px;
-  color:var(--muted);
-}
-
 .search-box{
   display:flex;
   gap:10px;
@@ -86,90 +74,28 @@ h1{
   border:none;
   padding:10px 18px;
   border-radius:4px;
-  cursor:pointer;
 }
 
-.resultados-info{
-  font-size:13px;
-  color:var(--muted);
-}
-
-.filtros{
-  border-top:2px solid var(--celeste);
-  margin-top:20px;
-  padding-top:15px;
-}
-
-.ramas{
-  font-size:14px;
-}
-
-.rama{
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:6px;
-  color:var(--muted);
-}
-
-.rama span{
-  background:#eee;
-  padding:2px 8px;
-  border-radius:12px;
-  font-size:12px;
-}
-
-/* ===== MODAL ESTILO MATANZA ===== */
-.modal-content{
-  border-radius:6px;
-  border:none;
-}
-
-.modal-body.resultado{
-  padding:24px 26px;
-}
-
-.modal-body.resultado h2{
-  font-size:20px;
-  font-weight:600;
-  color:var(--celeste);
-  margin-bottom:18px;
-}
-
-.modal-body.resultado p{
-  font-size:14px;
-  line-height:1.6;
-  color:#333;
-  margin-bottom:10px;
-}
-
-.modal-body.resultado .resaltado{
-  color:var(--celeste);
-  font-weight:600;
-}
+/* MODAL */
+.modal-content{ border-radius:6px; }
+.modal-body.resultado{ padding:24px 26px; }
+.resaltado{ color:var(--celeste); font-weight:600; }
 
 .modal-actions{
   display:flex;
   gap:10px;
-  flex-wrap:wrap;
   margin-top:20px;
 }
-
 .modal-actions a{
   flex:1;
   text-align:center;
   padding:10px;
   border-radius:4px;
-  text-decoration:none;
-  font-size:14px;
-  font-weight:500;
   border:1px solid #ddd;
-  background:#f8f9fa;
-  color:#333;
+  text-decoration:none;
 }
-
-.modal-actions .btn-refe{
+.btn-refe{
   background:var(--celeste);
-  border-color:var(--celeste);
   color:#fff;
 }
 </style>
@@ -193,34 +119,10 @@ h1{
 
 <h1>Consulta de estado y veracidad de Títulos</h1>
 
-<p class="descripcion">
-Este sistema podrá ser consultado por alumnos que obtuvieron su título
-a partir del mes de diciembre del año 1970
-</p>
-
 <div class="search-box">
   <input id="dni" type="text" placeholder="Documento o Nombre y Apellido">
   <button onclick="buscar()">Buscar</button>
 </div>
-
-<div class="resultados-info">
-Resultados 1 a 10 de 2438034
-</div>
-
-<section class="filtros">
-  <strong>Filtros</strong>
-  <p class="descripcion">Vista de todos los documentos</p>
-
-  <div class="ramas">
-    <div class="rama">adultos <span>434131</span></div>
-    <div class="rama">agraria <span>13806</span></div>
-    <div class="rama">artística <span>18436</span></div>
-    <div class="rama">diegep <span>805189</span></div>
-    <div class="rama">secundaria <span>853529</span></div>
-    <div class="rama">superior <span>147909</span></div>
-    <div class="rama">técnica <span>165034</span></div>
-  </div>
-</section>
 
 </main>
 
@@ -234,26 +136,11 @@ Resultados 1 a 10 de 2438034
 
         <p>
           El título de
-          <span class="resaltado">GONZALEZ, SERGIO HERNAN</span>
-          <span class="resaltado">
-            BACHILLER CON ORIENTACIÓN EN GESTIÓN Y ADMINISTRACIÓN
-            ESPECIALIZADO EN GESTIÓN EMPRESARIAL
-          </span>,
+          <span id="resNombre" class="resaltado"></span>
+          <span id="resCarrera" class="resaltado"></span>,
         </p>
 
-        <p id="resTexto"></p>
-
-        <p>
-          <strong>RESOLUCIÓN N° 6.321/95</strong>,
-          N° Formulario: <strong>441493</strong> y Serie: <strong>2022</strong>,
-          fue impreso por la dirección correspondiente con fecha
-          <strong>31/03/2023</strong>,
-          a partir de esta fecha en <strong>30 días hábiles</strong>
-          dirigirse al
-          <strong>CENTRO EDUCATIVO DE NIVEL SECUNDARIO N° 474</strong>
-          de <strong>MATANZA</strong>
-          a retirar su Título.
-        </p>
+        <p id="resTextoLegal"></p>
 
         <div class="modal-actions">
           <a id="linkCert" href="#" target="_blank">Ver Certificado</a>
@@ -282,8 +169,16 @@ Resultados 1 a 10 de 2438034
 <script>
 const baseDatos = {
   "32528628": {
-    titulo: "32528628 GONZALEZ, SERGIO HERNAN",
-    texto: "El título fue impreso por la dirección correspondiente.",
+    tituloCabecera: "32528628 GONZALEZ, SERGIO HERNAN",
+    nombre: "GONZALEZ, SERGIO HERNAN",
+    carrera: "BACHILLER CON ORIENTACIÓN EN GESTIÓN Y ADMINISTRACIÓN",
+    resolucion: "6.321/95",
+    formulario: "441493",
+    serie: "2022",
+    fecha: "31/03/2023",
+    dias: "30 días hábiles",
+    establecimiento: "CENTRO EDUCATIVO DE NIVEL SECUNDARIO N° 474",
+    distrito: "MATANZA",
     certificado: "https://ejemplo.com/certificado.pdf",
     tituloLink: "https://ejemplo.com/titulo.pdf"
   }
@@ -297,13 +192,26 @@ function buscar(){
   const dni = normalizarDNI(document.getElementById("dni").value);
 
   if(baseDatos[dni]){
-    const data = baseDatos[dni];
+    const d = baseDatos[dni];
 
-    document.getElementById("resTitulo").innerText = data.titulo;
-    document.getElementById("resTexto").innerText = data.texto;
+    document.getElementById("resTitulo").innerText = d.tituloCabecera;
+    document.getElementById("resNombre").innerText = d.nombre;
+    document.getElementById("resCarrera").innerText = " " + d.carrera;
 
-    document.getElementById("linkCert").href = data.certificado;
-    document.getElementById("linkTitulo").href = data.tituloLink;
+    document.getElementById("resTextoLegal").innerHTML = `
+      <strong>RESOLUCIÓN N° ${d.resolucion}</strong>,
+      N° Formulario: <strong>${d.formulario}</strong> y Serie: <strong>${d.serie}</strong>,
+      fue impreso por la dirección correspondiente con fecha
+      <strong>${d.fecha}</strong>,
+      a partir de esta fecha en <strong>${d.dias}</strong>
+      dirigirse al
+      <strong>${d.establecimiento}</strong>
+      de <strong>${d.distrito}</strong>
+      a retirar su Título.
+    `;
+
+    document.getElementById("linkCert").href = d.certificado;
+    document.getElementById("linkTitulo").href = d.tituloLink;
 
     new bootstrap.Modal(document.getElementById('resultadoModal')).show();
   } else {
