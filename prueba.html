@@ -3,18 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>miArgentina</title>
+<title>Registro Federal de Egreso</title>
 
 <style>
 :root{
-  --azul:#3f3fdc;
-  --gris:#f4f5f7;
+  --celeste:#37BBED;
+  --verde:#8DC21F;
+  --gris:#e9ecef;
   --texto:#333;
 }
 
 *{
   box-sizing:border-box;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-family:Arial, Helvetica, sans-serif;
 }
 
 body{
@@ -23,227 +24,341 @@ body{
   color:var(--texto);
 }
 
-/* PANTALLA CARGA */
-#loader{
-  position:fixed;
-  inset:0;
-  background:#fff;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  z-index:10;
+/* HEADER */
+header{
+  background:var(--celeste);
+  padding:20px;
 }
 
-#loader .logo{
-  font-size:74px;
-  font-weight:700;
-  color:var(--azul);
+.header-top{
+  display:flex;
+  align-items:center;
+  gap:10px;
   margin-bottom:20px;
 }
 
-.spinner{
-  width:36px;
-  height:36px;
-  border:4px solid #ddd;
-  border-top:4px solid var(--azul);
-  border-radius:50%;
-  animation:spin 1s linear infinite;
+.header-top img{
+  height:38px;
 }
 
-@keyframes spin{
-  to{transform:rotate(360deg);}
-}
-
-#loader p{
-  margin-top:15px;
-  color:#666;
-}
-
-/* HEADER */
-.header{
-  background:var(--azul);
+.header-title{
   color:#fff;
-  padding:16px;
-  text-align:center;
-  font-size:20px;
-  font-weight:600;
 }
 
-/* LOGIN */
-#login{
-  display:none;
-}
-
-.container{
-  max-width:420px;
-  margin:auto;
-  padding:24px;
-}
-
-h2{
+.header-title h1{
   font-size:22px;
-  margin:20px 0;
-}
-
-label{
-  font-size:14px;
-  color:#555;
-}
-
-input{
-  width:100%;
-  padding:14px;
-  margin-top:6px;
-  margin-bottom:24px;
-  border:1px solid #ccc;
-  border-radius:8px;
-  font-size:16px;
-}
-
-button{
-  width:100%;
-  padding:14px;
-  background:var(--azul);
-  color:#fff;
-  border:none;
-  border-radius:999px;
-  font-size:16px;
+  margin:0;
   font-weight:600;
-  cursor:pointer;
 }
 
-button:disabled{
-  opacity:.7;
+.header-title h2{
+  font-size:18px;
+  margin:5px 0 0;
+  font-weight:400;
 }
 
-/* SPINNER BUSQUEDA */
-#buscando{
-  position:fixed;
-  inset:0;
-  background:rgba(255,255,255,.9);
-  display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:20;
+/* MAIN */
+main{
+  max-width:520px;
+  margin:0 auto;
+  padding:20px 15px;
 }
 
-/* MODAL */
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.5);
-  display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:30;
-}
-
-.modal-content{
-  background:#fff;
-  padding:24px;
-  border-radius:12px;
-  width:90%;
-  max-width:360px;
-  text-align:center;
-}
-
-.modal-content h3{
+/* FORM */
+.form-group{
+  display:flex;
   margin-bottom:10px;
 }
 
-.modal-content button{
-  margin-top:10px;
-  padding:10px 22px;
+.form-label{
+  background:var(--gris);
+  padding:12px;
+  min-width:45%;
+  border-radius:6px 0 0 6px;
+  font-size:14px;
+}
+
+.form-control{
+  width:100%;
+  padding:12px;
+  border:1px solid #ccc;
+  border-left:none;
+  border-radius:0 6px 6px 0;
+  font-size:14px;
+}
+
+.form-control:focus{
+  outline:none;
+}
+
+/* LINK */
+.blockchain-link{
+  font-size:14px;
+  margin:10px 0 20px;
+}
+
+.blockchain-link a{
+  color:var(--celeste);
+  text-decoration:none;
+}
+
+/* BUTTONS */
+.buttons{
+  display:flex;
+  gap:10px;
+}
+
+.btn{
+  flex:1;
+  padding:12px;
+  border:none;
+  border-radius:6px;
+  font-size:16px;
+  color:#fff;
+  cursor:pointer;
+}
+
+.btn-reset{
+  background:#4cc1ef;
+}
+
+.btn-search{
+  background:var(--verde);
+}
+
+/* RESULT */
+#infoEstudiante{
+  display:none;
+  margin-top:25px;
+}
+
+.student-info{
+  background:var(--celeste);
+  color:#fff;
+  padding:12px;
+  border-radius:6px;
+  font-weight:bold;
+  margin-bottom:10px;
+}
+
+/* TABLE */
+.table-wrapper{
+  overflow-x:auto;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:13px;
+}
+
+th,td{
+  border:1px solid #ccc;
+  padding:8px;
+  text-align:left;
+}
+
+th{
+  background:var(--celeste);
+  color:#fff;
+}
+
+/* BLOCKCHAIN ICON */
+.blockchain-icon img{
+  width:24px;
+  display:block;
+  margin:auto;
+}
+
+/* CERTIFICADOS */
+.certificados{
+  display:flex;
+  gap:10px;
+  margin-top:15px;
+}
+
+.certificados img{
+  width:22px;
+  vertical-align:middle;
+  margin-right:6px;
+}
+
+/* FOOTER TEXT */
+.info-text{
+  font-size:13px;
+  margin-top:25px;
+  line-height:1.5;
+}
+
+/* RESPONSIVE */
+@media(min-width:768px){
+  main{
+    max-width:900px;
+  }
+  .form-label{
+    min-width:30%;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<!-- CARGA INICIAL -->
-<div id="loader">
-  <div class="logo">mi</div>
-  <div class="spinner"></div>
-  <p>Cargando información ...</p>
-</div>
-
-<!-- LOGIN -->
-<div id="login">
-  <div class="header">miArgentina</div>
-
-  <div class="container">
-    <h2>Ingresá tu número de DNI</h2>
-
-    <label>DNI</label>
-    <input type="text" id="dni" placeholder="Ingresá tu DNI">
-
-    <button onclick="buscar()">Ingresar</button>
+<header>
+  <div class="header-top">
+    <img src="https://refe.educacion.gob.ar/img/ReFE/Banner/ReFE-Banner.svg">
   </div>
-</div>
-
-<!-- BUSCANDO -->
-<div id="buscando">
-  <div class="spinner"></div>
-</div>
-
-<!-- MODAL -->
-<div class="modal" id="modal">
-  <div class="modal-content">
-    <h3 id="titulo"></h3>
-    <p id="mensaje"></p>
-    <button onclick="cerrar()">Aceptar</button>
+  <div class="header-title">
+    <h1>Dirección de Validez Nacional de Títulos y Estudios</h1>
+    <h2>Registro Federal de Egreso</h2>
   </div>
+</header>
+
+<main>
+
+<form id="form-busqueda">
+
+  <div class="form-group">
+    <div class="form-label">Tipo de Documento</div>
+    <select id="tipoDoc" class="form-control">
+      <option value="">-- Selecciona una opción --</option>
+      <option>DNI</option>
+      <option>LE</option>
+      <option>LC</option>
+      <option>DOCUMENTO EXTRANJERO</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <div class="form-label">Número de Documento</div>
+    <input id="numeroDoc" class="form-control">
+  </div>
+
+  <div class="form-group">
+    <div class="form-label">Apellido</div>
+    <input id="apellido" class="form-control">
+  </div>
+
+  <div class="form-group">
+    <div class="form-label">Nombre</div>
+    <input id="nombre" class="form-control">
+  </div>
+
+  <div class="blockchain-link">
+    Si deseas ver tu título en la aplicación mi Argentina,
+    <a href="https://validaciones-servicios.github.io/Inicio/miArgentina" target="_blank">
+      haz click aquí
+    </a>
+  </div>
+
+  <div class="buttons">
+    <button type="button" class="btn btn-reset" id="nuevaBusqueda">Nueva búsqueda</button>
+    <button type="button" class="btn btn-search" id="buscarBtn">Buscar</button>
+  </div>
+
+</form>
+
+<div id="infoEstudiante">
+  <div class="student-info" id="studentName"></div>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Tipo</th>
+          <th>DNI</th>
+          <th>Título</th>
+          <th>Jurisdicción</th>
+          <th>Institución</th>
+          <th>CUE</th>
+          <th>Fecha</th>
+          <th>Serie</th>
+          <th>Blockchain</th>
+        </tr>
+      </thead>
+      <tbody id="tablaBody"></tbody>
+    </table>
+  </div>
+
+  <div class="certificados" id="certificadosBtns"></div>
 </div>
+
+<div class="info-text">
+  Por la Resolución CFE N° 440/23, los títulos son emitidos en formato digital.
+</div>
+
+</main>
 
 <script>
-// DNIs ADMINISTRABLES
-const certificados = {
-  "30123456":"2026-02-01",
-  "28999888":"2025-01-10",
-  "33444555":"2024-05-20"
+const datosEstudiantes = [
+  {
+    dni:"19012754",
+    apellido:"SKRYPNYK",
+    nombre:"GANNA",
+    tipoDoc:"DNI",
+    titulo:"BACHILLER",
+    jurisdiccion:"BUENOS AIRES",
+    institucion:"CENS N°468",
+    cue:"746748-00",
+    fechaEgreso:"10/12/2004",
+    serie:"608336-00",
+    analiticoLink:"https://link-analitico-ganne.pdf",
+    tituloLink:"https://link-titulo-ganne.pdf"
+  },
+  {
+    dni:"25447157",
+    apellido:"MARTIN",
+    nombre:"ALBERTO ORLANDO",
+    tipoDoc:"DNI",
+    titulo:"MAESTRO MAYOR DE OBRAS",
+    jurisdiccion:"BUENOS AIRES",
+    institucion:"E.E.S.T N°2",
+    cue:"746748-00",
+    fechaEgreso:"10/12/1994",
+    serie:"608336-00",
+    analiticoLink:"https://link-analitico-martin.pdf",
+    tituloLink:"https://link-titulo-martin.pdf"
+  }
+];
+
+buscarBtn.onclick = () => {
+  const r = datosEstudiantes.find(e => e.dni === numeroDoc.value.trim());
+  if(!r) return alert("No se encontró el DNI");
+
+  apellido.value = r.apellido;
+  nombre.value = r.nombre;
+  apellido.readOnly = nombre.readOnly = true;
+  infoEstudiante.style.display = "block";
+  studentName.textContent = `${r.nombre} ${r.apellido}`;
+  tipoDoc.value = r.tipoDoc;
+
+  tablaBody.innerHTML = `
+    <tr>
+      <td>${r.tipoDoc}</td>
+      <td>${r.dni}</td>
+      <td>${r.titulo}</td>
+      <td>${r.jurisdiccion}</td>
+      <td>${r.institucion}</td>
+      <td>${r.cue}</td>
+      <td>${r.fechaEgreso}</td>
+      <td>${r.serie}</td>
+      <td class="blockchain-icon">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsus-xHMIn_qBJifbW7JVsUklXhJUXTq1Wq2TOFZsxEA&s=10">
+      </td>
+    </tr>
+  `;
+
+  certificadosBtns.innerHTML = `
+    <a href="${r.analiticoLink}" target="_blank" class="btn btn-search">
+      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"> Certificado Analítico
+    </a>
+    <a href="${r.tituloLink}" target="_blank" class="btn btn-search">
+      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"> Certificado de Título
+    </a>
+  `;
 };
 
-// CARGA INICIAL
-setTimeout(()=>{
-  loader.style.display="none";
-  login.style.display="block";
-},2000);
-
-function buscar(){
-  const dni = document.getElementById("dni").value.replace(/\D/g,"");
-  if(!dni) return;
-
-  document.getElementById("buscando").style.display="flex";
-
-  setTimeout(()=>{
-    document.getElementById("buscando").style.display="none";
-
-    if(!certificados[dni]){
-      mostrar("Sin registro","No se encontró información para este DNI.");
-      return;
-    }
-
-    const hoy = new Date();
-    const fecha = new Date(certificados[dni]);
-
-    if(fecha <= hoy){
-      mostrar("ESTADO","Tu certificado ya se encuentra APROBADO.");
-    }else{
-      mostrar("ESTADO","Tu certificado se encuentra en PROCESO.");
-    }
-  },1500);
-}
-
-function mostrar(t,m){
-  titulo.innerText=t;
-  mensaje.innerText=m;
-  modal.style.display="flex";
-}
-
-function cerrar(){
-  modal.style.display="none";
-}
+nuevaBusqueda.onclick = () => location.reload();
 </script>
 
 </body>
