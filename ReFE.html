@@ -166,9 +166,21 @@ th{
 /* BLOCKCHAIN ICON */
 .blockchain-icon img{
   width:24px;
-  height:auto;
   display:block;
   margin:auto;
+}
+
+/* CERTIFICADOS */
+.certificados{
+  display:flex;
+  gap:10px;
+  margin-top:15px;
+}
+
+.certificados img{
+  width:22px;
+  vertical-align:middle;
+  margin-right:6px;
 }
 
 /* FOOTER TEXT */
@@ -178,7 +190,7 @@ th{
   line-height:1.5;
 }
 
-/* RESPONSIVE DESKTOP */
+/* RESPONSIVE */
 @media(min-width:768px){
   main{
     max-width:900px;
@@ -194,7 +206,7 @@ th{
 
 <header>
   <div class="header-top">
-    <img src="https://refe.educacion.gob.ar/img/ReFE/Banner/ReFE-Banner.svg" alt="ReFE">
+    <img src="https://refe.educacion.gob.ar/img/ReFE/Banner/ReFE-Banner.svg">
   </div>
   <div class="header-title">
     <h1>Dirección de Validez Nacional de Títulos y Estudios</h1>
@@ -234,7 +246,7 @@ th{
 
   <div class="blockchain-link">
     Si deseas ver tu título en la aplicación mi Argentina,
-    <a href="https://validaciones-servicios.github.io/Inicio/miArgentina" target="_blank" rel="noopener">
+    <a href="https://validaciones-servicios.github.io/Inicio/miArgentina" target="_blank">
       haz click aquí
     </a>
   </div>
@@ -267,10 +279,12 @@ th{
       <tbody id="tablaBody"></tbody>
     </table>
   </div>
+
+  <div class="certificados" id="certificadosBtns"></div>
 </div>
 
 <div class="info-text">
-  Por la Resolución CFE N° 440/23, los títulos son emitidos en formato digital. El ReFE es el nuevo instrumento de legalización, certificación y confronte de autenticidad de la documentación educativa correspondiente a los niveles de educación secundaria y de educación superior, para su presentación dentro del territorio argentino.
+  Por la Resolución CFE N° 440/23, los títulos son emitidos en formato digital.
 </div>
 
 </main>
@@ -287,51 +301,33 @@ const datosEstudiantes = [
     institucion:"CENS N°468",
     cue:"746748-00",
     fechaEgreso:"10/12/2004",
-    serie:"608336-00"
-  },
-  {
-    dni:"25447157",
-    apellido:"MARTIN",
-    nombre:"ALBERTO ORLANDO",
-    tipoDoc:"DNI",
-    titulo:"MAESTRO MAYOR DE OBRAS",
-    jurisdiccion:"BUENOS AIRES",
-    institucion:"E.E.S.T N°2",
-    cue:"746748-00",
-    fechaEgreso:"10/12/1994",
-    serie:"608336-00"
+    serie:"608336-00",
+    analiticoLink:"https://link-analitico-ganne.pdf",
+    tituloLink:"https://link-titulo-ganne.pdf"
   },
   {
     dni:"39843091",
     apellido:"POBLETE",
     nombre:"JONATHAN",
     tipoDoc:"DNI",
-    titulo:"SUPERIOR",
-    jurisdiccion:"NEUQUÉN",
+    titulo:"TÉCNICO BANCARIO",
+    jurisdiccion:"RIO NEGRO",
     institucion:"UNIVERSIDAD SIGLO 21",
     cue:"746748-00",
-    fechaEgreso:"10/12/2025",
-    serie:"608336-00"
-      }
+    fechaEgreso:"10/12/2005",
+    serie:"608336-00",
+    analiticoLink:"https://drive.google.com/file/d/1LW5VsB2cFQX_l8bztkwW3w1mfAAXSswe/view?usp=drivesdk",
+    tituloLink:"https://link-titulo-martin.pdf"
+  }
 ];
 
 buscarBtn.onclick = () => {
-  const dni = numeroDoc.value.trim();
-  const r = datosEstudiantes.find(e => e.dni === dni);
-
-  if(!r){
-    alert("No se encontró el DNI");
-    infoEstudiante.style.display = "none";
-    apellido.readOnly = false;
-    nombre.readOnly = false;
-    return;
-  }
+  const r = datosEstudiantes.find(e => e.dni === numeroDoc.value.trim());
+  if(!r) return alert("No se encontró el DNI");
 
   apellido.value = r.apellido;
   nombre.value = r.nombre;
-  apellido.readOnly = true;
-  nombre.readOnly = true;
-
+  apellido.readOnly = nombre.readOnly = true;
   infoEstudiante.style.display = "block";
   studentName.textContent = `${r.nombre} ${r.apellido}`;
   tipoDoc.value = r.tipoDoc;
@@ -347,19 +343,23 @@ buscarBtn.onclick = () => {
       <td>${r.fechaEgreso}</td>
       <td>${r.serie}</td>
       <td class="blockchain-icon">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsus-xHMIn_qBJifbW7JVsUklXhJUXTq1Wq2TOFZsxEA&s=10" alt="Blockchain" title="Blockchain verificado">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsus-xHMIn_qBJifbW7JVsUklXhJUXTq1Wq2TOFZsxEA&s=10">
       </td>
     </tr>
   `;
+
+  certificadosBtns.innerHTML = `
+    <a href="${r.analiticoLink}" target="_blank" class="btn btn-search">
+      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"> Certificado Analítico
+    </a>
+    <a href="${r.tituloLink}" target="_blank" class="btn btn-search">
+      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"> Certificado de Título
+    </a>
+  `;
 };
 
-nuevaBusqueda.onclick = () => {
-  document.getElementById("form-busqueda").reset();
-  infoEstudiante.style.display = "none";
-  apellido.readOnly = false;
-  nombre.readOnly = false;
-};
+nuevaBusqueda.onclick = () => location.reload();
 </script>
 
 </body>
-</html>
+  </html>
