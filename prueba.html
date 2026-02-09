@@ -1,169 +1,74 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Credencial Profesional de la Salud</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta charset="UTF-8" />
+<title>Credencial Profesional de la Salud — Plantilla</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <style>
-/* =====================
-   COLORES OFICIALES
-===================== */
+/* ===== COLORES (aprox. oficiales de la imagen) ===== */
 :root{
-  --celeste-oficial:#22b3d6;
-  --azul-escudo:#5faad3;
-  --gris-texto:#555;
+  --celeste-franja:#21b6d7;
+  --azul-escudo:#6fb6dc;
+  --gris-linea:#cfcfcf;
+  --texto:#222;
+  --muted:#666;
 }
 
-/* =====================
-   BASE
-===================== */
-body{
-  margin:0;
-  background:#e9eef2;
-  font-family:Arial, Helvetica, sans-serif;
-}
-
-.contenedor{
-  max-width:390px;
-  margin:20px auto;
-}
-
+/* ===== BASE ===== */
+body{margin:0;background:#e9eef2;font-family:Arial,Helvetica,sans-serif;}
+.contenedor{max-width:390px;margin:20px auto;}
 .tarjeta{
-  width:85.6mm;
-  height:54mm;
-  background:#fff;
-  border-radius:3mm;
-  overflow:hidden;
-  position:relative;
+  width:85.6mm;height:54mm;background:#fff;border-radius:3mm;
+  position:relative;overflow:hidden;
 }
 
-/* =====================
-   HEADER
-===================== */
+/* ===== HEADER ===== */
 .header{
-  display:flex;
-  align-items:center;
-  gap:6px;
-  padding:6px;
-  border-bottom:1px solid #ccc;
+  padding:6mm 4mm 2mm 4mm;border-bottom:1px solid var(--gris-linea);
 }
+.header .sup{font-size:8px;color:#444;}
+.header .tit{font-size:13px;font-weight:700;margin-top:1mm;}
 
-.header h1{
-  font-size:9px;
-  margin:0;
-  line-height:1.2;
-}
-
-.header span{
-  font-size:8px;
-}
-
-/* =====================
-   ESCUDO ARGENTINO
-===================== */
+/* ===== ESCUDO (marca de agua derecha) ===== */
 .escudo{
-  position:absolute;
-  right:-6mm;
-  top:6mm;
-  width:42mm;
-  opacity:0.15;
-  pointer-events:none;
+  position:absolute;right:-8mm;top:6mm;width:48mm;opacity:.35;pointer-events:none;
 }
 
-.escudo img{
-  width:100%;
-}
+/* ===== CUERPO ===== */
+.cuerpo{padding:3mm 4mm;}
+.fila{margin-bottom:1.5mm;}
+.lbl{font-size:8px;color:var(--muted);}
+.val{font-size:10.5px;font-weight:700;color:var(--texto);}
+.linea{height:1px;background:var(--gris-linea);margin:2mm 0;}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:2mm;}
+.activa{font-weight:800;color:#1e8f1e;}
 
-/* =====================
-   FOTO
-===================== */
-.foto{
-  position:absolute;
-  top:18mm;
-  left:4mm;
-  width:18mm;
-  height:22mm;
-  border:1mm solid var(--celeste-oficial);
-  border-radius:2mm;
-  overflow:hidden;
-  background:#fff;
-}
-
-.foto img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-/* =====================
-   DATOS
-===================== */
-.datos{
-  position:absolute;
-  left:26mm;
-  top:18mm;
-  right:4mm;
-}
-
-.item{
-  margin-bottom:1mm;
-}
-
-.item span{
-  font-size:7px;
-  color:var(--gris-texto);
-}
-
-.item strong{
-  display:block;
-  font-size:9px;
-}
-
-.activa{
-  color:#198754;
-  font-weight:bold;
-}
-
-/* =====================
-   FOOTER
-===================== */
+/* ===== FOOTER ===== */
 .footer{
-  position:absolute;
-  bottom:0;
-  width:100%;
-  background:var(--celeste-oficial);
-  color:#fff;
-  font-size:7px;
-  padding:2mm 3mm;
-  display:flex;
-  justify-content:space-between;
+  position:absolute;bottom:0;left:0;right:0;
+  background:var(--celeste-franja);color:#fff;
+  padding:2.5mm 4mm;font-size:8px;
+  display:flex;justify-content:space-between;align-items:center;
 }
 
-/* =====================
-   BOTÓN
-===================== */
+/* ===== MARCA DE SEGURIDAD ===== */
+.muestra{
+  position:absolute;left:50%;top:50%;
+  transform:translate(-50%,-50%) rotate(-15deg);
+  font-size:16px;letter-spacing:4px;
+  color:rgba(0,0,0,.08);font-weight:800;pointer-events:none;
+}
+
+/* ===== BOTÓN ===== */
 button{
-  width:100%;
-  padding:12px;
-  margin-top:10px;
-  border:none;
-  border-radius:10px;
-  font-size:15px;
-  background:#0b5ed7;
-  color:#fff;
+  width:100%;padding:12px;margin-top:10px;border:0;border-radius:10px;
+  background:#0b5ed7;color:#fff;font-size:15px;
 }
 
-/* =====================
-   IMPRESIÓN DNI
-===================== */
-@page{
-  size:85.6mm 54mm;
-  margin:0;
-}
-
+/* ===== IMPRESIÓN DNI ===== */
+@page{size:85.6mm 54mm;margin:0;}
 @media print{
   body{background:#fff;}
   button{display:none;}
@@ -174,75 +79,98 @@ button{
 
 <body>
 
-<!-- =====================
-   DATOS EDITABLES
-===================== -->
 <script>
+/* ===== DATOS EDITABLES (UNA SOLA LÍNEA) ===== */
 const datos = {
   nombre: "XXXXXXX XXXXX XXXXXXX",
   dni: "XXX.XXX.XXX",
   licencia: "Activa",
-  profesion: "Licenciado en Nutrición",
+  clave: "XXXXX34427",
+  profesion: "Licenciado en nutrición",
   matricula: "XXXX",
-  organismo: "Ministerio de Salud de la Nación",
-  foto: "https://via.placeholder.com/300x400"
+  fechaMatricula: "05/06/2008",
+  vencimiento: "16/03/2025",
+  organismo: "Ministerio de Salud de la Nación"
 };
 </script>
 
 <div class="contenedor" id="pdf">
-
   <div class="tarjeta">
 
     <div class="header">
-      <div>
-        <h1>Red Federal de Registros de Profesionales de la Salud</h1>
-        <span>Credencial de profesional de la salud</span>
-      </div>
+      <div class="sup">Red Federal de Registros de Profesionales de la Salud</div>
+      <div class="tit">Credencial de profesional de la salud</div>
     </div>
 
-    <!-- Escudo argentino -->
-    <div class="escudo">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Escudo_Nacional_Argentino_%28azul%29.svg">
-    </div>
+    <!-- Escudo argentino azul (SVG vectorial, marca de agua derecha) -->
+    <svg class="escudo" viewBox="0 0 512 640" aria-hidden="true">
+      <!-- Silueta simplificada del Escudo Nacional (marca de agua) -->
+      <g fill="none" stroke="var(--azul-escudo)" stroke-width="14">
+        <ellipse cx="256" cy="260" rx="170" ry="220"/>
+        <path d="M120 220h272M140 260h232M160 300h192"/>
+        <path d="M256 140v260"/>
+        <path d="M190 260c20 40 112 40 132 0"/>
+        <path d="M170 80c40 20 132 20 172 0"/>
+      </g>
+      <g fill="var(--azul-escudo)">
+        <circle cx="256" cy="40" r="18"/>
+      </g>
+    </svg>
 
-    <!-- Foto -->
-    <div class="foto">
-      <img id="foto">
-    </div>
-
-    <!-- Datos -->
-    <div class="datos">
-      <div class="item">
-        <span>Nombre y apellido</span>
-        <strong id="nombre"></strong>
+    <div class="cuerpo">
+      <div class="fila">
+        <div class="lbl">Nombre y apellido</div>
+        <div class="val" id="nombre"></div>
       </div>
 
-      <div class="item">
-        <span>Documento</span>
-        <strong>DNI <span id="dni"></span></strong>
+      <div class="fila">
+        <div class="lbl">Documento</div>
+        <div class="val">DNI <span id="dni"></span></div>
       </div>
 
-      <div class="item">
-        <span>Licencia Sanitaria Federal</span>
-        <strong class="activa" id="licencia"></strong>
+      <div class="linea"></div>
+
+      <div class="grid">
+        <div class="fila">
+          <div class="lbl">Licencia Sanitaria Federal</div>
+          <div class="val activa" id="licencia"></div>
+        </div>
+        <div class="fila">
+          <div class="lbl">Clave Profesional</div>
+          <div class="val" id="clave"></div>
+        </div>
       </div>
 
-      <div class="item">
-        <span>Profesión de Referencia</span>
-        <strong id="profesion"></strong>
+      <div class="linea"></div>
+
+      <div class="fila">
+        <div class="lbl">Profesión de Referencia</div>
+        <div class="val" id="profesion"></div>
       </div>
 
-      <div class="item">
-        <span>N° de matrícula</span>
-        <strong id="matricula"></strong>
+      <div class="grid">
+        <div class="fila">
+          <div class="lbl">Número de matrícula</div>
+          <div class="val" id="matricula"></div>
+        </div>
+        <div class="fila">
+          <div class="lbl">Fecha de matriculación</div>
+          <div class="val" id="fechaMatricula"></div>
+        </div>
+      </div>
+
+      <div class="fila">
+        <div class="lbl">Fecha de vencimiento</div>
+        <div class="val" id="vencimiento"></div>
       </div>
     </div>
 
     <div class="footer">
-      <span id="organismo"></span>
-      <span>Salud Argentina</span>
+      <div id="organismo"></div>
+      <div>Salud Argentina</div>
     </div>
 
+    <div class="muestra">MUESTRA</div>
   </div>
 </div>
 
@@ -254,18 +182,15 @@ function cargar(){
     const el=document.getElementById(k);
     if(el) el.textContent=datos[k];
   }
-  document.getElementById("foto").src=datos.foto;
 }
-
 function descargarPDF(){
   html2pdf().set({
     margin:0,
-    filename:'credencial_salud_frente.pdf',
+    filename:'credencial_salud_frente_plantilla.pdf',
     html2canvas:{scale:2},
     jsPDF:{unit:'mm',format:[85.6,54],orientation:'landscape'}
-  }).from(document.getElementById("pdf")).save();
+  }).from(document.getElementById('pdf')).save();
 }
-
 cargar();
 </script>
 
