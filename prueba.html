@@ -2,363 +2,200 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<title>Credencial Profesional de la Salud</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Registro Federal de Egreso</title>
+
+<!-- html2pdf -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <style>
-:root{
-  --celeste:#37BBED;
-  --verde:#8DC21F;
-  --gris:#e9ecef;
-  --texto:#333;
-}
-
-*{
-  box-sizing:border-box;
-  font-family:Arial, Helvetica, sans-serif;
-}
-
 body{
-  margin:0;
-  background:#fff;
-  color:var(--texto);
-}
-
-/* HEADER */
-header{
-  background:var(--celeste);
+  font-family: Arial, Helvetica, sans-serif;
+  background:#f2f2f2;
   padding:20px;
 }
 
-.header-top{
+.credencial{
+  width:900px;
+  background:#fff;
+  border-radius:12px;
+  box-shadow:0 4px 10px rgba(0,0,0,.15);
+  overflow:hidden;
+  position:relative;
+}
+
+.header{
   display:flex;
   align-items:center;
-  gap:10px;
-  margin-bottom:20px;
+  padding:16px;
+  border-bottom:2px solid #ddd;
 }
 
-.header-top img{
-  height:38px;
-}
-
-.header-title{
-  color:#fff;
-}
-
-.header-title h1{
-  font-size:22px;
+.header h2{
   margin:0;
-  font-weight:600;
+  font-size:22px;
 }
 
-.header-title h2{
+.contenido{
+  padding:20px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+
+.item span{
+  font-size:13px;
+  color:#666;
+}
+
+.item strong{
+  display:block;
   font-size:18px;
-  margin:5px 0 0;
-  font-weight:400;
+  margin-top:2px;
 }
 
-/* MAIN */
-main{
-  max-width:520px;
-  margin:0 auto;
-  padding:20px 15px;
-}
-
-/* FORM */
-.form-group{
-  display:flex;
-  margin-bottom:10px;
-}
-
-.form-label{
-  background:var(--gris);
-  padding:12px;
-  min-width:45%;
-  border-radius:6px 0 0 6px;
-  font-size:14px;
-}
-
-.form-control{
-  width:100%;
-  padding:12px;
-  border:1px solid #ccc;
-  border-left:none;
-  border-radius:0 6px 6px 0;
-  font-size:14px;
-}
-
-.form-control:focus{
-  outline:none;
-}
-
-/* LINK */
-.blockchain-link{
-  font-size:14px;
-  margin:10px 0 20px;
-}
-
-.blockchain-link a{
-  color:var(--celeste);
-  text-decoration:none;
-}
-
-/* BUTTONS */
-.buttons{
-  display:flex;
-  gap:10px;
-}
-
-.btn{
-  flex:1;
-  padding:12px;
-  border:none;
-  border-radius:6px;
-  font-size:16px;
+.footer{
+  background:#22b3d6;
   color:#fff;
+  padding:14px 20px;
+  font-weight:bold;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.activa{
+  color:#1e8f1e;
+  font-weight:bold;
+}
+
+.marca{
+  position:absolute;
+  right:20px;
+  top:80px;
+  font-size:120px;
+  color:rgba(0,0,0,.04);
+  pointer-events:none;
+}
+
+button{
+  margin-top:20px;
+  padding:12px 20px;
+  font-size:16px;
+  border:none;
+  border-radius:8px;
+  background:#007bff;
+  color:white;
   cursor:pointer;
 }
 
-.btn-reset{
-  background:#4cc1ef;
-}
-
-.btn-search{
-  background:var(--verde);
-}
-
-/* RESULT */
-#infoEstudiante{
-  display:none;
-  margin-top:25px;
-}
-
-.student-info{
-  background:var(--celeste);
-  color:#fff;
-  padding:12px;
-  border-radius:6px;
-  font-weight:bold;
-  margin-bottom:10px;
-}
-
-/* TABLE */
-.table-wrapper{
-  overflow-x:auto;
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-  font-size:13px;
-}
-
-th,td{
-  border:1px solid #ccc;
-  padding:8px;
-  text-align:left;
-}
-
-th{
-  background:var(--celeste);
-  color:#fff;
-}
-
-/* BLOCKCHAIN ICON */
-.blockchain-icon img{
-  width:24px;
-  display:block;
-  margin:auto;
-}
-
-/* CERTIFICADOS */
-.certificados{
-  display:flex;
-  gap:10px;
-  margin-top:15px;
-}
-
-.certificados img{
-  width:22px;
-  vertical-align:middle;
-  margin-right:6px;
-}
-
-/* FOOTER TEXT */
-.info-text{
-  font-size:13px;
-  margin-top:25px;
-  line-height:1.5;
-}
-
-/* RESPONSIVE */
-@media(min-width:768px){
-  main{
-    max-width:900px;
-  }
-  .form-label{
-    min-width:30%;
-  }
+button:hover{
+  background:#0056b3;
 }
 </style>
 </head>
 
 <body>
 
-<header>
-  <div class="header-top">
-    <img src="https://refe.educacion.gob.ar/img/ReFE/Banner/ReFE-Banner.svg">
-  </div>
-  <div class="header-title">
-    <h1>Dirección de Validez Nacional de Títulos y Estudios</h1>
-    <h2>Registro Federal de Egreso</h2>
-  </div>
-</header>
+<!-- =======================
+     DATOS EDITABLES
+     ======================= -->
+<script>
+const datos = {
+  nombre: "Juan Pablo Gómez",
+  dni: "34.427.890",
+  licencia: "Activa",
+  clave: "SALUD34427",
+  profesion: "Licenciado en Nutrición",
+  matricula: "4589",
+  fechaMatricula: "05/06/2008",
+  vencimiento: "16/03/2025",
+  organismo: "Ministerio de Salud de la Nación"
+};
+</script>
 
-<main>
+<div id="credencial" class="credencial">
 
-<form id="form-busqueda">
-
-  <div class="form-group">
-    <div class="form-label">Tipo de Documento</div>
-    <select id="tipoDoc" class="form-control">
-      <option value="">-- Selecciona una opción --</option>
-      <option>DNI</option>
-      <option>LE</option>
-      <option>LC</option>
-      <option>DOCUMENTO EXTRANJERO</option>
-    </select>
-  </div>
-
-  <div class="form-group">
-    <div class="form-label">Número de Documento</div>
-    <input id="numeroDoc" class="form-control">
+  <div class="header">
+    <h2>Red Federal de Registros de Profesionales de la Salud<br>
+    <small>Credencial de profesional de la salud</small></h2>
   </div>
 
-  <div class="form-group">
-    <div class="form-label">Apellido</div>
-    <input id="apellido" class="form-control">
+  <div class="contenido">
+    <div class="item">
+      <span>Nombre y apellido</span>
+      <strong id="nombre"></strong>
+    </div>
+
+    <div class="item">
+      <span>Documento</span>
+      <strong id="dni"></strong>
+    </div>
+
+    <div class="item">
+      <span>Licencia Sanitaria Federal</span>
+      <strong class="activa" id="licencia"></strong>
+    </div>
+
+    <div class="item">
+      <span>Clave Profesional</span>
+      <strong id="clave"></strong>
+    </div>
+
+    <div class="item">
+      <span>Profesión de Referencia</span>
+      <strong id="profesion"></strong>
+    </div>
+
+    <div class="item">
+      <span>Número de matrícula</span>
+      <strong id="matricula"></strong>
+    </div>
+
+    <div class="item">
+      <span>Fecha de matriculación</span>
+      <strong id="fechaMatricula"></strong>
+    </div>
+
+    <div class="item">
+      <span>Fecha de vencimiento</span>
+      <strong id="vencimiento"></strong>
+    </div>
   </div>
 
-  <div class="form-group">
-    <div class="form-label">Nombre</div>
-    <input id="nombre" class="form-control">
+  <div class="footer">
+    <div>Emitido por: <span id="organismo"></span></div>
+    <div>Salud Argentina</div>
   </div>
 
-  <div class="blockchain-link">
-    Si deseas ver tu título en la aplicación mi Argentina,
-    <a href="https://validaciones-servicios.github.io/Inicio/miArgentina" target="_blank">
-      haz click aquí
-    </a>
-  </div>
-
-  <div class="buttons">
-    <button type="button" class="btn btn-reset" id="nuevaBusqueda">Nueva búsqueda</button>
-    <button type="button" class="btn btn-search" id="buscarBtn">Buscar</button>
-  </div>
-
-</form>
-
-<div id="infoEstudiante">
-  <div class="student-info" id="studentName"></div>
-
-  <div class="table-wrapper">
-    <table>
-      <thead>
-        <tr>
-          <th>Tipo</th>
-          <th>DNI</th>
-          <th>Título</th>
-          <th>Jurisdicción</th>
-          <th>Institución</th>
-          <th>CUE</th>
-          <th>Fecha</th>
-          <th>Serie</th>
-          <th>Blockchain</th>
-        </tr>
-      </thead>
-      <tbody id="tablaBody"></tbody>
-    </table>
-  </div>
-
-  <div class="certificados" id="certificadosBtns"></div>
+  <div class="marca">SALUD</div>
 </div>
 
-<div class="info-text">
-  Por la Resolución CFE N° 440/23, los títulos son emitidos en formato digital.
-</div>
-
-</main>
+<button onclick="descargarPDF()">📄 Descargar PDF</button>
 
 <script>
-const datosEstudiantes = [
-  {
-    dni:"19012754",
-    apellido:"SKRYPNYK",
-    nombre:"GANNA",
-    tipoDoc:"DNI",
-    titulo:"BACHILLER",
-    jurisdiccion:"BUENOS AIRES",
-    institucion:"CENS N°468",
-    cue:"746748-00",
-    fechaEgreso:"10/12/2004",
-    serie:"608336-00",
-    analiticoLink:"https://link-analitico-ganne.pdf",
-    tituloLink:"https://link-titulo-ganne.pdf"
-  },
-  {
-    dni:"25447157",
-    apellido:"MARTIN",
-    nombre:"ALBERTO ORLANDO",
-    tipoDoc:"DNI",
-    titulo:"MAESTRO MAYOR DE OBRAS",
-    jurisdiccion:"BUENOS AIRES",
-    institucion:"E.E.S.T N°2",
-    cue:"746748-00",
-    fechaEgreso:"10/12/1994",
-    serie:"608336-00",
-    analiticoLink:"https://link-analitico-martin.pdf",
-    tituloLink:"https://link-titulo-martin.pdf"
+function cargarDatos(){
+  for(const key in datos){
+    const el = document.getElementById(key);
+    if(el) el.textContent = datos[key];
   }
-];
+}
 
-buscarBtn.onclick = () => {
-  const r = datosEstudiantes.find(e => e.dni === numeroDoc.value.trim());
-  if(!r) return alert("No se encontró el DNI");
+function descargarPDF(){
+  const element = document.getElementById("credencial");
+  html2pdf()
+    .set({
+      margin: 0.5,
+      filename: 'credencial_profesional_salud.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'cm', format: 'a4', orientation: 'landscape' }
+    })
+    .from(element)
+    .save();
+}
 
-  apellido.value = r.apellido;
-  nombre.value = r.nombre;
-  apellido.readOnly = nombre.readOnly = true;
-  infoEstudiante.style.display = "block";
-  studentName.textContent = `${r.nombre} ${r.apellido}`;
-  tipoDoc.value = r.tipoDoc;
-
-  tablaBody.innerHTML = `
-    <tr>
-      <td>${r.tipoDoc}</td>
-      <td>${r.dni}</td>
-      <td>${r.titulo}</td>
-      <td>${r.jurisdiccion}</td>
-      <td>${r.institucion}</td>
-      <td>${r.cue}</td>
-      <td>${r.fechaEgreso}</td>
-      <td>${r.serie}</td>
-      <td class="blockchain-icon">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsus-xHMIn_qBJifbW7JVsUklXhJUXTq1Wq2TOFZsxEA&s=10">
-      </td>
-    </tr>
-  `;
-
-  certificadosBtns.innerHTML = `
-    <a href="${r.analiticoLink}" target="_blank" class="btn btn-search">
-      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"> Certificado Analítico
-    </a>
-    <a href="${r.tituloLink}" target="_blank" class="btn btn-search">
-      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"> Certificado de Título
-    </a>
-  `;
-};
-
-nuevaBusqueda.onclick = () => location.reload();
+cargarDatos();
 </script>
 
 </body>
