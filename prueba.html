@@ -13,7 +13,7 @@
 ===================== */
 :root{
   --celeste-oficial:#22b3d6;
-  --azul-oficial:#0b5ed7;
+  --azul-escudo:#5faad3;
   --gris-texto:#555;
 }
 
@@ -38,14 +38,14 @@ body{
   border-radius:3mm;
   overflow:hidden;
   position:relative;
-  page-break-after:always;
 }
 
 /* =====================
-   FRENTE
+   HEADER
 ===================== */
 .header{
   display:flex;
+  align-items:center;
   gap:6px;
   padding:6px;
   border-bottom:1px solid #ccc;
@@ -61,6 +61,25 @@ body{
   font-size:8px;
 }
 
+/* =====================
+   ESCUDO ARGENTINO
+===================== */
+.escudo{
+  position:absolute;
+  right:-6mm;
+  top:6mm;
+  width:42mm;
+  opacity:0.15;
+  pointer-events:none;
+}
+
+.escudo img{
+  width:100%;
+}
+
+/* =====================
+   FOTO
+===================== */
 .foto{
   position:absolute;
   top:18mm;
@@ -70,6 +89,7 @@ body{
   border:1mm solid var(--celeste-oficial);
   border-radius:2mm;
   overflow:hidden;
+  background:#fff;
 }
 
 .foto img{
@@ -78,6 +98,9 @@ body{
   object-fit:cover;
 }
 
+/* =====================
+   DATOS
+===================== */
 .datos{
   position:absolute;
   left:26mm;
@@ -104,6 +127,9 @@ body{
   font-weight:bold;
 }
 
+/* =====================
+   FOOTER
+===================== */
 .footer{
   position:absolute;
   bottom:0;
@@ -117,32 +143,7 @@ body{
 }
 
 /* =====================
-   DORSO
-===================== */
-.dorso{
-  padding:6mm;
-  font-size:8px;
-}
-
-.dorso h2{
-  font-size:9px;
-  margin:0 0 3mm;
-}
-
-.qr{
-  width:22mm;
-  height:22mm;
-  border:1px solid #ccc;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:7px;
-  color:#999;
-  margin-top:3mm;
-}
-
-/* =====================
-   BOTONES
+   BOTÓN
 ===================== */
 button{
   width:100%;
@@ -151,7 +152,7 @@ button{
   border:none;
   border-radius:10px;
   font-size:15px;
-  background:var(--azul-oficial);
+  background:#0b5ed7;
   color:#fff;
 }
 
@@ -181,33 +182,35 @@ const datos = {
   nombre: "XXXXXXX XXXXX XXXXXXX",
   dni: "XXX.XXX.XXX",
   licencia: "Activa",
-  clave: "XXXXX34427",
   profesion: "Licenciado en Nutrición",
   matricula: "XXXX",
-  fechaMatricula: "05/06/2008",
-  vencimiento: "16/03/2025",
   organismo: "Ministerio de Salud de la Nación",
-  foto: "https://via.placeholder.com/300x400",
-  qrTexto: "Validación online"
+  foto: "https://via.placeholder.com/300x400"
 };
 </script>
 
 <div class="contenedor" id="pdf">
 
-  <!-- ========== FRENTE ========== -->
   <div class="tarjeta">
 
     <div class="header">
       <div>
         <h1>Red Federal de Registros de Profesionales de la Salud</h1>
-        <span>Credencial profesional</span>
+        <span>Credencial de profesional de la salud</span>
       </div>
     </div>
 
+    <!-- Escudo argentino -->
+    <div class="escudo">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Escudo_Nacional_Argentino_%28azul%29.svg">
+    </div>
+
+    <!-- Foto -->
     <div class="foto">
       <img id="foto">
     </div>
 
+    <!-- Datos -->
     <div class="datos">
       <div class="item">
         <span>Nombre y apellido</span>
@@ -215,22 +218,22 @@ const datos = {
       </div>
 
       <div class="item">
-        <span>DNI</span>
-        <strong id="dni"></strong>
+        <span>Documento</span>
+        <strong>DNI <span id="dni"></span></strong>
       </div>
 
       <div class="item">
-        <span>Licencia Sanitaria</span>
+        <span>Licencia Sanitaria Federal</span>
         <strong class="activa" id="licencia"></strong>
       </div>
 
       <div class="item">
-        <span>Profesión</span>
+        <span>Profesión de Referencia</span>
         <strong id="profesion"></strong>
       </div>
 
       <div class="item">
-        <span>Matrícula</span>
+        <span>N° de matrícula</span>
         <strong id="matricula"></strong>
       </div>
     </div>
@@ -239,26 +242,11 @@ const datos = {
       <span id="organismo"></span>
       <span>Salud Argentina</span>
     </div>
+
   </div>
-
-  <!-- ========== DORSO ========== -->
-  <div class="tarjeta dorso">
-    <h2>Información de registro</h2>
-
-    <p><strong>Clave profesional:</strong> <span id="clave"></span></p>
-    <p><strong>Fecha de matriculación:</strong> <span id="fechaMatricula"></span></p>
-    <p><strong>Vencimiento:</strong> <span id="vencimiento"></span></p>
-
-    <div class="qr" id="qr"></div>
-
-    <p style="font-size:7px;margin-top:3mm;">
-      Esta credencial es válida únicamente con verificación en el sistema oficial.
-    </p>
-  </div>
-
 </div>
 
-<button onclick="descargarPDF()">📄 Descargar PDF (Frente + Dorso)</button>
+<button onclick="descargarPDF()">📄 Descargar PDF</button>
 
 <script>
 function cargar(){
@@ -267,13 +255,12 @@ function cargar(){
     if(el) el.textContent=datos[k];
   }
   document.getElementById("foto").src=datos.foto;
-  document.getElementById("qr").textContent=datos.qrTexto;
 }
 
 function descargarPDF(){
   html2pdf().set({
     margin:0,
-    filename:'credencial_dni_salud.pdf',
+    filename:'credencial_salud_frente.pdf',
     html2canvas:{scale:2},
     jsPDF:{unit:'mm',format:[85.6,54],orientation:'landscape'}
   }).from(document.getElementById("pdf")).save();
