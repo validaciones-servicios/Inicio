@@ -5,197 +5,281 @@
 <title>Credencial Profesional de la Salud</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- html2pdf -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <style>
-body{
-  font-family: Arial, Helvetica, sans-serif;
-  background:#f2f2f2;
-  padding:20px;
+/* =====================
+   COLORES OFICIALES
+===================== */
+:root{
+  --celeste-oficial:#22b3d6;
+  --azul-oficial:#0b5ed7;
+  --gris-texto:#555;
 }
 
-.credencial{
-  width:900px;
+/* =====================
+   BASE
+===================== */
+body{
+  margin:0;
+  background:#e9eef2;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+.contenedor{
+  max-width:390px;
+  margin:20px auto;
+}
+
+.tarjeta{
+  width:85.6mm;
+  height:54mm;
   background:#fff;
-  border-radius:12px;
-  box-shadow:0 4px 10px rgba(0,0,0,.15);
+  border-radius:3mm;
   overflow:hidden;
   position:relative;
+  page-break-after:always;
 }
 
+/* =====================
+   FRENTE
+===================== */
 .header{
   display:flex;
-  align-items:center;
-  padding:16px;
-  border-bottom:2px solid #ddd;
+  gap:6px;
+  padding:6px;
+  border-bottom:1px solid #ccc;
 }
 
-.header h2{
+.header h1{
+  font-size:9px;
   margin:0;
-  font-size:22px;
+  line-height:1.2;
 }
 
-.contenido{
-  padding:20px;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:16px;
+.header span{
+  font-size:8px;
+}
+
+.foto{
+  position:absolute;
+  top:18mm;
+  left:4mm;
+  width:18mm;
+  height:22mm;
+  border:1mm solid var(--celeste-oficial);
+  border-radius:2mm;
+  overflow:hidden;
+}
+
+.foto img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.datos{
+  position:absolute;
+  left:26mm;
+  top:18mm;
+  right:4mm;
+}
+
+.item{
+  margin-bottom:1mm;
 }
 
 .item span{
-  font-size:13px;
-  color:#666;
+  font-size:7px;
+  color:var(--gris-texto);
 }
 
 .item strong{
   display:block;
-  font-size:18px;
-  margin-top:2px;
-}
-
-.footer{
-  background:#22b3d6;
-  color:#fff;
-  padding:14px 20px;
-  font-weight:bold;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+  font-size:9px;
 }
 
 .activa{
-  color:#1e8f1e;
+  color:#198754;
   font-weight:bold;
 }
 
-.marca{
+.footer{
   position:absolute;
-  right:20px;
-  top:80px;
-  font-size:120px;
-  color:rgba(0,0,0,.04);
-  pointer-events:none;
+  bottom:0;
+  width:100%;
+  background:var(--celeste-oficial);
+  color:#fff;
+  font-size:7px;
+  padding:2mm 3mm;
+  display:flex;
+  justify-content:space-between;
 }
 
+/* =====================
+   DORSO
+===================== */
+.dorso{
+  padding:6mm;
+  font-size:8px;
+}
+
+.dorso h2{
+  font-size:9px;
+  margin:0 0 3mm;
+}
+
+.qr{
+  width:22mm;
+  height:22mm;
+  border:1px solid #ccc;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:7px;
+  color:#999;
+  margin-top:3mm;
+}
+
+/* =====================
+   BOTONES
+===================== */
 button{
-  margin-top:20px;
-  padding:12px 20px;
-  font-size:16px;
+  width:100%;
+  padding:12px;
+  margin-top:10px;
   border:none;
-  border-radius:8px;
-  background:#007bff;
-  color:white;
-  cursor:pointer;
+  border-radius:10px;
+  font-size:15px;
+  background:var(--azul-oficial);
+  color:#fff;
 }
 
-button:hover{
-  background:#0056b3;
+/* =====================
+   IMPRESIÓN DNI
+===================== */
+@page{
+  size:85.6mm 54mm;
+  margin:0;
+}
+
+@media print{
+  body{background:#fff;}
+  button{display:none;}
+  .contenedor{margin:0;}
 }
 </style>
 </head>
 
 <body>
 
-<!-- =======================
-     DATOS EDITABLES
-     ======================= -->
+<!-- =====================
+   DATOS EDITABLES
+===================== -->
 <script>
 const datos = {
-  nombre: "Juan Pablo Gómez",
-  dni: "34.427.890",
+  nombre: "XXXXXXX XXXXX XXXXXXX",
+  dni: "XXX.XXX.XXX",
   licencia: "Activa",
-  clave: "SALUD34427",
+  clave: "XXXXX34427",
   profesion: "Licenciado en Nutrición",
-  matricula: "4589",
+  matricula: "XXXX",
   fechaMatricula: "05/06/2008",
   vencimiento: "16/03/2025",
-  organismo: "Ministerio de Salud de la Nación"
+  organismo: "Ministerio de Salud de la Nación",
+  foto: "https://via.placeholder.com/300x400",
+  qrTexto: "Validación online"
 };
 </script>
 
-<div id="credencial" class="credencial">
+<div class="contenedor" id="pdf">
 
-  <div class="header">
-    <h2>Red Federal de Registros de Profesionales de la Salud<br>
-    <small>Credencial de profesional de la salud</small></h2>
+  <!-- ========== FRENTE ========== -->
+  <div class="tarjeta">
+
+    <div class="header">
+      <div>
+        <h1>Red Federal de Registros de Profesionales de la Salud</h1>
+        <span>Credencial profesional</span>
+      </div>
+    </div>
+
+    <div class="foto">
+      <img id="foto">
+    </div>
+
+    <div class="datos">
+      <div class="item">
+        <span>Nombre y apellido</span>
+        <strong id="nombre"></strong>
+      </div>
+
+      <div class="item">
+        <span>DNI</span>
+        <strong id="dni"></strong>
+      </div>
+
+      <div class="item">
+        <span>Licencia Sanitaria</span>
+        <strong class="activa" id="licencia"></strong>
+      </div>
+
+      <div class="item">
+        <span>Profesión</span>
+        <strong id="profesion"></strong>
+      </div>
+
+      <div class="item">
+        <span>Matrícula</span>
+        <strong id="matricula"></strong>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span id="organismo"></span>
+      <span>Salud Argentina</span>
+    </div>
   </div>
 
-  <div class="contenido">
-    <div class="item">
-      <span>Nombre y apellido</span>
-      <strong id="nombre"></strong>
-    </div>
+  <!-- ========== DORSO ========== -->
+  <div class="tarjeta dorso">
+    <h2>Información de registro</h2>
 
-    <div class="item">
-      <span>Documento</span>
-      <strong id="dni"></strong>
-    </div>
+    <p><strong>Clave profesional:</strong> <span id="clave"></span></p>
+    <p><strong>Fecha de matriculación:</strong> <span id="fechaMatricula"></span></p>
+    <p><strong>Vencimiento:</strong> <span id="vencimiento"></span></p>
 
-    <div class="item">
-      <span>Licencia Sanitaria Federal</span>
-      <strong class="activa" id="licencia"></strong>
-    </div>
+    <div class="qr" id="qr"></div>
 
-    <div class="item">
-      <span>Clave Profesional</span>
-      <strong id="clave"></strong>
-    </div>
-
-    <div class="item">
-      <span>Profesión de Referencia</span>
-      <strong id="profesion"></strong>
-    </div>
-
-    <div class="item">
-      <span>Número de matrícula</span>
-      <strong id="matricula"></strong>
-    </div>
-
-    <div class="item">
-      <span>Fecha de matriculación</span>
-      <strong id="fechaMatricula"></strong>
-    </div>
-
-    <div class="item">
-      <span>Fecha de vencimiento</span>
-      <strong id="vencimiento"></strong>
-    </div>
+    <p style="font-size:7px;margin-top:3mm;">
+      Esta credencial es válida únicamente con verificación en el sistema oficial.
+    </p>
   </div>
 
-  <div class="footer">
-    <div>Emitido por: <span id="organismo"></span></div>
-    <div>Salud Argentina</div>
-  </div>
-
-  <div class="marca">SALUD</div>
 </div>
 
-<button onclick="descargarPDF()">📄 Descargar PDF</button>
+<button onclick="descargarPDF()">📄 Descargar PDF (Frente + Dorso)</button>
 
 <script>
-function cargarDatos(){
-  for(const key in datos){
-    const el = document.getElementById(key);
-    if(el) el.textContent = datos[key];
+function cargar(){
+  for(const k in datos){
+    const el=document.getElementById(k);
+    if(el) el.textContent=datos[k];
   }
+  document.getElementById("foto").src=datos.foto;
+  document.getElementById("qr").textContent=datos.qrTexto;
 }
 
 function descargarPDF(){
-  const element = document.getElementById("credencial");
-  html2pdf()
-    .set({
-      margin: 0.5,
-      filename: 'credencial_profesional_salud.pdf',
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: 'cm', format: 'a4', orientation: 'landscape' }
-    })
-    .from(element)
-    .save();
+  html2pdf().set({
+    margin:0,
+    filename:'credencial_dni_salud.pdf',
+    html2canvas:{scale:2},
+    jsPDF:{unit:'mm',format:[85.6,54],orientation:'landscape'}
+  }).from(document.getElementById("pdf")).save();
 }
 
-cargarDatos();
+cargar();
 </script>
 
 </body>
