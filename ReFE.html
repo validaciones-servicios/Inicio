@@ -497,13 +497,18 @@ buscarBtn.onclick = () => {
 
   // Botones (podés dejar solo del primero o hacer uno por cada título)
   certificadosBtns.innerHTML = resultados.map(r => `
-    <a href="${r.analiticoLink}" target="_blank" class="btn btn-search">
-      Certificado Analítico - ${r.titulo}
-    </a>
-    <a href="${r.tituloLink}" target="_blank" class="btn btn-search">
-      Certificado de Título - ${r.titulo}
-    </a>
-  `).join("");
+  <div class="certificado-item">
+    <div class="certificado-titulo">${r.titulo}</div>
+    <div class="certificado-botones">
+      <a href="${r.analiticoLink}" target="_blank" class="btn btn-search">
+        Certificado Analítico
+      </a>
+      <a href="${r.tituloLink}" target="_blank" class="btn btn-search">
+        Certificado de Título
+      </a>
+    </div>
+  </div>
+`).join("");
 
 };
 
