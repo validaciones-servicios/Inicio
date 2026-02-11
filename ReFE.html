@@ -449,40 +449,63 @@ const datosEstudiantes = [
 ];
 
 buscarBtn.onclick = () => {
-  const r = datosEstudiantes.find(e => e.dni === numeroDoc.value.trim());
-  if(!r) return alert("No se encontró el DNI");
 
-  apellido.value = r.apellido;
-  nombre.value = r.nombre;
-  apellido.readOnly = nombre.readOnly = true;
+  const resultados = datosEstudiantes.filter(
+    e => e.dni === numeroDoc.value.trim()
+  );
+
+  if(resultados.length === 0){
+    alert("No se encontró el DNI");
+    return;
+  }
+
   infoEstudiante.style.display = "block";
-  studentName.textContent = `${r.nombre} ${r.apellido}`;
-  tipoDoc.value = r.tipoDoc;
 
-  tablaBody.innerHTML = `
-    <tr>
-      <td>${r.tipoDoc}</td>
-      <td>${r.dni}</td>
-      <td>${r.titulo}</td>
-      <td>${r.jurisdiccion}</td>
-      <td>${r.institucion}</td>
-      <td>${r.cue}</td>
-      <td>${r.fechaEgreso}</td>
-      <td>${r.serie}</td>
-      <td class="blockchain-icon">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsus-xHMIn_qBJifbW7JVsUklXhJUXTq1Wq2TOFZsxEA&s=10">
-      </td>
-    </tr>
-  `;
+  // Tomamos el primero solo para completar datos personales
+  const primero = resultados[0];
 
-  certificadosBtns.innerHTML = `
+  apellido.value = primero.apellido;
+  nombre.value = primero.nombre;
+  apellido.readOnly = true;
+  nombre.readOnly = true;
+  tipoDoc.value = primero.tipoDoc;
+
+  studentName.textContent = `${primero.nombre} ${primero.apellido}`;
+
+  // Limpiar tabla
+  tablaBody.innerHTML = "";
+
+  // Recorrer todos los resultados
+  resultados.forEach(r => {
+
+    tablaBody.innerHTML += `
+      <tr>
+        <td>${r.tipoDoc}</td>
+        <td>${r.dni}</td>
+        <td>${r.titulo}</td>
+        <td>${r.jurisdiccion}</td>
+        <td>${r.institucion}</td>
+        <td>${r.cue}</td>
+        <td>${r.fechaEgreso}</td>
+        <td>${r.serie}</td>
+        <td class="blockchain-icon">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsus-xHMIn_qBJifbW7JVsUklXhJUXTq1Wq2TOFZsxEA&s=10">
+        </td>
+      </tr>
+    `;
+  });
+
+  // Botones (podés dejar solo del primero o hacer uno por cada título)
+  certificadosBtns.innerHTML = resultados.map(r => `
     <a href="${r.analiticoLink}" target="_blank" class="btn btn-search">
-      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"> Certificado Analítico
+      Certificado Analítico - ${r.titulo}
     </a>
     <a href="${r.tituloLink}" target="_blank" class="btn btn-search">
-      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"> Certificado de Título
+      Certificado de Título - ${r.titulo}
     </a>
-  `;
+  `).join("");
+
+};
 };
 
 nuevaBusqueda.onclick = () => location.reload();
