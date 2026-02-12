@@ -24,7 +24,6 @@ body{
   color:var(--texto);
 }
 
-/* HEADER */
 header{
   background:var(--celeste);
   padding:20px;
@@ -57,14 +56,12 @@ header{
   font-weight:400;
 }
 
-/* MAIN */
 main{
   max-width:520px;
   margin:0 auto;
   padding:20px 15px;
 }
 
-/* FORM */
 .form-group{
   display:flex;
   margin-bottom:10px;
@@ -87,22 +84,6 @@ main{
   font-size:14px;
 }
 
-.form-control:focus{
-  outline:none;
-}
-
-/* LINK */
-.blockchain-link{
-  font-size:14px;
-  margin:10px 0 20px;
-}
-
-.blockchain-link a{
-  color:var(--celeste);
-  text-decoration:none;
-}
-
-/* BUTTONS */
 .buttons{
   display:flex;
   gap:10px;
@@ -118,15 +99,9 @@ main{
   cursor:pointer;
 }
 
-.btn-reset{
-  background:#4cc1ef;
-}
+.btn-reset{ background:#4cc1ef; }
+.btn-search{ background:var(--verde); }
 
-.btn-search{
-  background:var(--verde);
-}
-
-/* RESULT */
 #infoEstudiante{
   display:none;
   margin-top:25px;
@@ -141,7 +116,6 @@ main{
   margin-bottom:10px;
 }
 
-/* TABLE */
 .table-wrapper{
   overflow-x:auto;
 }
@@ -163,41 +137,43 @@ th{
   color:#fff;
 }
 
-/* BLOCKCHAIN ICON */
 .blockchain-icon img{
-  width:24px;
+  width:22px;
   display:block;
   margin:auto;
 }
 
-/* CERTIFICADOS */
-.certificados{
+.certificado-item{
+  background:#f8f9fa;
+  padding:10px;
+  border-radius:8px;
+  margin-top:12px;
+  border:1px solid #ddd;
+}
+
+.certificado-titulo{
+  font-weight:bold;
+  margin-bottom:6px;
+}
+
+.certificado-botones{
   display:flex;
-  gap:10px;
-  margin-top:15px;
+  gap:8px;
 }
 
-.certificados img{
-  width:22px;
-  vertical-align:middle;
-  margin-right:6px;
+.certificado-botones a{
+  flex:1;
+  text-align:center;
+  text-decoration:none;
+  color:#fff;
+  padding:10px;
+  border-radius:6px;
+  background:var(--verde);
 }
 
-/* FOOTER TEXT */
 .info-text{
   font-size:13px;
   margin-top:25px;
-  line-height:1.5;
-}
-
-/* RESPONSIVE */
-@media(min-width:768px){
-  main{
-    max-width:900px;
-  }
-  .form-label{
-    min-width:30%;
-  }
 }
 </style>
 </head>
@@ -216,16 +192,12 @@ th{
 
 <main>
 
-<form id="form-busqueda">
+<form>
 
   <div class="form-group">
     <div class="form-label">Tipo de Documento</div>
     <select id="tipoDoc" class="form-control">
-      <option value="">-- Selecciona una opción --</option>
       <option>DNI</option>
-      <option>LE</option>
-      <option>LC</option>
-      <option>DOCUMENTO EXTRANJERO</option>
     </select>
   </div>
 
@@ -242,13 +214,6 @@ th{
   <div class="form-group">
     <div class="form-label">Nombre</div>
     <input id="nombre" class="form-control">
-  </div>
-
-  <div class="blockchain-link">
-    Si deseas ver tu título en la aplicación mi Argentina,
-    <a href="https://validaciones-servicios.github.io/Inicio/miArgentina" target="_blank">
-      haz click aquí
-    </a>
   </div>
 
   <div class="buttons">
@@ -280,7 +245,7 @@ th{
     </table>
   </div>
 
-  <div class="certificados" id="certificadosBtns"></div>
+  <div id="certificadosBtns"></div>
 </div>
 
 <div class="info-text">
@@ -290,191 +255,19 @@ th{
 </main>
 
 <script>
-const datosEstudiantes = [
-  {
-    dni:"19012754",
-    apellido:"SKRYPNYK",
-    nombre:"GANNA",
-    tipoDoc:"DNI",
-    titulo:"BACHILLER",
-    jurisdiccion:"BUENOS AIRES",
-    institucion:"CENS N°468",
-    cue:"746748-00",
-    fechaEgreso:"10/12/2004",
-    serie:"608336-00",
-    analiticoLink:"https://link-analitico-ganne.pdf",
-    tituloLink:"https://link-titulo-ganne.pdf"
-  },
-  {
-    dni:"39843091",
-    apellido:"POBLETE",
-    nombre:"JONATHAN",
-    tipoDoc:"DNI",
-    titulo:"TÉCNICO BANCARIO",
-    jurisdiccion:"RIO NEGRO",
-    institucion:"UNIVERSIDAD SIGLO 21",
-    cue:"746748-00",
-    fechaEgreso:"10/12/2005",
-    serie:"608336-00",
-    analiticoLink:"https://drive.google.com/file/d/1_G50qvuPOUHoIei1rHBe5wp4BvKBRbSi/view?usp=drivesdk",
-    tituloLink:"https://drive.google.com/file/d/1iS2p8y5JeJ7lvE5J-6uaoXCcdFkRP2Tr/view?usp=drivesdk"
-  },
-  {
-    dni:"96104762",
-    apellido:"VIVAS BECERRA",
-    nombre:"LEDER",
-    tipoDoc:"DNI",
-    titulo:"LICENCIATURA EN CIENCIAS POLÍTICAS",
-    jurisdiccion:"CHACO",
-    institucion:"UNIVERSIDAD DE LA CUENCA DE LA PLATA",
-    cue:"746748-00",
-    fechaEgreso:"10/12/2019",
-    serie:"608336-00",
-    analiticoLink:"https://drive.google.com/file/d/1XD3C70RY0o0AAjEgud8frVmmfdmGMQ5Y/view?usp=drivesdk",
-    tituloLink:"https://drive.google.com/file/d/1wqy3uNCR3Gbkebg5g9fVhlcq8P9VPrS-/view?usp=drivesdk"
-  },
-    {
-    dni:"36937016",
-    apellido:"AMAT",
-    nombre:"DAIANA SILVINA",
-    tipoDoc:"DNI",
-    titulo:"BACHILLER",
-    jurisdiccion:"BUENOS AIRES",
-    institucion:"E.E. SECUNDARIA N°56",
-    cue:"746748-00",
-    fechaEgreso:"10/12/2011",
-    serie:"608336-00",
-    analiticoLink:"https://drive.google.com/file/d/1HvoTLwzOC7PuArOyjx_gsi21uT6fRpJu/view?usp=drivesdk",
-    tituloLink:"https://drive.google.com/file/d/15iFEsXipdPBW7vHKEEMaXRpjyrP_5178/view?usp=drivesdk"
-    },
-  {
-    dni:"23280374",
-    apellido:"AYALA",
-    nombre:"MÓNICA MARCELA",
-    tipoDoc:"DNI",
-    titulo:"BACHILLER",
-    jurisdiccion:"BUENOS AIRES",
-    institucion:"E.E. SECUNDARIA N°14",
-    cue:"746748-00",
-    fechaEgreso:"10/12/1991",
-    serie:"608336-00",
-    analiticoLink:"https://drive.google.com/file/d/172j3BmXJMz1wKNKkyr_9D9z2a8pfeNgc/view?usp=drivesdk",
-    tituloLink:"https://drive.google.com/file/d/1i8JuX7LL8xzYJKePTzlY8Jyp1-9aQj6p/view?usp=drivesdk"
-  },
-  {
-    dni:"22549177",
-    apellido:"GAFURI",
-    nombre:"PABLO ANDRÉS",
-    tipoDoc:"DNI",
-    titulo:"TÉCNICO SUPERIOR EN HIGIENE Y SEGURIDAD EN EL TRABAJO",
-    jurisdiccion:"BUENOS AIRES",
-    institucion:"INSTITUTO ARGENTINO DE SEGURIDAD",
-    cue:"746748-00",
-    fechaEgreso:"10/12/2019",
-    serie:"608336-00",
-    analiticoLink:"https://drive.google.com/file/d/1Z04WYBeWtLnK3mVhi1k7wXs7lFY2A12M/view?usp=drivesdk",
-    tituloLink:"https://drive.google.com/file/d/1rrGzFvBOvJJJmny5Fk6kEpcs-_PZiIXF/view?usp=drivesdk"
-  },
-  {
-    dni:"30298831", 
-    apellido:"ORELLANA BONURA",
-    nombre:"JUAN JOSÉ",
-    tipoDoc:"DNI",
-    titulo:"TÉCNICO EN COMPUTACIÓN",
-    jurisdiccion:"TUCUMÁN",
-    institucion:"INSTITUTO ARGENTINO DE SEGURIDAD",
-    cue:"746748-00",
-    fechaEgreso:"10/12/2002",
-    serie:"608336-00",
-    analiticoLink:"https://drive.google.com/file/d/1Cbuoq6ra6QslWv4TRCCdgU-6JAXtELB0/view?usp=drivesdkk",
-    tituloLink:"https://drive.google.com/file/d/1TFC8FvAqzquiVu8K5sATAo2LKA1FoU2-/view?usp=drivesdk"
-  },
-    {
-    dni:"31770463",
-    apellido:"TEVES",
-    nombre:"DÉBORA ROMINA",
-    tipoDoc:"DNI",
-    titulo:"TÉCNICA EN ENFERMERÍA",
-    jurisdiccion:"BUENOS AIRES",
-    institucion:"FLOREAL FERRARA - HOSPITAL DE MORÓN",
-    cue:"746748-00",
-    fechaEgreso:"10/12/2025",
-    serie:"608336-00",
-    analiticoLink:"https://drive.google.com/file/d/1n6u-65WjJlS7mygYCKJTxxm4IAHXai7Y/view?usp=drivesdk",
-    tituloLink:"https://drive.google.com/file/d/15GBrX7zDYP32yq0DejPeNwmcS5Yyp6PI/view?usp=drivesdk"
-      },
-    {
-    dni:"31409196",
-    apellido:"SALA",
-    nombre:"REIMAUNDA CORNELIA",
-    tipoDoc:"DNI",
-    titulo:"TÉCNICA EN GESTIÓN Y PRODUCCIÓN APÍCOLA",
-    jurisdiccion:"CORRIENTES",
-    institucion:"UNIVERSIDAD DEL NORDESTE (UNNE)",
-    cue:"746748-00",
-    fechaEgreso:"10/12/2019",
-    serie:"608336-00",
-    analiticoLink:"https://drive.google.com/file/d/1E0Xqacs8iKVgSQ1IkgKZznzgMETQ580t/view?usp=drivesdk",
-    tituloLink:"https://drive.google.com/file/d/1-lyhK3hycBanTuQ_qoN8gdDguGbyuKW5/view?usp=drivesdk"
-      },
-      {
-    dni:"31409196",
-    apellido:"SALA",
-    nombre:"REIMAUNDA CORNELIA",
-    tipoDoc:"DNI",
-    titulo:"BACHILLER",
-    jurisdiccion:"FORMOSA",
-    institucion:"E.P.E.S MEIB",
-    cue:"746748-00",
-    fechaEgreso:"10/12/2006",
-    serie:"608336-00",
-    analiticoLink: "https://drive.google.com/file/d/1MmckILkv5P9xJnRKlTU60SfuATfEyBS2/view?usp=drivesdk",
-    tituloLink:"https://drive.google.com/file/d/1-lyhK3hycBanTuQ_qoN8gdDguGbyuKW5/view?usp=drivesdk"
-      },
-     {
-    dni:"35371536",
-    apellido:"SANCHEZ",
-    nombre:"ANGEL GABRIEL",
-    tipoDoc:"DNI",
-    titulo:"LICENCIATURA EN MARKETING",
-    jurisdiccion:"BUENOS AIRES",
-    institucion:"UNIVERSIDAD ARGENTINA DE LA EMPRESA (UADE)",
-    cue:"746748-00",
-    fechaEgreso:"10/12/2021",
-    serie:"608336-00",
-    analiticoLink:"https://drive.google.com/file/d/1EkrRxFP_vUn22USvgOH9cu2wQqSlAmBo/view?usp=drivesdkk",
-    tituloLink:"https://drive.google.com/file/d/1iMYVn06GDQUe3EUvATzNCcok7VWGFheU/view?usp=drivesdk"
-     },
-  {
-    dni:"37503871",
-    apellido:"SOSA",
-    nombre:"MIRTA CECILIA",
-    tipoDoc:"DNI",
-    titulo:"BACHILLER EN CIENCIAS SOCIALES",
-    jurisdiccion:"TUCUMÁN",
-    institucion:"INSTITUTO LA ASUNCIÓN",
-    cue:"746748-00",
-    fechaEgreso:"10/12/2017",
-    serie:"608336-00",
-    analiticoLink:"https://drive.google.com/file/d/1Wn2Iy9OIXC3wkeETDrw8x5waD86CbT7d/view?usp=drivesdk",
-    tituloLink:"https://drive.google.com/file/d/1KJ2yjrYvte2ywqqqa55JQb9rt4hrNuRR/view?usp=drivesdk"
-  },
-  {
-    dni:"41582975",
-    apellido:"ESPINOLA",
-    nombre:"DANIEL EMANUEL",
-    tipoDoc:"DNI",
-    titulo:"TÉCNICO ELECTROMECÁNICO",
-    jurisdiccion:"BUENOS AIRES",
-    institucion:"E.S TÉCNICA N°2",
-    cue:"746748-00",
-    fechaEgreso:"10/12/2020",
-    serie:"608336-00",
-    analiticoLink:"https://drive.google.com/file/d/1q2y6WjvcnSavW35FS-Mpbp7LhMNpeeFm/view?usp=drivesdk",
-    tituloLink:"https://drive.google.com/file/d/1fxGZD6KtTswjyx6oJuxZS05XoNxfQWKo/view?usp=drivesdk"
-  }
-  
-];
+
+const numeroDoc = document.getElementById("numeroDoc");
+const apellido = document.getElementById("apellido");
+const nombre = document.getElementById("nombre");
+const tipoDoc = document.getElementById("tipoDoc");
+const buscarBtn = document.getElementById("buscarBtn");
+const nuevaBusqueda = document.getElementById("nuevaBusqueda");
+const infoEstudiante = document.getElementById("infoEstudiante");
+const tablaBody = document.getElementById("tablaBody");
+const certificadosBtns = document.getElementById("certificadosBtns");
+const studentName = document.getElementById("studentName");
+
+
 
 buscarBtn.onclick = () => {
 
@@ -489,23 +282,18 @@ buscarBtn.onclick = () => {
 
   infoEstudiante.style.display = "block";
 
-  // Tomamos el primero solo para completar datos personales
   const primero = resultados[0];
 
   apellido.value = primero.apellido;
   nombre.value = primero.nombre;
-  apellido.readOnly = true;
-  nombre.readOnly = true;
   tipoDoc.value = primero.tipoDoc;
 
   studentName.textContent = `${primero.nombre} ${primero.apellido}`;
 
-  // Limpiar tabla
   tablaBody.innerHTML = "";
+  certificadosBtns.innerHTML = "";
 
-  // Recorrer todos los resultados
   resultados.forEach(r => {
-
     tablaBody.innerHTML += `
       <tr>
         <td>${r.tipoDoc}</td>
@@ -521,27 +309,23 @@ buscarBtn.onclick = () => {
         </td>
       </tr>
     `;
-  });
 
-  // Botones (podés dejar solo del primero o hacer uno por cada título)
-  certificadosBtns.innerHTML = resultados.map(r => `
-  <div class="certificado-item">
-    <div class="certificado-titulo">${r.titulo}</div>
-    <div class="certificado-botones">
-      <a href="${r.analiticoLink}" target="_blank" class="btn btn-search">
-        Certificado Analítico
-      </a>
-      <a href="${r.tituloLink}" target="_blank" class="btn btn-search">
-        Certificado de Título
-      </a>
-    </div>
-  </div>
-`).join("");
+    certificadosBtns.innerHTML += `
+      <div class="certificado-item">
+        <div class="certificado-titulo">${r.titulo}</div>
+        <div class="certificado-botones">
+          <a href="#">Certificado Analítico</a>
+          <a href="#">Certificado de Título</a>
+        </div>
+      </div>
+    `;
+  });
 
 };
 
 nuevaBusqueda.onclick = () => location.reload();
+
 </script>
 
 </body>
-  </html>
+</html>
