@@ -10,8 +10,7 @@
     --azul:#0B1F3A;
     --azul-sec:#163A6B;
     --azul-brillante:#1F4E8C;
-    --gris:#F4F6F9;
-    --blanco:#ffffff;
+    --dorado:#C6A75E;
 }
 
 body{
@@ -23,12 +22,10 @@ body{
 header{
     text-align:center;
     padding:30px;
-    color:white;
 }
 
-header h1{
-    margin:0;
-    letter-spacing:2px;
+header img{
+    max-height:80px;
 }
 
 .container{
@@ -45,6 +42,7 @@ header h1{
     padding:25px;
     border-radius:10px;
     margin-bottom:25px;
+    animation:fadeIn 0.6s ease;
 }
 
 h2{
@@ -58,8 +56,8 @@ label{
 }
 
 small{
-    color:#555;
     font-size:12px;
+    color:#555;
 }
 
 select,input{
@@ -82,7 +80,8 @@ button{
 }
 
 button:hover{
-    background:var(--azul);
+    background:var(--dorado);
+    color:black;
 }
 
 .hidden{ display:none; }
@@ -92,14 +91,50 @@ button:hover{
     padding:20px;
     border-radius:8px;
 }
+
+#precio{
+    font-size:20px;
+    color:var(--azul-sec);
+    font-weight:bold;
+    opacity:0;
+    transform:translateY(-10px);
+    transition:0.4s ease;
+}
+
+#precio.visible{
+    opacity:1;
+    transform:translateY(0);
+}
+
+.confirmacion{
+    text-align:center;
+    padding:30px;
+    animation:fadeIn 0.8s ease;
+}
+
+.confirmacion h2{
+    color:green;
+}
+
+.firma{
+    margin-top:30px;
+    font-style:italic;
+    color:var(--azul);
+    border-top:1px solid #ddd;
+    padding-top:15px;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(10px);}
+    to{opacity:1; transform:translateY(0);}
+}
 </style>
 </head>
 
 <body>
 
 <header>
-<h1>DAS</h1>
-<p>Departamento de Auditoría y Servicios</p>
+<img src="logo.png" alt="Logo DAS">
 </header>
 
 <div class="container">
@@ -109,7 +144,7 @@ button:hover{
 <h2>Selección del Trámite</h2>
 
 <label>Tipo de documentación</label>
-<select id="tipoDoc" onchange="actualizarPrecio()" required>
+<select id="tipoDoc" onchange="actualizarPrecio()">
 <option value="">Seleccionar</option>
 <option value="Secundario">Analítico y Título – Secundario</option>
 <option value="Secundario Técnico">Analítico y Título – Secundario Técnico</option>
@@ -119,13 +154,13 @@ button:hover{
 </select>
 
 <label>Modalidad</label>
-<select id="modalidad" onchange="actualizarPrecio()" required>
+<select id="modalidad" onchange="actualizarPrecio()">
 <option value="">Seleccionar</option>
 <option value="Estándar">Certificación Estándar</option>
 <option value="Auditoría">Con Auditoría Integral</option>
 </select>
 
-<h3 id="precio"></h3>
+<div id="precio"></div>
 
 <button onclick="continuar()">Continuar con el trámite</button>
 </div>
@@ -137,37 +172,37 @@ button:hover{
 <h2>Datos Personales</h2>
 
 <label>Nombre(s) y Apellido</label>
-<input type="text" id="nombre" required>
+<input type="text" id="nombre">
 
 <label>Número de DNI</label>
-<input type="number" id="dni" required>
+<input type="number" id="dni">
 
 <label>Fecha de nacimiento</label>
-<small>Seleccionar la fecha exacta de nacimiento del titular del certificado.</small>
-<input type="date" id="nacimiento" required>
+<small>Fecha exacta de nacimiento del titular.</small>
+<input type="date" id="nacimiento">
 
 <label>Nacionalidad</label>
-<input type="text" id="nacionalidad" required>
+<input type="text" id="nacionalidad">
 </div>
 
 <div class="section">
 <h2>Datos Académicos</h2>
 
 <label>Nombre de la Institución</label>
-<input type="text" id="institucion" required>
+<input type="text" id="institucion">
 
-<label>Dirección de la Institución</label>
-<input type="text" id="direccion" required>
+<label>Dirección</label>
+<input type="text" id="direccion">
 
 <label>Localidad</label>
-<input type="text" id="localidad" required>
+<input type="text" id="localidad">
 
 <label>Provincia</label>
-<input type="text" id="provincia" required>
+<input type="text" id="provincia">
 
 <label>Fecha de egreso</label>
-<small>Indicar la fecha en que finalizó y aprobó la totalidad del plan de estudios.</small>
-<input type="date" id="egreso" required>
+<small>Fecha en que finalizó y aprobó el plan de estudios.</small>
+<input type="date" id="egreso">
 </div>
 
 <button onclick="mostrarResumen()">Ver resumen previo</button>
@@ -179,6 +214,17 @@ button:hover{
 <div class="summary-box" id="resumen"></div>
 <br>
 <button onclick="enviarWhatsApp()">Finalizar y Enviar a DAS</button>
+</div>
+
+<!-- PASO 4 CONFIRMACIÓN -->
+<div id="paso4" class="hidden confirmacion">
+<h2>✔ Trámite iniciado correctamente</h2>
+<p>Su solicitud fue enviada al Departamento de Auditoría y Servicios.</p>
+
+<div class="firma">
+DAS – Departamento de Auditoría y Servicios<br>
+Certificación y Auditoría Documental Institucional
+</div>
 </div>
 
 </div>
@@ -196,37 +242,37 @@ const precios = {
 let codigoUnico="";
 
 function generarCodigo(){
-    let año=new Date().getFullYear();
-    let random=Math.floor(1000+Math.random()*9000);
-    codigoUnico="DAS-"+año+"-"+random;
+let año=new Date().getFullYear();
+let random=Math.floor(1000+Math.random()*9000);
+codigoUnico="DAS-"+año+"-"+random;
 }
 
 function actualizarPrecio(){
-    let tipo=tipoDoc.value;
-    let mod=modalidad.value;
-    if(tipo && mod){
-        precio.innerText="Valor del trámite: $"+precios[tipo][mod].toLocaleString();
-    }
+let tipo=tipoDoc.value;
+let mod=modalidad.value;
+if(tipo && mod){
+precio.innerText="Valor del trámite: $"+precios[tipo][mod].toLocaleString();
+precio.classList.add("visible");
+}
 }
 
 function continuar(){
-    if(!tipoDoc.value || !modalidad.value){
-        alert("Debe seleccionar tipo de documentación y modalidad.");
-        return;
-    }
-    generarCodigo();
-    paso1.classList.add("hidden");
-    paso2.classList.remove("hidden");
+if(!tipoDoc.value || !modalidad.value){
+alert("Debe seleccionar tipo y modalidad.");
+return;
+}
+generarCodigo();
+paso1.classList.add("hidden");
+paso2.classList.remove("hidden");
 }
 
 function mostrarResumen(){
-
 let campos=document.querySelectorAll("#paso2 input");
 for(let campo of campos){
-    if(!campo.value){
-        alert("Todos los campos son obligatorios.");
-        return;
-    }
+if(!campo.value){
+alert("Todos los campos son obligatorios.");
+return;
+}
 }
 
 resumen.innerHTML=`
@@ -234,17 +280,14 @@ resumen.innerHTML=`
 <strong>${tipoDoc.value}</strong><br>
 <strong>${modalidad.value}</strong><br>
 <strong>${precio.innerText}</strong><br><br>
-
 <strong>Nombre:</strong> ${nombre.value}<br>
 <strong>DNI:</strong> ${dni.value}<br>
-<strong>Fecha de nacimiento:</strong> ${nacimiento.value}<br>
+<strong>Nacimiento:</strong> ${nacimiento.value}<br>
 <strong>Nacionalidad:</strong> ${nacionalidad.value}<br><br>
-
 <strong>Institución:</strong> ${institucion.value}<br>
-<strong>Dirección:</strong> ${direccion.value}<br>
 <strong>Localidad:</strong> ${localidad.value}<br>
 <strong>Provincia:</strong> ${provincia.value}<br>
-<strong>Fecha de egreso:</strong> ${egreso.value}
+<strong>Egreso:</strong> ${egreso.value}
 `;
 
 paso2.classList.add("hidden");
@@ -253,31 +296,23 @@ paso3.classList.remove("hidden");
 
 function enviarWhatsApp(){
 
-let mensaje=`
-NUEVO TRÁMITE DAS
-
+let mensaje=`Nuevo trámite DAS
 Código: ${codigoUnico}
 ${tipoDoc.value}
 ${modalidad.value}
 ${precio.innerText}
-
 Nombre: ${nombre.value}
 DNI: ${dni.value}
-Nacimiento: ${nacimiento.value}
-Nacionalidad: ${nacionalidad.value}
-
-Institución: ${institucion.value}
-Dirección: ${direccion.value}
-Localidad: ${localidad.value}
-Provincia: ${provincia.value}
-Egreso: ${egreso.value}
-`;
+Institución: ${institucion.value}`;
 
 let url="https://wa.me/5491151461885?text="+encodeURIComponent(mensaje);
 window.open(url,"_blank");
+
+paso3.classList.add("hidden");
+paso4.classList.remove("hidden");
 }
 
 </script>
 
 </body>
-</html>
+    </html>
