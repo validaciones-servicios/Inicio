@@ -3,316 +3,202 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Certificados DAS - Dashboard</title>
-
+<title>DAS - Registro de Egresos</title>
 <style>
-:root{
-  --dasmorado:#5C3D99;
-  --dascian:#37BBED;
-  --gris:#f4f4f4;
-  --texto:#333;
-  --card-bg:#fff;
-  --card-shadow:rgba(0,0,0,0.1);
+:root {
+    --celeste: #37BBED;
+    --verde: #8DC21F;
+    --gris: #f5f5f5;
+    --gris-oscuro: #e0e0e0;
+    --texto: #333;
+    --rojo: #e74c3c;
+    --amarillo: #f1c40f;
 }
 
-*{
-  box-sizing:border-box;
-  font-family: 'Arial', sans-serif;
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--gris);
+    color: var(--texto);
 }
 
-body{
-  margin:0;
-  background:#f9f9f9;
-  color:var(--texto);
+header {
+    background-color: var(--celeste);
+    color: white;
+    padding: 20px;
+    text-align: center;
 }
 
-/* HEADER */
-header{
-  background:var(--dasmorado);
-  color:#fff;
-  padding:20px;
-  display:flex;
-  align-items:center;
-  gap:15px;
+header img {
+    height: 60px;
+    margin-bottom: 10px;
 }
 
-header img{
-  height:50px;
+h1, h2 {
+    margin: 10px 0;
 }
 
-header h1{
-  margin:0;
-  font-size:24px;
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 10px;
 }
 
-header h2{
-  margin:2px 0 0;
-  font-weight:400;
-  font-size:16px;
-  opacity:0.85;
+.table-container {
+    overflow-x: auto;
 }
 
-/* MAIN */
-main{
-  max-width:1000px;
-  margin:20px auto;
-  padding:0 15px;
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
 }
 
-/* FORM */
-.form-container{
-  display:flex;
-  gap:15px;
-  flex-wrap:wrap;
-  margin-bottom:20px;
+th, td {
+    padding: 12px 15px;
+    border: 1px solid var(--gris-oscuro);
+    text-align: left;
 }
 
-.form-group{
-  flex:1;
-  min-width:200px;
-  display:flex;
-  flex-direction:column;
+th {
+    background-color: var(--celeste);
+    color: white;
 }
 
-.form-group label{
-  font-weight:bold;
-  margin-bottom:6px;
+tr:nth-child(even) {
+    background-color: #f9f9f9;
 }
 
-.form-group input{
-  padding:10px;
-  border-radius:6px;
-  border:1px solid #ccc;
-  font-size:14px;
+.status {
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
 }
 
-button{
-  padding:12px 18px;
-  border:none;
-  border-radius:6px;
-  font-size:16px;
-  cursor:pointer;
-  color:#fff;
-  transition:0.2s;
+.aprobado {
+    background-color: var(--verde);
 }
 
-button:hover{
-  opacity:0.9;
+.pendiente {
+    background-color: var(--amarillo);
+    color: #333;
 }
 
-.btn-search{
-  background:var(--dascian);
+.rechazado {
+    background-color: var(--rojo);
 }
 
-.btn-reset{
-  background:var(--dasmorado);
+.search-container {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
-/* DASHBOARD CARDS */
-#infoCliente{
-  display:none;
-  margin-top:20px;
+.search-container input, .search-container select, .search-container button {
+    padding: 8px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid var(--gris-oscuro);
 }
 
-.cards{
-  display:grid;
-  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
-  gap:15px;
+button {
+    background-color: var(--celeste);
+    color: white;
+    cursor: pointer;
+    border: none;
 }
 
-.card{
-  background:var(--card-bg);
-  border-radius:10px;
-  padding:15px;
-  box-shadow:0 4px 12px var(--card-shadow);
-  transition:transform 0.2s;
+button:hover {
+    background-color: #2a9ad6;
 }
 
-.card:hover{
-  transform:translateY(-5px);
-}
-
-.card h3{
-  margin-top:0;
-  color:var(--dasmorado);
-}
-
-.card p{
-  margin:5px 0;
-  font-size:14px;
-}
-
-/* CERTIFICADOS */
-.certificados{
-  margin-top:15px;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-
-.certificado-item{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  background:var(--gris);
-  padding:10px;
-  border-radius:8px;
-}
-
-.certificado-botones a{
-  text-decoration:none;
-  padding:6px 12px;
-  border-radius:6px;
-  color:#fff;
-  margin-left:6px;
-  background:var(--dascian);
-  font-size:13px;
-}
-
-/* FOOTER */
-.info-text{
-  font-size:13px;
-  margin-top:25px;
-  line-height:1.5;
-  text-align:center;
-  opacity:0.8;
-}
-
-/* RESPONSIVE */
-@media(max-width:600px){
-  header{
-    flex-direction:column;
-    text-align:center;
-  }
+footer {
+    text-align: center;
+    padding: 15px;
+    background-color: var(--gris-oscuro);
+    margin-top: 30px;
+    border-top: 1px solid #ccc;
+    font-size: 14px;
 }
 </style>
 </head>
 <body>
 
 <header>
-  <img src="logo-das.png" alt="Logo DAS">
-  <div>
-    <h1>Certificados DAS</h1>
-    <h2>Auditoría y Validación de Documentos</h2>
-  </div>
+    <img src="logo-das.png" alt="Logo DAS">
+    <h1>DAS - Departamento de Auditoría y Servicios</h1>
+    <p>Dirección: Calle Falsa 123, Ciudad – Tel: (011) 1234-5678 – Email: contacto@das.com</p>
 </header>
 
-<main>
+<div class="container">
+    <h2>Registro de Egresos</h2>
 
-<div class="form-container">
-  <div class="form-group">
-    <label for="numeroTramite">Número de Trámite</label>
-    <input id="numeroTramite">
-  </div>
-  <div class="form-group">
-    <label for="codigoUnico">Código Único (C.U.)</label>
-    <input id="codigoUnico">
-  </div>
-  <div class="form-group" style="align-self:flex-end; display:flex; gap:10px;">
-    <button class="btn-reset" id="nuevaBusqueda">Nueva búsqueda</button>
-    <button class="btn-search" id="buscarBtn">Buscar</button>
-  </div>
+    <div class="search-container">
+        <input type="text" placeholder="Buscar por nombre o DNI">
+        <select>
+            <option value="">Todos los estados</option>
+            <option value="aprobado">Aprobado</option>
+            <option value="pendiente">Pendiente</option>
+            <option value="rechazado">Rechazado</option>
+        </select>
+        <button>Buscar</button>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th># Registro</th>
+                    <th>Nombre</th>
+                    <th>DNI</th>
+                    <th>Tipo de Documento</th>
+                    <th>Fecha Emisión</th>
+                    <th>Estado</th>
+                    <th>Responsable</th>
+                    <th>Observaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>00123</td>
+                    <td>Juan Pérez</td>
+                    <td>12345678</td>
+                    <td>Certificado Analítico</td>
+                    <td>13/02/2026</td>
+                    <td><span class="status aprobado">Aprobado</span></td>
+                    <td>María López</td>
+                    <td>Documento verificado</td>
+                </tr>
+                <tr>
+                    <td>00124</td>
+                    <td>Lucía Gómez</td>
+                    <td>87654321</td>
+                    <td>Título</td>
+                    <td>10/02/2026</td>
+                    <td><span class="status pendiente">Pendiente</span></td>
+                    <td>Pedro Martínez</td>
+                    <td>Falta firma digital</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p style="margin-top:20px; font-size:14px; color: #555;">
+        Todos los certificados emitidos por DAS tienen validez oficial y están registrados electrónicamente.
+        Para mayor información, consultar normas y resoluciones vigentes.
+    </p>
 </div>
 
-<div id="infoCliente">
-  <div class="cards">
-    <div class="card">
-      <h3>Cliente</h3>
-      <p id="clientName"></p>
-    </div>
-    <div class="card">
-      <h3>Auditor</h3>
-      <p id="auditorName"></p>
-    </div>
-    <div class="card">
-      <h3>Documento</h3>
-      <p id="docInfo"></p>
-    </div>
-    <div class="card">
-      <h3>Institución</h3>
-      <p id="institucion"></p>
-    </div>
-    <div class="card">
-      <h3>Fecha de Certificado</h3>
-      <p id="fechaCert"></p>
-    </div>
-    <div class="card">
-      <h3>Trámite</h3>
-      <p id="tramiteInfo"></p>
-    </div>
-  </div>
-
-  <div class="certificados" id="certificadosBtns"></div>
-</div>
-
-<div class="info-text">
-  Todos los certificados DAS son verificados, auditados y registrados en blockchain para garantizar su validez.
-</div>
-
-</main>
-
-<script>
-const datosClientes = [
-  {
-    tramite:"TR12345",
-    cu:"CU001",
-    cliente:"Juan Pérez",
-    documento:"DNI 12345678",
-    auditor:"Pani Auditores",
-    institucion:"DAS",
-    fecha:"13/02/2026",
-    analiticoLink:"#",
-    tituloLink:"#"
-  },
-  {
-    tramite:"TR67890",
-    cu:"CU002",
-    cliente:"María López",
-    documento:"DNI 87654321",
-    auditor:"Pani Auditores",
-    institucion:"DAS",
-    fecha:"12/02/2026",
-    analiticoLink:"#",
-    tituloLink:"#"
-  }
-];
-
-buscarBtn.onclick = () => {
-  const numero = numeroTramite.value.trim();
-  const cu = codigoUnico.value.trim();
-
-  const resultados = datosClientes.filter(
-    e => e.tramite === numero && e.cu === cu
-  );
-
-  if(resultados.length === 0){
-    alert("No se encontró el certificado DAS");
-    return;
-  }
-
-  infoCliente.style.display = "block";
-
-  const primero = resultados[0];
-  clientName.textContent = primero.cliente;
-  auditorName.textContent = primero.auditor;
-  docInfo.textContent = primero.documento;
-  institucion.textContent = primero.institucion;
-  fechaCert.textContent = primero.fecha;
-  tramiteInfo.textContent = primero.tramite;
-
-  certificadosBtns.innerHTML = resultados.map(r => `
-    <div class="certificado-item">
-      <div>Certificados de ${r.cliente}</div>
-      <div class="certificado-botones">
-        <a href="${r.analiticoLink}" target="_blank">Certificado Analítico</a>
-        <a href="${r.tituloLink}" target="_blank">Certificado de Título</a>
-      </div>
-    </div>
-  `).join("");
-};
-
-nuevaBusqueda.onclick = () => location.reload();
-</script>
+<footer>
+    &copy; 2026 DAS - Departamento de Auditoría y Servicios | Todos los derechos reservados
+</footer>
 
 </body>
-  </html>
+</html>
