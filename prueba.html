@@ -100,8 +100,6 @@ button:hover {
 .rechazado { background-color: var(--rojo); }
 
 a.link-doc {
-    display: inline-block;
-    margin-top: 5px;
     padding: 6px 10px;
     background-color: var(--celeste);
     color: white;
@@ -111,6 +109,13 @@ a.link-doc {
 
 a.link-doc:hover {
     background-color: #2a9ad6;
+}
+
+.result .links-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 5px;
 }
 
 footer {
@@ -150,9 +155,14 @@ footer {
         <p><strong>Estado:</strong> <span id="resEstado" class="status"></span></p>
         <p><strong>Responsable:</strong> <span id="resResp"></span></p>
         <p><strong>Observaciones:</strong> <span id="resObs"></span></p>
+
         <p><strong>Documentación adjunta:</strong></p>
-        <div id="resDocs"></div>
-        <button id="downloadPDF">Descargar certificado en PDF</button>
+        <div id="resDocs" class="links-container"></div>
+
+        <p><strong>Descargar certificado:</strong></p>
+        <div class="links-container">
+            <button id="downloadPDF">Descargar certificado en PDF</button>
+        </div>
     </div>
 </div>
 
