@@ -3,112 +3,94 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DAS | Inicio de Certificación</title>
+<title>DAS - Inicio de Certificación</title>
 
 <style>
 :root{
-    --das-azul:#0A192F;
-    --das-azul-sec:#112D4E;
-    --das-dorado:#C6A75E;
-    --das-gris:#F4F6F9;
-    --das-blanco:#FFFFFF;
+    --azul:#0B1F3A;
+    --azul-sec:#163A6B;
+    --azul-brillante:#1F4E8C;
+    --gris:#F4F6F9;
+    --blanco:#ffffff;
 }
 
 body{
     margin:0;
-    font-family: 'Segoe UI', sans-serif;
-    background:var(--das-gris);
+    font-family: Arial, Helvetica, sans-serif;
+    background:linear-gradient(135deg,#0B1F3A,#163A6B);
 }
 
 header{
-    background:var(--das-azul);
-    color:white;
-    padding:25px;
     text-align:center;
-    letter-spacing:1px;
+    padding:30px;
+    color:white;
 }
 
 header h1{
     margin:0;
-    font-weight:600;
-}
-
-header p{
-    margin:5px 0 0 0;
-    font-size:14px;
-    opacity:0.8;
+    letter-spacing:2px;
 }
 
 .container{
     max-width:950px;
-    margin:40px auto;
+    margin:30px auto 60px auto;
     background:white;
     padding:40px;
     border-radius:12px;
-    box-shadow:0 15px 40px rgba(0,0,0,0.08);
+    box-shadow:0 15px 40px rgba(0,0,0,0.2);
+}
+
+.section{
+    background:#f8f9fb;
+    padding:25px;
+    border-radius:10px;
+    margin-bottom:25px;
 }
 
 h2{
-    color:var(--das-azul);
+    color:var(--azul);
     margin-top:0;
 }
 
 label{
-    font-weight:500;
+    font-weight:bold;
     font-size:14px;
+}
+
+small{
+    color:#555;
+    font-size:12px;
 }
 
 select,input{
     width:100%;
     padding:12px;
     margin:8px 0 18px 0;
-    border-radius:8px;
-    border:1px solid #dcdcdc;
-    font-size:14px;
-}
-
-input:invalid{
-    border:1px solid #c0392b;
+    border-radius:6px;
+    border:1px solid #ccc;
 }
 
 button{
-    background:var(--das-azul-sec);
+    background:var(--azul-brillante);
     color:white;
     border:none;
     padding:14px 25px;
-    border-radius:8px;
+    border-radius:6px;
     cursor:pointer;
-    font-weight:600;
+    font-weight:bold;
     transition:0.3s;
 }
 
 button:hover{
-    background:var(--das-dorado);
-    color:black;
+    background:var(--azul);
 }
 
 .hidden{ display:none; }
 
-.progress{
-    height:6px;
-    background:#ddd;
-    border-radius:5px;
-    margin-bottom:30px;
-    overflow:hidden;
-}
-
-.progress-bar{
-    height:100%;
-    width:33%;
-    background:var(--das-dorado);
-    transition:0.4s;
-}
-
 .summary-box{
-    background:#f8f9fb;
-    padding:25px;
-    border-radius:10px;
-    border-left:4px solid var(--das-dorado);
+    background:#eef2f7;
+    padding:20px;
+    border-radius:8px;
 }
 </style>
 </head>
@@ -122,26 +104,22 @@ button:hover{
 
 <div class="container">
 
-<div class="progress">
-<div class="progress-bar" id="progressBar"></div>
-</div>
-
 <!-- PASO 1 -->
-<div id="paso1">
-<h2>Selección de Certificación</h2>
+<div id="paso1" class="section">
+<h2>Selección del Trámite</h2>
 
 <label>Tipo de documentación</label>
-<select id="tipoDoc" required onchange="actualizarPrecio()">
+<select id="tipoDoc" onchange="actualizarPrecio()" required>
 <option value="">Seleccionar</option>
-<option value="Secundario">Secundario</option>
-<option value="Secundario Técnico">Secundario Técnico</option>
-<option value="Terciario">Terciario</option>
-<option value="Profesorado">Profesorado</option>
-<option value="Universitario">Universitario</option>
+<option value="Secundario">Analítico y Título – Secundario</option>
+<option value="Secundario Técnico">Analítico y Título – Secundario Técnico</option>
+<option value="Terciario">Analítico y Título – Nivel Terciario</option>
+<option value="Profesorado">Analítico y Título – Profesorado</option>
+<option value="Universitario">Analítico y Título – Nivel Universitario</option>
 </select>
 
 <label>Modalidad</label>
-<select id="modalidad" required onchange="actualizarPrecio()">
+<select id="modalidad" onchange="actualizarPrecio()" required>
 <option value="">Seleccionar</option>
 <option value="Estándar">Certificación Estándar</option>
 <option value="Auditoría">Con Auditoría Integral</option>
@@ -149,37 +127,58 @@ button:hover{
 
 <h3 id="precio"></h3>
 
-<button onclick="continuar()">Continuar</button>
+<button onclick="continuar()">Continuar con el trámite</button>
 </div>
 
 <!-- PASO 2 -->
 <div id="paso2" class="hidden">
+
+<div class="section">
 <h2>Datos Personales</h2>
 
-<input type="text" id="nombre" placeholder="Nombre(s) y Apellido" required>
-<input type="number" id="dni" placeholder="Número de DNI" required>
-<input type="date" id="nacimiento" required>
-<input type="text" id="nacionalidad" placeholder="Nacionalidad" required>
+<label>Nombre(s) y Apellido</label>
+<input type="text" id="nombre" required>
 
+<label>Número de DNI</label>
+<input type="number" id="dni" required>
+
+<label>Fecha de nacimiento</label>
+<small>Seleccionar la fecha exacta de nacimiento del titular del certificado.</small>
+<input type="date" id="nacimiento" required>
+
+<label>Nacionalidad</label>
+<input type="text" id="nacionalidad" required>
+</div>
+
+<div class="section">
 <h2>Datos Académicos</h2>
 
-<input type="text" id="institucion" placeholder="Nombre de la Institución" required>
-<input type="text" id="direccion" placeholder="Dirección" required>
-<input type="text" id="localidad" placeholder="Localidad" required>
-<input type="text" id="provincia" placeholder="Provincia" required>
-<input type="date" id="egreso" required>
+<label>Nombre de la Institución</label>
+<input type="text" id="institucion" required>
 
-<button onclick="mostrarResumen()">Ver Resumen</button>
+<label>Dirección de la Institución</label>
+<input type="text" id="direccion" required>
+
+<label>Localidad</label>
+<input type="text" id="localidad" required>
+
+<label>Provincia</label>
+<input type="text" id="provincia" required>
+
+<label>Fecha de egreso</label>
+<small>Indicar la fecha en que finalizó y aprobó la totalidad del plan de estudios.</small>
+<input type="date" id="egreso" required>
+</div>
+
+<button onclick="mostrarResumen()">Ver resumen previo</button>
 </div>
 
 <!-- PASO 3 -->
-<div id="paso3" class="hidden">
+<div id="paso3" class="hidden section">
 <h2>Confirmación Final</h2>
-
 <div class="summary-box" id="resumen"></div>
-
 <br>
-<button onclick="enviarWhatsApp()">Finalizar y Enviar</button>
+<button onclick="enviarWhatsApp()">Finalizar y Enviar a DAS</button>
 </div>
 
 </div>
@@ -194,19 +193,19 @@ const precios = {
 "Universitario":{Estándar:160000, Auditoría:210000}
 };
 
-let codigoUnico = "";
+let codigoUnico="";
 
 function generarCodigo(){
-    let año = new Date().getFullYear();
-    let random = Math.floor(1000 + Math.random() * 9000);
-    codigoUnico = "DAS-" + año + "-" + random;
+    let año=new Date().getFullYear();
+    let random=Math.floor(1000+Math.random()*9000);
+    codigoUnico="DAS-"+año+"-"+random;
 }
 
 function actualizarPrecio(){
-    let tipo = tipoDoc.value;
-    let mod = modalidad.value;
+    let tipo=tipoDoc.value;
+    let mod=modalidad.value;
     if(tipo && mod){
-        precio.innerText = "Honorarios Profesionales: $" + precios[tipo][mod].toLocaleString();
+        precio.innerText="Valor del trámite: $"+precios[tipo][mod].toLocaleString();
     }
 }
 
@@ -218,12 +217,11 @@ function continuar(){
     generarCodigo();
     paso1.classList.add("hidden");
     paso2.classList.remove("hidden");
-    progressBar.style.width="66%";
 }
 
 function mostrarResumen(){
 
-let campos = document.querySelectorAll("#paso2 input");
+let campos=document.querySelectorAll("#paso2 input");
 for(let campo of campos){
     if(!campo.value){
         alert("Todos los campos son obligatorios.");
@@ -231,39 +229,36 @@ for(let campo of campos){
     }
 }
 
-let resumenHTML = `
+resumen.innerHTML=`
 <strong>Código Único:</strong> ${codigoUnico}<br><br>
-<strong>Tipo:</strong> ${tipoDoc.value}<br>
-<strong>Modalidad:</strong> ${modalidad.value}<br>
+<strong>${tipoDoc.value}</strong><br>
+<strong>${modalidad.value}</strong><br>
 <strong>${precio.innerText}</strong><br><br>
 
 <strong>Nombre:</strong> ${nombre.value}<br>
 <strong>DNI:</strong> ${dni.value}<br>
-<strong>Nacimiento:</strong> ${nacimiento.value}<br>
+<strong>Fecha de nacimiento:</strong> ${nacimiento.value}<br>
 <strong>Nacionalidad:</strong> ${nacionalidad.value}<br><br>
 
 <strong>Institución:</strong> ${institucion.value}<br>
 <strong>Dirección:</strong> ${direccion.value}<br>
 <strong>Localidad:</strong> ${localidad.value}<br>
 <strong>Provincia:</strong> ${provincia.value}<br>
-<strong>Egreso:</strong> ${egreso.value}
+<strong>Fecha de egreso:</strong> ${egreso.value}
 `;
-
-resumen.innerHTML = resumenHTML;
 
 paso2.classList.add("hidden");
 paso3.classList.remove("hidden");
-progressBar.style.width="100%";
 }
 
 function enviarWhatsApp(){
 
-let mensaje = `
+let mensaje=`
 NUEVO TRÁMITE DAS
 
 Código: ${codigoUnico}
-Tipo: ${tipoDoc.value}
-Modalidad: ${modalidad.value}
+${tipoDoc.value}
+${modalidad.value}
 ${precio.innerText}
 
 Nombre: ${nombre.value}
@@ -278,8 +273,8 @@ Provincia: ${provincia.value}
 Egreso: ${egreso.value}
 `;
 
-let url = "https://wa.me/5491151461885?text=" + encodeURIComponent(mensaje);
-window.open(url, "_blank");
+let url="https://wa.me/5491151461885?text="+encodeURIComponent(mensaje);
+window.open(url,"_blank");
 }
 
 </script>
