@@ -1,198 +1,318 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<title>Credencial Profesional de la Salud — Plantilla</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Certificados DAS - Dashboard</title>
 
 <style>
-/* ===== COLORES (aprox. oficiales de la imagen) ===== */
 :root{
-  --celeste-franja:#21b6d7;
-  --azul-escudo:#6fb6dc;
-  --gris-linea:#cfcfcf;
-  --texto:#222;
-  --muted:#666;
+  --dasmorado:#5C3D99;
+  --dascian:#37BBED;
+  --gris:#f4f4f4;
+  --texto:#333;
+  --card-bg:#fff;
+  --card-shadow:rgba(0,0,0,0.1);
 }
 
-/* ===== BASE ===== */
-body{margin:0;background:#e9eef2;font-family:Arial,Helvetica,sans-serif;}
-.contenedor{max-width:390px;margin:20px auto;}
-.tarjeta{
-  width:85.6mm;height:54mm;background:#fff;border-radius:3mm;
-  position:relative;overflow:hidden;
+*{
+  box-sizing:border-box;
+  font-family: 'Arial', sans-serif;
 }
 
-/* ===== HEADER ===== */
-.header{
-  padding:6mm 4mm 2mm 4mm;border-bottom:1px solid var(--gris-linea);
-}
-.header .sup{font-size:8px;color:#444;}
-.header .tit{font-size:13px;font-weight:700;margin-top:1mm;}
-
-/* ===== ESCUDO (marca de agua derecha) ===== */
-.escudo{
-  position:absolute;right:-8mm;top:6mm;width:48mm;opacity:.35;pointer-events:none;
+body{
+  margin:0;
+  background:#f9f9f9;
+  color:var(--texto);
 }
 
-/* ===== CUERPO ===== */
-.cuerpo{padding:3mm 4mm;}
-.fila{margin-bottom:1.5mm;}
-.lbl{font-size:8px;color:var(--muted);}
-.val{font-size:10.5px;font-weight:700;color:var(--texto);}
-.linea{height:1px;background:var(--gris-linea);margin:2mm 0;}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:2mm;}
-.activa{font-weight:800;color:#1e8f1e;}
-
-/* ===== FOOTER ===== */
-.footer{
-  position:absolute;bottom:0;left:0;right:0;
-  background:var(--celeste-franja);color:#fff;
-  padding:2.5mm 4mm;font-size:8px;
-  display:flex;justify-content:space-between;align-items:center;
+/* HEADER */
+header{
+  background:var(--dasmorado);
+  color:#fff;
+  padding:20px;
+  display:flex;
+  align-items:center;
+  gap:15px;
 }
 
-/* ===== MARCA DE SEGURIDAD ===== */
-.muestra{
-  position:absolute;left:50%;top:50%;
-  transform:translate(-50%,-50%) rotate(-15deg);
-  font-size:16px;letter-spacing:4px;
-  color:rgba(0,0,0,.08);font-weight:800;pointer-events:none;
+header img{
+  height:50px;
 }
 
-/* ===== BOTÓN ===== */
+header h1{
+  margin:0;
+  font-size:24px;
+}
+
+header h2{
+  margin:2px 0 0;
+  font-weight:400;
+  font-size:16px;
+  opacity:0.85;
+}
+
+/* MAIN */
+main{
+  max-width:1000px;
+  margin:20px auto;
+  padding:0 15px;
+}
+
+/* FORM */
+.form-container{
+  display:flex;
+  gap:15px;
+  flex-wrap:wrap;
+  margin-bottom:20px;
+}
+
+.form-group{
+  flex:1;
+  min-width:200px;
+  display:flex;
+  flex-direction:column;
+}
+
+.form-group label{
+  font-weight:bold;
+  margin-bottom:6px;
+}
+
+.form-group input{
+  padding:10px;
+  border-radius:6px;
+  border:1px solid #ccc;
+  font-size:14px;
+}
+
 button{
-  width:100%;padding:12px;margin-top:10px;border:0;border-radius:10px;
-  background:#0b5ed7;color:#fff;font-size:15px;
+  padding:12px 18px;
+  border:none;
+  border-radius:6px;
+  font-size:16px;
+  cursor:pointer;
+  color:#fff;
+  transition:0.2s;
 }
 
-/* ===== IMPRESIÓN DNI ===== */
-@page{size:85.6mm 54mm;margin:0;}
-@media print{
-  body{background:#fff;}
-  button{display:none;}
-  .contenedor{margin:0;}
+button:hover{
+  opacity:0.9;
+}
+
+.btn-search{
+  background:var(--dascian);
+}
+
+.btn-reset{
+  background:var(--dasmorado);
+}
+
+/* DASHBOARD CARDS */
+#infoCliente{
+  display:none;
+  margin-top:20px;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+  gap:15px;
+}
+
+.card{
+  background:var(--card-bg);
+  border-radius:10px;
+  padding:15px;
+  box-shadow:0 4px 12px var(--card-shadow);
+  transition:transform 0.2s;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+}
+
+.card h3{
+  margin-top:0;
+  color:var(--dasmorado);
+}
+
+.card p{
+  margin:5px 0;
+  font-size:14px;
+}
+
+/* CERTIFICADOS */
+.certificados{
+  margin-top:15px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.certificado-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:var(--gris);
+  padding:10px;
+  border-radius:8px;
+}
+
+.certificado-botones a{
+  text-decoration:none;
+  padding:6px 12px;
+  border-radius:6px;
+  color:#fff;
+  margin-left:6px;
+  background:var(--dascian);
+  font-size:13px;
+}
+
+/* FOOTER */
+.info-text{
+  font-size:13px;
+  margin-top:25px;
+  line-height:1.5;
+  text-align:center;
+  opacity:0.8;
+}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  header{
+    flex-direction:column;
+    text-align:center;
+  }
 }
 </style>
 </head>
-
 <body>
 
-<script>
-/* ===== DATOS EDITABLES (UNA SOLA LÍNEA) ===== */
-const datos = {
-  nombre: "XXXXXXX XXXXX XXXXXXX",
-  dni: "XXX.XXX.XXX",
-  licencia: "Activa",
-  clave: "XXXXX34427",
-  profesion: "Licenciado en nutrición",
-  matricula: "XXXX",
-  fechaMatricula: "05/06/2008",
-  vencimiento: "16/03/2025",
-  organismo: "Ministerio de Salud de la Nación"
-};
-</script>
+<header>
+  <img src="logo-das.png" alt="Logo DAS">
+  <div>
+    <h1>Certificados DAS</h1>
+    <h2>Auditoría y Validación de Documentos</h2>
+  </div>
+</header>
 
-<div class="contenedor" id="pdf">
-  <div class="tarjeta">
+<main>
 
-    <div class="header">
-      <div class="sup">Red Federal de Registros de Profesionales de la Salud</div>
-      <div class="tit">Credencial de profesional de la salud</div>
-    </div>
-
-    <!-- Escudo argentino azul (SVG vectorial, marca de agua derecha) -->
-    <svg class="escudo" viewBox="0 0 512 640" aria-hidden="true">
-      <!-- Silueta simplificada del Escudo Nacional (marca de agua) -->
-      <g fill="none" stroke="var(--azul-escudo)" stroke-width="14">
-        <ellipse cx="256" cy="260" rx="170" ry="220"/>
-        <path d="M120 220h272M140 260h232M160 300h192"/>
-        <path d="M256 140v260"/>
-        <path d="M190 260c20 40 112 40 132 0"/>
-        <path d="M170 80c40 20 132 20 172 0"/>
-      </g>
-      <g fill="var(--azul-escudo)">
-        <circle cx="256" cy="40" r="18"/>
-      </g>
-    </svg>
-
-    <div class="cuerpo">
-      <div class="fila">
-        <div class="lbl">Nombre y apellido</div>
-        <div class="val" id="nombre"></div>
-      </div>
-
-      <div class="fila">
-        <div class="lbl">Documento</div>
-        <div class="val">DNI <span id="dni"></span></div>
-      </div>
-
-      <div class="linea"></div>
-
-      <div class="grid">
-        <div class="fila">
-          <div class="lbl">Licencia Sanitaria Federal</div>
-          <div class="val activa" id="licencia"></div>
-        </div>
-        <div class="fila">
-          <div class="lbl">Clave Profesional</div>
-          <div class="val" id="clave"></div>
-        </div>
-      </div>
-
-      <div class="linea"></div>
-
-      <div class="fila">
-        <div class="lbl">Profesión de Referencia</div>
-        <div class="val" id="profesion"></div>
-      </div>
-
-      <div class="grid">
-        <div class="fila">
-          <div class="lbl">Número de matrícula</div>
-          <div class="val" id="matricula"></div>
-        </div>
-        <div class="fila">
-          <div class="lbl">Fecha de matriculación</div>
-          <div class="val" id="fechaMatricula"></div>
-        </div>
-      </div>
-
-      <div class="fila">
-        <div class="lbl">Fecha de vencimiento</div>
-        <div class="val" id="vencimiento"></div>
-      </div>
-    </div>
-
-    <div class="footer">
-      <div id="organismo"></div>
-      <div>Salud Argentina</div>
-    </div>
-
-    <div class="muestra">MUESTRA</div>
+<div class="form-container">
+  <div class="form-group">
+    <label for="numeroTramite">Número de Trámite</label>
+    <input id="numeroTramite">
+  </div>
+  <div class="form-group">
+    <label for="codigoUnico">Código Único (C.U.)</label>
+    <input id="codigoUnico">
+  </div>
+  <div class="form-group" style="align-self:flex-end; display:flex; gap:10px;">
+    <button class="btn-reset" id="nuevaBusqueda">Nueva búsqueda</button>
+    <button class="btn-search" id="buscarBtn">Buscar</button>
   </div>
 </div>
 
-<button onclick="descargarPDF()">📄 Descargar PDF</button>
+<div id="infoCliente">
+  <div class="cards">
+    <div class="card">
+      <h3>Cliente</h3>
+      <p id="clientName"></p>
+    </div>
+    <div class="card">
+      <h3>Auditor</h3>
+      <p id="auditorName"></p>
+    </div>
+    <div class="card">
+      <h3>Documento</h3>
+      <p id="docInfo"></p>
+    </div>
+    <div class="card">
+      <h3>Institución</h3>
+      <p id="institucion"></p>
+    </div>
+    <div class="card">
+      <h3>Fecha de Certificado</h3>
+      <p id="fechaCert"></p>
+    </div>
+    <div class="card">
+      <h3>Trámite</h3>
+      <p id="tramiteInfo"></p>
+    </div>
+  </div>
+
+  <div class="certificados" id="certificadosBtns"></div>
+</div>
+
+<div class="info-text">
+  Todos los certificados DAS son verificados, auditados y registrados en blockchain para garantizar su validez.
+</div>
+
+</main>
 
 <script>
-function cargar(){
-  for(const k in datos){
-    const el=document.getElementById(k);
-    if(el) el.textContent=datos[k];
+const datosClientes = [
+  {
+    tramite:"TR12345",
+    cu:"CU001",
+    cliente:"Juan Pérez",
+    documento:"DNI 12345678",
+    auditor:"Pani Auditores",
+    institucion:"DAS",
+    fecha:"13/02/2026",
+    analiticoLink:"#",
+    tituloLink:"#"
+  },
+  {
+    tramite:"TR67890",
+    cu:"CU002",
+    cliente:"María López",
+    documento:"DNI 87654321",
+    auditor:"Pani Auditores",
+    institucion:"DAS",
+    fecha:"12/02/2026",
+    analiticoLink:"#",
+    tituloLink:"#"
   }
-}
-function descargarPDF(){
-  html2pdf().set({
-    margin:0,
-    filename:'credencial_salud_frente_plantilla.pdf',
-    html2canvas:{scale:2},
-    jsPDF:{unit:'mm',format:[85.6,54],orientation:'landscape'}
-  }).from(document.getElementById('pdf')).save();
-}
-cargar();
+];
+
+buscarBtn.onclick = () => {
+  const numero = numeroTramite.value.trim();
+  const cu = codigoUnico.value.trim();
+
+  const resultados = datosClientes.filter(
+    e => e.tramite === numero && e.cu === cu
+  );
+
+  if(resultados.length === 0){
+    alert("No se encontró el certificado DAS");
+    return;
+  }
+
+  infoCliente.style.display = "block";
+
+  const primero = resultados[0];
+  clientName.textContent = primero.cliente;
+  auditorName.textContent = primero.auditor;
+  docInfo.textContent = primero.documento;
+  institucion.textContent = primero.institucion;
+  fechaCert.textContent = primero.fecha;
+  tramiteInfo.textContent = primero.tramite;
+
+  certificadosBtns.innerHTML = resultados.map(r => `
+    <div class="certificado-item">
+      <div>Certificados de ${r.cliente}</div>
+      <div class="certificado-botones">
+        <a href="${r.analiticoLink}" target="_blank">Certificado Analítico</a>
+        <a href="${r.tituloLink}" target="_blank">Certificado de Título</a>
+      </div>
+    </div>
+  `).join("");
+};
+
+nuevaBusqueda.onclick = () => location.reload();
 </script>
 
 </body>
-</html>
+  </html>
