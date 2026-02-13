@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DAS - Registro de Egresos</title>
+<title>DAS - Verificación de Trámite</title>
 <style>
 :root {
     --celeste: #37BBED;
@@ -35,42 +35,56 @@ header img {
     margin-bottom: 10px;
 }
 
-h1, h2 {
+h1 {
     margin: 10px 0;
 }
 
 .container {
-    max-width: 1200px;
-    margin: auto;
+    max-width: 700px;
+    margin: 30px auto;
     padding: 20px;
     background-color: white;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     border-radius: 10px;
 }
 
-.table-container {
-    overflow-x: auto;
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-th, td {
-    padding: 12px 15px;
+input {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
     border: 1px solid var(--gris-oscuro);
-    text-align: left;
 }
 
-th {
+button {
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
     background-color: var(--celeste);
     color: white;
+    cursor: pointer;
 }
 
-tr:nth-child(even) {
-    background-color: #f9f9f9;
+button:hover {
+    background-color: #2a9ad6;
+}
+
+.result {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: var(--gris-oscuro);
+    display: none; /* solo se muestra al buscar */
+}
+
+.result p {
+    margin: 8px 0;
 }
 
 .status {
@@ -78,46 +92,12 @@ tr:nth-child(even) {
     border-radius: 5px;
     color: white;
     font-weight: bold;
-    text-align: center;
+    display: inline-block;
 }
 
-.aprobado {
-    background-color: var(--verde);
-}
-
-.pendiente {
-    background-color: var(--amarillo);
-    color: #333;
-}
-
-.rechazado {
-    background-color: var(--rojo);
-}
-
-.search-container {
-    margin-top: 20px;
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.search-container input, .search-container select, .search-container button {
-    padding: 8px;
-    font-size: 14px;
-    border-radius: 5px;
-    border: 1px solid var(--gris-oscuro);
-}
-
-button {
-    background-color: var(--celeste);
-    color: white;
-    cursor: pointer;
-    border: none;
-}
-
-button:hover {
-    background-color: #2a9ad6;
-}
+.aprobado { background-color: var(--verde); }
+.pendiente { background-color: var(--amarillo); color: #333; }
+.rechazado { background-color: var(--rojo); }
 
 footer {
     text-align: center;
@@ -132,73 +112,87 @@ footer {
 <body>
 
 <header>
-    <img src="logo-das.png" alt="Logo DAS">
+    <!-- Reemplazá el link con el de tu Google Drive -->
+    <img src="https://drive.google.com/uc?export=view&id=TU_ID_DEL_ARCHIVO" alt="Logo DAS">
     <h1>DAS - Departamento de Auditoría y Servicios</h1>
     <p>Dirección: Calle Falsa 123, Ciudad – Tel: (011) 1234-5678 – Email: contacto@das.com</p>
 </header>
 
 <div class="container">
-    <h2>Registro de Egresos</h2>
+    <h2>Verificación de Trámite</h2>
+    <p>Ingresá tu Número de Trámite y C.U. para ver el estado de tu documento.</p>
 
-    <div class="search-container">
-        <input type="text" placeholder="Buscar por nombre o DNI">
-        <select>
-            <option value="">Todos los estados</option>
-            <option value="aprobado">Aprobado</option>
-            <option value="pendiente">Pendiente</option>
-            <option value="rechazado">Rechazado</option>
-        </select>
-        <button>Buscar</button>
+    <form id="searchForm">
+        <input type="text" id="tramite" placeholder="Número de Trámite" required>
+        <input type="text" id="cu" placeholder="C.U." required>
+        <button type="submit">Buscar</button>
+    </form>
+
+    <div class="result" id="resultBox">
+        <p><strong>Nombre:</strong> <span id="resNombre"></span></p>
+        <p><strong>DNI / C.U.:</strong> <span id="resCU"></span></p>
+        <p><strong>Tipo de Documento:</strong> <span id="resTipo"></span></p>
+        <p><strong>Fecha de Emisión:</strong> <span id="resFecha"></span></p>
+        <p><strong>Estado:</strong> <span id="resEstado" class="status"></span></p>
+        <p><strong>Responsable:</strong> <span id="resResp"></span></p>
+        <p><strong>Observaciones:</strong> <span id="resObs"></span></p>
     </div>
-
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th># Registro</th>
-                    <th>Nombre</th>
-                    <th>DNI</th>
-                    <th>Tipo de Documento</th>
-                    <th>Fecha Emisión</th>
-                    <th>Estado</th>
-                    <th>Responsable</th>
-                    <th>Observaciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>00123</td>
-                    <td>Juan Pérez</td>
-                    <td>12345678</td>
-                    <td>Certificado Analítico</td>
-                    <td>13/02/2026</td>
-                    <td><span class="status aprobado">Aprobado</span></td>
-                    <td>María López</td>
-                    <td>Documento verificado</td>
-                </tr>
-                <tr>
-                    <td>00124</td>
-                    <td>Lucía Gómez</td>
-                    <td>87654321</td>
-                    <td>Título</td>
-                    <td>10/02/2026</td>
-                    <td><span class="status pendiente">Pendiente</span></td>
-                    <td>Pedro Martínez</td>
-                    <td>Falta firma digital</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <p style="margin-top:20px; font-size:14px; color: #555;">
-        Todos los certificados emitidos por DAS tienen validez oficial y están registrados electrónicamente.
-        Para mayor información, consultar normas y resoluciones vigentes.
-    </p>
 </div>
 
 <footer>
     &copy; 2026 DAS - Departamento de Auditoría y Servicios | Todos los derechos reservados
+    <br>Todos los certificados emitidos por DAS tienen validez oficial y están registrados electrónicamente.
 </footer>
+
+<script>
+// Datos de ejemplo: reemplazá con tus registros reales o API
+const registros = [
+    {
+        tramite: "00123",
+        cu: "12345678",
+        nombre: "Juan Pérez",
+        tipo: "Certificado Analítico",
+        fecha: "13/02/2026",
+        estado: "aprobado",
+        responsable: "María López",
+        observaciones: "Documento verificado"
+    },
+    {
+        tramite: "00124",
+        cu: "87654321",
+        nombre: "Lucía Gómez",
+        tipo: "Título",
+        fecha: "10/02/2026",
+        estado: "pendiente",
+        responsable: "Pedro Martínez",
+        observaciones: "Falta firma digital"
+    }
+];
+
+document.getElementById("searchForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const tramite = document.getElementById("tramite").value.trim();
+    const cu = document.getElementById("cu").value.trim();
+    const registro = registros.find(r => r.tramite === tramite && r.cu === cu);
+    
+    const box = document.getElementById("resultBox");
+    if (registro) {
+        document.getElementById("resNombre").textContent = registro.nombre;
+        document.getElementById("resCU").textContent = registro.cu;
+        document.getElementById("resTipo").textContent = registro.tipo;
+        document.getElementById("resFecha").textContent = registro.fecha;
+        const estadoEl = document.getElementById("resEstado");
+        estadoEl.textContent = registro.estado.charAt(0).toUpperCase() + registro.estado.slice(1);
+        estadoEl.className = "status " + registro.estado;
+        document.getElementById("resResp").textContent = registro.responsable;
+        document.getElementById("resObs").textContent = registro.observaciones;
+        box.style.display = "block";
+    } else {
+        box.style.display = "block";
+        box.innerHTML = "<p>No se encontró ningún registro con esos datos.</p>";
+    }
+});
+</script>
 
 </body>
 </html>
