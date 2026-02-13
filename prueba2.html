@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DAS | Inicio de Trámite</title>
+
+<style>
+:root {
+    --celeste: #37BBED;
+    --verde: #8DC21F;
+    --gris: #f5f5f5;
+    --gris-oscuro: #e0e0e0;
+    --texto: #333;
+}
+
+body{
+    margin:0;
+    font-family:"Segoe UI", Arial, sans-serif;
+    background:var(--gris);
+    color:var(--texto);
+}
+
+/* HEADER */
+header{
+    background:var(--celeste);
+    color:white;
+    text-align:center;
+    padding:40px 20px;
+}
+
+header img{
+    height:130px;
+    margin-bottom:10px;
+}
+
+header h1{ margin:0; font-size:30px; }
+header h2{ margin:5px 0 0 0; font-weight:400; font-size:18px; }
+
+/* CONTAINER */
+.container{
+    max-width:900px;
+    margin:40px auto;
+    background:white;
+    padding:40px;
+    border-radius:10px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.1);
+}
+
+/* SELECTS */
+select{
+    width:100%;
+    padding:12px;
+    font-size:15px;
+    border-radius:6px;
+    border:1px solid var(--gris-oscuro);
+    margin-bottom:20px;
+}
+
+/* MODALIDAD CARDS */
+.modalidades{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.card{
+    flex:1;
+    border:2px solid var(--gris-oscuro);
+    border-radius:10px;
+    padding:20px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.card:hover{
+    border-color:var(--celeste);
+}
+
+.card.selected{
+    border-color:var(--verde);
+    background:#f9fff2;
+}
+
+.card h4{
+    margin-top:0;
+}
+
+.price{
+    font-size:22px;
+    font-weight:bold;
+    color:var(--verde);
+}
+
+/* RESUMEN */
+.resumen{
+    margin-top:30px;
+    padding:20px;
+    background:var(--gris);
+    border-radius:8px;
+    display:none;
+}
+
+.resumen strong{
+    display:block;
+    margin-bottom:8px;
+}
+
+/* BOTON */
+button{
+    margin-top:20px;
+    padding:14px;
+    font-size:15px;
+    border:none;
+    border-radius:6px;
+    background:var(--celeste);
+    color:white;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#2a9ad6;
+}
+
+/* FOOTER */
+footer{
+    text-align:center;
+    padding:25px;
+    background:var(--gris-oscuro);
+    font-size:14px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <img src="https://i.postimg.cc/D0T5XNJX/file-00000000ea5c71f5af05c32a457144cb.png">
+    <h1>DAS</h1>
+    <h2>Departamento de Auditoría y Servicios</h2>
+</header>
+
+<div class="container">
+
+    <h3>Inicio de Trámite de Certificación</h3>
+    <p>Seleccione el tipo de documentación y modalidad del servicio.</p>
+
+    <label>Tipo de Documentación</label>
+    <select id="documento">
+        <option value="">-- Seleccionar --</option>
+        <option value="secundario">Analítico y Título – Secundario</option>
+        <option value="tecnico">Analítico y Título – Secundario Técnico</option>
+        <option value="terciario">Analítico y Título – Nivel Terciario</option>
+        <option value="profesorado">Analítico y Título – Profesorado</option>
+        <option value="universitario">Analítico y Título – Nivel Universitario</option>
+    </select>
+
+    <div class="modalidades">
+        <div class="card" data-modalidad="estandar">
+            <h4>Certificación Estándar</h4>
+            <p>Emisión formal con validación digital.</p>
+            <div class="price" id="precioEstandar">$0</div>
+        </div>
+
+        <div class="card" data-modalidad="auditoria">
+            <h4>Con Auditoría Integral</h4>
+            <p>Incluye revisión técnica y control ampliado.</p>
+            <div class="price" id="precioAuditoria">$0</div>
+        </div>
+    </div>
+
+    <div class="resumen" id="resumenBox">
+        <strong>Resumen del Servicio</strong>
+        <div id="detalleResumen"></div>
+        <div><strong>Número de Trámite:</strong> <span id="numeroTramite"></span></div>
+    </div>
+
+    <button id="continuarBtn">Continuar con el trámite</button>
+
+</div>
+
+<footer>
+© 2026 DAS – Departamento de Auditoría y Servicios  
+<br>Certificación documental con verificación digital institucional.
+</footer>
+
+<script>
+const precios = {
+    secundario: { estandar: 100000, auditoria: 150000 },
+    tecnico: { estandar: 110000, auditoria: 160000 },
+    terciario: { estandar: 120000, auditoria: 170000 },
+    profesorado: { estandar: 140000, auditoria: 190000 },
+    universitario: { estandar: 160000, auditoria: 210000 }
+};
+
+const documento = document.getElementById("documento");
+const cards = document.querySelectorAll(".card");
+let modalidadSeleccionada = null;
+
+function actualizarPrecios(){
+    const doc = documento.value;
+    if(doc){
+        document.getElementById("precioEstandar").textContent =
+            "$" + precios[doc].estandar.toLocaleString("es-AR");
+        document.getElementById("precioAuditoria").textContent =
+            "$" + precios[doc].auditoria.toLocaleString("es-AR");
+    }
+}
+
+documento.addEventListener("change", actualizarPrecios);
+
+cards.forEach(card=>{
+    card.addEventListener("click",()=>{
+        cards.forEach(c=>c.classList.remove("selected"));
+        card.classList.add("selected");
+        modalidadSeleccionada = card.dataset.modalidad;
+        generarResumen();
+    });
+});
+
+function generarResumen(){
+    const doc = documento.options[documento.selectedIndex].text;
+    if(!documento.value || !modalidadSeleccionada) return;
+
+    const precio = precios[documento.value][modalidadSeleccionada];
+    const tramite = "DAS-" + Math.floor(100000 + Math.random()*900000);
+
+    document.getElementById("detalleResumen").innerHTML =
+        `<p><strong>Documentación:</strong> ${doc}</p>
+         <p><strong>Modalidad:</strong> ${modalidadSeleccionada === "estandar" ? "Certificación Estándar" : "Con Auditoría Integral"}</p>
+         <p><strong>Valor:</strong> $${precio.toLocaleString("es-AR")}</p>`;
+
+    document.getElementById("numeroTramite").textContent = tramite;
+    document.getElementById("resumenBox").style.display = "block";
+}
+
+document.getElementById("continuarBtn").addEventListener("click", generarResumen);
+</script>
+
+</body>
+</html>
