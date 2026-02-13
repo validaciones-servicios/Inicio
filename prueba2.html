@@ -3,131 +3,112 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DAS | Inicio de Trámite</title>
+<title>DAS | Inicio de Certificación</title>
 
 <style>
-:root {
-    --celeste: #37BBED;
-    --verde: #8DC21F;
-    --gris: #f5f5f5;
-    --gris-oscuro: #e0e0e0;
-    --texto: #333;
+:root{
+    --das-azul:#0A192F;
+    --das-azul-sec:#112D4E;
+    --das-dorado:#C6A75E;
+    --das-gris:#F4F6F9;
+    --das-blanco:#FFFFFF;
 }
 
 body{
     margin:0;
-    font-family:"Segoe UI", Arial, sans-serif;
-    background:var(--gris);
-    color:var(--texto);
+    font-family: 'Segoe UI', sans-serif;
+    background:var(--das-gris);
 }
 
-/* HEADER */
 header{
-    background:var(--celeste);
+    background:var(--das-azul);
     color:white;
+    padding:25px;
     text-align:center;
-    padding:40px 20px;
+    letter-spacing:1px;
 }
 
-header img{
-    height:130px;
-    margin-bottom:10px;
+header h1{
+    margin:0;
+    font-weight:600;
 }
 
-header h1{ margin:0; font-size:30px; }
-header h2{ margin:5px 0 0 0; font-weight:400; font-size:18px; }
+header p{
+    margin:5px 0 0 0;
+    font-size:14px;
+    opacity:0.8;
+}
 
-/* CONTAINER */
 .container{
-    max-width:900px;
+    max-width:950px;
     margin:40px auto;
     background:white;
     padding:40px;
-    border-radius:10px;
-    box-shadow:0 8px 25px rgba(0,0,0,0.1);
+    border-radius:12px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.08);
 }
 
-/* SELECTS */
-select{
-    width:100%;
-    padding:12px;
-    font-size:15px;
-    border-radius:6px;
-    border:1px solid var(--gris-oscuro);
-    margin-bottom:20px;
-}
-
-/* MODALIDAD CARDS */
-.modalidades{
-    display:flex;
-    gap:20px;
-    flex-wrap:wrap;
-}
-
-.card{
-    flex:1;
-    border:2px solid var(--gris-oscuro);
-    border-radius:10px;
-    padding:20px;
-    cursor:pointer;
-    transition:0.3s;
-}
-
-.card:hover{
-    border-color:var(--celeste);
-}
-
-.card.selected{
-    border-color:var(--verde);
-    background:#f9fff2;
-}
-
-.card h4{
+h2{
+    color:var(--das-azul);
     margin-top:0;
 }
 
-.price{
-    font-size:22px;
-    font-weight:bold;
-    color:var(--verde);
+label{
+    font-weight:500;
+    font-size:14px;
 }
 
-/* RESUMEN */
-.resumen{
-    margin-top:30px;
-    padding:20px;
-    background:var(--gris);
+select,input{
+    width:100%;
+    padding:12px;
+    margin:8px 0 18px 0;
     border-radius:8px;
-    display:none;
+    border:1px solid #dcdcdc;
+    font-size:14px;
 }
 
-.resumen strong{
-    display:block;
-    margin-bottom:8px;
+input:invalid{
+    border:1px solid #c0392b;
 }
 
-/* BOTON */
 button{
-    margin-top:20px;
-    padding:14px;
-    font-size:15px;
-    border:none;
-    border-radius:6px;
-    background:var(--celeste);
+    background:var(--das-azul-sec);
     color:white;
+    border:none;
+    padding:14px 25px;
+    border-radius:8px;
     cursor:pointer;
+    font-weight:600;
+    transition:0.3s;
 }
 
 button:hover{
-    background:#2a9ad6;
+    background:var(--das-dorado);
+    color:black;
 }
 
-/* FOOTER */
-footer{
-    text-align:center;
+.hidden{ display:none; }
+
+.progress{
+    height:6px;
+    background:#ddd;
+    border-radius:5px;
+    margin-bottom:30px;
+    overflow:hidden;
+}
+
+.progress-bar{
+    height:100%;
+    width:33%;
+    background:var(--das-dorado);
+    transition:0.4s;
+}
+
+.summary-box{
+    background:#f8f9fb;
     padding:25px;
-    background:var(--gris-oscuro);
-    font-size:14px;
+    border-radius:10px;
+    border-left:4px solid var(--das-dorado);
 }
 </style>
 </head>
@@ -135,106 +116,172 @@ footer{
 <body>
 
 <header>
-    <img src="https://i.postimg.cc/D0T5XNJX/file-00000000ea5c71f5af05c32a457144cb.png">
-    <h1>DAS</h1>
-    <h2>Departamento de Auditoría y Servicios</h2>
+<h1>DAS</h1>
+<p>Departamento de Auditoría y Servicios</p>
 </header>
 
 <div class="container">
 
-    <h3>Inicio de Trámite de Certificación</h3>
-    <p>Seleccione el tipo de documentación y modalidad del servicio.</p>
+<div class="progress">
+<div class="progress-bar" id="progressBar"></div>
+</div>
 
-    <label>Tipo de Documentación</label>
-    <select id="documento">
-        <option value="">-- Seleccionar --</option>
-        <option value="secundario">Analítico y Título – Secundario</option>
-        <option value="tecnico">Analítico y Título – Secundario Técnico</option>
-        <option value="terciario">Analítico y Título – Nivel Terciario</option>
-        <option value="profesorado">Analítico y Título – Profesorado</option>
-        <option value="universitario">Analítico y Título – Nivel Universitario</option>
-    </select>
+<!-- PASO 1 -->
+<div id="paso1">
+<h2>Selección de Certificación</h2>
 
-    <div class="modalidades">
-        <div class="card" data-modalidad="estandar">
-            <h4>Certificación Estándar</h4>
-            <p>Emisión formal con validación digital.</p>
-            <div class="price" id="precioEstandar">$0</div>
-        </div>
+<label>Tipo de documentación</label>
+<select id="tipoDoc" required onchange="actualizarPrecio()">
+<option value="">Seleccionar</option>
+<option value="Secundario">Secundario</option>
+<option value="Secundario Técnico">Secundario Técnico</option>
+<option value="Terciario">Terciario</option>
+<option value="Profesorado">Profesorado</option>
+<option value="Universitario">Universitario</option>
+</select>
 
-        <div class="card" data-modalidad="auditoria">
-            <h4>Con Auditoría Integral</h4>
-            <p>Incluye revisión técnica y control ampliado.</p>
-            <div class="price" id="precioAuditoria">$0</div>
-        </div>
-    </div>
+<label>Modalidad</label>
+<select id="modalidad" required onchange="actualizarPrecio()">
+<option value="">Seleccionar</option>
+<option value="Estándar">Certificación Estándar</option>
+<option value="Auditoría">Con Auditoría Integral</option>
+</select>
 
-    <div class="resumen" id="resumenBox">
-        <strong>Resumen del Servicio</strong>
-        <div id="detalleResumen"></div>
-        <div><strong>Número de Trámite:</strong> <span id="numeroTramite"></span></div>
-    </div>
+<h3 id="precio"></h3>
 
-    <button id="continuarBtn">Continuar con el trámite</button>
+<button onclick="continuar()">Continuar</button>
+</div>
+
+<!-- PASO 2 -->
+<div id="paso2" class="hidden">
+<h2>Datos Personales</h2>
+
+<input type="text" id="nombre" placeholder="Nombre(s) y Apellido" required>
+<input type="number" id="dni" placeholder="Número de DNI" required>
+<input type="date" id="nacimiento" required>
+<input type="text" id="nacionalidad" placeholder="Nacionalidad" required>
+
+<h2>Datos Académicos</h2>
+
+<input type="text" id="institucion" placeholder="Nombre de la Institución" required>
+<input type="text" id="direccion" placeholder="Dirección" required>
+<input type="text" id="localidad" placeholder="Localidad" required>
+<input type="text" id="provincia" placeholder="Provincia" required>
+<input type="date" id="egreso" required>
+
+<button onclick="mostrarResumen()">Ver Resumen</button>
+</div>
+
+<!-- PASO 3 -->
+<div id="paso3" class="hidden">
+<h2>Confirmación Final</h2>
+
+<div class="summary-box" id="resumen"></div>
+
+<br>
+<button onclick="enviarWhatsApp()">Finalizar y Enviar</button>
+</div>
 
 </div>
 
-<footer>
-© 2026 DAS – Departamento de Auditoría y Servicios  
-<br>Certificación documental con verificación digital institucional.
-</footer>
-
 <script>
+
 const precios = {
-    secundario: { estandar: 100000, auditoria: 150000 },
-    tecnico: { estandar: 110000, auditoria: 160000 },
-    terciario: { estandar: 120000, auditoria: 170000 },
-    profesorado: { estandar: 140000, auditoria: 190000 },
-    universitario: { estandar: 160000, auditoria: 210000 }
+"Secundario":{Estándar:100000, Auditoría:150000},
+"Secundario Técnico":{Estándar:110000, Auditoría:160000},
+"Terciario":{Estándar:120000, Auditoría:170000},
+"Profesorado":{Estándar:140000, Auditoría:190000},
+"Universitario":{Estándar:160000, Auditoría:210000}
 };
 
-const documento = document.getElementById("documento");
-const cards = document.querySelectorAll(".card");
-let modalidadSeleccionada = null;
+let codigoUnico = "";
 
-function actualizarPrecios(){
-    const doc = documento.value;
-    if(doc){
-        document.getElementById("precioEstandar").textContent =
-            "$" + precios[doc].estandar.toLocaleString("es-AR");
-        document.getElementById("precioAuditoria").textContent =
-            "$" + precios[doc].auditoria.toLocaleString("es-AR");
+function generarCodigo(){
+    let año = new Date().getFullYear();
+    let random = Math.floor(1000 + Math.random() * 9000);
+    codigoUnico = "DAS-" + año + "-" + random;
+}
+
+function actualizarPrecio(){
+    let tipo = tipoDoc.value;
+    let mod = modalidad.value;
+    if(tipo && mod){
+        precio.innerText = "Honorarios Profesionales: $" + precios[tipo][mod].toLocaleString();
     }
 }
 
-documento.addEventListener("change", actualizarPrecios);
-
-cards.forEach(card=>{
-    card.addEventListener("click",()=>{
-        cards.forEach(c=>c.classList.remove("selected"));
-        card.classList.add("selected");
-        modalidadSeleccionada = card.dataset.modalidad;
-        generarResumen();
-    });
-});
-
-function generarResumen(){
-    const doc = documento.options[documento.selectedIndex].text;
-    if(!documento.value || !modalidadSeleccionada) return;
-
-    const precio = precios[documento.value][modalidadSeleccionada];
-    const tramite = "DAS-" + Math.floor(100000 + Math.random()*900000);
-
-    document.getElementById("detalleResumen").innerHTML =
-        `<p><strong>Documentación:</strong> ${doc}</p>
-         <p><strong>Modalidad:</strong> ${modalidadSeleccionada === "estandar" ? "Certificación Estándar" : "Con Auditoría Integral"}</p>
-         <p><strong>Valor:</strong> $${precio.toLocaleString("es-AR")}</p>`;
-
-    document.getElementById("numeroTramite").textContent = tramite;
-    document.getElementById("resumenBox").style.display = "block";
+function continuar(){
+    if(!tipoDoc.value || !modalidad.value){
+        alert("Debe seleccionar tipo de documentación y modalidad.");
+        return;
+    }
+    generarCodigo();
+    paso1.classList.add("hidden");
+    paso2.classList.remove("hidden");
+    progressBar.style.width="66%";
 }
 
-document.getElementById("continuarBtn").addEventListener("click", generarResumen);
+function mostrarResumen(){
+
+let campos = document.querySelectorAll("#paso2 input");
+for(let campo of campos){
+    if(!campo.value){
+        alert("Todos los campos son obligatorios.");
+        return;
+    }
+}
+
+let resumenHTML = `
+<strong>Código Único:</strong> ${codigoUnico}<br><br>
+<strong>Tipo:</strong> ${tipoDoc.value}<br>
+<strong>Modalidad:</strong> ${modalidad.value}<br>
+<strong>${precio.innerText}</strong><br><br>
+
+<strong>Nombre:</strong> ${nombre.value}<br>
+<strong>DNI:</strong> ${dni.value}<br>
+<strong>Nacimiento:</strong> ${nacimiento.value}<br>
+<strong>Nacionalidad:</strong> ${nacionalidad.value}<br><br>
+
+<strong>Institución:</strong> ${institucion.value}<br>
+<strong>Dirección:</strong> ${direccion.value}<br>
+<strong>Localidad:</strong> ${localidad.value}<br>
+<strong>Provincia:</strong> ${provincia.value}<br>
+<strong>Egreso:</strong> ${egreso.value}
+`;
+
+resumen.innerHTML = resumenHTML;
+
+paso2.classList.add("hidden");
+paso3.classList.remove("hidden");
+progressBar.style.width="100%";
+}
+
+function enviarWhatsApp(){
+
+let mensaje = `
+NUEVO TRÁMITE DAS
+
+Código: ${codigoUnico}
+Tipo: ${tipoDoc.value}
+Modalidad: ${modalidad.value}
+${precio.innerText}
+
+Nombre: ${nombre.value}
+DNI: ${dni.value}
+Nacimiento: ${nacimiento.value}
+Nacionalidad: ${nacionalidad.value}
+
+Institución: ${institucion.value}
+Dirección: ${direccion.value}
+Localidad: ${localidad.value}
+Provincia: ${provincia.value}
+Egreso: ${egreso.value}
+`;
+
+let url = "https://wa.me/5491151461885?text=" + encodeURIComponent(mensaje);
+window.open(url, "_blank");
+}
+
 </script>
 
 </body>
