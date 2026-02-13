@@ -80,7 +80,7 @@ button:hover {
     padding: 15px;
     border-radius: 10px;
     background-color: var(--gris-oscuro);
-    display: none; /* solo se muestra al buscar */
+    display: none;
 }
 
 .result p {
@@ -99,6 +99,20 @@ button:hover {
 .pendiente { background-color: var(--amarillo); color: #333; }
 .rechazado { background-color: var(--rojo); }
 
+a.link-doc {
+    display: inline-block;
+    margin-top: 5px;
+    padding: 6px 10px;
+    background-color: var(--celeste);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+a.link-doc:hover {
+    background-color: #2a9ad6;
+}
+
 footer {
     text-align: center;
     padding: 15px;
@@ -112,7 +126,7 @@ footer {
 <body>
 
 <header>
-    <!-- Reemplazá el link con el de tu Google Drive -->
+    <!-- Reemplazá el link con tu Google Drive -->
     <img src="https://drive.google.com/uc?export=view&id=TU_ID_DEL_ARCHIVO" alt="Logo DAS">
     <h1>DAS - Departamento de Auditoría y Servicios</h1>
     <p>Dirección: Calle Falsa 123, Ciudad – Tel: (011) 1234-5678 – Email: contacto@das.com</p>
@@ -136,6 +150,9 @@ footer {
         <p><strong>Estado:</strong> <span id="resEstado" class="status"></span></p>
         <p><strong>Responsable:</strong> <span id="resResp"></span></p>
         <p><strong>Observaciones:</strong> <span id="resObs"></span></p>
+        <p><strong>Documentación adjunta:</strong></p>
+        <div id="resDocs"></div>
+        <button id="downloadPDF">Descargar certificado en PDF</button>
     </div>
 </div>
 
@@ -144,8 +161,10 @@ footer {
     <br>Todos los certificados emitidos por DAS tienen validez oficial y están registrados electrónicamente.
 </footer>
 
+<!-- jsPDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
-// Datos de ejemplo: reemplazá con tus registros reales o API
+// Datos de ejemplo
 const registros = [
     {
         tramite: "00123",
@@ -155,7 +174,12 @@ const registros = [
         fecha: "13/02/2026",
         estado: "aprobado",
         responsable: "María López",
-        observaciones: "Documento verificado"
+        observaciones: "Documento verificado",
+        docs: [
+            {nombre: "Documento 1", link: "https://drive.google.com/uc?export=view&id=ID_DOC1"},
+            {nombre: "Documento 2", link: "https://drive.google.com/uc?export=view&id=ID_DOC2"}
+        ],
+        certificado: "Certificado oficial"
     },
     {
         tramite: "00124",
@@ -165,32 +189,82 @@ const registros = [
         fecha: "10/02/2026",
         estado: "pendiente",
         responsable: "Pedro Martínez",
-        observaciones: "Falta firma digital"
+        observaciones: "Falta firma digital",
+        docs: [
+            {nombre: "Documento 1", link: "https://drive.google.com/uc?export=view&id=ID_DOC3"}
+        ],
+        certificado: "Certificado oficial"
     }
 ];
+
+let registroActual = null;
 
 document.getElementById("searchForm").addEventListener("submit", function(e) {
     e.preventDefault();
     const tramite = document.getElementById("tramite").value.trim();
     const cu = document.getElementById("cu").value.trim();
-    const registro = registros.find(r => r.tramite === tramite && r.cu === cu);
+    registroActual = registros.find(r => r.tramite === tramite && r.cu === cu);
     
     const box = document.getElementById("resultBox");
-    if (registro) {
-        document.getElementById("resNombre").textContent = registro.nombre;
-        document.getElementById("resCU").textContent = registro.cu;
-        document.getElementById("resTipo").textContent = registro.tipo;
-        document.getElementById("resFecha").textContent = registro.fecha;
+    if (registroActual) {
+        document.getElementById("resNombre").textContent = registroActual.nombre;
+        document.getElementById("resCU").textContent = registroActual.cu;
+        document.getElementById("resTipo").textContent = registroActual.tipo;
+        document.getElementById("resFecha").textContent = registroActual.fecha;
         const estadoEl = document.getElementById("resEstado");
-        estadoEl.textContent = registro.estado.charAt(0).toUpperCase() + registro.estado.slice(1);
-        estadoEl.className = "status " + registro.estado;
-        document.getElementById("resResp").textContent = registro.responsable;
-        document.getElementById("resObs").textContent = registro.observaciones;
+        estadoEl.textContent = registroActual.estado.charAt(0).toUpperCase() + registroActual.estado.slice(1);
+        estadoEl.className = "status " + registroActual.estado;
+        document.getElementById("resResp").textContent = registroActual.responsable;
+        document.getElementById("resObs").textContent = registroActual.observaciones;
+
+        // Documentos
+        const docsDiv = document.getElementById("resDocs");
+        docsDiv.innerHTML = "";
+        registroActual.docs.forEach(doc => {
+            const a = document.createElement("a");
+            a.href = doc.link;
+            a.textContent = doc.nombre;
+            a.className = "link-doc";
+            a.target = "_blank";
+            docsDiv.appendChild(a);
+        });
+
         box.style.display = "block";
     } else {
         box.style.display = "block";
         box.innerHTML = "<p>No se encontró ningún registro con esos datos.</p>";
     }
+});
+
+// Descargar PDF
+document.getElementById("downloadPDF").addEventListener("click", async function() {
+    if (!registroActual) return;
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    // Logo
+    const logoUrl = "https://drive.google.com/uc?export=view&id=TU_ID_DEL_ARCHIVO";
+    const img = new Image();
+    img.src = logoUrl;
+    img.crossOrigin = "anonymous";
+    img.onload = function() {
+        doc.addImage(img, 'PNG', 15, 10, 50, 20);
+
+        doc.setFontSize(16);
+        doc.text("Certificado de Documento", 70, 20);
+        doc.setFontSize(12);
+        doc.text(`Número de Trámite: ${registroActual.tramite}`, 15, 50);
+        doc.text(`Nombre: ${registroActual.nombre}`, 15, 60);
+        doc.text(`C.U.: ${registroActual.cu}`, 15, 70);
+        doc.text(`Tipo de Documento: ${registroActual.tipo}`, 15, 80);
+        doc.text(`Fecha de Emisión: ${registroActual.fecha}`, 15, 90);
+        doc.text(`Estado: ${registroActual.estado.charAt(0).toUpperCase() + registroActual.estado.slice(1)}`, 15, 100);
+        doc.text(`Responsable: ${registroActual.responsable}`, 15, 110);
+        doc.text(`Observaciones: ${registroActual.observaciones}`, 15, 120);
+
+        doc.save(`Certificado_${registroActual.tramite}.pdf`);
+    };
 });
 </script>
 
