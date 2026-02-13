@@ -4,301 +4,265 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DAS - Verificación de Trámite</title>
+
 <style>
 :root {
     --azul:#0B1F3A;
-    --verde: #8DC21F;
-    --gris: #f5f5f5;
-    --gris-oscuro: #e0e0e0;
-    --texto: #333;
-    --rojo: #e74c3c;
-    --amarillo: #f1c40f;
+    --verde:#8DC21F;
+    --gris:#f5f5f5;
+    --gris-oscuro:#e0e0e0;
+    --texto:#333;
+    --rojo:#e74c3c;
+    --amarillo:#f1c40f;
     --azul-sec:#163A6B;
-    --azul-brillante:#1F4E8C;
 }
 
-/* Reset general */
-body {
+/* Reset */
+body{
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: var(--gris);
-    color: var(--texto);
+    margin:0;
+    padding:0;
+    background-color:var(--gris);
+    color:var(--texto);
 }
 
 /* Header */
-header {
-    background-color: var(--azul);
-    color: white;
-    padding: 30px 20px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
+header{
+    background-color:var(--azul);
+    color:white;
+    padding:30px 20px;
+    text-align:center;
+    box-shadow:0 4px 15px rgba(0,0,0,0.2);
 }
 
-header img {
-    height: 350px;
-    width: auto;
-    object-fit: contain;
+header img{
+    height:220px;
 }
 
-header h1 {
-    margin: 0;
-    font-size: 32px;
-    font-weight: bold;
+header h1{
+    margin:10px 0 0 0;
 }
 
-header h2 {
-    margin: 0;
-    font-size: 20px;
-    font-weight: normal;
+header h2{
+    margin:0;
+    font-weight:normal;
 }
 
-header p {
-    margin: 5px 0 0 0;
-    font-size: 14px;
+/* Container */
+.container{
+    max-width:700px;
+    margin:40px auto;
+    padding:25px;
+    background:white;
+    box-shadow:0 0 15px rgba(0,0,0,0.1);
+    border-radius:10px;
 }
 
-/* Container principal */
-.container {
-    max-width: 700px;
-    margin: 30px auto;
-    padding: 25px;
-    background-color: white;
-    box-shadow: 0 0 15px rgba(0,0,0,0.1);
-    border-radius: 10px;
+/* Form */
+form{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
 }
 
-/* Formulario */
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+input{
+    padding:12px;
+    font-size:16px;
+    border-radius:5px;
+    border:1px solid var(--gris-oscuro);
 }
 
-input {
-    padding: 12px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid var(--gris-oscuro);
+button{
+    padding:12px;
+    font-size:16px;
+    border:none;
+    border-radius:5px;
+    background-color:var(--azul-sec);
+    color:white;
+    cursor:pointer;
 }
 
-button {
-    padding: 12px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    background-color: var(--azul-sec);
-    color: white;
-    cursor: pointer;
-    transition: 0.2s;
+button:hover{
+    background-color:#2a9ad6;
 }
 
-button:hover {
-    background-color: #2a9ad6;
+/* Result */
+.result{
+    margin-top:25px;
+    padding:20px;
+    border-radius:10px;
+    background-color:var(--gris-oscuro);
+    display:none;
+    animation:fadeIn 0.4s ease-in-out;
 }
 
-/* Resultados */
-.result {
-    margin-top: 25px;
-    padding: 20px;
-    border-radius: 10px;
-    background-color: var(--gris-oscuro);
-    display: none;
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(10px);}
+    to{opacity:1; transform:translateY(0);}
 }
 
-.result p {
-    margin: 8px 0;
+.status{
+    padding:5px 12px;
+    border-radius:5px;
+    color:white;
+    font-weight:bold;
 }
 
-.status {
-    padding: 5px 12px;
-    border-radius: 5px;
-    color: white;
-    font-weight: bold;
-    display: inline-block;
+.aprobado{background-color:var(--verde);}
+.pendiente{background-color:var(--amarillo); color:#333;}
+.rechazado{background-color:var(--rojo);}
+
+/* Error */
+.error-box{
+    background:#ffe5e5;
+    color:#b30000;
+    padding:15px;
+    border-radius:8px;
+    font-weight:bold;
+    text-align:center;
 }
 
-.aprobado { background-color: var(--verde); }
-.pendiente { background-color: var(--amarillo); color: #333; }
-.rechazado { background-color: var(--rojo); }
-
-a.link-doc {
-    padding: 6px 10px;
-    background-color: var(--azul-brillante);
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: 0.2s;
-}
-
-a.link-doc:hover {
-    background-color: #2a9ad6;
-}
-
-.result .links-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 5px;
+/* Sello Digital */
+.sello-digital{
+    margin-top:20px;
+    padding:12px;
+    border:2px solid var(--verde);
+    border-radius:8px;
+    text-align:center;
+    font-weight:bold;
+    color:var(--verde);
+    background:#f4fff4;
+    letter-spacing:1px;
 }
 
 /* Footer */
-footer {
-    text-align: center;
-    padding: 25px 15px;
-    background-color: var(--gris-oscuro);
-    border-top: 1px solid #ccc;
-    font-size: 14px;
-    line-height: 1.5;
+footer{
+    background-color:var(--azul);
+    color:white;
+    padding:35px 20px;
+    margin-top:60px;
+    text-align:center;
+}
+
+.footer-line{
+    width:60px;
+    height:3px;
+    background-color:var(--verde);
+    margin:15px auto;
+}
+
+.footer-copy{
+    margin-top:15px;
+    font-size:12px;
+    opacity:0.7;
 }
 </style>
 </head>
+
 <body>
 
 <header>
     <img src="https://i.postimg.cc/D0T5XNJX/file-00000000ea5c71f5af05c32a457144cb.png" alt="Logo DAS">
-    <h1></h1>
+    <h1>DAS</h1>
     <h2>Departamento de Auditoría y Servicios</h2>
-    <p>Av. Corrientes 2456, Piso 3, Oficina 12 – Tel: (011) 51461885</p>
 </header>
 
 <div class="container">
     <h2>Verificación de Trámite</h2>
-    <p>Ingresá tu Número de DNI y C.U. para ver el estado de tu documento.</p>
+    <p>Ingresá tu Número de Trámite y C.U. para verificar tu documentación.</p>
 
     <form id="searchForm">
-        <input type="text" id="tramite" placeholder="Número de Trámite" required>
-        <input type="text" id="cu" placeholder="C.U." required>
+        <input type="text" id="tramite" placeholder="Número de Trámite" pattern="[0-9]+" inputmode="numeric" required>
+        <input type="text" id="cu" placeholder="C.U." pattern="[0-9]+" inputmode="numeric" required>
         <button type="submit">Buscar</button>
     </form>
 
-    <div class="result" id="resultBox">
-        <p><strong>Nombre y Apellido:</strong> <span id="resNombre"></span></p>
-        <p><strong>Código Único (C.U.):</strong> <span id="resCU"></span></p>
-        <p><strong>Tipo de Documentación:</strong> <span id="resTipo"></span></p>
-        <p><strong>Fecha de Emisión:</strong> <span id="resFecha"></span></p>
-        <p><strong>Estado:</strong> <span id="resEstado" class="status"></span></p>
-        <p><strong>Responsable Auditor/a:</strong> <span id="resResp"></span></p>
-        <p><strong>Observaciones:</strong> <span id="resObs"></span></p>
-
-        <p><strong>Documentación adjunta:</strong></p>
-        <div id="resDocs" class="links-container"></div>
-
-        <p><strong>Descargar Certificado:</strong></p>
-        <div class="links-container">
-            <button id="downloadPDF">Descargar certificado en PDF</button>
-        </div>
-    </div>
+    <div class="result" id="resultBox"></div>
 </div>
 
 <footer>
-    &copy; 2026 DAS - Departamento de Auditoría y Servicios | Todos los derechos reservados
-    <br>Todos los certificados emitidos por (DAS) tienen validez oficial y están registrados electrónicamente.
+    <div>DAS – Departamento de Auditoría y Servicios</div>
+    <div class="footer-line"></div>
+    Registro Institucional Nº 2026-AR-DAS-4581<br>
+    Certificaciones oficiales con registro electrónico verificable
+    <div class="footer-copy">
+        © 2026 DAS – Todos los derechos reservados.<br>
+        Este sitio web constituye una plataforma informativa de verificación documental.
+    </div>
 </footer>
 
-<!-- jsPDF -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 <script>
-// Datos de ejemplo
-const registros = [
-    {
-        tramite: "00123",
-        cu: "12345678",
-        nombre: "Juan Pérez",
-        tipo: "Certificado Analítico",
-        fecha: "13/02/2026",
-        estado: "aprobado",
-        responsable: "Carolina María Espindola",
-        observaciones: "La documentación presentada ha sido evaluada y aprobada, cumpliendo con todos los requisitos pertinentes. El certificado ya se encuentra disponible para ser presentado junto con su documentación.",
-        docs: [
-            {nombre: "Documento 1", link: "https://drive.google.com/uc?export=view&id=ID_DOC1"},
-            {nombre: "Documento 2", link: "https://drive.google.com/uc?export=view&id=ID_DOC2"}
-        ],
-        certificado: "Certificado oficial"
-    },
-    {
-        tramite: "00124",
-        cu: "87654321",
-        nombre: "Lucía Gómez",
-        tipo: "Título",
-        fecha: "10/02/2026",
-        estado: "pendiente",
-        responsable: "Pedro Martínez",
-        observaciones: "Falta firma digital",
-        docs: [
-            {nombre: "Documento 1", link: "https://drive.google.com/uc?export=view&id=ID_DOC3"}
-        ],
-        certificado: "Certificado oficial"
-    }
+const registros=[
+{
+tramite:"00123",
+cu:"12345678",
+nombre:"Juan Pérez",
+tipo:"Certificado Analítico",
+fecha:"13/02/2026",
+estado:"aprobado",
+responsable:"Carolina María Espindola",
+observaciones:"Documentación aprobada correctamente."
+}
 ];
 
-let registroActual = null;
+let registroActual=null;
 
-document.getElementById("searchForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-    const tramite = document.getElementById("tramite").value.trim();
-    const cu = document.getElementById("cu").value.trim();
-    registroActual = registros.find(r => r.tramite === tramite && r.cu === cu);
-    
-    const box = document.getElementById("resultBox");
-    if (registroActual) {
-        document.getElementById("resNombre").textContent = registroActual.nombre;
-        document.getElementById("resCU").textContent = registroActual.cu;
-        document.getElementById("resTipo").textContent = registroActual.tipo;
-        document.getElementById("resFecha").textContent = registroActual.fecha;
-        const estadoEl = document.getElementById("resEstado");
-        estadoEl.textContent = registroActual.estado.charAt(0).toUpperCase() + registroActual.estado.slice(1);
-        estadoEl.className = "status " + registroActual.estado;
-        document.getElementById("resResp").textContent = registroActual.responsable;
-        document.getElementById("resObs").textContent = registroActual.observaciones;
+document.getElementById("searchForm").addEventListener("submit",function(e){
+e.preventDefault();
 
-        const docsDiv = document.getElementById("resDocs");
-        docsDiv.innerHTML = "";
-        registroActual.docs.forEach(doc => {
-            const a = document.createElement("a");
-            a.href = doc.link;
-            a.textContent = doc.nombre;
-            a.className = "link-doc";
-            a.target = "_blank";
-            docsDiv.appendChild(a);
-        });
+const tramite=document.getElementById("tramite").value.trim();
+const cu=document.getElementById("cu").value.trim();
+const box=document.getElementById("resultBox");
 
-        box.style.display = "block";
-    } else {
-        box.style.display = "block";
-        box.innerHTML = "<p>No se encontró ningún registro con esos datos.</p>";
-    }
+registroActual=registros.find(r=>r.tramite===tramite && r.cu===cu);
+
+if(registroActual){
+box.innerHTML=`
+<p><strong>Nombre:</strong> ${registroActual.nombre}</p>
+<p><strong>C.U.:</strong> ${registroActual.cu}</p>
+<p><strong>Tipo:</strong> ${registroActual.tipo}</p>
+<p><strong>Fecha:</strong> ${registroActual.fecha}</p>
+<p><strong>Estado:</strong> <span class="status ${registroActual.estado}">
+${registroActual.estado.toUpperCase()}
+</span></p>
+<p><strong>Responsable:</strong> ${registroActual.responsable}</p>
+<p><strong>Observaciones:</strong> ${registroActual.observaciones}</p>
+
+<div class="sello-digital">
+✔ VERIFICACIÓN DIGITAL ACTIVA
+</div>
+
+<button onclick="descargarPDF()">Descargar certificado en PDF</button>
+`;
+box.style.display="block";
+}else{
+box.innerHTML='<div class="error-box">No se encontró ningún registro con los datos ingresados.</div>';
+box.style.display="block";
+}
 });
 
-document.getElementById("downloadPDF").addEventListener("click", async function() {
-    if (!registroActual) return;
+function descargarPDF(){
+const { jsPDF } = window.jspdf;
+const doc=new jsPDF();
 
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
+doc.setFontSize(16);
+doc.text("CERTIFICADO DE VERIFICACIÓN",20,20);
 
-    const logoUrl = "https://drive.google.com/uc?export=view&id=TU_ID_DEL_ARCHIVO";
-    const img = new Image();
-    img.src = logoUrl;
-    img.crossOrigin = "anonymous";
-    img.onload = function() {
-        doc.addImage(img, 'PNG', 15, 10, 50, 20);
-        doc.setFontSize(16);
-        doc.text("Certificado de Documento", 70, 20);
-        doc.setFontSize(12);
-        doc.text(`Número de Trámite: ${registroActual.tramite}`, 15, 50);
-        doc.text(`Nombre: ${registroActual.nombre}`, 15, 60);
-        doc.text(`C.U.: ${registroActual.cu}`, 15, 70);
-        doc.text(`Tipo de Documento: ${registroActual.tipo}`, 15, 80);
-        doc.text(`Fecha de Emisión: ${registroActual.fecha}`, 15, 90);
-        doc.text(`Estado: ${registroActual.estado.charAt(0).toUpperCase() + registroActual.estado.slice(1)}`, 15, 100);
-        doc.text(`Responsable: ${registroActual.responsable}`, 15, 110);
-        doc.text(`Observaciones: ${registroActual.observaciones}`, 15, 120);
-        doc.save(`Certificado_${registroActual.tramite}.pdf`);
-    };
-});
+doc.setFontSize(12);
+doc.text(`Trámite: ${registroActual.tramite}`,20,40);
+doc.text(`Nombre: ${registroActual.nombre}`,20,50);
+doc.text(`C.U.: ${registroActual.cu}`,20,60);
+doc.text(`Tipo: ${registroActual.tipo}`,20,70);
+doc.text(`Fecha: ${registroActual.fecha}`,20,80);
+doc.text(`Estado: ${registroActual.estado}`,20,90);
+
+doc.setTextColor(0,150,0);
+doc.text("✔ VERIFICACIÓN DIGITAL ACTIVA",20,110);
+
+doc.save("Certificado_DAS.pdf");
+}
 </script>
 
 </body>
