@@ -42,7 +42,6 @@ header img{
     padding:25px;
     border-radius:10px;
     margin-bottom:25px;
-    animation:fadeIn 0.6s ease;
 }
 
 h2{
@@ -109,7 +108,6 @@ button:hover{
 .confirmacion{
     text-align:center;
     padding:30px;
-    animation:fadeIn 0.8s ease;
 }
 
 .confirmacion h2{
@@ -122,11 +120,6 @@ button:hover{
     color:var(--azul);
     border-top:1px solid #ddd;
     padding-top:15px;
-}
-
-@keyframes fadeIn{
-    from{opacity:0; transform:translateY(10px);}
-    to{opacity:1; transform:translateY(0);}
 }
 </style>
 </head>
@@ -178,7 +171,6 @@ button:hover{
 <input type="number" id="dni">
 
 <label>Fecha de nacimiento</label>
-<small>Fecha exacta de nacimiento del titular.</small>
 <input type="date" id="nacimiento">
 
 <label>Nacionalidad</label>
@@ -201,7 +193,6 @@ button:hover{
 <input type="text" id="provincia">
 
 <label>Fecha de egreso</label>
-<small>Fecha en que finalizó y aprobó el plan de estudios.</small>
 <input type="date" id="egreso">
 </div>
 
@@ -216,7 +207,7 @@ button:hover{
 <button onclick="enviarWhatsApp()">Finalizar y Enviar a DAS</button>
 </div>
 
-<!-- PASO 4 CONFIRMACIÓN -->
+<!-- PASO 4 -->
 <div id="paso4" class="hidden confirmacion">
 <h2>✔ Trámite iniciado correctamente</h2>
 <p>Su solicitud fue enviada al Departamento de Auditoría y Servicios.</p>
@@ -251,7 +242,8 @@ function actualizarPrecio(){
 let tipo=tipoDoc.value;
 let mod=modalidad.value;
 if(tipo && mod){
-precio.innerText="Valor del trámite: $"+precios[tipo][mod].toLocaleString();
+let valor=precios[tipo][mod];
+precio.innerText="Valor del trámite: $"+valor.toLocaleString();
 precio.classList.add("visible");
 }
 }
@@ -275,38 +267,66 @@ return;
 }
 }
 
+let fechaNacimiento=formatearFecha(nacimiento.value);
+let fechaEgreso=formatearFecha(egreso.value);
+let valor=precios[tipoDoc.value][modalidad.value];
+
 resumen.innerHTML=`
-<strong>Código Único:</strong> ${codigoUnico}<br><br>
-<strong>${tipoDoc.value}</strong><br>
-<strong>${modalidad.value}</strong><br>
-<strong>${precio.innerText}</strong><br><br>
+<strong>Código:</strong> ${codigoUnico}<br><br>
+<strong>Tipo:</strong> ${tipoDoc.value}<br>
+<strong>Modalidad:</strong> ${modalidad.value}<br>
+<strong>Valor:</strong> $${valor.toLocaleString()}<br><br>
 <strong>Nombre:</strong> ${nombre.value}<br>
 <strong>DNI:</strong> ${dni.value}<br>
-<strong>Nacimiento:</strong> ${nacimiento.value}<br>
+<strong>Nacimiento:</strong> ${fechaNacimiento}<br>
 <strong>Nacionalidad:</strong> ${nacionalidad.value}<br><br>
 <strong>Institución:</strong> ${institucion.value}<br>
+<strong>Dirección:</strong> ${direccion.value}<br>
 <strong>Localidad:</strong> ${localidad.value}<br>
 <strong>Provincia:</strong> ${provincia.value}<br>
-<strong>Egreso:</strong> ${egreso.value}
+<strong>Egreso:</strong> ${fechaEgreso}
 `;
 
 paso2.classList.add("hidden");
 paso3.classList.remove("hidden");
 }
 
+function formatearFecha(fechaISO){
+if(!fechaISO) return "";
+let partes=fechaISO.split("-");
+return `${partes[2]}/${partes[1]}/${partes[0]}`;
+}
+
 function enviarWhatsApp(){
+
+let fechaNacimiento=formatearFecha(nacimiento.value);
+let fechaEgreso=formatearFecha(egreso.value);
+let valor=precios[tipoDoc.value][modalidad.value];
 
 let mensaje=`Nuevo trámite DAS
 Código: ${codigoUnico}
-${tipoDoc.value}
-${modalidad.value}
-${precio.innerText}
+
+Tipo: ${tipoDoc.value}
+Modalidad: ${modalidad.value}
+Valor: $${valor.toLocaleString()}
+
+--- DATOS PERSONALES ---
 Nombre: ${nombre.value}
 DNI: ${dni.value}
-Institución: ${institucion.value}`;
+Fecha de nacimiento: ${fechaNacimiento}
+Nacionalidad: ${nacionalidad.value}
+
+--- DATOS ACADÉMICOS ---
+Institución: ${institucion.value}
+Dirección: ${direccion.value}
+Localidad: ${localidad.value}
+Provincia: ${provincia.value}
+Fecha de egreso: ${fechaEgreso}
+`;
 
 let url="https://wa.me/5491151461885?text="+encodeURIComponent(mensaje);
-window.open(url,"_blank");
+
+window.location.href=url;
 
 paso3.classList.add("hidden");
 paso4.classList.remove("hidden");
@@ -315,4 +335,4 @@ paso4.classList.remove("hidden");
 </script>
 
 </body>
-    </html>
+</html>
