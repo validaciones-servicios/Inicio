@@ -15,6 +15,7 @@
     --amarillo: #f1c40f;
 }
 
+/* Reset general */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -23,37 +24,52 @@ body {
     color: var(--texto);
 }
 
+/* Header */
 header {
     background-color: var(--celeste);
     color: white;
-    padding: 20px;
+    padding: 30px 20px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
 }
 
 header img {
-    height: 350px;
-    margin-bottom: 10px;
+    height: 120px;
+    width: auto;
+    object-fit: contain;
 }
 
 header h1 {
-    margin: 10px 0 0 0;
-    font-size: 36px;
+    margin: 0;
+    font-size: 32px;
+    font-weight: bold;
 }
 
 header h2 {
-    margin: 10px 0 0 0;
-    font-size: 36px;
+    margin: 0;
+    font-size: 20px;
+    font-weight: normal;
 }
 
+header p {
+    margin: 5px 0 0 0;
+    font-size: 14px;
+}
+
+/* Container principal */
 .container {
     max-width: 700px;
     margin: 30px auto;
-    padding: 20px;
+    padding: 25px;
     background-color: white;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
     border-radius: 10px;
 }
 
+/* Formulario */
 form {
     display: flex;
     flex-direction: column;
@@ -61,29 +77,31 @@ form {
 }
 
 input {
-    padding: 10px;
+    padding: 12px;
     font-size: 16px;
     border-radius: 5px;
     border: 1px solid var(--gris-oscuro);
 }
 
 button {
-    padding: 10px;
+    padding: 12px;
     font-size: 16px;
     border: none;
     border-radius: 5px;
     background-color: var(--celeste);
     color: white;
     cursor: pointer;
+    transition: 0.2s;
 }
 
 button:hover {
     background-color: #2a9ad6;
 }
 
+/* Resultados */
 .result {
-    margin-top: 20px;
-    padding: 15px;
+    margin-top: 25px;
+    padding: 20px;
     border-radius: 10px;
     background-color: var(--gris-oscuro);
     display: none;
@@ -94,7 +112,7 @@ button:hover {
 }
 
 .status {
-    padding: 5px 10px;
+    padding: 5px 12px;
     border-radius: 5px;
     color: white;
     font-weight: bold;
@@ -111,6 +129,7 @@ a.link-doc {
     color: white;
     text-decoration: none;
     border-radius: 5px;
+    transition: 0.2s;
 }
 
 a.link-doc:hover {
@@ -124,24 +143,24 @@ a.link-doc:hover {
     margin-top: 5px;
 }
 
+/* Footer */
 footer {
     text-align: center;
-    padding: 15px;
+    padding: 25px 15px;
     background-color: var(--gris-oscuro);
-    margin-top: 30px;
     border-top: 1px solid #ccc;
     font-size: 14px;
+    line-height: 1.5;
 }
 </style>
 </head>
 <body>
 
 <header>
-    <!-- Reemplazá el link con tu Google Drive -->
-    <img src="https://i.postimg.cc/D0T5XNJX/file-00000000ea5c71f5af05c32a457144cb.png' border='0' alt='file-00000000ea5c71f5af05c32a457144cb" alt="Logo DAS">
+    <img src="https://i.postimg.cc/D0T5XNJX/file-00000000ea5c71f5af05c32a457144cb.png" alt="Logo DAS">
     <h1>DAS</h1>
     <h2>Departamento de Auditoría y Servicios</h2>
-    <p>Dirección: Av. Corrientes 2456, Piso 3, Oficina 12 – Tel: (011) 51461885 – Email: contacto@dasauditoria.com.ar</p>
+    <p>Av. Corrientes 2456, Piso 3, Oficina 12 – Tel: (011) 51461885 – Email: contacto@dasauditoria.com.ar</p>
 </header>
 
 <div class="container">
@@ -234,7 +253,6 @@ document.getElementById("searchForm").addEventListener("submit", function(e) {
         document.getElementById("resResp").textContent = registroActual.responsable;
         document.getElementById("resObs").textContent = registroActual.observaciones;
 
-        // Documentos
         const docsDiv = document.getElementById("resDocs");
         docsDiv.innerHTML = "";
         registroActual.docs.forEach(doc => {
@@ -253,21 +271,18 @@ document.getElementById("searchForm").addEventListener("submit", function(e) {
     }
 });
 
-// Descargar PDF
 document.getElementById("downloadPDF").addEventListener("click", async function() {
     if (!registroActual) return;
 
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
-    // Logo
     const logoUrl = "https://drive.google.com/uc?export=view&id=TU_ID_DEL_ARCHIVO";
     const img = new Image();
     img.src = logoUrl;
     img.crossOrigin = "anonymous";
     img.onload = function() {
         doc.addImage(img, 'PNG', 15, 10, 50, 20);
-
         doc.setFontSize(16);
         doc.text("Certificado de Documento", 70, 20);
         doc.setFontSize(12);
@@ -279,7 +294,6 @@ document.getElementById("downloadPDF").addEventListener("click", async function(
         doc.text(`Estado: ${registroActual.estado.charAt(0).toUpperCase() + registroActual.estado.slice(1)}`, 15, 100);
         doc.text(`Responsable: ${registroActual.responsable}`, 15, 110);
         doc.text(`Observaciones: ${registroActual.observaciones}`, 15, 120);
-
         doc.save(`Certificado_${registroActual.tramite}.pdf`);
     };
 });
