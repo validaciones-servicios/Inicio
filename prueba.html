@@ -176,11 +176,11 @@ footer{
 
 <div class="container">
     <h2>Verificación de Trámite</h2>
-    <p>Ingresá tu Número de Trámite y C.U. para verificar tu documentación.</p>
+    <p>Ingresá tu Número de Trámite y Código Único para verificar tu documentación.</p>
 
     <form id="searchForm">
         <input type="text" id="tramite" placeholder="Número de Trámite" pattern="[0-9]+" inputmode="numeric" required>
-        <input type="text" id="cu" placeholder="C.U." pattern="[0-9]+" inputmode="numeric" required>
+        <input type="text" id="cu" placeholder="Código Único" pattern="[0-9]+" inputmode="numeric" required>
         <button type="submit">Buscar</button>
     </form>
 
@@ -198,100 +198,78 @@ footer{
     </div>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
 <script>
 const registros=[
 {
-tramite:"00123",
-cu:"12345678",
-nombre:"Juan Pérez",
-tipo:"Certificado Analítico",
-fecha:"13/02/2026",
-estado:"aprobado",
-responsable:"Carolina María Espindola",
-observaciones:"Documentación aprobada correctamente.",
-documentos:[
-{nombre:"DNI Presentado", link:"https://drive.google.com/uc?export=view&id=ID1"},
-{nombre:"Certificado Analítico", link:"https://drive.google.com/uc?export=view&id=ID2"}
-]
+    tramite:"00123",
+    cu:"12345678",
+    nombre:"Milena Milagros Adoracion Diaz",
+    tipo:"Certificado Analítico y Título",
+    fecha:"13/02/2026",
+    estado:"aprobado",
+    responsable:"Carolina María Espindola",
+    observaciones:"La documentación presentada ha sido evaluada y cumple con todos los requisitos establecidos por DAS. Todos los métodos de validación aplicables han sido verificados y superados satisfactoriamente. El certificado correspondiente ya se encuentra disponible para su presentación junto con la documentación original.",
+    documentos:[
+        {nombre:"Documento 1", link:"https://drive.google.com/uc?export=view&id=ID1"},
+        {nombre:"Documento", link:"https://drive.google.com/uc?export=view&id=ID2"}
+    ],
+    certificado: "https://drive.google.com/uc?export=download&id=ID_CERTIFICADO"
 }
 ];
 
 let registroActual=null;
 
 document.getElementById("searchForm").addEventListener("submit",function(e){
-e.preventDefault();
+    e.preventDefault();
 
-const tramite=document.getElementById("tramite").value.trim();
-const cu=document.getElementById("cu").value.trim();
-const box=document.getElementById("resultBox");
+    const tramite=document.getElementById("tramite").value.trim();
+    const cu=document.getElementById("cu").value.trim();
+    const box=document.getElementById("resultBox");
 
-registroActual=registros.find(r=>r.tramite===tramite && r.cu===cu);
+    registroActual=registros.find(r=>r.tramite===tramite && r.cu===cu);
 
-if(registroActual){
+    if(registroActual){
 
-let botonesDocs="";
-if(registroActual.documentos && registroActual.documentos.length>0){
-registroActual.documentos.forEach(doc=>{
-botonesDocs+=`<a href="${doc.link}" target="_blank" class="doc-btn">${doc.nombre}</a>`;
+        let botonesDocs="";
+        if(registroActual.documentos && registroActual.documentos.length>0){
+            registroActual.documentos.forEach(doc=>{
+                botonesDocs+=`<a href="${doc.link}" target="_blank" class="doc-btn">${doc.nombre}</a>`;
+            });
+        }
+
+        box.innerHTML=`
+            <p><strong>Nombre:</strong> ${registroActual.nombre}</p>
+            <p><strong>C.U.:</strong> ${registroActual.cu}</p>
+            <p><strong>Tipo:</strong> ${registroActual.tipo}</p>
+            <p><strong>Fecha:</strong> ${registroActual.fecha}</p>
+            <p><strong>Estado:</strong> <span class="status ${registroActual.estado}">
+            ${registroActual.estado.toUpperCase()}
+            </span></p>
+            <p><strong>Responsable:</strong> ${registroActual.responsable}</p>
+            <p><strong>Observaciones:</strong> ${registroActual.observaciones}</p>
+
+            <div class="sello-digital">
+                ✔ VERIFICACIÓN DIGITAL ACTIVA
+            </div>
+
+            <h4 style="margin-top:20px;">Documentación presentada:</h4>
+            <div class="botones-container">
+                ${botonesDocs}
+            </div>
+
+            <div class="pdf-btn">
+                <a href="${registroActual.certificado}" target="_blank" class="doc-btn">Descargar certificado en PDF</a>
+            </div>
+        `;
+
+        box.style.display="block";
+
+    } else {
+        box.innerHTML='<div class="error-box">No se encontró ningún registro con los datos ingresados.</div>';
+        box.style.display="block";
+    }
 });
-}
-
-box.innerHTML=`
-<p><strong>Nombre:</strong> ${registroActual.nombre}</p>
-<p><strong>C.U.:</strong> ${registroActual.cu}</p>
-<p><strong>Tipo:</strong> ${registroActual.tipo}</p>
-<p><strong>Fecha:</strong> ${registroActual.fecha}</p>
-<p><strong>Estado:</strong> <span class="status ${registroActual.estado}">
-${registroActual.estado.toUpperCase()}
-</span></p>
-<p><strong>Responsable:</strong> ${registroActual.responsable}</p>
-<p><strong>Observaciones:</strong> ${registroActual.observaciones}</p>
-
-<div class="sello-digital">
-✔ VERIFICACIÓN DIGITAL ACTIVA
-</div>
-
-<h4 style="margin-top:20px;">Documentación presentada:</h4>
-<div class="botones-container">
-${botonesDocs}
-</div>
-
-<div class="pdf-btn">
-<button onclick="descargarPDF()">Descargar certificado en PDF</button>
-</div>
-`;
-
-box.style.display="block";
-
-}else{
-box.innerHTML='<div class="error-box">No se encontró ningún registro con los datos ingresados.</div>';
-box.style.display="block";
-}
-});
-
-function descargarPDF(){
-const { jsPDF } = window.jspdf;
-const doc=new jsPDF();
-
-doc.setFontSize(16);
-doc.text("CERTIFICADO DE VERIFICACIÓN",20,20);
-
-doc.setFontSize(12);
-doc.text(`Trámite: ${registroActual.tramite}`,20,40);
-doc.text(`Nombre: ${registroActual.nombre}`,20,50);
-doc.text(`C.U.: ${registroActual.cu}`,20,60);
-doc.text(`Tipo: ${registroActual.tipo}`,20,70);
-doc.text(`Fecha: ${registroActual.fecha}`,20,80);
-doc.text(`Estado: ${registroActual.estado}`,20,90);
-
-doc.setTextColor(22,58,107);
-doc.text("✔ VERIFICACIÓN DIGITAL ACTIVA",20,110);
-
-doc.save("Certificado_DAS.pdf");
-}
 </script>
 
 </body>
-</html>
+    </html>
