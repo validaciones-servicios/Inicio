@@ -22,25 +22,17 @@ body{
     background:var(--gris);
 }
 
-/* 🔹 NUEVO: ocultar pasos */
-.hidden{
-    display:none;
-}
+/* 🔹 ocultar pasos */
+.hidden{ display:none; }
 
-/* 🔹 NUEVO: animación suave */
+/* 🔹 animación suave */
 .fade{
     animation:fadeSlide 0.5s ease forwards;
 }
 
 @keyframes fadeSlide{
-    from{
-        opacity:0;
-        transform:translateY(15px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
+    from{ opacity:0; transform:translateY(15px); }
+    to{ opacity:1; transform:translateY(0); }
 }
 
 /* HEADER */
@@ -75,25 +67,11 @@ header img{
     border:1px solid var(--gris-oscuro);
 }
 
-h2{
-    color:var(--azul-sec);
-    margin-top:0;
-}
+h2{ color:var(--azul-sec); margin-top:0; }
 
 /* FORM */
-label{
-    font-weight:bold;
-    font-size:14px;
-}
-
-select,input{
-    width:100%;
-    padding:12px;
-    margin:8px 0 18px 0;
-    border-radius:6px;
-    border:1px solid #ccc;
-    font-size:14px;
-}
+label{ font-weight:bold; font-size:14px; display:block; margin-top:10px; }
+select,input{ width:100%; padding:12px; margin:8px 0 18px 0; border-radius:6px; border:1px solid #ccc; font-size:14px; }
 
 /* BOTONES */
 button{
@@ -107,9 +85,7 @@ button{
     transition:0.2s;
 }
 
-button:hover{
-    background:var(--azul-brillante);
-}
+button:hover{ background:var(--azul-brillante); }
 
 /* PRECIO */
 #precio{
@@ -121,10 +97,7 @@ button:hover{
     transition:0.4s ease;
 }
 
-#precio.visible{
-    opacity:1;
-    transform:translateY(0);
-}
+#precio.visible{ opacity:1; transform:translateY(0); }
 
 /* CONFIRMACION */
 .confirmacion{
@@ -132,9 +105,7 @@ button:hover{
     padding:30px;
 }
 
-.confirmacion h2{
-    color:var(--azul-sec);
-}
+.confirmacion h2{ color:var(--azul-sec); }
 
 .firma{
     margin-top:30px;
@@ -144,7 +115,7 @@ button:hover{
     padding-top:15px;
 }
 
-/* FOOTER */
+/* FOOTER DAS */
 footer{
     background:var(--azul);
     color:white;
@@ -152,6 +123,10 @@ footer{
     padding:35px 20px;
     margin-top:60px;
 }
+
+.footer-line{ width:60px; height:3px; background:var(--verde); margin:15px auto; }
+
+.footer-copy{ font-size:12px; opacity:0.7; margin-top:15px; }
 </style>
 </head>
 
@@ -197,18 +172,36 @@ footer{
 <div id="paso2" class="hidden">
 <div class="section">
 <h2>Datos Personales</h2>
-<input type="text" id="nombre" placeholder="Nombre(s) y Apellido">
-<input type="number" id="dni" placeholder="Número de DNI">
+
+<label>Nombre(s) y Apellido</label>
+<input type="text" id="nombre">
+
+<label>Número de DNI</label>
+<input type="number" id="dni">
+
+<label>Fecha de nacimiento del solicitante</label>
 <input type="date" id="nacimiento">
-<input type="text" id="nacionalidad" placeholder="Nacionalidad">
+
+<label>Nacionalidad</label>
+<input type="text" id="nacionalidad">
 </div>
 
 <div class="section">
 <h2>Datos Académicos</h2>
-<input type="text" id="institucion" placeholder="Nombre de la Institución">
-<input type="text" id="direccion" placeholder="Dirección">
-<input type="text" id="localidad" placeholder="Localidad">
-<input type="text" id="provincia" placeholder="Provincia">
+
+<label>Nombre de la Institución</label>
+<input type="text" id="institucion">
+
+<label>Dirección</label>
+<input type="text" id="direccion">
+
+<label>Localidad</label>
+<input type="text" id="localidad">
+
+<label>Provincia</label>
+<input type="text" id="provincia">
+
+<label>Fecha de egreso del documento académico</label>
 <input type="date" id="egreso">
 </div>
 
@@ -235,12 +228,20 @@ Certificación y Auditoría Documental Institucional
 
 </div>
 
+<!-- FOOTER DAS -->
 <footer>
 DAS – Departamento de Auditoría y Servicios
+<div class="footer-line"></div>
+Registro Institucional Nº 2026-AR-DAS-4581<br>
+Certificaciones oficiales con registro electrónico verificable
+<div class="footer-copy">
+© 2026 DAS – Todos los derechos reservados.<br>
+Este sitio web constituye una plataforma informativa de certificación documental.
+</div>
 </footer>
 
 <script>
-// 🔹 Precios según tu tabla original
+// 🔹 Precios con diferencia de $50.000
 const precios = {
     "Secundario": { "Estándar":100000, "Auditoría":150000 },
     "Secundario Técnico": { "Estándar":110000, "Auditoría":160000 },
@@ -328,7 +329,7 @@ Valor: $${valor.toLocaleString()}
 --- DATOS PERSONALES ---
 Nombre: ${nombre.value}
 DNI: ${dni.value}
-Nacimiento: ${nacimiento.value}
+Fecha de nacimiento: ${nacimiento.value}
 Nacionalidad: ${nacionalidad.value}
 
 --- DATOS ACADÉMICOS ---
@@ -336,7 +337,7 @@ Institución: ${institucion.value}
 Dirección: ${direccion.value}
 Localidad: ${localidad.value}
 Provincia: ${provincia.value}
-Egreso: ${egreso.value}
+Fecha de egreso: ${egreso.value}
 `;
 
     const url = "https://wa.me/5491151461885?text=" + encodeURIComponent(mensaje);
@@ -347,4 +348,4 @@ Egreso: ${egreso.value}
 </script>
 
 </body>
-    </html>
+</html>
