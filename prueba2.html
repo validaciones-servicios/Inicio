@@ -22,12 +22,28 @@ body{
     background:var(--gris);
 }
 
-/* HEADER */
-.top-line{
-    height:6px;
-    background:var(--verde);
+/* 🔹 NUEVO: ocultar pasos */
+.hidden{
+    display:none;
 }
 
+/* 🔹 NUEVO: animación suave */
+.fade{
+    animation:fadeSlide 0.5s ease forwards;
+}
+
+@keyframes fadeSlide{
+    from{
+        opacity:0;
+        transform:translateY(15px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* HEADER */
 header{
     background-color: var(--azul);
     color: white;
@@ -136,31 +152,15 @@ footer{
     padding:35px 20px;
     margin-top:60px;
 }
-
-.footer-line{
-    width:60px;
-    height:3px;
-    background:var(--verde);
-    margin:15px auto;
-}
-
-.footer-copy{
-    font-size:12px;
-    opacity:0.7;
-    margin-top:15px;
-}
 </style>
 </head>
 
 <body>
 
-<div class="top-line"></div>
-
 <header>
 <img src="https://i.postimg.cc/D0T5XNJX/file-00000000ea5c71f5af05c32a457144cb.png" 
      alt="Logo DAS" 
      style="max-height:260px; display:block; margin:0 auto 15px auto;">
-
 <h1>DAS</h1>
 <h3>Departamento de Auditoría y Servicios</h3>
 </header>
@@ -168,7 +168,7 @@ footer{
 <div class="container">
 
 <!-- PASO 1 -->
-<div id="paso1" class="section">
+<div id="paso1" class="section fade">
 <h2>Selección del Trámite</h2>
 
 <label>Tipo de documentación</label>
@@ -195,39 +195,20 @@ footer{
 
 <!-- PASO 2 -->
 <div id="paso2" class="hidden">
-
 <div class="section">
 <h2>Datos Personales</h2>
-
-<label>Nombre(s) y Apellido</label>
-<input type="text" id="nombre">
-
-<label>Número de DNI</label>
-<input type="number" id="dni">
-
-<label>Fecha de nacimiento</label>
+<input type="text" id="nombre" placeholder="Nombre(s) y Apellido">
+<input type="number" id="dni" placeholder="Número de DNI">
 <input type="date" id="nacimiento">
-
-<label>Nacionalidad</label>
-<input type="text" id="nacionalidad">
+<input type="text" id="nacionalidad" placeholder="Nacionalidad">
 </div>
 
 <div class="section">
 <h2>Datos Académicos</h2>
-
-<label>Nombre de la Institución</label>
-<input type="text" id="institucion">
-
-<label>Dirección</label>
-<input type="text" id="direccion">
-
-<label>Localidad</label>
-<input type="text" id="localidad">
-
-<label>Provincia</label>
-<input type="text" id="provincia">
-
-<label>Fecha de egreso</label>
+<input type="text" id="institucion" placeholder="Nombre de la Institución">
+<input type="text" id="direccion" placeholder="Dirección">
+<input type="text" id="localidad" placeholder="Localidad">
+<input type="text" id="provincia" placeholder="Provincia">
 <input type="date" id="egreso">
 </div>
 
@@ -237,7 +218,7 @@ footer{
 <!-- PASO 3 -->
 <div id="paso3" class="hidden section">
 <h2>Confirmación Final</h2>
-<div class="summary-box" id="resumen"></div>
+<div id="resumen"></div>
 <br>
 <button onclick="enviarWhatsApp()">Finalizar y Enviar a DAS</button>
 </div>
@@ -246,7 +227,6 @@ footer{
 <div id="paso4" class="hidden confirmacion">
 <h2>✔ Trámite iniciado correctamente</h2>
 <p>Su solicitud fue enviada al Departamento de Auditoría y Servicios.</p>
-
 <div class="firma">
 DAS – Departamento de Auditoría y Servicios<br>
 Certificación y Auditoría Documental Institucional
@@ -257,19 +237,114 @@ Certificación y Auditoría Documental Institucional
 
 <footer>
 DAS – Departamento de Auditoría y Servicios
-<div style="width:60px;height:3px;background:#8DC21F;margin:15px auto;"></div>
-Registro Institucional Nº 2026-AR-DAS-4581<br>
-Certificaciones oficiales con registro electrónico verificable
-
-<div style="font-size:12px;opacity:0.7;margin-top:15px;">
-© 2026 DAS – Todos los derechos reservados.<br>
-Este sitio web constituye una plataforma informativa de certificación documental.
-</div>
 </footer>
 
 <script>
-// TU JS ORIGINAL SIN MODIFICAR
+// 🔹 Precios según tu tabla original
+const precios = {
+    "Secundario": { "Estándar":100000, "Auditoría":150000 },
+    "Secundario Técnico": { "Estándar":110000, "Auditoría":160000 },
+    "Terciario": { "Estándar":120000, "Auditoría":170000 },
+    "Profesorado": { "Estándar":140000, "Auditoría":190000 },
+    "Universitario": { "Estándar":160000, "Auditoría":210000 }
+};
+
+let codigoUnico="";
+
+function generarCodigo(){
+    const año = new Date().getFullYear();
+    const random = Math.floor(1000 + Math.random()*9000);
+    codigoUnico = "DAS-" + año + "-" + random;
+}
+
+function actualizarPrecio(){
+    const tipo = tipoDoc.value;
+    const mod = modalidad.value;
+    const precioDiv = document.getElementById("precio");
+
+    if(tipo && mod){
+        const valor = precios[tipo][mod];
+        precioDiv.innerText = "Valor del trámite: $"+valor.toLocaleString();
+        precioDiv.classList.add("visible");
+    } else {
+        precioDiv.classList.remove("visible");
+    }
+}
+
+function mostrarPaso(idMostrar, idOcultar){
+    document.getElementById(idOcultar).classList.add("hidden");
+    const paso = document.getElementById(idMostrar);
+    paso.classList.remove("hidden");
+    paso.classList.add("fade");
+}
+
+function continuar(){
+    if(!tipoDoc.value || !modalidad.value){
+        alert("Debe seleccionar tipo de documentación y modalidad.");
+        return;
+    }
+    generarCodigo();
+    mostrarPaso("paso2","paso1");
+}
+
+function mostrarResumen(){
+    if(!nombre.value || !dni.value || !institucion.value){
+        alert("Complete los datos obligatorios.");
+        return;
+    }
+
+    const tipo = tipoDoc.value;
+    const mod = modalidad.value;
+    const valor = precios[tipo][mod];
+
+    resumen.innerHTML = `
+    <strong>Código:</strong> ${codigoUnico}<br>
+    <strong>Tipo:</strong> ${tipo}<br>
+    <strong>Modalidad:</strong> ${mod}<br>
+    <strong>Valor:</strong> $${valor.toLocaleString()}<br><br>
+    <strong>Nombre:</strong> ${nombre.value}<br>
+    <strong>DNI:</strong> ${dni.value}<br>
+    <strong>Institución:</strong> ${institucion.value}<br>
+    <strong>Dirección:</strong> ${direccion.value}<br>
+    <strong>Localidad:</strong> ${localidad.value}<br>
+    <strong>Provincia:</strong> ${provincia.value}<br>
+    `;
+
+    mostrarPaso("paso3","paso2");
+}
+
+function enviarWhatsApp(){
+    const tipo = tipoDoc.value;
+    const mod = modalidad.value;
+    const valor = precios[tipo][mod];
+
+    const mensaje = `Nuevo trámite DAS
+Código: ${codigoUnico}
+
+Tipo: ${tipo}
+Modalidad: ${mod}
+Valor: $${valor.toLocaleString()}
+
+--- DATOS PERSONALES ---
+Nombre: ${nombre.value}
+DNI: ${dni.value}
+Nacimiento: ${nacimiento.value}
+Nacionalidad: ${nacionalidad.value}
+
+--- DATOS ACADÉMICOS ---
+Institución: ${institucion.value}
+Dirección: ${direccion.value}
+Localidad: ${localidad.value}
+Provincia: ${provincia.value}
+Egreso: ${egreso.value}
+`;
+
+    const url = "https://wa.me/5491151461885?text=" + encodeURIComponent(mensaje);
+    window.open(url,'_blank');
+
+    mostrarPaso("paso4","paso3");
+}
 </script>
 
 </body>
-</html>
+    </html>
