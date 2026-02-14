@@ -9,339 +9,288 @@
 :root{
     --azul:#0B1F3A;
     --azul-sec:#163A6B;
-    --azul-brillante:#1F4E8C;
-    --dorado:#C6A75E;
+    --verde:#8DC21F;
+    --gris:#f4f6f9;
+    --gris-oscuro:#e2e6ec;
 }
 
 body{
     margin:0;
-    font-family: Arial, Helvetica, sans-serif;
-    background:linear-gradient(135deg,#0B1F3A,#163A6B);
+    font-family:Arial, Helvetica, sans-serif;
+    background:var(--gris);
 }
+
+.top-line{height:6px;background:var(--verde);}
 
 header{
-    background-color: var(--azul);
-    color: white;
-    padding: 30px 20px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-}
-
-header img{
-    max-height:350px;
+    background:var(--azul);
+    color:white;
+    text-align:center;
+    padding:30px;
 }
 
 .container{
     max-width:950px;
-    margin:30px auto 60px auto;
+    margin:40px auto;
     background:white;
     padding:40px;
     border-radius:12px;
-    box-shadow:0 15px 40px rgba(0,0,0,0.2);
+    box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* PROGRESS */
+.progress-container{margin-bottom:30px;}
+.progress-bar{
+    display:flex;
+    justify-content:space-between;
+    position:relative;
+}
+.progress-bar::before{
+    content:"";
+    position:absolute;
+    top:15px;
+    width:100%;
+    height:4px;
+    background:var(--gris-oscuro);
+}
+.progress{
+    position:absolute;
+    top:15px;
+    height:4px;
+    background:var(--verde);
+    width:0%;
+    transition:0.4s;
+}
+.step{
+    text-align:center;
+    width:25%;
+    position:relative;
+}
+.circle{
+    width:30px;height:30px;border-radius:50%;
+    background:var(--gris-oscuro);
+    margin:0 auto 6px;
+    line-height:30px;
+    font-weight:bold;
+}
+.step.active .circle{
+    background:var(--verde);
+    color:white;
 }
 
 .section{
-    background:#f8f9fb;
+    background:var(--gris);
     padding:25px;
     border-radius:10px;
-    margin-bottom:25px;
+    margin-bottom:20px;
 }
 
-h2{
-    color:var(--azul);
-    margin-top:0;
-}
+.hidden{display:none;}
 
-label{
-    font-weight:bold;
-    font-size:14px;
-}
-
-small{
-    font-size:12px;
-    color:#555;
-}
-
-select,input{
+label{font-weight:bold;font-size:14px;}
+input,select{
     width:100%;
-    padding:12px;
-    margin:8px 0 18px 0;
+    padding:10px;
+    margin:8px 0 15px;
     border-radius:6px;
     border:1px solid #ccc;
 }
 
 button{
-    background:var(--azul-brillante);
+    background:var(--azul-sec);
     color:white;
     border:none;
     padding:14px 25px;
     border-radius:6px;
     cursor:pointer;
     font-weight:bold;
-    transition:0.3s;
 }
 
-button:hover{
-    background:var(--dorado);
-    color:black;
+.loading{text-align:center;padding:30px;}
+.spinner{
+    border:6px solid #eee;
+    border-top:6px solid var(--verde);
+    border-radius:50%;
+    width:60px;height:60px;
+    margin:20px auto;
+    animation:spin 1s linear infinite;
 }
+@keyframes spin{100%{transform:rotate(360deg);}}
 
-.hidden{ display:none; }
-
-.summary-box{
-    background:#eef2f7;
-    padding:20px;
-    border-radius:8px;
-}
-
-#precio{
-    font-size:20px;
-    color:var(--azul-sec);
-    font-weight:bold;
-    opacity:0;
-    transform:translateY(-10px);
-    transition:0.4s ease;
-}
-
-#precio.visible{
-    opacity:1;
-    transform:translateY(0);
-}
-
-.confirmacion{
+footer{
+    background:var(--azul);
+    color:white;
     text-align:center;
     padding:30px;
-}
-
-.confirmacion h2{
-    color:green;
-}
-
-.firma{
-    margin-top:30px;
-    font-style:italic;
-    color:var(--azul);
-    border-top:1px solid #ddd;
-    padding-top:15px;
+    margin-top:40px;
 }
 </style>
 </head>
 
 <body>
 
+<div class="top-line"></div>
+
 <header>
-<img src="https://i.postimg.cc/D0T5XNJX/file-00000000ea5c71f5af05c32a457144cb.png" alt="Logo DAS">
+<h1>DAS</h1>
+<h3>Departamento de Auditoría y Servicios</h3>
 </header>
 
 <div class="container">
 
+<!-- PROGRESS -->
+<div class="progress-container">
+<div class="progress-bar">
+<div class="progress" id="progress"></div>
+<div class="step active"><div class="circle">1</div>Selección</div>
+<div class="step"><div class="circle">2</div>Datos</div>
+<div class="step"><div class="circle">3</div>Confirmar</div>
+<div class="step"><div class="circle">4</div>Finalizado</div>
+</div>
+</div>
+
 <!-- PASO 1 -->
-<div id="paso1" class="section">
+<div id="paso1">
+<div class="section">
 <h2>Selección del Trámite</h2>
 
 <label>Tipo de documentación</label>
-<select id="tipoDoc" onchange="actualizarPrecio()">
+<select id="tipoDoc">
 <option value="">Seleccionar</option>
-<option value="Secundario">Analítico y Título – Secundario</option>
-<option value="Secundario Técnico">Analítico y Título – Secundario Técnico</option>
-<option value="Terciario">Analítico y Título – Nivel Terciario</option>
-<option value="Profesorado">Analítico y Título – Profesorado</option>
-<option value="Universitario">Analítico y Título – Nivel Universitario</option>
+<option>Secundario</option>
+<option>Secundario Técnico</option>
+<option>Terciario</option>
+<option>Profesorado</option>
+<option>Universitario</option>
 </select>
 
 <label>Modalidad</label>
-<select id="modalidad" onchange="actualizarPrecio()">
+<select id="modalidad">
 <option value="">Seleccionar</option>
-<option value="Estándar">Certificación Estándar</option>
-<option value="Auditoría">Con Auditoría Integral</option>
+<option>Certificación Estándar</option>
+<option>Con Auditoría Integral</option>
 </select>
 
-<div id="precio"></div>
-
-<button onclick="continuar()">Continuar con el trámite</button>
+<button onclick="nextStep(2)">Continuar</button>
+</div>
 </div>
 
 <!-- PASO 2 -->
 <div id="paso2" class="hidden">
-
 <div class="section">
 <h2>Datos Personales</h2>
-
-<label>Nombre(s) y Apellido</label>
-<input type="text" id="nombre">
-
-<label>Número de DNI</label>
-<input type="number" id="dni">
-
-<label>Fecha de nacimiento</label>
+<input type="text" id="nombre" placeholder="Nombre completo">
+<input type="number" id="dni" placeholder="DNI">
 <input type="date" id="nacimiento">
-
-<label>Nacionalidad</label>
-<input type="text" id="nacionalidad">
+<input type="text" id="nacionalidad" placeholder="Nacionalidad">
 </div>
 
 <div class="section">
 <h2>Datos Académicos</h2>
-
-<label>Nombre de la Institución</label>
-<input type="text" id="institucion">
-
-<label>Dirección</label>
-<input type="text" id="direccion">
-
-<label>Localidad</label>
-<input type="text" id="localidad">
-
-<label>Provincia</label>
-<input type="text" id="provincia">
-
-<label>Fecha de egreso</label>
+<input type="text" id="institucion" placeholder="Institución">
+<input type="text" id="localidad" placeholder="Localidad">
+<input type="text" id="provincia" placeholder="Provincia">
 <input type="date" id="egreso">
 </div>
 
-<button onclick="mostrarResumen()">Ver resumen previo</button>
+<button onclick="mostrarResumen()">Continuar</button>
 </div>
 
 <!-- PASO 3 -->
-<div id="paso3" class="hidden section">
+<div id="paso3" class="hidden">
+<div class="section">
 <h2>Confirmación Final</h2>
-<div class="summary-box" id="resumen"></div>
-<br>
-<button onclick="enviarWhatsApp()">Finalizar y Enviar a DAS</button>
+<div id="resumen"></div>
+<button onclick="iniciarProceso()">Finalizar y Enviar a DAS</button>
+</div>
 </div>
 
-<!-- PASO 4 -->
-<div id="paso4" class="hidden confirmacion">
+<!-- CARGA -->
+<div id="loading" class="hidden loading">
+<h2>Procesando solicitud...</h2>
+<div class="spinner"></div>
+<p>Generando registro institucional...</p>
+</div>
+
+<!-- FINAL -->
+<div id="paso4" class="hidden">
+<div class="section">
 <h2>✔ Trámite iniciado correctamente</h2>
-<p>Su solicitud fue enviada al Departamento de Auditoría y Servicios.</p>
-
-<div class="firma">
-DAS – Departamento de Auditoría y Servicios<br>
-Certificación y Auditoría Documental Institucional
+<p>Número de trámite: <strong id="numeroTramite"></strong></p>
 </div>
 </div>
 
 </div>
-    <footer>
-    &copy; 2026 DAS - Departamento de Auditoría y Servicios | Todos los derechos reservados
-    <br>Todos los certificados emitidos por (DAS) tienen validez oficial y están registrados electrónicamente.
-    </footer>
+
+<footer>
+© 2026 DAS – Departamento de Auditoría y Servicios
+</footer>
 
 <script>
-
-const precios = {
-"Secundario":{Estándar:100000, Auditoría:150000},
-"Secundario Técnico":{Estándar:110000, Auditoría:160000},
-"Terciario":{Estándar:120000, Auditoría:170000},
-"Profesorado":{Estándar:140000, Auditoría:190000},
-"Universitario":{Estándar:160000, Auditoría:210000}
-};
-
-let codigoUnico="";
-
-function generarCodigo(){
-let año=new Date().getFullYear();
-let random=Math.floor(1000+Math.random()*9000);
-codigoUnico="DAS-"+año+"-"+random;
+function nextStep(step){
+document.querySelectorAll("#paso1,#paso2,#paso3,#paso4").forEach(p=>p.classList.add("hidden"));
+document.getElementById("paso"+step).classList.remove("hidden");
+updateProgress(step);
 }
 
-function actualizarPrecio(){
-let tipo=tipoDoc.value;
-let mod=modalidad.value;
-if(tipo && mod){
-let valor=precios[tipo][mod];
-precio.innerText="Valor del trámite: $"+valor.toLocaleString();
-precio.classList.add("visible");
-}
-}
-
-function continuar(){
-if(!tipoDoc.value || !modalidad.value){
-alert("Debe seleccionar tipo y modalidad.");
-return;
-}
-generarCodigo();
-paso1.classList.add("hidden");
-paso2.classList.remove("hidden");
+function updateProgress(step){
+let steps=document.querySelectorAll(".step");
+steps.forEach((s,i)=>{
+s.classList.remove("active");
+if(i<step) s.classList.add("active");
+});
+document.getElementById("progress").style.width=((step-1)/3)*100+"%";
 }
 
 function mostrarResumen(){
-let campos=document.querySelectorAll("#paso2 input");
-for(let campo of campos){
-if(!campo.value){
-alert("Todos los campos son obligatorios.");
-return;
-}
-}
-
-let fechaNacimiento=formatearFecha(nacimiento.value);
-let fechaEgreso=formatearFecha(egreso.value);
-let valor=precios[tipoDoc.value][modalidad.value];
-
-resumen.innerHTML=`
-<strong>Código:</strong> ${codigoUnico}<br><br>
-<strong>Tipo:</strong> ${tipoDoc.value}<br>
-<strong>Modalidad:</strong> ${modalidad.value}<br>
-<strong>Valor:</strong> $${valor.toLocaleString()}<br><br>
-<strong>Nombre:</strong> ${nombre.value}<br>
-<strong>DNI:</strong> ${dni.value}<br>
-<strong>Nacimiento:</strong> ${fechaNacimiento}<br>
-<strong>Nacionalidad:</strong> ${nacionalidad.value}<br><br>
-<strong>Institución:</strong> ${institucion.value}<br>
-<strong>Dirección:</strong> ${direccion.value}<br>
-<strong>Localidad:</strong> ${localidad.value}<br>
-<strong>Provincia:</strong> ${provincia.value}<br>
-<strong>Egreso:</strong> ${fechaEgreso}
+let resumen=`
+<b>Tipo:</b> ${tipoDoc.value}<br>
+<b>Modalidad:</b> ${modalidad.value}<br>
+<b>Nombre:</b> ${nombre.value}<br>
+<b>DNI:</b> ${dni.value}<br>
+<b>Institución:</b> ${institucion.value}
 `;
-
-paso2.classList.add("hidden");
-paso3.classList.remove("hidden");
+document.getElementById("resumen").innerHTML=resumen;
+nextStep(3);
 }
 
-function formatearFecha(fechaISO){
-if(!fechaISO) return "";
-let partes=fechaISO.split("-");
-return `${partes[2]}/${partes[1]}/${partes[0]}`;
+function iniciarProceso(){
+document.getElementById("paso3").classList.add("hidden");
+document.getElementById("loading").classList.remove("hidden");
+
+setTimeout(()=>{
+let numero="DAS-2026-"+Math.floor(1000+Math.random()*9000);
+document.getElementById("numeroTramite").innerText=numero;
+
+enviarWhatsApp(numero);
+
+document.getElementById("loading").classList.add("hidden");
+nextStep(4);
+},2500);
 }
 
-function enviarWhatsApp(){
-
-let fechaNacimiento=formatearFecha(nacimiento.value);
-let fechaEgreso=formatearFecha(egreso.value);
-let valor=precios[tipoDoc.value][modalidad.value];
+function enviarWhatsApp(numero){
+let telefono="549XXXXXXXXXX"; // ← PONÉ TU NÚMERO
 
 let mensaje=`Nuevo trámite DAS
-Código: ${codigoUnico}
+Código: ${numero}
 
 Tipo: ${tipoDoc.value}
 Modalidad: ${modalidad.value}
-Valor: $${valor.toLocaleString()}
 
---- DATOS PERSONALES ---
 Nombre: ${nombre.value}
 DNI: ${dni.value}
-Fecha de nacimiento: ${fechaNacimiento}
+Nacimiento: ${nacimiento.value}
 Nacionalidad: ${nacionalidad.value}
 
---- DATOS ACADÉMICOS ---
 Institución: ${institucion.value}
-Dirección: ${direccion.value}
 Localidad: ${localidad.value}
 Provincia: ${provincia.value}
-Fecha de egreso: ${fechaEgreso}
-`;
+Egreso: ${egreso.value}`;
 
-let url="https://wa.me/5491151461885?text="+encodeURIComponent(mensaje);
-
-window.location.href=url;
-
-paso3.classList.add("hidden");
-paso4.classList.remove("hidden");
+let url="https://wa.me/"+telefono+"?text="+encodeURIComponent(mensaje);
+window.open(url,"_blank");
 }
-
 </script>
 
 </body>
