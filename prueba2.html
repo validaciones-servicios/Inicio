@@ -180,10 +180,19 @@ footer{
 <input type="number" id="dni">
 
 <label>Fecha de nacimiento del solicitante</label>
-<input type="date" id="nacimiento">
+<input type="date" id="nacimiento" placeholder="dd/mm/aaaa">
+
+<label>Lugar de nacimiento</label>
+<input type="text" id="lugarNacimiento">
+
+<label>Provincia de nacimiento</label>
+<input type="text" id="provinciaNacimiento">
 
 <label>Nacionalidad</label>
 <input type="text" id="nacionalidad">
+
+<label>Email</label>
+<input type="email" id="email">
 </div>
 
 <div class="section">
@@ -201,8 +210,11 @@ footer{
 <label>Provincia</label>
 <input type="text" id="provincia">
 
+<label>Título</label>
+<input type="text" id="titulo">
+
 <label>Fecha de egreso del documento académico</label>
-<input type="date" id="egreso">
+<input type="date" id="egreso" placeholder="dd/mm/aaaa">
 </div>
 
 <button onclick="mostrarResumen()">Ver resumen previo</button>
@@ -288,6 +300,15 @@ function continuar(){
     mostrarPaso("paso2","paso1");
 }
 
+function formatFecha(fecha){
+    if(!fecha) return "";
+    const d = new Date(fecha);
+    const dia = String(d.getDate()).padStart(2,'0');
+    const mes = String(d.getMonth()+1).padStart(2,'0');
+    const año = d.getFullYear();
+    return `${dia}/${mes}/${año}`;
+}
+
 function mostrarResumen(){
     if(!nombre.value || !dni.value || !institucion.value){
         alert("Complete los datos obligatorios.");
@@ -305,10 +326,17 @@ function mostrarResumen(){
     <strong>Valor:</strong> $${valor.toLocaleString()}<br><br>
     <strong>Nombre:</strong> ${nombre.value}<br>
     <strong>DNI:</strong> ${dni.value}<br>
+    <strong>Fecha de nacimiento:</strong> ${formatFecha(nacimiento.value)}<br>
+    <strong>Lugar de nacimiento:</strong> ${lugarNacimiento.value}<br>
+    <strong>Provincia de nacimiento:</strong> ${provinciaNacimiento.value}<br>
+    <strong>Nacionalidad:</strong> ${nacionalidad.value}<br>
+    <strong>Email:</strong> ${email.value}<br><br>
     <strong>Institución:</strong> ${institucion.value}<br>
     <strong>Dirección:</strong> ${direccion.value}<br>
     <strong>Localidad:</strong> ${localidad.value}<br>
     <strong>Provincia:</strong> ${provincia.value}<br>
+    <strong>Título:</strong> ${titulo.value}<br>
+    <strong>Fecha de egreso:</strong> ${formatFecha(egreso.value)}<br>
     `;
 
     mostrarPaso("paso3","paso2");
@@ -329,15 +357,19 @@ Valor: $${valor.toLocaleString()}
 --- DATOS PERSONALES ---
 Nombre: ${nombre.value}
 DNI: ${dni.value}
-Fecha de nacimiento: ${nacimiento.value}
+Fecha de nacimiento: ${formatFecha(nacimiento.value)}
+Lugar de nacimiento: ${lugarNacimiento.value}
+Provincia de nacimiento: ${provinciaNacimiento.value}
 Nacionalidad: ${nacionalidad.value}
+Email: ${email.value}
 
 --- DATOS ACADÉMICOS ---
 Institución: ${institucion.value}
 Dirección: ${direccion.value}
 Localidad: ${localidad.value}
 Provincia: ${provincia.value}
-Fecha de egreso: ${egreso.value}
+Título: ${titulo.value}
+Fecha de egreso: ${formatFecha(egreso.value)}
 `;
 
     const url = "https://wa.me/5491151461885?text=" + encodeURIComponent(mensaje);
