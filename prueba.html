@@ -30,29 +30,48 @@ body{
 header{
     background-color:var(--azul);
     color:white;
-    padding:30px 20px;
+    padding:25px 20px;
     box-shadow:0 4px 15px rgba(0,0,0,0.2);
 }
 
 .header-content{
     max-width:1200px;
     margin:0 auto;
-    position:relative;
-    text-align:center;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 }
 
-header img{
-    height:280px;
+.header-left{
+    display:flex;
+    align-items:center;
+    gap:20px;
 }
 
-/* Contacto alineado a la derecha */
+.header-left img{
+    height:140px;
+}
+
+.header-title{
+    font-size:20px;
+    font-weight:600;
+    letter-spacing:1px;
+}
+
 .header-contact{
-    position:absolute;
-    right:0;
-    bottom:10px;
     text-align:right;
     font-size:14px;
     line-height:1.6;
+}
+
+.header-contact strong{
+    font-size:15px;
+}
+
+.header-divider{
+    height:2px;
+    background:var(--azul-brillante);
+    margin-top:20px;
 }
 
 /* Container */
@@ -188,15 +207,24 @@ footer{
 
 <header>
     <div class="header-content">
-        <img src="https://i.postimg.cc/D0T5XNJX/file-00000000ea5c71f5af05c32a457144cb.png" alt="Logo DAS">
-        
+
+        <div class="header-left">
+            <img src="https://i.postimg.cc/D0T5XNJX/file-00000000ea5c71f5af05c32a457144cb.png" alt="Logo DAS">
+            <div class="header-title">
+                Departamento de Auditoría y Servicios
+            </div>
+        </div>
+
         <div class="header-contact">
             <strong>Av. Corrientes 2654</strong><br>
             Piso 2 – Oficina 14<br>
-            CABA<br>
-            Tel: 1131602393
+            Ciudad Autónoma de Buenos Aires<br>
+            Tel: 11 3160-2393
         </div>
+
     </div>
+
+    <div class="header-divider"></div>
 </header>
 
 <div class="container">
