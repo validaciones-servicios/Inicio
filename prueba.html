@@ -39,6 +39,22 @@ header img{
     height:280px;
 }
 
+/* Info contacto en header */
+.header-content{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    max-width:1200px;
+    margin:0 auto;
+}
+
+.header-contact{
+    text-align:right;
+    font-size:14px;
+    line-height:1.6;
+    opacity:0.95;
+}
+
 /* Container */
 .container{
     max-width:750px;
@@ -171,7 +187,14 @@ footer{
 <body>
 
 <header>
-    <img src="https://i.postimg.cc/D0T5XNJX/file-00000000ea5c71f5af05c32a457144cb.png" alt="Logo DAS">
+    <div class="header-content">
+        <img src="https://i.postimg.cc/D0T5XNJX/file-00000000ea5c71f5af05c32a457144cb.png" alt="Logo DAS">
+        
+        <div class="header-contact">
+            <strong>DIRECCIÓN:</strong> Av. Corrientes 2654, CABA, Piso 2, Oficina 14<br>
+            <strong>Tel:</strong> (011) 3160 2393
+        </div>
+    </div>
 </header>
 
 <div class="container">
@@ -272,4 +295,4 @@ document.getElementById("searchForm").addEventListener("submit",function(e){
 </script>
 
 </body>
-    </html>
+</html>
