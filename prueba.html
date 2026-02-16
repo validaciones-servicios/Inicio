@@ -138,6 +138,7 @@ button:hover, .doc-btn:hover{
     background-color:var(--gris-oscuro);
     display:none;
     animation:fadeIn 0.4s ease-in-out;
+    position:relative;
 }
 
 @keyframes fadeIn{
@@ -179,6 +180,15 @@ button:hover, .doc-btn:hover{
     letter-spacing:1px;
 }
 
+/* NUEVO: Imagen Validado por */
+.validado-img{
+    position:absolute;
+    right:20px;
+    bottom:20px;
+    max-width:160px;
+    opacity:0.95;
+}
+
 /* Footer */
 footer{
     background-color:var(--azul);
@@ -207,7 +217,6 @@ footer{
 
 <header>
     <div class="header-content">
-
         <div class="header-left">
             <img src="https://i.postimg.cc/D0T5XNJX/file-00000000ea5c71f5af05c32a457144cb.png" alt="Logo DAS">
             <div class="header-title">
@@ -221,7 +230,6 @@ footer{
             Ciudad Autónoma de Buenos Aires<br>
             Tel: 11 3160-2393
         </div>
-
     </div>
 
     <div class="header-divider"></div>
@@ -252,8 +260,7 @@ footer{
 </footer>
 
 <script>
-const registros=[
-{
+const registros=[{
     tramite:"00123",
     cu:"12345678",
     nombre:"Milena Milagros Adoracion Diaz",
@@ -266,9 +273,8 @@ const registros=[
         {nombre:"Documento 1", link:"https://drive.google.com/uc?export=view&id=ID1"},
         {nombre:"Documento", link:"https://drive.google.com/uc?export=view&id=ID2"}
     ],
-    certificado: "https://drive.google.com/uc?export=download&id=ID_CERTIFICADO"
-}
-];
+    certificado:"https://drive.google.com/uc?export=download&id=ID_CERTIFICADO"
+}];
 
 let registroActual=null;
 
@@ -313,6 +319,9 @@ document.getElementById("searchForm").addEventListener("submit",function(e){
             <div class="pdf-btn">
                 <a href="${registroActual.certificado}" target="_blank" class="doc-btn">Descargar certificado en PDF</a>
             </div>
+
+            <!-- IMAGEN VALIDADO POR -->
+            <img src="TU_LINK_DE_IMAGEN_AQUI" class="validado-img" alt="Validado por">
         `;
 
         box.style.display="block";
