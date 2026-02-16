@@ -31,28 +31,28 @@ header{
     background-color:var(--azul);
     color:white;
     padding:30px 20px;
-    text-align:center;
     box-shadow:0 4px 15px rgba(0,0,0,0.2);
+}
+
+.header-content{
+    max-width:1200px;
+    margin:0 auto;
+    position:relative;
+    text-align:center;
 }
 
 header img{
     height:280px;
 }
 
-/* Info contacto en header */
-.header-content{
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-end;
-    max-width:1200px;
-    margin:0 auto;
-}
-
+/* Contacto alineado a la derecha */
 .header-contact{
+    position:absolute;
+    right:0;
+    bottom:10px;
     text-align:right;
     font-size:14px;
     line-height:1.6;
-    opacity:0.95;
 }
 
 /* Container */
@@ -191,8 +191,10 @@ footer{
         <img src="https://i.postimg.cc/D0T5XNJX/file-00000000ea5c71f5af05c32a457144cb.png" alt="Logo DAS">
         
         <div class="header-contact">
-            <strong>DIRECCIÓN:</strong> Av. Corrientes 2654, CABA, Piso 2, Oficina 14<br>
-            <strong>Tel:</strong> (011) 3160 2393
+            <strong>Av. Corrientes 2654</strong><br>
+            Piso 2 – Oficina 14<br>
+            CABA<br>
+            Tel: 1131602393
         </div>
     </div>
 </header>
