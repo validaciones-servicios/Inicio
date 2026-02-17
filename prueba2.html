@@ -372,7 +372,7 @@ function mostrarResumen(){
     const valor = precios[tipo][mod];
 
     resumen.innerHTML = `
-    <strong>Código:</strong> ${codigoUnico}<br>
+    <strong>Número de Registro:</strong> ${codigoUnico}<br>
     <strong>Tipo:</strong> ${tipo}<br>
     <strong>Modalidad:</strong> ${mod}<br>
     <strong>Valor:</strong> $${valor.toLocaleString()}<br><br>
@@ -400,7 +400,7 @@ function enviarWhatsApp(){
     const valor = precios[tipo][mod];
 
     const mensaje = `Nuevo trámite DAS
-Código: ${codigoUnico}
+Número de Registro: ${codigoUnico}
 
 Tipo: ${tipo}
 Modalidad: ${mod}
