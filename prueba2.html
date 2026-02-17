@@ -35,17 +35,53 @@ body{
     to{ opacity:1; transform:translateY(0); }
 }
 
-/* HEADER */
+/* ================= HEADER ================= */
+
 header{
-    background-color: var(--azul);
-    color: white;
-    padding: 30px 20px;
-    text-align: center;
+    background-color:var(--azul);
+    color:white;
+    padding:25px 20px;
     box-shadow:0 4px 15px rgba(0,0,0,0.2);
 }
 
-header img{
-    max-height:320px;
+.header-content{
+    max-width:1200px;
+    margin:0 auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.header-left{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.header-left img{
+    height:140px;
+}
+
+.header-title{
+    font-size:20px;
+    font-weight:600;
+    letter-spacing:1px;
+}
+
+.header-contact{
+    text-align:right;
+    font-size:14px;
+    line-height:1.6;
+}
+
+.header-contact strong{
+    font-size:15px;
+}
+
+.header-divider{
+    height:2px;
+    background:var(--azul-brillante);
+    margin-top:20px;
 }
 
 /* CONTENEDOR */
@@ -84,7 +120,6 @@ button{
     font-weight:bold;
     transition:0.2s;
 }
-
 button:hover{ background:var(--azul-brillante); }
 
 /* PRECIO */
@@ -96,7 +131,6 @@ button:hover{ background:var(--azul-brillante); }
     transform:translateY(-10px);
     transition:0.4s ease;
 }
-
 #precio.visible{ opacity:1; transform:translateY(0); }
 
 /* CONFIRMACION */
@@ -104,7 +138,6 @@ button:hover{ background:var(--azul-brillante); }
     text-align:center;
     padding:30px;
 }
-
 .confirmacion h2{ color:var(--azul-sec); }
 
 .firma{
@@ -115,29 +148,50 @@ button:hover{ background:var(--azul-brillante); }
     padding-top:15px;
 }
 
-/* FOOTER DAS */
+/* ================= FOOTER ================= */
+
 footer{
-    background:var(--azul);
+    background-color:var(--azul);
     color:white;
-    text-align:center;
     padding:35px 20px;
     margin-top:60px;
+    text-align:center;
 }
 
-.footer-line{ width:60px; height:3px; background:var(--verde); margin:15px auto; }
+.footer-line{
+    width:60px;
+    height:3px;
+    background-color:var(--azul-brillante);
+    margin:15px auto;
+}
 
-.footer-copy{ font-size:12px; opacity:0.7; margin-top:15px; }
+.footer-copy{
+    margin-top:15px;
+    font-size:12px;
+    opacity:0.7;
+}
 </style>
 </head>
 
 <body>
 
 <header>
-<img src="https://i.postimg.cc/D0T5XNJX/file-00000000ea5c71f5af05c32a457144cb.png" 
-     alt="Logo DAS" 
-     style="max-height:260px; display:block; margin:0 auto 15px auto;">
-<h1></h1>
-<h3></h3>
+    <div class="header-content">
+        <div class="header-left">
+            <img src="https://i.postimg.cc/D0T5XNJX/file-00000000ea5c71f5af05c32a457144cb.png" alt="Logo DAS">
+            <div class="header-title">
+                Departamento de Auditoría y Servicios
+            </div>
+        </div>
+
+        <div class="header-contact">
+            <strong>Av. Corrientes 2654</strong><br>
+            Piso 2 – Oficina 14<br>
+            Ciudad Autónoma de Buenos Aires<br>
+            Tel: 11 3160-2393
+        </div>
+    </div>
+    <div class="header-divider"></div>
 </header>
 
 <div class="container">
@@ -180,7 +234,7 @@ footer{
 <input type="number" id="dni">
 
 <label>Fecha de nacimiento del solicitante</label>
-<input type="date" id="nacimiento" placeholder="dd/mm/aaaa">
+<input type="date" id="nacimiento">
 
 <label>Lugar de nacimiento</label>
 <input type="text" id="lugarNacimiento">
@@ -214,7 +268,7 @@ footer{
 <input type="text" id="titulo">
 
 <label>Fecha de egreso del documento académico</label>
-<input type="date" id="egreso" placeholder="dd/mm/aaaa">
+<input type="date" id="egreso">
 </div>
 
 <button onclick="mostrarResumen()">Ver resumen previo</button>
@@ -240,20 +294,18 @@ Certificación y Auditoría Documental Institucional
 
 </div>
 
-<!-- FOOTER DAS -->
 <footer>
-DAS – Departamento de Auditoría y Servicios
-<div class="footer-line"></div>
-Registro Institucional Nº 2026-AR-DAS-4581<br>
-Certificaciones oficiales con registro electrónico verificable
-<div class="footer-copy">
-© 2026 DAS – Todos los derechos reservados.<br>
-Este sitio web constituye una plataforma informativa de certificación documental.
-</div>
+    <div>DAS – Departamento de Auditoría y Servicios</div>
+    <div class="footer-line"></div>
+    Registro Institucional Nº 2026-AR-DAS-4581<br>
+    Certificaciones oficiales con registro electrónico verificable
+    <div class="footer-copy">
+        © 2026 DAS – Todos los derechos reservados.<br>
+        Este sitio web constituye una plataforma informativa de certificación documental.
+    </div>
 </footer>
 
 <script>
-// 🔹 Precios con diferencia de $50.000
 const precios = {
     "Secundario": { "Estándar":100000, "Auditoría":150000 },
     "Secundario Técnico": { "Estándar":110000, "Auditoría":160000 },
@@ -380,4 +432,4 @@ Fecha de egreso: ${formatFecha(egreso.value)}
 </script>
 
 </body>
-</html>
+        </html>
