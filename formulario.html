@@ -3,62 +3,172 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Formulario de Emisión |</title>
-
-<!-- Bootstrap -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<title>DAS - Inicio de Certificación</title>
 
 <style>
-body {
-    background-color: #f4f6f8;
-    font-family: Arial, sans-serif;
-    color: #333;
+:root{
+    --azul:#0B1F3A;
+    --azul-sec:#163A6B;
+    --azul-brillante:#1F4E8C;
+    --verde:#8DC21F;
+    --gris:#f4f6f9;
+    --gris-oscuro:#e2e6ec;
 }
-header {
-    text-align: left;
-    margin: 20px 0;
-    background-color:#37BBED;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+
+/* Base */
+body{
+    margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+    background:var(--gris);
 }
-header img {
-    max-height: 50px;
-    margin-bottom: 10px;
+
+/* 🔹 ocultar pasos */
+.hidden{ display:none; }
+
+/* 🔹 animación suave */
+.fade{
+    animation:fadeSlide 0.5s ease forwards;
 }
-header h1, header h2 {
-    color: #fff;
-    margin: 0;
-    align-self: flex-start;
+
+@keyframes fadeSlide{
+    from{ opacity:0; transform:translateY(15px); }
+    to{ opacity:1; transform:translateY(0); }
 }
-header h1 {
-    font-size: 22px;
-    font-weight: 600;
+
+/* ================= HEADER ================= */
+
+header{
+    background-color:var(--azul);
+    color:white;
+    padding:25px 20px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.2);
 }
-header h2 {
-    font-size: 18px;
-    font-weight: 500;
-    margin-top: 5px;
+
+.header-content{
+    max-width:1200px;
+    margin:0 auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 }
-hr {
-    border-top: 2px solid #37BBED;
-    margin: 20px 0;
+
+.header-left{
+    display:flex;
+    align-items:center;
+    gap:20px;
 }
-.section-icon {
-    margin-right: 8px;
-    color: #37BBED;
+
+.header-left img{
+    height:140px;
 }
-#resumen {
-    background: #fff;
-    border: 2px solid #37BBED;
-    border-radius: 8px;
-    padding: 15px;
-    margin-top: 20px;
+
+.header-title{
+    font-size:20px;
+    font-weight:600;
+    letter-spacing:1px;
 }
-#resumen h5 {
-    color: #37BBED;
+
+.header-contact{
+    text-align:right;
+    font-size:14px;
+    line-height:1.6;
+}
+
+.header-contact strong{
+    font-size:15px;
+}
+
+.header-divider{
+    height:2px;
+    background:var(--azul-brillante);
+    margin-top:20px;
+}
+
+/* CONTENEDOR */
+.container{
+    max-width:950px;
+    margin:40px auto 60px auto;
+    background:white;
+    padding:40px;
+    border-radius:12px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* SECCIONES */
+.section{
+    background:var(--gris);
+    padding:25px;
+    border-radius:10px;
+    margin-bottom:25px;
+    border:1px solid var(--gris-oscuro);
+}
+
+h2{ color:var(--azul-sec); margin-top:0; }
+
+/* FORM */
+label{ font-weight:bold; font-size:14px; display:block; margin-top:10px; }
+select,input{ width:100%; padding:12px; margin:8px 0 18px 0; border-radius:6px; border:1px solid #ccc; font-size:14px; }
+
+/* BOTONES */
+button{
+    background:var(--azul-sec);
+    color:white;
+    border:none;
+    padding:14px 25px;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:0.2s;
+}
+button:hover{ background:var(--azul-brillante); }
+
+/* PRECIO */
+#precio{
+    font-size:20px;
+    color:var(--azul-sec);
+    font-weight:bold;
+    opacity:0;
+    transform:translateY(-10px);
+    transition:0.4s ease;
+}
+#precio.visible{ opacity:1; transform:translateY(0); }
+
+/* CONFIRMACION */
+.confirmacion{
+    text-align:center;
+    padding:30px;
+}
+.confirmacion h2{ color:var(--azul-sec); }
+
+.firma{
+    margin-top:30px;
+    font-style:italic;
+    color:var(--azul);
+    border-top:1px solid var(--gris-oscuro);
+    padding-top:15px;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+    background-color:var(--azul);
+    color:white;
+    padding:35px 20px;
+    margin-top:60px;
+    text-align:center;
+}
+
+.footer-line{
+    width:60px;
+    height:3px;
+    background-color:var(--azul-brillante);
+    margin:15px auto;
+}
+
+.footer-copy{
+    margin-top:15px;
+    font-size:12px;
+    opacity:0.7;
 }
 </style>
 </head>
@@ -66,110 +176,260 @@ hr {
 <body>
 
 <header>
-    <img src="https://refe.educacion.gob.ar/img/ReFE/Banner/ReFE-Banner.svg" width="330" alt="ReFE">
-    <h1>Dirección de Validez Nacional de Títulos y Estudios</h1>
-    <h2>Emisión de Certificados</h2>
+    <div class="header-content">
+        <div class="header-left">
+            <img src="https://i.postimg.cc/D0T5XNJX/file-00000000ea5c71f5af05c32a457144cb.png" alt="Logo DAS">
+            <div class="header-title">
+                Departamento de Auditoría y Servicios
+            </div>
+        </div>
+
+        <div class="header-contact">
+            <strong>Av. Corrientes 2654</strong><br>
+            Piso 2 – Oficina 14<br>
+            Ciudad Autónoma de Buenos Aires<br>
+            Tel: (011) 3160-2393
+        </div>
+    </div>
+    <div class="header-divider"></div>
 </header>
 
-<main class="container my-4">
+<div class="container">
 
-<form id="formLegalizacion" class="mb-3">
+<!-- PASO 1 -->
+<div id="paso1" class="section fade">
+<h2>Selección del Trámite</h2>
 
-<!-- DATOS DEL ASESOR -->
-<h5><i class="fas fa-id-badge section-icon"></i>Datos del Asesor de Whatsapp</h5>
-<div class="input-group mb-3">
-    <span class="input-group-text text-secondary" style="width:250px;">Nombre de Asesor</span>
-    <input class="form-control" id="nombreAsesor" required>
+<label>Tipo de documentación</label>
+<select id="tipoDoc" onchange="actualizarPrecio()">
+<option value="">Seleccionar</option>
+<option value="Secundario">Analítico y Título – Secundario</option>
+<option value="Secundario Técnico">Analítico y Título – Secundario Técnico</option>
+<option value="Terciario">Analítico y Título – Nivel Terciario</option>
+<option value="Profesorado">Analítico y Título – Profesorado</option>
+<option value="Universitario">Analítico y Título – Nivel Universitario</option>
+</select>
+
+<label>Modalidad</label>
+<select id="modalidad" onchange="actualizarPrecio()">
+<option value="">Seleccionar</option>
+<option value="Estándar">Certificación Estándar</option>
+<option value="Auditoría">Con Auditoría Integral</option>
+</select>
+
+<div id="precio"></div>
+
+<button onclick="continuar()">Continuar con el trámite</button>
 </div>
 
-<hr>
+<!-- PASO 2 -->
+<div id="paso2" class="hidden">
+<div class="section">
+<h2>Datos Personales</h2>
 
-<!-- TIPO DOCUMENTO -->
-<h5><i class="fas fa-file-alt section-icon"></i>Tipo de Documentación</h5>
-<div class="input-group mb-3">
-    <span class="input-group-text text-secondary" style="width:250px;">Tipo de Documento</span>
-    <select class="form-select" id="tipoDocumento" required>
-        <option value="">Seleccione…</option>
-        <option>Certificado de Secundaria</option>
-        <option>Certificado de Secundaria Técnica</option>
-        <option>Certificado FinES / CENS</option>
-        <option>Certificado Universitario</option>
-        <option>Certificado Terciario</option>
-    </select>
+<label>Nombre(s) y Apellido</label>
+<input type="text" id="nombre">
+
+<label>Número de DNI</label>
+<input type="number" id="dni">
+
+<label>Fecha de nacimiento del solicitante</label>
+<input type="date" id="nacimiento">
+
+<label>Lugar de nacimiento</label>
+<input type="text" id="lugarNacimiento">
+
+<label>Provincia de nacimiento</label>
+<input type="text" id="provinciaNacimiento">
+
+<label>Nacionalidad</label>
+<input type="text" id="nacionalidad">
+
+<label>Email</label>
+<input type="email" id="email">
 </div>
 
-<hr>
+<div class="section">
+<h2>Datos Académicos</h2>
 
-<!-- DATOS PERSONALES -->
-<h5><i class="fas fa-user section-icon"></i>Datos Personales</h5>
-<div class="input-group mb-2"><span class="input-group-text text-secondary" style="width:250px;">Nombre(s)</span><input class="form-control" id="nombre" required></div>
-<div class="input-group mb-2"><span class="input-group-text text-secondary" style="width:250px;">Apellido</span><input class="form-control" id="apellido" required></div>
-<div class="input-group mb-2"><span class="input-group-text text-secondary" style="width:250px;">DNI</span><input class="form-control" id="dni" required></div>
-<div class="input-group mb-2"><span class="input-group-text text-secondary" style="width:250px;">Lugar de Nacimiento</span><input class="form-control" id="lugarNacimiento" required></div>
-<div class="input-group mb-2"><span class="input-group-text text-secondary" style="width:250px;">Provincia</span><input class="form-control" id="provincia" required></div>
-<div class="input-group mb-2"><span class="input-group-text text-secondary" style="width:250px;">Fecha de Nacimiento</span><input type="date" class="form-control" id="fechaNacimiento" required></div>
-<div class="input-group mb-3"><span class="input-group-text text-secondary" style="width:250px;">E-mail</span><input type="email" class="form-control" id="email" required></div>
+<label>Nombre de la Institución</label>
+<input type="text" id="institucion">
 
-<hr>
+<label>Dirección</label>
+<input type="text" id="direccion">
 
-<!-- DATOS ACADÉMICOS -->
-<h5><i class="fas fa-graduation-cap section-icon"></i>Datos Académicos</h5>
-<div class="input-group mb-2"><span class="input-group-text text-secondary" style="width:250px;">Institución</span><input class="form-control" id="institucion" required></div>
-<div class="input-group mb-2"><span class="input-group-text text-secondary" style="width:250px;">Dirección</span><input class="form-control" id="direccionInstitucion" required></div>
-<div class="input-group mb-2"><span class="input-group-text text-secondary" style="width:250px;">Localidad</span><input class="form-control" id="localidad" required></div>
-<div class="input-group mb-2"><span class="input-group-text text-secondary" style="width:250px;">Fecha de Egreso</span><input type="date" class="form-control" id="fechaEgreso" required></div>
-<div class="input-group mb-3"><span class="input-group-text text-secondary" style="width:250px;">Título</span><input class="form-control" id="titulo" required></div>
+<label>Localidad</label>
+<input type="text" id="localidad">
 
-<div class="text-end mt-4">
-<button class="btn btn-success" type="submit" style="width:200px;background:#88C517;border-color:#88C517;">
-Enviar Solicitud
-</button>
+<label>Provincia</label>
+<input type="text" id="provincia">
+
+<label>Título</label>
+<input type="text" id="titulo">
+
+<label>Fecha de egreso del documento académico</label>
+<input type="date" id="egreso">
 </div>
 
-</form>
+<button onclick="mostrarResumen()">Ver resumen previo</button>
+</div>
 
-<!-- RESUMEN -->
-<div id="resumen" style="display:none;">
-<h5>✅ Resumen de Solicitud</h5>
-<div id="resumenContenido"></div>
-<div class="text-end mt-3">
-<button id="enviarWhatsApp" class="btn btn-success" style="background:#88C517;border-color:#88C517;">
-Confirmar
-</button>
+<!-- PASO 3 -->
+<div id="paso3" class="hidden section">
+<h2>Confirmación Final</h2>
+<div id="resumen"></div>
+<br>
+<button onclick="enviarWhatsApp()">Finalizar y Enviar a DAS</button>
+</div>
+
+<!-- PASO 4 -->
+<div id="paso4" class="hidden confirmacion">
+<h2>✔ Trámite iniciado correctamente</h2>
+<p>Su solicitud fue enviada al Departamento de Auditoría y Servicios.</p>
+<div class="firma">
+DAS – Departamento de Auditoría y Servicios<br>
+Certificación y Auditoría Documental Institucional
 </div>
 </div>
 
-</main>
+</div>
+
+<footer>
+    <div>DAS – Departamento de Auditoría y Servicios</div>
+    <div class="footer-line"></div>
+    Registro Institucional Nº 2026-AR-DAS-4581<br>
+    Certificaciones oficiales con registro electrónico verificable
+    <div class="footer-copy">
+        © 2026 DAS – Todos los derechos reservados.<br>
+        Este sitio web constituye una plataforma informativa de certificación documental.
+    </div>
+</footer>
 
 <script>
-const whatsapp = "5491151461885";
+const precios = {
+    "Secundario": { "Estándar":100000, "Auditoría":150000 },
+    "Secundario Técnico": { "Estándar":110000, "Auditoría":160000 },
+    "Terciario": { "Estándar":120000, "Auditoría":170000 },
+    "Profesorado": { "Estándar":140000, "Auditoría":190000 },
+    "Universitario": { "Estándar":160000, "Auditoría":210000 }
+};
 
-document.getElementById("formLegalizacion").addEventListener("submit", e => {
-    e.preventDefault();
+let codigoUnico="";
 
-    const campos = document.querySelectorAll("#formLegalizacion input, select");
-    let resumen = "";
-    let mensaje = "*Solicitud de Emisión*\n\n";
+function generarCodigo(){
+    const año = new Date().getFullYear();
+    const random = Math.floor(1000 + Math.random()*9000);
+    codigoUnico = "DAS-" + año + "-" + random;
+}
 
-    campos.forEach(c => {
-        if (c.value) {
-            const label = c.previousElementSibling.textContent;
-            resumen += `<p><strong>${label}:</strong> ${c.value}</p>`;
-            mensaje += `${label}: ${c.value}\n`;
-        }
-    });
+function actualizarPrecio(){
+    const tipo = tipoDoc.value;
+    const mod = modalidad.value;
+    const precioDiv = document.getElementById("precio");
 
-    document.getElementById("resumenContenido").innerHTML = resumen;
-    document.getElementById("resumen").style.display = "block";
+    if(tipo && mod){
+        const valor = precios[tipo][mod];
+        precioDiv.innerText = "Valor del trámite: $"+valor.toLocaleString();
+        precioDiv.classList.add("visible");
+    } else {
+        precioDiv.classList.remove("visible");
+    }
+}
 
-    document.getElementById("enviarWhatsApp").onclick = () => {
-        window.open(`https://wa.me/${whatsapp}?text=${encodeURIComponent(mensaje)}`, "_blank");
-    };
-});
+function mostrarPaso(idMostrar, idOcultar){
+    document.getElementById(idOcultar).classList.add("hidden");
+    const paso = document.getElementById(idMostrar);
+    paso.classList.remove("hidden");
+    paso.classList.add("fade");
+}
+
+function continuar(){
+    if(!tipoDoc.value || !modalidad.value){
+        alert("Debe seleccionar tipo de documentación y modalidad.");
+        return;
+    }
+    generarCodigo();
+    mostrarPaso("paso2","paso1");
+}
+
+function formatFecha(fecha){
+    if(!fecha) return "";
+    const d = new Date(fecha);
+    const dia = String(d.getDate()).padStart(2,'0');
+    const mes = String(d.getMonth()+1).padStart(2,'0');
+    const año = d.getFullYear();
+    return `${dia}/${mes}/${año}`;
+}
+
+function mostrarResumen(){
+    if(!nombre.value || !dni.value || !institucion.value){
+        alert("Complete los datos obligatorios.");
+        return;
+    }
+
+    const tipo = tipoDoc.value;
+    const mod = modalidad.value;
+    const valor = precios[tipo][mod];
+
+    resumen.innerHTML = `
+    <strong>Número de Registro:</strong> ${codigoUnico}<br>
+    <strong>Tipo:</strong> ${tipo}<br>
+    <strong>Modalidad:</strong> ${mod}<br>
+    <strong>Valor:</strong> $${valor.toLocaleString()}<br><br>
+    <strong>Nombre:</strong> ${nombre.value}<br>
+    <strong>DNI:</strong> ${dni.value}<br>
+    <strong>Fecha de nacimiento:</strong> ${formatFecha(nacimiento.value)}<br>
+    <strong>Lugar de nacimiento:</strong> ${lugarNacimiento.value}<br>
+    <strong>Provincia de nacimiento:</strong> ${provinciaNacimiento.value}<br>
+    <strong>Nacionalidad:</strong> ${nacionalidad.value}<br>
+    <strong>Email:</strong> ${email.value}<br><br>
+    <strong>Institución:</strong> ${institucion.value}<br>
+    <strong>Dirección:</strong> ${direccion.value}<br>
+    <strong>Localidad:</strong> ${localidad.value}<br>
+    <strong>Provincia:</strong> ${provincia.value}<br>
+    <strong>Título:</strong> ${titulo.value}<br>
+    <strong>Fecha de egreso:</strong> ${formatFecha(egreso.value)}<br>
+    `;
+
+    mostrarPaso("paso3","paso2");
+}
+
+function enviarWhatsApp(){
+    const tipo = tipoDoc.value;
+    const mod = modalidad.value;
+    const valor = precios[tipo][mod];
+
+    const mensaje = `Nueva solicitud de Trámite
+Número de Registro: ${codigoUnico}
+
+Tipo: ${tipo}
+Modalidad: ${mod}
+Valor: $${valor.toLocaleString()}
+
+--- DATOS PERSONALES ---
+Nombre: ${nombre.value}
+DNI: ${dni.value}
+Fecha de nacimiento: ${formatFecha(nacimiento.value)}
+Lugar de nacimiento: ${lugarNacimiento.value}
+Provincia de nacimiento: ${provinciaNacimiento.value}
+Nacionalidad: ${nacionalidad.value}
+Email: ${email.value}
+
+--- DATOS ACADÉMICOS ---
+Institución: ${institucion.value}
+Dirección: ${direccion.value}
+Localidad: ${localidad.value}
+Provincia: ${provincia.value}
+Título: ${titulo.value}
+Fecha de egreso: ${formatFecha(egreso.value)}
+`;
+
+    const url = "https://wa.me/5491131602393?text=" + encodeURIComponent(mensaje);
+    window.open(url,'_blank');
+
+    mostrarPaso("paso4","paso3");
+}
 </script>
 
 </body>
-  </html>
-
-
-  
+</html>
