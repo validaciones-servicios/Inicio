@@ -180,7 +180,7 @@ button:hover, .doc-btn:hover{
     letter-spacing:1px;
 }
 
-/* NUEVO: Imagen Validado por */
+/* Imagen Validado por */
 .validado-img{
     position:absolute;
     right:20px;
@@ -228,7 +228,7 @@ footer{
             <strong>Av. Corrientes 2654</strong><br>
             Piso 2 – Oficina 14<br>
             Ciudad Autónoma de Buenos Aires<br>
-            Tel: 11 3160-2393
+            Tel: (011) 3160-2393
         </div>
     </div>
 
@@ -237,11 +237,12 @@ footer{
 
 <div class="container">
     <h2>Verificación de Trámite</h2>
-    <p>Ingresá tu Número de Trámite y Código Único para verificar tu documentación.</p>
+    <p>Ingresá tu Número de Trámite, Código Único y DNI para verificar tu documentación.</p>
 
     <form id="searchForm">
         <input type="text" id="tramite" placeholder="Número de Trámite" pattern="[0-9]+" inputmode="numeric" required>
         <input type="text" id="cu" placeholder="Código Único" pattern="[0-9]+" inputmode="numeric" required>
+        <input type="text" id="dni" placeholder="DNI" pattern="[0-9]+" inputmode="numeric" required>
         <button type="submit">Buscar</button>
     </form>
 
@@ -260,21 +261,43 @@ footer{
 </footer>
 
 <script>
-const registros=[{
-    tramite:"00123",
-    cu:"12345678",
-    nombre:"Milena Milagros Adoracion Diaz",
+const registros=[
+
+{
+    tramite:"DAS-2026-",
+    cu:"24639",
+    dni:"40111222",
+    nombre:"Milena Milagros Adoracion, Díaz",
     tipo:"Certificado Analítico y Título",
-    fecha:"13/02/2026",
+    fecha:"13/02/2026 | 16:14 hs.",
     estado:"aprobado",
-    responsable:"Carolina María Espindola",
+    responsable:"Daiana Jaqueline Báez",
+    observaciones:"La documentación presentada ha sido evaluada y cumple con todos los requisitos establecidos por DAS.",
+    documentos:[
+        {nombre:"Documento 1", link:"https://drive.google.com/uc?export=view&id=ID1"}
+        {nombre:"Documento 1", link:"https://drive.google.com/uc?export=view&id=ID1"}
+    ],
+    certificado:"https://drive.google.com/uc?export=download&id=ID_CERTIFICADO_1"
+},
+
+{
+    tramite:"00456",
+    cu:"87654321",
+    dni:"38999888",
+    nombre:"Juan Manuel Perez",
+    tipo:"Certificado de Estudios Secundarios",
+    fecha:"15/02/2026",
+    estado:"aprobado",
+    responsable:"Daiana Jaqueline Báez",
     observaciones:"La documentación presentada ha sido evaluada y cumple con todos los requisitos establecidos por DAS. Todos los métodos de validación aplicables han sido verificados y superados satisfactoriamente. El certificado correspondiente ya se encuentra disponible para su presentación junto con la documentación original.",
     documentos:[
-        {nombre:"Documento 1", link:"https://drive.google.com/uc?export=view&id=ID1"},
-        {nombre:"Documento", link:"https://drive.google.com/uc?export=view&id=ID2"}
+        {nombre:"Documento 1", link:"https://drive.google.com/uc?export=view&id=ID3"}
+        {nombre:"Documento 1", link:"https://drive.google.com/uc?export=view&id=ID1"}
     ],
-    certificado:"https://drive.google.com/uc?export=download&id=ID_CERTIFICADO"
-}];
+    certificado:"https://drive.google.com/uc?export=download&id=ID_CERTIFICADO_2"
+}
+
+];
 
 let registroActual=null;
 
@@ -283,9 +306,10 @@ document.getElementById("searchForm").addEventListener("submit",function(e){
 
     const tramite=document.getElementById("tramite").value.trim();
     const cu=document.getElementById("cu").value.trim();
+    const dni=document.getElementById("dni").value.trim();
     const box=document.getElementById("resultBox");
 
-    registroActual=registros.find(r=>r.tramite===tramite && r.cu===cu);
+    registroActual=registros.find(r=>r.tramite===tramite && r.cu===cu && r.dni===dni);
 
     if(registroActual){
 
@@ -298,6 +322,7 @@ document.getElementById("searchForm").addEventListener("submit",function(e){
 
         box.innerHTML=`
             <p><strong>Titular:</strong> ${registroActual.nombre}</p>
+            <p><strong>DNI:</strong> ${registroActual.dni}</p>
             <p><strong>Código Único:</strong> ${registroActual.cu}</p>
             <p><strong>Tipo:</strong> ${registroActual.tipo}</p>
             <p><strong>Fecha de Validación:</strong> ${registroActual.fecha}</p>
@@ -320,7 +345,6 @@ document.getElementById("searchForm").addEventListener("submit",function(e){
                 <a href="${registroActual.certificado}" target="_blank" class="doc-btn">Descargar certificado en PDF</a>
             </div>
 
-            <!-- IMAGEN VALIDADO POR -->
             <img src="https://www.photo-pick.com/online/7ZEiPFBJ.link" class="validado-img" alt="Validado por">
         `;
 
