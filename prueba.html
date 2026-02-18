@@ -237,10 +237,9 @@ footer{
 
 <div class="container">
     <h2>Verificación de Trámite</h2>
-    <p>Ingresá tu Número de Trámite, Código Único y DNI para verificar tu documentación.</p>
+    <p>Ingresá tu Código Único y DNI para verificar tu documentación.</p>
 
     <form id="searchForm">
-        <input type="text" id="tramite" placeholder="Número de Trámite" pattern="[0-9]+" inputmode="numeric" required>
         <input type="text" id="cu" placeholder="Código Único" pattern="[0-9]+" inputmode="numeric" required>
         <input type="text" id="dni" placeholder="DNI" pattern="[0-9]+" inputmode="numeric" required>
         <button type="submit">Buscar</button>
@@ -274,27 +273,10 @@ const registros=[
     responsable:"Daiana Jaqueline Báez",
     observaciones:"La documentación presentada ha sido evaluada y cumple con todos los requisitos establecidos por DAS.",
     documentos:[
-        {nombre:"Documento 1", link:"https://drive.google.com/uc?export=view&id=ID1"}
+        {nombre:"Documento 1", link:"https://drive.google.com/uc?export=view&id=ID1"},
         {nombre:"Documento 1", link:"https://drive.google.com/uc?export=view&id=ID1"}
     ],
     certificado:"https://drive.google.com/uc?export=download&id=ID_CERTIFICADO_1"
-},
-
-{
-    tramite:"00456",
-    cu:"87654321",
-    dni:"38999888",
-    nombre:"Juan Manuel Perez",
-    tipo:"Certificado de Estudios Secundarios",
-    fecha:"15/02/2026",
-    estado:"aprobado",
-    responsable:"Daiana Jaqueline Báez",
-    observaciones:"La documentación presentada ha sido evaluada y cumple con todos los requisitos establecidos por DAS. Todos los métodos de validación aplicables han sido verificados y superados satisfactoriamente. El certificado correspondiente ya se encuentra disponible para su presentación junto con la documentación original.",
-    documentos:[
-        {nombre:"Documento 1", link:"https://drive.google.com/uc?export=view&id=ID3"}
-        {nombre:"Documento 1", link:"https://drive.google.com/uc?export=view&id=ID1"}
-    ],
-    certificado:"https://drive.google.com/uc?export=download&id=ID_CERTIFICADO_2"
 }
 
 ];
@@ -304,12 +286,11 @@ let registroActual=null;
 document.getElementById("searchForm").addEventListener("submit",function(e){
     e.preventDefault();
 
-    const tramite=document.getElementById("tramite").value.trim();
     const cu=document.getElementById("cu").value.trim();
     const dni=document.getElementById("dni").value.trim();
     const box=document.getElementById("resultBox");
 
-    registroActual=registros.find(r=>r.tramite===tramite && r.cu===cu && r.dni===dni);
+    registroActual=registros.find(r=>r.cu===cu && r.dni===dni);
 
     if(registroActual){
 
