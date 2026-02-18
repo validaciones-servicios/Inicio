@@ -236,8 +236,8 @@ footer{
 </header>
 
 <div class="container">
-    <h2>Verificación de Trámite</h2>
-    <p>Ingresá tu Código Único y DNI para verificar tu documentación.</p>
+    <h2>Sistema de Validación Documental Certificada</h2>
+    <p>A los efectos de verificar la autenticidad de la documentación registrada, deberá ingresar el Código Único de Validación (CUV) y su Documento Nacional de Identidad (DNI).</p>
 
     <form id="searchForm">
         <input type="text" id="cu" placeholder="Código Único" pattern="[0-9]+" inputmode="numeric" required>
@@ -267,7 +267,7 @@ const registros=[
     cu:"24639",
     dni:"41932030",
     nombre:"Milena Milagros Adoracion, Díaz",
-    tipo:"Certificado Analítico y Título (Nivel Secundario)",
+    tipo:"Certificado Analítico y Título – Nivel Secundario",
     fecha:"13/02/2026 | 16:14 hs.",
     estado:"aprobado",
     responsable:"Daiana Jaqueline Báez",
@@ -318,22 +318,22 @@ document.getElementById("searchForm").addEventListener("submit",function(e){
         }
 
         box.innerHTML=`
-            <p><strong>Titular:</strong> ${registroActual.nombre}</p>
-            <p><strong>DNI:</strong> ${registroActual.dni}</p>
-            <p><strong>Código Único:</strong> ${registroActual.cu}</p>
-            <p><strong>Tipo:</strong> ${registroActual.tipo}</p>
+            <p><strong>Titular del Documento:</strong> ${registroActual.nombre}</p>
+            <p><strong>Identificación (DNI):</strong> ${registroActual.dni}</p>
+            <p><strong>(CUV):</strong> ${registroActual.cu}</p>
+            <p><strong>Documentación Certificada:</strong> ${registroActual.tipo}</p>
             <p><strong>Fecha de Validación:</strong> ${registroActual.fecha}</p>
             <p><strong>Estado:</strong> <span class="status ${registroActual.estado}">
             ${registroActual.estado.toUpperCase()}
             </span></p>
-            <p><strong>Responsable Auditor/a:</strong> ${registroActual.responsable}</p>
-            <p><strong>Observaciones:</strong> ${registroActual.observaciones}</p>
+            <p><strong>Auditoria Técnica Responsable:</strong> ${registroActual.responsable}</p>
+            <p><strong>Detalle Técnico de Verificación:</strong> ${registroActual.observaciones}</p>
 
             <div class="sello-digital">
                 ✔ VERIFICACIÓN DIGITAL ACTIVA
             </div>
 
-            <h4 style="margin-top:20px;">Documentación Evaluada:</h4>
+            <h4 style="margin-top:20px;">Documentación Certificada:</h4>
             <div class="botones-container">
                 ${botonesDocs}
             </div>
