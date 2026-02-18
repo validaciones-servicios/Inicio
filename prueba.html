@@ -273,8 +273,8 @@ const registros=[
     responsable:"Daiana Jaqueline Báez",
     observaciones:"La documentación fue sometida a procedimiento de auditoría técnica documental bajo estándares internos de validación y control registral de DAS. Se efectuó análisis de legitimidad formal, verificación de autenticidad material, contraste de datos con soporte declarativo y revisión de integridad estructural del contenido, conforme a protocolo vigente. No se detectaron observaciones técnicas ni inconsistencias al momento de la evaluación. El trámite posee registro electrónico activo, con trazabilidad y constancia verificable en el sistema institucional.",
     documentos:[
-        {nombre:"Documento 1", link:"https://drive.google.com/uc?export=view&id=ID1"},
-        {nombre:"Documento 1", link:"https://drive.google.com/uc?export=view&id=ID1"}
+        {nombre:"Descargar Documento 1", link:"https://drive.google.com/uc?export=view&id=ID1"},
+        {nombre:"Descargar Documento 2", link:"https://drive.google.com/uc?export=view&id=ID1"}
     ],
     certificado:"https://drive.google.com/file/d/1QnvFmkyQ7dY4XyhgXJeuy4BgSGDeNjrE/view?usp=drivesdk"
 },
@@ -289,8 +289,8 @@ const registros=[
     responsable:"Daiana Jaqueline Báez",
     observaciones:"La documentación fue sometida a procedimiento de auditoría técnica documental bajo estándares internos de validación y control registral de DAS. Se efectuó análisis de legitimidad formal, verificación de autenticidad material, contraste de datos con soporte declarativo y revisión de integridad estructural del contenido, conforme a protocolo vigente. No se detectaron observaciones técnicas ni inconsistencias al momento de la evaluación. El trámite posee registro electrónico activo, con trazabilidad y constancia verificable en el sistema institucional.",
     documentos:[
-        {nombre:"Documento 1", link:"https://drive.google.com/uc?export=view&id=ID1"},
-        {nombre:"Documento 1", link:"https://drive.google.com/uc?export=view&id=ID1"}
+        {nombre:"Descargar Documento 1", link:"https://drive.google.com/uc?export=view&id=ID1"},
+        {nombre:"Descargar Documento 2", link:"https://drive.google.com/uc?export=view&id=ID1"}
     ],
     certificado:"https://drive.google.com/uc?export=download&id=ID_CERTIFICADO_1"
     }
@@ -333,13 +333,13 @@ document.getElementById("searchForm").addEventListener("submit",function(e){
                 ✔ VERIFICACIÓN DIGITAL ACTIVA
             </div>
 
-            <h4 style="margin-top:20px;">Documentación presentada:</h4>
+            <h4 style="margin-top:20px;">Documentación Evaluada:</h4>
             <div class="botones-container">
                 ${botonesDocs}
             </div>
 
             <div class="pdf-btn">
-                <a href="${registroActual.certificado}" target="_blank" class="doc-btn">Descargar certificado en PDF</a>
+                <a href="${registroActual.certificado}" target="_blank" class="doc-btn">Descargar Certificación</a>
             </div>
 
             <img src="https://i.postimg.cc/qRb5kmz9/file-00000000f488720ea6de77b1628683b5.png" class="validado-img" alt="Validado por">
