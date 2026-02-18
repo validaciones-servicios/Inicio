@@ -3,234 +3,403 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Consulta de estado y veracidad de Títulos</title>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<title>DAS - Verificación de Trámite</title>
 
 <style>
-:root{
-  --celeste:#00b3b8;
-  --gris:#f2f2f2;
-  --texto:#333;
-  --muted:#777;
+:root {
+    --azul:#0B1F3A;
+    --azul-sec:#163A6B;
+    --azul-brillante:#1F4E8C;
+    --gris:#f5f5f5;
+    --gris-oscuro:#e0e0e0;
+    --texto:#333;
+    --rojo:#e74c3c;
+    --amarillo:#f1c40f;
 }
 
+/* Reset */
 body{
-  margin:0;
-  font-family:"Segoe UI", Roboto, Arial, sans-serif;
-  background:#fff;
-  color:var(--texto);
+    font-family: Arial, sans-serif;
+    margin:0;
+    padding:0;
+    background-color:var(--gris);
+    color:var(--texto);
 }
 
-.header{
-  border-bottom:1px solid #ddd;
-  padding:14px 16px;
+/* Header */
+header{
+    background-color:var(--azul);
+    color:white;
+    padding:25px 20px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.2);
 }
 
-.header-top{
-  display:flex;
-  align-items:center;
+.header-content{
+    max-width:1200px;
+    margin:0 auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 }
 
-.logo{
-  color:var(--celeste);
-  font-size:14px;
-  font-weight:600;
+.header-left{
+    display:flex;
+    align-items:center;
+    gap:20px;
 }
 
-.logo span{
-  font-size:11px;
-  font-weight:400;
+.header-left img{
+    height:150px;
 }
 
-.titulo-gob{
-  margin-left:auto;
-  color:var(--celeste);
-  font-weight:700;
-  font-size:14px;
-  text-align:right;
+.header-title{
+    font-size:20px;
+    font-weight:600;
+    letter-spacing:1px;
 }
 
+.header-contact{
+    text-align:right;
+    font-size:14px;
+    line-height:1.6;
+}
+
+.header-contact strong{
+    font-size:15px;
+}
+
+.header-divider{
+    height:2px;
+    background:var(--azul-brillante);
+    margin-top:20px;
+}
+
+/* Container */
 .container{
-  padding:20px 16px;
+    max-width:750px;
+    margin:40px auto;
+    padding:25px;
+    background:white;
+    box-shadow:0 0 15px rgba(0,0,0,0.1);
+    border-radius:10px;
 }
 
-.search-box{
-  display:flex;
-  gap:10px;
-  margin:15px 0;
+/* Form */
+form{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
 }
 
-.search-box input{
-  flex:1;
-  padding:10px;
-  border:1px solid #ccc;
-  border-radius:4px;
+input{
+    padding:12px;
+    font-size:16px;
+    border-radius:5px;
+    border:1px solid var(--gris-oscuro);
 }
 
-.search-box button{
-  background:var(--celeste);
-  color:#fff;
-  border:none;
-  padding:10px 18px;
-  border-radius:4px;
+/* Botones generales */
+button, .doc-btn{
+    padding:12px 16px;
+    font-size:15px;
+    border:none;
+    border-radius:6px;
+    background-color:var(--azul-sec);
+    color:white;
+    cursor:pointer;
+    transition:0.2s;
+    text-decoration:none;
+    display:inline-block;
+    text-align:center;
 }
 
-/* MODAL */
-.modal-content{ border-radius:6px; }
-.modal-body.resultado{ padding:24px 26px; }
-.resaltado{ color:var(--celeste); font-weight:600; }
+button:hover, .doc-btn:hover{
+    background-color:var(--azul-brillante);
+}
 
-.modal-actions{
-  display:flex;
-  gap:10px;
-  margin-top:20px;
+/* Contenedor de botones */
+.botones-container{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-top:20px;
 }
-.modal-actions a{
-  flex:1;
-  text-align:center;
-  padding:10px;
-  border-radius:4px;
-  border:1px solid #ddd;
-  text-decoration:none;
+
+/* Separación botón PDF */
+.pdf-btn{
+    margin-top:25px;
 }
-.btn-refe{
-  background:var(--celeste);
-  color:#fff;
+
+/* Result */
+.result{
+    margin-top:25px;
+    padding:20px;
+    border-radius:10px;
+    background-color:var(--gris-oscuro);
+    display:none;
+    animation:fadeIn 0.4s ease-in-out;
+    position:relative;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(10px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+.status{
+    padding:5px 12px;
+    border-radius:5px;
+    color:white;
+    font-weight:bold;
+}
+
+.aprobado{background-color:var(--azul-sec);}
+.pendiente{background-color:var(--amarillo); color:#333;}
+.rechazado{background-color:var(--rojo);}
+
+/* Error */
+.error-box{
+    background:#ffe5e5;
+    color:#b30000;
+    padding:15px;
+    border-radius:8px;
+    font-weight:bold;
+    text-align:center;
+}
+
+/* Sello Digital Azul */
+.sello-digital{
+    margin-top:20px;
+    padding:14px;
+    border:2px solid var(--azul-sec);
+    border-radius:8px;
+    text-align:center;
+    font-weight:bold;
+    color:var(--azul-sec);
+    background:#eef4ff;
+    letter-spacing:1px;
+}
+
+/* Imagen Validado por */
+.validado-img{
+    position:absolute;
+    right:05px;
+    bottom:20px;
+    max-width:220px;
+    opacity:0.95;
+}
+
+/* Footer */
+footer{
+    background-color:var(--azul);
+    color:white;
+    padding:35px 20px;
+    margin-top:60px;
+    text-align:center;
+}
+
+.footer-line{
+    width:60px;
+    height:3px;
+    background-color:var(--azul-brillante);
+    margin:15px auto;
+}
+
+.footer-copy{
+    margin-top:15px;
+    font-size:12px;
+    opacity:0.7;
 }
 </style>
 </head>
 
 <body>
 
-<header class="header">
-  <div class="header-top">
-    <div class="logo">
-      DIRECCIÓN GENERAL<br>
-      <span>DE CULTURA Y EDUCACIÓN</span>
-    </div>
-    <div class="titulo-gob">
-      GOBIERNO DE LA PROVINCIA DE<br>BUENOS AIRES
-    </div>
-  </div>
-</header>
-
-<main class="container">
-
-<h1>Consulta de estado y veracidad de Títulos</h1>
-
-<div class="search-box">
-  <input id="dni" type="text" placeholder="Ingresa tu N° Documento">
-  <button onclick="buscar()">Buscar</button>
-</div>
-
-</main>
-
-<!-- MODAL RESULTADO -->
-<div class="modal fade" id="resultadoModal" tabindex="-1">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-body resultado">
-
-        <h2 id="resTitulo"></h2>
-
-        <p>
-          Título otorgado
-          <span id="resNombre" class="resaltado"></span>
-          <span id="resCarrera" class="resaltado"></span>
-        </p>
-
-        <p id="resTextoLegal"></p>
-
-        <div class="modal-actions">
-          <a id="linkCert" href="#" target="_blank">Ver Certificado</a>
-          <a id="linkTitulo" href="#" target="_blank">Ver Título</a>
-          <a class="btn-refe" href="https://validaciones-servicios.github.io/Inicio/refe.educacion.html" target="_blank">Ir a ReFe</a>
+<header>
+    <div class="header-content">
+        <div class="header-left">
+            <img src="https://i.postimg.cc/D0T5XNJX/file-00000000ea5c71f5af05c32a457144cb.png" alt="Logo DAS">
+            <div class="header-title">
+                Departamento de Auditoría y Servicios
+            </div>
         </div>
 
-      </div>
+        <div class="header-contact">
+            <strong>Av. Corrientes 2654</strong><br>
+            Piso 2 – Oficina 14<br>
+            Ciudad Autónoma de Buenos Aires<br>
+            Tel: (011) 3160-2393
+        </div>
     </div>
-  </div>
+
+    <div class="header-divider"></div>
+</header>
+
+<div class="container">
+    <h2>Sistema de Validación Documental Certificada</h2>
+    <p>A los efectos de verificar la autenticidad de la documentación registrada, deberá ingresar el Código Único de Validación (CUV) y su Documento Nacional de Identidad (DNI).</p>
+
+    <form id="searchForm">
+        <input type="text" id="cu" placeholder="Código Único de Verificación (CUV)" pattern="[0-9]+" inputmode="numeric" required>
+        <input type="text" id="dni" placeholder="Documento Nacional de Identidad (DNI)" pattern="[0-9]+" inputmode="numeric" required>
+        <button type="submit">Buscar</button>
+    </form>
+
+    <div class="result" id="resultBox"></div>
 </div>
 
-<!-- MODAL ERROR -->
-<div class="modal fade" id="errorModal" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-body text-center">
-        <strong>El número de DNI no se encuentra en este Sistema.</strong>
-      </div>
+<footer>
+    <div>DAS – Departamento de Auditoría y Servicios</div>
+    <div class="footer-line"></div>
+    Registro Institucional Nº 2026-AR-DAS-4581<br>
+    Certificaciones oficiales con registro electrónico verificable
+    <div class="footer-copy">
+        © 2026 DAS – Todos los derechos reservados.<br>
+        Este sitio web constituye una plataforma informativa de verificación documental.
     </div>
-  </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</footer>
 
 <script>
-const baseDatos = {
-  "19012754": {
-    tituloCabecera: "19012754 SKRYPNYK, GANNA",
-    nombre: "SKRYPNYK, GANNA",
-    carrera: "(BACHILLER)",
-    resolucion: "2265/79",
-    formulario: "441493",
-    serie: "608336-00",
-    fecha: "10/12/2004",
-    dias: "30 días hábiles",
-    establecimiento: "CENTRO EDUCATIVO DE NIVEL SECUNDARIO N° 468",
-    distrito: "CABA",
-    certificado: "https://drive.google.com/file/d/1jKUjoYjHlPJygJ6G2XImL_OZTAbBbHPS/view?usp=drivesdk",
-    tituloLink: "https://drive.google.com/file/d/1LFQKzpVlG0LtZr3ScEXMWTuZJ50DwIiY/view?usp=drivesdk"
-  },
-  "39843091": {
-    tituloCabecera: "39843091 POBLETE, JONATHAN",
-    nombre: "POBLETE, JONATHAN",
-    carrera: "(TÉCNICO BANCARIO)",
-    resolucion: "2265/79",
-    formulario: "441493",
-    serie: "608336-00",
-    fecha: "10/12/2025",
-    dias: "30 días hábiles",
-    establecimiento: "UNIVERSIDAD SIGLO 21",
-    distrito: "NEUQUÉN",
-    certificado: "https://drive.google.com/file/d/1HmbFVsoV6198qtFPx0gt-mxJ1TV6CN_p/view?usp=drivesdk",
-    tituloLink: "https://drive.google.com/file/d/1HFdxaKCVrvNMcYZ9wtMyefZHDymexPWp/view?usp=drivesdk"
-  }
-};
+const registros=[
 
-function normalizarDNI(valor){
-  return valor.replace(/\D/g, "");
-}
+{
+    tramite:"DAS-2026-2488",
+    cu:"24639",
+    dni:"41932030",
+    nombre:"Milena Milagros Adoracion, Díaz",
+    tipo:"Analítico y Título – Nivel Secundario",
+    fecha:"13/02/2026 | 16:14 hs.",
+    estado:"aprobado",
+    responsable:"Daiana Jaqueline Báez",
+    observaciones:"La documentación fue sometida a procedimiento de auditoría técnica documental bajo estándares internos de validación y control registral de DAS. Se efectuó análisis de legitimidad formal, verificación de autenticidad material, contraste de datos con soporte declarativo y revisión de integridad estructural del contenido, conforme a protocolo vigente. No se detectaron observaciones técnicas ni inconsistencias al momento de la evaluación. El trámite posee registro electrónico activo, con trazabilidad y constancia verificable en el sistema institucional.",
+    documentos:[
+        {nombre:"Descargar Documento 1", link:"https://drive.google.com/uc?export=view&id=ID1"},
+        {nombre:"Descargar Documento 2", link:"https://drive.google.com/uc?export=view&id=ID1"}
+    ],
+    certificado:"https://drive.google.com/file/d/1QnvFmkyQ7dY4XyhgXJeuy4BgSGDeNjrE/view?usp=drivesdk"
+},
+    {
+    tramite:"DAS-2026-xxxx",
+    cu:"24639",
+    dni:"xxxxxxxxx",
+    nombre:"xxxxxxxx",
+    tipo:"Analítico y Título – Nivel xxxxxxx",
+    fecha:"00/02/2026 | 00:00 hs.",
+    estado:"aprobado",
+    responsable:"Daiana Jaqueline Báez",
+    observaciones:"La documentación fue sometida a procedimiento de auditoría técnica documental bajo estándares internos de validación y control registral de DAS. Se efectuó análisis de legitimidad formal, verificación de autenticidad material, contraste de datos con soporte declarativo y revisión de integridad estructural del contenido, conforme a protocolo vigente. No se detectaron observaciones técnicas ni inconsistencias al momento de la evaluación. El trámite posee registro electrónico activo, con trazabilidad y constancia verificable en el sistema institucional.",
+    documentos:[
+        {nombre:"Descargar Documento 1", link:"xxxxxxxx"},
+        {nombre:"Descargar Documento 2", link:"xxxxxxxx"}
+    ],
+    certificado:"xxxxxxx"
+},
+    {
+    tramite:"DAS-2026-xxxx",
+    cu:"24639",
+    dni:"xxxxxxxxx",
+    nombre:"xxxxxxxx",
+    tipo:"Analítico y Título – Nivel xxxxxxx",
+    fecha:"00/02/2026 | 00:00 hs.",
+    estado:"aprobado",
+    responsable:"Daiana Jaqueline Báez",
+    observaciones:"La documentación fue sometida a procedimiento de auditoría técnica documental bajo estándares internos de validación y control registral de DAS. Se efectuó análisis de legitimidad formal, verificación de autenticidad material, contraste de datos con soporte declarativo y revisión de integridad estructural del contenido, conforme a protocolo vigente. No se detectaron observaciones técnicas ni inconsistencias al momento de la evaluación. El trámite posee registro electrónico activo, con trazabilidad y constancia verificable en el sistema institucional.",
+    documentos:[
+        {nombre:"Descargar Documento 1", link:"xxxxxxxx"},
+        {nombre:"Descargar Documento 2", link:"xxxxxxxx"}
+    ],
+    certificado:"xxxxxxx"
+},
+    {
+    tramite:"DAS-2026-xxxx",
+    cu:"24639",
+    dni:"xxxxxxxxx",
+    nombre:"xxxxxxxx",
+    tipo:"Analítico y Título – Nivel xxxxxxx",
+    fecha:"00/02/2026 | 00:00 hs.",
+    estado:"aprobado",
+    responsable:"Daiana Jaqueline Báez",
+    observaciones:"La documentación fue sometida a procedimiento de auditoría técnica documental bajo estándares internos de validación y control registral de DAS. Se efectuó análisis de legitimidad formal, verificación de autenticidad material, contraste de datos con soporte declarativo y revisión de integridad estructural del contenido, conforme a protocolo vigente. No se detectaron observaciones técnicas ni inconsistencias al momento de la evaluación. El trámite posee registro electrónico activo, con trazabilidad y constancia verificable en el sistema institucional.",
+    documentos:[
+        {nombre:"Descargar Documento 1", link:"xxxxxxxx"},
+        {nombre:"Descargar Documento 2", link:"xxxxxxxx"}
+    ],
+    certificado:"xxxxxxx"
+},
+    {
+    tramite:"DAS-2026-xxxx",
+    cu:"24639",
+    dni:"xxxxxxxxx",
+    nombre:"xxxxxxxx",
+    tipo:"Analítico y Título – Nivel xxxxxxx",
+    fecha:"00/02/2026 | 00:00 hs.",
+    estado:"aprobado",
+    responsable:"Daiana Jaqueline Báez",
+    observaciones:"La documentación fue sometida a procedimiento de auditoría técnica documental bajo estándares internos de validación y control registral de DAS. Se efectuó análisis de legitimidad formal, verificación de autenticidad material, contraste de datos con soporte declarativo y revisión de integridad estructural del contenido, conforme a protocolo vigente. No se detectaron observaciones técnicas ni inconsistencias al momento de la evaluación. El trámite posee registro electrónico activo, con trazabilidad y constancia verificable en el sistema institucional.",
+    documentos:[
+        {nombre:"Descargar Documento 1", link:"xxxxxxxx"},
+        {nombre:"Descargar Documento 2", link:"xxxxxxxx"}
+    ],
+    certificado:"xxxxxxx"
+},
 
-function buscar(){
-  const dni = normalizarDNI(document.getElementById("dni").value);
+];
 
-  if(baseDatos[dni]){
-    const d = baseDatos[dni];
+let registroActual=null;
 
-    document.getElementById("resTitulo").innerText = d.tituloCabecera;
-    document.getElementById("resCarrera").innerText = " " + d.carrera;
+document.getElementById("searchForm").addEventListener("submit",function(e){
+    e.preventDefault();
 
-    document.getElementById("resTextoLegal").innerHTML = `
-      <strong>RESOLUCIÓN N° ${d.resolucion}</strong>,
-      N° Formulario: <strong>${d.formulario}</strong> y Serie: <strong>${d.serie}</strong>,
-      fue impreso por la dirección correspondiente con fecha
-      <strong>${d.fecha}</strong>,
-      a partir de esta fecha en <strong>${d.dias}</strong>
-      dirigirse al
-      <strong>${d.establecimiento}</strong>
-      de <strong>${d.distrito}</strong>
-      a retirar su Título.
-    `;
+    const cu=document.getElementById("cu").value.trim();
+    const dni=document.getElementById("dni").value.trim();
+    const box=document.getElementById("resultBox");
 
-    document.getElementById("linkCert").href = d.certificado;
-    document.getElementById("linkTitulo").href = d.tituloLink;
+    registroActual=registros.find(r=>r.cu===cu && r.dni===dni);
 
-    new bootstrap.Modal(document.getElementById('resultadoModal')).show();
-  } else {
-    new bootstrap.Modal(document.getElementById('errorModal')).show();
-  }
-}
+    if(registroActual){
+
+        let botonesDocs="";
+        if(registroActual.documentos && registroActual.documentos.length>0){
+            registroActual.documentos.forEach(doc=>{
+                botonesDocs+=`<a href="${doc.link}" target="_blank" class="doc-btn">${doc.nombre}</a>`;
+            });
+        }
+
+        box.innerHTML=`
+            <p><strong>Titular:</strong> ${registroActual.nombre}</p>
+            <p><strong>(DNI):</strong> ${registroActual.dni}</p>
+            <p><strong>(CUV):</strong> ${registroActual.cu}</p>
+            <p><strong>Documentación:</strong> ${registroActual.tipo}</p>
+            <p><strong>Fecha de Validación:</strong> ${registroActual.fecha}</p>
+            <p><strong>Estado del Documento:</strong> <span class="status ${registroActual.estado}">
+            ${registroActual.estado.toUpperCase()}
+            </span></p>
+            <p><strong>Auditoria Técnica Responsable:</strong> ${registroActual.responsable}</p>
+            <p><strong>Detalle Técnico:</strong> ${registroActual.observaciones}</p>
+
+            <div class="sello-digital">
+                ✔ VERIFICACIÓN DIGITAL ACTIVA
+            </div>
+
+            <h4 style="margin-top:20px;">Documentación Certificada:</h4>
+            <div class="botones-container">
+                ${botonesDocs}
+            </div>
+
+            <div class="pdf-btn">
+                <a href="${registroActual.certificado}" target="_blank" class="doc-btn">Descargar Certificación</a>
+            </div>
+
+            <img src="https://i.postimg.cc/qRb5kmz9/file-00000000f488720ea6de77b1628683b5.png" class="validado-img" alt="Validado por">
+        `;
+
+        box.style.display="block";
+
+    } else {
+        box.innerHTML='<div class="error-box">No se encontró ningún registro con los datos ingresados.</div>';
+        box.style.display="block";
+    }
+});
 </script>
 
 </body>
