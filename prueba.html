@@ -45,7 +45,7 @@ box-shadow:0 4px 15px rgba(0,0,0,0.05);
 }
 
 header img{
-height:100px;
+height:90px;
 }
 
 .header-title{
@@ -71,20 +71,6 @@ font-size:28px;
 margin:20px auto;
 max-width:700px;
 opacity:0.9;
-}
-
-.badges{
-display:flex;
-justify-content:center;
-flex-wrap:wrap;
-gap:10px;
-}
-
-.badges span{
-background:rgba(255,255,255,0.1);
-padding:8px 16px;
-border-radius:20px;
-font-size:13px;
 }
 
 .status-sistema{
@@ -125,11 +111,20 @@ background:linear-gradient(135deg,#163A6B,#1F4E8C);
 color:white;
 font-weight:600;
 cursor:pointer;
-transition:0.3s;
 }
 
-button:hover{
-opacity:0.9;
+/* Loader */
+.loader{
+text-align:center;
+font-weight:600;
+color:var(--azul-sec);
+animation:pulse 1s infinite;
+}
+
+@keyframes pulse{
+0%{opacity:0.4;}
+50%{opacity:1;}
+100%{opacity:0.4;}
 }
 
 /* Result */
@@ -147,14 +142,6 @@ from{opacity:0; transform:translateY(10px);}
 to{opacity:1; transform:translateY(0);}
 }
 
-.panel-header{
-font-weight:600;
-margin-bottom:20px;
-color:var(--azul-sec);
-border-bottom:1px solid #eee;
-padding-bottom:10px;
-}
-
 .status{
 padding:6px 12px;
 border-radius:6px;
@@ -166,26 +153,27 @@ font-weight:600;
 .aprobado{background:var(--verde);}
 .rechazado{background:#e74c3c;}
 
-.sello{
+.qr{
 margin-top:20px;
-padding:12px;
-border:1px solid var(--azul-sec);
-border-radius:8px;
-background:#f0f4ff;
+text-align:center;
+}
+
+/* Panel Admin */
+.admin-panel{
+position:fixed;
+bottom:20px;
+right:20px;
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
+display:none;
+width:280px;
 font-size:13px;
 }
-
-/* Sobre */
-.sobre{
-max-width:900px;
-margin:60px auto;
-padding:40px;
-background:white;
-border-radius:15px;
-box-shadow:0 10px 30px rgba(0,0,0,0.05);
+.admin-panel h4{
+margin-top:0;
 }
-
-/* Footer */
 footer{
 background:var(--azul);
 color:white;
@@ -203,9 +191,7 @@ Plataforma Latinoamericana de Validación Documental – DAS
 </div>
 
 <header>
-<div>
 <img src="https://i.postimg.cc/D0T5XNJX/file-00000000ea5c71f5af05c32a457144cb.png">
-</div>
 <div class="header-title">
 Departamento de Auditoría y Servicios
 </div>
@@ -213,25 +199,15 @@ Departamento de Auditoría y Servicios
 
 <section class="hero">
 <h1>Plataforma de Verificación y Auditoría Documental</h1>
-<p>
-Sistema digital desarrollado por DAS para la validación,
-trazabilidad y certificación electrónica de documentación académica y administrativa en Latinoamérica.
-</p>
-<div class="badges">
-<span>Registro Electrónico</span>
-<span>Auditoría Técnica</span>
-<span>CUV Único</span>
-<span>Trazabilidad Digital</span>
-</div>
+<p>Sistema digital con registro electrónico y trazabilidad verificable.</p>
 <div class="status-sistema">
-● Sistema en línea – Registro Activo
+● Sistema en línea – Base de datos activa
 </div>
 </section>
 
 <div class="container">
 
-<h3>Validación de Documentación Certificada</h3>
-<p>Ingrese el Código Único de Validación (CUV) y DNI del titular.</p>
+<h3>Validación de Documentación</h3>
 
 <form id="searchForm">
 <input type="text" id="cu" placeholder="Código Único de Validación (CUV)" required>
@@ -241,28 +217,20 @@ trazabilidad y certificación electrónica de documentación académica y admini
 
 <div class="result" id="resultBox"></div>
 
-<p style="font-size:12px; color:#888; margin-top:15px;">
-Los datos ingresados se utilizan exclusivamente para validación documental.
-</p>
-
 </div>
 
-<section class="sobre">
-<h3>Sobre DAS</h3>
-<p>
-DAS es una firma privada especializada en auditoría documental,
-validación registral y certificación electrónica bajo protocolos internos
-de control técnico y trazabilidad digital. Operamos mediante infraestructura
-tecnológica con registro verificable y control de integridad documental.
-</p>
-</section>
-
 <footer>
-DAS – Departamento de Auditoría y Servicios<br><br>
-Infraestructura protegida bajo protocolo de cifrado TLS.<br>
-Plataforma desarrollada bajo estándares internos DAS-REG v2.6<br><br>
+Infraestructura protegida bajo protocolo TLS.<br>
+Estándares internos DAS-REG v2.6<br><br>
 © 2026 DAS – Todos los derechos reservados.
 </footer>
+
+<!-- PANEL ADMIN OCULTO -->
+<div class="admin-panel" id="adminPanel">
+<h4>Panel Administrativo</h4>
+<p><strong>Verificaciones realizadas:</strong> <span id="contador">0</span></p>
+<p><strong>Último ID Consulta:</strong> <span id="lastId">-</span></p>
+</div>
 
 <script>
 const registros=[
@@ -276,18 +244,38 @@ estado:"aprobado"
 }
 ];
 
-document.getElementById("searchForm").addEventListener("submit",function(e){
+let contadorVerificaciones=0;
+
+async function generarHash(texto){
+const encoder=new TextEncoder();
+const data=encoder.encode(texto);
+const hash=await crypto.subtle.digest("SHA-256",data);
+return Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,"0")).join("");
+}
+
+document.getElementById("searchForm").addEventListener("submit",async function(e){
 e.preventDefault();
 
 const cu=document.getElementById("cu").value.trim();
 const dni=document.getElementById("dni").value.trim();
 const box=document.getElementById("resultBox");
 
+box.style.display="block";
+box.innerHTML="<div class='loader'>Consultando base de datos segura...</div>";
+
+setTimeout(async()=>{
 const registro=registros.find(r=>r.cu===cu && r.dni===dni);
 
 if(registro){
+
+contadorVerificaciones++;
+const consultaId="DAS-VRF-"+Math.floor(Math.random()*999999);
+const hash=await generarHash(registro.nombre+registro.dni+Date.now());
+
+document.getElementById("contador").innerText=contadorVerificaciones;
+document.getElementById("lastId").innerText=consultaId;
+
 box.innerHTML=`
-<div class="panel-header">Resultado de Validación</div>
 <p><strong>Titular:</strong> ${registro.nombre}</p>
 <p><strong>Documento:</strong> ${registro.tipo}</p>
 <p><strong>Fecha de Validación:</strong> ${registro.fecha}</p>
@@ -295,15 +283,28 @@ box.innerHTML=`
 ${registro.estado.toUpperCase()}
 </span></p>
 
-<div class="sello">
-✔ Certificación Electrónica Activa<br>
-Código de Consulta: DAS-VRF-${Math.floor(Math.random()*999999)}
+<p><strong>ID Consulta:</strong> ${consultaId}</p>
+<p style="font-size:11px; word-break:break-all;">
+<strong>Hash SHA-256:</strong><br>${hash}
+</p>
+
+<div class="qr">
+<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${consultaId}">
+<p style="font-size:12px;">QR de verificación</p>
 </div>
 `;
-box.style.display="block";
 }else{
-box.innerHTML="<p style='color:red;font-weight:600;'>No se encontró ningún registro con los datos ingresados.</p>";
-box.style.display="block";
+box.innerHTML="<p style='color:red;font-weight:600;'>No se encontró ningún registro.</p>";
+}
+},1500);
+
+});
+
+// Activar panel admin con Ctrl+Shift+D
+document.addEventListener("keydown",function(e){
+if(e.ctrlKey && e.shiftKey && e.key==="D"){
+const panel=document.getElementById("adminPanel");
+panel.style.display=panel.style.display==="block"?"none":"block";
 }
 });
 </script>
