@@ -3,308 +3,223 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DAS | Plataforma Latinoamericana de Auditoría Documental</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<title>DAS - Verificación de Trámite</title>
 
 <style>
-:root{
---azul:#0B1F3A;
---azul-sec:#163A6B;
---azul-brillante:#1F4E8C;
---gris:#f4f6f9;
---texto:#2c3e50;
---verde:#27ae60;
+:root {
+    --azul:#0B1F3A;
+    --azul-sec:#163A6B;
+    --azul-brillante:#1F4E8C;
+    --gris:#f5f5f5;
+    --gris-oscuro:#e0e0e0;
+    --texto:#333;
 }
 
 body{
-font-family:'Inter',sans-serif;
-margin:0;
-background:var(--gris);
-color:var(--texto);
+    font-family: Arial, sans-serif;
+    margin:0;
+    padding:0;
+    background: radial-gradient(circle at 20% 20%, #122b52 0%, #0B1F3A 40%, #071426 100%);
+    color:var(--texto);
+    overflow-x:hidden;
 }
 
-/* Barra superior */
-.barra-superior{
-background:var(--azul-sec);
-color:white;
-text-align:center;
-padding:8px;
-font-size:13px;
-letter-spacing:1px;
+/* EFECTO HOLOGRÁFICO GLOBAL */
+body::before{
+    content:"";
+    position:fixed;
+    width:200%;
+    height:200%;
+    top:-50%;
+    left:-50%;
+    background:linear-gradient(
+        60deg,
+        rgba(255,255,255,0.05) 0%,
+        rgba(255,255,255,0.02) 25%,
+        transparent 50%,
+        rgba(0,255,255,0.04) 75%,
+        transparent 100%
+    );
+    animation:holoMove 12s linear infinite;
+    pointer-events:none;
 }
 
-/* Header */
+@keyframes holoMove{
+    0%{transform:rotate(0deg);}
+    100%{transform:rotate(360deg);}
+}
+
 header{
-background:white;
-padding:20px 40px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-box-shadow:0 4px 15px rgba(0,0,0,0.05);
+    background-color:var(--azul);
+    color:white;
+    padding:25px 20px;
+    box-shadow:0 4px 20px rgba(0,0,0,0.4);
+    position:relative;
+    z-index:2;
 }
 
-header img{
-height:90px;
-}
-
-.header-title{
-font-weight:600;
-font-size:18px;
-color:var(--azul);
-}
-
-/* Hero */
-.hero{
-background:linear-gradient(135deg,#0B1F3A,#163A6B);
-color:white;
-padding:60px 20px;
-text-align:center;
-}
-
-.hero h1{
-margin:0;
-font-size:28px;
-}
-
-.hero p{
-margin:20px auto;
-max-width:700px;
-opacity:0.9;
-}
-
-.status-sistema{
-margin-top:15px;
-color:#2ecc71;
-font-size:13px;
-}
-
-/* Container */
 .container{
-max-width:800px;
-margin:-40px auto 40px auto;
-background:white;
-padding:40px;
-border-radius:15px;
-box-shadow:0 15px 40px rgba(0,0,0,0.08);
+    max-width:750px;
+    margin:40px auto;
+    padding:25px;
+    background:rgba(255,255,255,0.95);
+    backdrop-filter:blur(6px);
+    box-shadow:0 0 30px rgba(0, 255, 255, 0.2);
+    border-radius:12px;
+    position:relative;
+    z-index:2;
 }
 
-/* Form */
-form{
-display:flex;
-flex-direction:column;
-gap:15px;
-}
-
-input{
-padding:14px;
-border-radius:8px;
-border:1px solid #e0e6ed;
-font-size:15px;
-}
-
-button{
-padding:14px;
-border:none;
-border-radius:8px;
-background:linear-gradient(135deg,#163A6B,#1F4E8C);
-color:white;
-font-weight:600;
-cursor:pointer;
-}
-
-/* Loader */
-.loader{
-text-align:center;
-font-weight:600;
-color:var(--azul-sec);
-animation:pulse 1s infinite;
-}
-
-@keyframes pulse{
-0%{opacity:0.4;}
-50%{opacity:1;}
-100%{opacity:0.4;}
-}
-
-/* Result */
 .result{
-margin-top:30px;
-padding:30px;
-border-radius:12px;
-border:1px solid #e5e9f2;
-display:none;
-animation:fadeIn 0.4s ease-in-out;
+    margin-top:25px;
+    padding:25px;
+    border-radius:10px;
+    background:rgba(240,240,240,0.95);
+    display:none;
+    position:relative;
+    overflow:hidden;
 }
 
-@keyframes fadeIn{
-from{opacity:0; transform:translateY(10px);}
-to{opacity:1; transform:translateY(0);}
+/* Scan line */
+.result::after{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:3px;
+    background:linear-gradient(90deg,transparent,#00ffff,transparent);
+    animation:scanline 3s linear infinite;
+}
+
+@keyframes scanline{
+    0%{top:0%;}
+    100%{top:100%;}
 }
 
 .status{
-padding:6px 12px;
-border-radius:6px;
-color:white;
-font-size:13px;
-font-weight:600;
+    padding:5px 12px;
+    border-radius:5px;
+    color:white;
+    font-weight:bold;
+    background:linear-gradient(135deg,#163A6B,#1F4E8C);
 }
 
-.aprobado{background:var(--verde);}
-.rechazado{background:#e74c3c;}
-
-.qr{
-margin-top:20px;
-text-align:center;
+.sello-digital{
+    margin-top:20px;
+    padding:14px;
+    border:2px solid #1F4E8C;
+    border-radius:8px;
+    text-align:center;
+    font-weight:bold;
+    color:#163A6B;
+    background:#eef4ff;
+    letter-spacing:1px;
+    box-shadow:0 0 15px rgba(0,255,255,0.3);
 }
 
-/* Panel Admin */
-.admin-panel{
-position:fixed;
-bottom:20px;
-right:20px;
-background:white;
-padding:20px;
-border-radius:10px;
-box-shadow:0 10px 30px rgba(0,0,0,0.2);
-display:none;
-width:280px;
-font-size:13px;
+.qr-box{
+    margin-top:20px;
+    text-align:center;
 }
-.admin-panel h4{
-margin-top:0;
-}
+
 footer{
-background:var(--azul);
-color:white;
-padding:40px 20px;
-text-align:center;
-font-size:13px;
+    background-color:var(--azul);
+    color:white;
+    padding:35px 20px;
+    margin-top:60px;
+    text-align:center;
+    font-size:13px;
+    position:relative;
+    z-index:2;
+}
+
+button{
+    padding:12px 16px;
+    font-size:15px;
+    border:none;
+    border-radius:6px;
+    background:linear-gradient(135deg,#163A6B,#1F4E8C);
+    color:white;
+    cursor:pointer;
 }
 </style>
 </head>
 
 <body>
 
-<div class="barra-superior">
-Plataforma Latinoamericana de Validación Documental – DAS
-</div>
-
 <header>
-<img src="https://i.postimg.cc/D0T5XNJX/file-00000000ea5c71f5af05c32a457144cb.png">
-<div class="header-title">
-Departamento de Auditoría y Servicios
-</div>
+<h2 style="margin:0;">Departamento de Auditoría y Servicios</h2>
 </header>
 
-<section class="hero">
-<h1>Plataforma de Verificación y Auditoría Documental</h1>
-<p>Sistema digital con registro electrónico y trazabilidad verificable.</p>
-<div class="status-sistema">
-● Sistema en línea – Base de datos activa
-</div>
-</section>
-
 <div class="container">
-
-<h3>Validación de Documentación</h3>
+<h2>Sistema de Validación Documental</h2>
 
 <form id="searchForm">
-<input type="text" id="cu" placeholder="Código Único de Validación (CUV)" required>
-<input type="text" id="dni" placeholder="Documento Nacional de Identidad (DNI)" required>
-<button type="submit">Verificar Documento</button>
+<input type="text" id="cu" placeholder="CUV" required>
+<input type="text" id="dni" placeholder="DNI" required>
+<button type="submit">Buscar</button>
 </form>
 
 <div class="result" id="resultBox"></div>
-
 </div>
 
 <footer>
 Infraestructura protegida bajo protocolo TLS.<br>
-Estándares internos DAS-REG v2.6<br><br>
-© 2026 DAS – Todos los derechos reservados.
+Estándares internos DAS-REG v2.6<br>
+© 2026 DAS
 </footer>
 
-<!-- PANEL ADMIN OCULTO -->
-<div class="admin-panel" id="adminPanel">
-<h4>Panel Administrativo</h4>
-<p><strong>Verificaciones realizadas:</strong> <span id="contador">0</span></p>
-<p><strong>Último ID Consulta:</strong> <span id="lastId">-</span></p>
-</div>
-
 <script>
-const registros=[
-{
-cu:"24639",
-dni:"41932030",
-nombre:"Milena Milagros Adoracion Díaz",
-tipo:"Analítico y Título – Nivel Secundario",
-fecha:"13/02/2026 – 16:14 hs.",
-estado:"aprobado"
-}
-];
+const QR_FIJO = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=DAS-VERIFICACION";
 
-let contadorVerificaciones=0;
+const registros=[{
+    tramite:"DAS-2026-2488",
+    cu:"24639",
+    dni:"41932030",
+    nombre:"Milena Milagros Adoracion Díaz",
+    estado:"aprobado",
+    responsable:"Daiana Jaqueline Báez"
+}];
 
-async function generarHash(texto){
-const encoder=new TextEncoder();
-const data=encoder.encode(texto);
-const hash=await crypto.subtle.digest("SHA-256",data);
-return Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,"0")).join("");
+function generarIP(){
+return `${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}`;
 }
 
-document.getElementById("searchForm").addEventListener("submit",async function(e){
+document.getElementById("searchForm").addEventListener("submit",function(e){
 e.preventDefault();
 
 const cu=document.getElementById("cu").value.trim();
 const dni=document.getElementById("dni").value.trim();
 const box=document.getElementById("resultBox");
 
-box.style.display="block";
-box.innerHTML="<div class='loader'>Consultando base de datos segura...</div>";
-
-setTimeout(async()=>{
 const registro=registros.find(r=>r.cu===cu && r.dni===dni);
 
 if(registro){
 
-contadorVerificaciones++;
-const consultaId="DAS-VRF-"+Math.floor(Math.random()*999999);
-const hash=await generarHash(registro.nombre+registro.dni+Date.now());
-
-document.getElementById("contador").innerText=contadorVerificaciones;
-document.getElementById("lastId").innerText=consultaId;
-
 box.innerHTML=`
 <p><strong>Titular:</strong> ${registro.nombre}</p>
-<p><strong>Documento:</strong> ${registro.tipo}</p>
-<p><strong>Fecha de Validación:</strong> ${registro.fecha}</p>
-<p><strong>Estado:</strong> <span class="status ${registro.estado}">
-${registro.estado.toUpperCase()}
-</span></p>
+<p><strong>DNI:</strong> ${registro.dni}</p>
+<p><strong>CUV:</strong> ${registro.cu}</p>
+<p><strong>Estado:</strong> <span class="status">APROBADO</span></p>
+<p><strong>Auditor:</strong> ${registro.responsable}</p>
+<p><strong>IP Registro:</strong> ${generarIP()}</p>
 
-<p><strong>ID Consulta:</strong> ${consultaId}</p>
-<p style="font-size:11px; word-break:break-all;">
-<strong>Hash SHA-256:</strong><br>${hash}
-</p>
+<div class="sello-digital">
+✔ VERIFICACIÓN DIGITAL ACTIVA
+</div>
 
-<div class="qr">
-<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${consultaId}">
-<p style="font-size:12px;">QR de verificación</p>
+<div class="qr-box">
+<img src="${QR_FIJO}">
+<p style="font-size:12px;">Código QR Institucional</p>
 </div>
 `;
+
+box.style.display="block";
+
 }else{
-box.innerHTML="<p style='color:red;font-weight:600;'>No se encontró ningún registro.</p>";
-}
-},1500);
-
-});
-
-// Activar panel admin con Ctrl+Shift+D
-document.addEventListener("keydown",function(e){
-if(e.ctrlKey && e.shiftKey && e.key==="D"){
-const panel=document.getElementById("adminPanel");
-panel.style.display=panel.style.display==="block"?"none":"block";
+box.innerHTML='<div style="color:red;font-weight:bold;">No se encontró ningún registro.</div>';
+box.style.display="block";
 }
 });
 </script>
