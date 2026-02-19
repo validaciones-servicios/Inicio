@@ -3,205 +3,98 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DAS - Verificación de Trámite</title>
+<title>DAS - Verificación Documental</title>
+
+<!-- FAVICON -->
+<link rel="icon" type="image/png" href="https://i.imgur.com/8Km9tLL.png">
 
 <style>
-:root {
-    --azul:#0B1F3A;
-    --azul-sec:#163A6B;
-    --azul-brillante:#1F4E8C;
-    --gris:#f5f5f5;
-    --gris-oscuro:#e0e0e0;
-    --texto:#333;
-    --rojo:#e74c3c;
-    --amarillo:#f1c40f;
-}
-
 body{
-    font-family: Arial, sans-serif;
     margin:0;
-    padding:0;
-    background-color:var(--gris);
-    color:var(--texto);
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f4f6f9;
 }
 
+/* HEADER */
 header{
-    background-color:var(--azul);
+    background:#0b1f3a;
     color:white;
-    padding:25px 20px;
-    box-shadow:0 4px 15px rgba(0,0,0,0.2);
-}
-
-.header-content{
-    max-width:1200px;
-    margin:0 auto;
+    padding:15px 30px;
     display:flex;
     justify-content:space-between;
     align-items:center;
 }
 
-.header-left{
-    display:flex;
-    align-items:center;
-    gap:20px;
+header h1{
+    font-size:18px;
+    margin:0;
 }
 
-.header-left img{
-    height:150px;
-}
-
-.header-title{
-    font-size:20px;
-    font-weight:600;
-    letter-spacing:1px;
-}
-
-.header-contact{
-    text-align:right;
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
     font-size:14px;
-    line-height:1.6;
 }
 
-.header-divider{
-    height:2px;
-    background:var(--azul-brillante);
-    margin-top:20px;
-}
-
+/* SECCION RESULTADO */
 .container{
-    max-width:750px;
+    max-width:900px;
     margin:40px auto;
-    padding:25px;
     background:white;
-    box-shadow:0 0 15px rgba(0,0,0,0.1);
+    padding:40px;
     border-radius:10px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
 }
 
-form{
-    display:flex;
-    flex-direction:column;
-    gap:15px;
+h2{
+    margin-top:0;
+    color:#0b1f3a;
 }
 
-input{
-    padding:12px;
-    font-size:16px;
-    border-radius:5px;
-    border:1px solid var(--gris-oscuro);
-}
-
-button{
-    padding:12px 16px;
+.info{
+    margin:15px 0;
     font-size:15px;
-    border:none;
-    border-radius:6px;
-    background-color:var(--azul-sec);
+}
+
+.label{
+    font-weight:bold;
+}
+
+/* BOTONES */
+.btn{
+    display:inline-block;
+    margin-top:15px;
+    padding:10px 18px;
+    background:#0b1f3a;
     color:white;
-    cursor:pointer;
-}
-
-.result{
-    margin-top:25px;
-    padding:25px;
-    border-radius:10px;
-    background-color:var(--gris-oscuro);
-    display:none;
-    position:relative;
-    overflow:hidden;
-}
-
-.status{
-    padding:5px 12px;
+    text-decoration:none;
     border-radius:5px;
+    font-size:14px;
+}
+
+.btn:hover{
+    background:#142e57;
+}
+
+/* SECCION INSTITUCIONAL */
+.institucional{
+    max-width:900px;
+    margin:60px auto;
+    background:white;
+    padding:40px;
+    border-radius:10px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.05);
+}
+
+/* FOOTER */
+footer{
+    margin-top:60px;
+    background:#0b1f3a;
     color:white;
-    font-weight:bold;
-}
-
-.aprobado{background-color:var(--azul-sec);}
-
-.error-box{
-    background:#ffe5e5;
-    color:#b30000;
-    padding:15px;
-    border-radius:8px;
-    font-weight:bold;
-    text-align:center;
-}
-
-.sello-digital{
-    margin-top:20px;
-    padding:14px;
-    border:2px solid var(--azul-sec);
-    border-radius:8px;
-    text-align:center;
-    font-weight:bold;
-    color:var(--azul-sec);
-    background:#eef4ff;
-    letter-spacing:1px;
-}
-
-/* Animación profesional */
-.loader-pro{
-    font-weight:bold;
     text-align:center;
     padding:20px;
-}
-
-.loader-bar{
-    height:6px;
-    width:0%;
-    background:linear-gradient(90deg,#163A6B,#1F4E8C);
-    margin-top:15px;
-    border-radius:5px;
-    animation:scan 1.5s ease-in-out forwards;
-}
-
-@keyframes scan{
-    from{width:0%;}
-    to{width:100%;}
-}
-
-/* Marca de agua */
-.result::before{
-    content:"";
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background-size:300px;
-    background-repeat:no-repeat;
-    background-position:center;
-    opacity:0.05;
-    pointer-events:none;
-}
-
-.qr-box{
-    margin-top:20px;
-    text-align:center;
-}
-
-footer{
-    background-color:var(--azul);
-    color:white;
-    padding:35px 20px;
-    margin-top:60px;
-    text-align:center;
     font-size:13px;
-}
-
-.admin-panel{
-position:fixed;
-bottom:20px;
-right:20px;
-background:white;
-padding:20px;
-border-radius:10px;
-box-shadow:0 10px 30px rgba(0,0,0,0.2);
-display:none;
-width:280px;
-font-size:13px;
-z-index:999;
 }
 </style>
 </head>
@@ -209,141 +102,79 @@ z-index:999;
 <body>
 
 <header>
-<div class="header-content">
-<div class="header-left">
-<img src="https://i.postimg.cc/D0T5XNJX/file-00000000ea5c71f5af05c32a457144cb.png">
-<div class="header-title">
-Departamento de Auditoría y Servicios
-</div>
-</div>
-<div class="header-contact">
-<strong>Av. Corrientes 2654</strong><br>
-Ciudad Autónoma de Buenos Aires<br>
-Tel: (011) 3160-2393
-</div>
-</div>
-<div class="header-divider"></div>
+    <h1>DAS - Departamento de Auditoría y Supervisión</h1>
+    <nav>
+        <a href="#verificacion">Verificación</a>
+        <a href="#institucional">Institucional</a>
+    </nav>
 </header>
 
-<div class="container">
-<h2>Sistema de Validación Documental Certificada</h2>
+<!-- SECCION VERIFICACION -->
+<div class="container" id="verificacion">
+    <h2>Resultado de Verificación</h2>
 
-<form id="searchForm">
-<input type="text" id="cu" placeholder="Código Único de Verificación (CUV)" required>
-<input type="text" id="dni" placeholder="Documento Nacional de Identidad (DNI)" required>
-<button type="submit">Buscar</button>
-</form>
+    <div class="info"><span class="label">Nombre:</span> Juan Pérez</div>
+    <div class="info"><span class="label">DNI:</span> 32.456.789</div>
+    <div class="info"><span class="label">Estado:</span> Documentación Validada</div>
+    <div class="info"><span class="label">Código de Registro:</span> DAS-2026-00145</div>
 
-<div class="result" id="resultBox"></div>
+    <!-- BOTONES -->
+    <a id="btnAnalitico" class="btn" target="_blank">Descargar Analítico</a>
+    <a id="btnTitulo" class="btn" target="_blank">Descargar Título</a>
+    <a id="btnCertificacion" class="btn" target="_blank">Descargar Certificación DAS</a>
+</div>
+
+<!-- SECCION INSTITUCIONAL -->
+<div class="institucional" id="institucional">
+    <h2>Sección Institucional</h2>
+
+    <p>
+        DAS es una consultora privada especializada en auditoría y
+        supervisión documental. Brinda servicios de verificación técnica,
+        control administrativo y certificación privada de documentación.
+    </p>
+
+    <p>
+        Nuestro equipo técnico realiza procesos de revisión estructural,
+        validación de datos y emisión de constancias digitales bajo estándares
+        internos de control y trazabilidad.
+    </p>
+
+    <p>
+        La información publicada en este sitio corresponde a verificaciones
+        internas realizadas por la consultora y no representa organismos
+        públicos ni entidades gubernamentales.
+    </p>
 </div>
 
 <footer>
-Infraestructura protegida bajo protocolo TLS.<br>
-Estándares internos DAS-REG v2.6<br><br>
-Registro Institucional Nº 2026-AR-DAS-4581<br>
-© 2026 DAS – Todos los derechos reservados.
+    © 2026 DAS - Consultora Privada en Auditoría y Supervisión Documental
 </footer>
 
-<div class="admin-panel" id="adminPanel">
-<h4>Panel Administrativo</h4>
-<p><strong>Verificaciones realizadas:</strong> <span id="contador">0</span></p>
-<p><strong>Último ID Consulta:</strong> <span id="lastId">-</span></p>
-</div>
-
 <script>
-/* ================= CONFIGURACIÓN ================= */
-const QR_FIJO = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=DAS-VERIFICACION";
-const MARCA_AGUA = "https://i.postimg.cc/D0T5XNJX/file-00000000ea5c71f5af05c32a457144cb.png";
-/* ================================================= */
 
-const registros=[{
-    tramite:"DAS-2026-2488",
-    cu:"24639",
-    dni:"41932030",
-    nombre:"Milena Milagros Adoracion Díaz",
-    tipo:"Analítico y Título – Nivel Secundario",
-    fecha:"13/02/2026 | 16:14 hs.",
-    estado:"aprobado",
-    responsable:"Daiana Jaqueline Báez",
-    observaciones:"Documentación auditada bajo protocolo técnico DAS-REG v2.6 con registro electrónico activo."
-}];
+/* ===== LINKS EDITABLES ===== */
+/* Si un link queda vacío "", el botón se oculta automáticamente */
 
-let contadorVerificaciones=0;
+const linkAnalitico = "https://tusitio.com/analitico.pdf";
+const linkTitulo = "";
+const linkCertificacion = "https://tusitio.com/certificacion.pdf";
 
-function generarIP(){
-return `${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}`;
+/* ===== LOGICA AUTOMATICA ===== */
+
+function configurarBoton(id, link){
+    const boton = document.getElementById(id);
+    if(link && link.trim() !== ""){
+        boton.href = link;
+    } else {
+        boton.style.display = "none";
+    }
 }
 
-document.getElementById("searchForm").addEventListener("submit",function(e){
-e.preventDefault();
+configurarBoton("btnAnalitico", linkAnalitico);
+configurarBoton("btnTitulo", linkTitulo);
+configurarBoton("btnCertificacion", linkCertificacion);
 
-const cu=document.getElementById("cu").value.trim();
-const dni=document.getElementById("dni").value.trim();
-const box=document.getElementById("resultBox");
-
-box.style.display="block";
-box.innerHTML=`
-<div class="loader-pro">
-Conectando con base de datos segura...
-<div class="loader-bar"></div>
-</div>`;
-
-setTimeout(()=>{
-const registro=registros.find(r=>r.cu===cu && r.dni===dni);
-
-if(registro){
-
-contadorVerificaciones++;
-const consultaId="DAS-VRF-"+Math.floor(Math.random()*999999);
-document.getElementById("contador").innerText=contadorVerificaciones;
-document.getElementById("lastId").innerText=consultaId;
-
-box.style.setProperty('--marca', `url(${MARCA_AGUA})`);
-box.style.backgroundImage="none";
-box.style.position="relative";
-box.style.setProperty("background-image","none");
-box.style.setProperty("--dummy","none");
-box.style.cssText+=`background-image:none;`;
-box.style.setProperty("--watermark",`url(${MARCA_AGUA})`);
-box.style.background=`var(--gris-oscuro)`;
-box.style.setProperty("background-size","auto");
-box.style.setProperty("background-repeat","no-repeat");
-box.style.setProperty("background-position","center");
-box.style.backgroundImage=`url(${MARCA_AGUA})`;
-
-box.innerHTML=`
-<p><strong>Titular:</strong> ${registro.nombre}</p>
-<p><strong>DNI:</strong> ${registro.dni}</p>
-<p><strong>CUV:</strong> ${registro.cu}</p>
-<p><strong>Trámite:</strong> ${registro.tramite}</p>
-<p><strong>Estado:</strong> <span class="status ${registro.estado}">
-${registro.estado.toUpperCase()}</span></p>
-<p><strong>Auditor Responsable:</strong> ${registro.responsable}</p>
-<p><strong>ID Consulta:</strong> ${consultaId}</p>
-<p><strong>IP Registrada:</strong> ${generarIP()}</p>
-
-<div class="sello-digital">
-✔ VERIFICACIÓN DIGITAL ACTIVA
-</div>
-
-<div class="qr-box">
-<img src="${QR_FIJO}">
-<p style="font-size:12px;">Código QR Institucional</p>
-</div>
-`;
-
-}else{
-box.innerHTML='<div class="error-box">No se encontró ningún registro.</div>';
-}
-},1500);
-});
-
-document.addEventListener("keydown",function(e){
-if(e.ctrlKey && e.shiftKey && e.key==="D"){
-const panel=document.getElementById("adminPanel");
-panel.style.display=panel.style.display==="block"?"none":"block";
-}
-});
 </script>
 
 </body>
