@@ -15,17 +15,14 @@
     --gris-oscuro:#e2e6ec;
 }
 
-/* Base */
 body{
     margin:0;
     font-family: Arial, Helvetica, sans-serif;
     background:var(--gris);
 }
 
-/* 🔹 ocultar pasos */
 .hidden{ display:none; }
 
-/* 🔹 animación suave */
 .fade{
     animation:fadeSlide 0.5s ease forwards;
 }
@@ -34,8 +31,6 @@ body{
     from{ opacity:0; transform:translateY(15px); }
     to{ opacity:1; transform:translateY(0); }
 }
-
-/* ================= HEADER ================= */
 
 header{
     background-color:var(--azul);
@@ -84,7 +79,6 @@ header{
     margin-top:20px;
 }
 
-/* CONTENEDOR */
 .container{
     max-width:950px;
     margin:40px auto 60px auto;
@@ -94,7 +88,6 @@ header{
     box-shadow:0 10px 30px rgba(0,0,0,0.1);
 }
 
-/* SECCIONES */
 .section{
     background:var(--gris);
     padding:25px;
@@ -105,11 +98,9 @@ header{
 
 h2{ color:var(--azul-sec); margin-top:0; }
 
-/* FORM */
 label{ font-weight:bold; font-size:14px; display:block; margin-top:10px; }
 select,input{ width:100%; padding:12px; margin:8px 0 18px 0; border-radius:6px; border:1px solid #ccc; font-size:14px; }
 
-/* BOTONES */
 button{
     background:var(--azul-sec);
     color:white;
@@ -122,7 +113,6 @@ button{
 }
 button:hover{ background:var(--azul-brillante); }
 
-/* PRECIO */
 #precio{
     font-size:20px;
     color:var(--azul-sec);
@@ -133,7 +123,6 @@ button:hover{ background:var(--azul-brillante); }
 }
 #precio.visible{ opacity:1; transform:translateY(0); }
 
-/* CONFIRMACION */
 .confirmacion{
     text-align:center;
     padding:30px;
@@ -147,8 +136,6 @@ button:hover{ background:var(--azul-brillante); }
     border-top:1px solid var(--gris-oscuro);
     padding-top:15px;
 }
-
-/* ================= FOOTER ================= */
 
 footer{
     background-color:var(--azul);
@@ -196,7 +183,6 @@ footer{
 
 <div class="container">
 
-<!-- PASO 1 -->
 <div id="paso1" class="section fade">
 <h2>Selección del Trámite</h2>
 
@@ -213,7 +199,6 @@ footer{
 <label>Modalidad</label>
 <select id="modalidad" onchange="actualizarPrecio()">
 <option value="">Seleccionar</option>
-<option value="Estándar">Certificación Estándar</option>
 <option value="Auditoría">Con Auditoría Integral</option>
 </select>
 
@@ -222,7 +207,6 @@ footer{
 <button onclick="continuar()">Continuar con el trámite</button>
 </div>
 
-<!-- PASO 2 -->
 <div id="paso2" class="hidden">
 <div class="section">
 <h2>Datos Personales</h2>
@@ -274,7 +258,6 @@ footer{
 <button onclick="mostrarResumen()">Ver resumen previo</button>
 </div>
 
-<!-- PASO 3 -->
 <div id="paso3" class="hidden section">
 <h2>Confirmación Final</h2>
 <div id="resumen"></div>
@@ -282,7 +265,6 @@ footer{
 <button onclick="enviarWhatsApp()">Finalizar y Enviar a DAS</button>
 </div>
 
-<!-- PASO 4 -->
 <div id="paso4" class="hidden confirmacion">
 <h2>✔ Trámite iniciado correctamente</h2>
 <p>Su solicitud fue enviada al Departamento de Auditoría y Servicios.</p>
@@ -307,11 +289,11 @@ Certificación y Auditoría Documental Institucional
 
 <script>
 const precios = {
-    "Secundario": { "Estándar":100000, "Auditoría":150000 },
-    "Secundario Técnico": { "Estándar":110000, "Auditoría":160000 },
-    "Terciario": { "Estándar":120000, "Auditoría":170000 },
-    "Profesorado": { "Estándar":140000, "Auditoría":190000 },
-    "Universitario": { "Estándar":160000, "Auditoría":210000 }
+    "Secundario": { "Auditoría":150000 },
+    "Secundario Técnico": { "Auditoría":160000 },
+    "Terciario": { "Auditoría":170000 },
+    "Profesorado": { "Auditoría":190000 },
+    "Universitario": { "Auditoría":210000 }
 };
 
 let codigoUnico="";
@@ -432,4 +414,4 @@ Fecha de egreso: ${formatFecha(egreso.value)}
 </script>
 
 </body>
-</html>
+    </html>
