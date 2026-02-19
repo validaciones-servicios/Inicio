@@ -3,98 +3,238 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DAS - Verificación Documental</title>
-
-<!-- FAVICON -->
-<link rel="icon" type="image/png" href="https://i.imgur.com/8Km9tLL.png">
+<title>DAS - Verificación de Trámite</title>
 
 <style>
-body{
-    margin:0;
-    font-family:Arial, Helvetica, sans-serif;
-    background:#f4f6f9;
+:root {
+    --azul:#0B1F3A;
+    --azul-sec:#163A6B;
+    --azul-brillante:#1F4E8C;
+    --gris:#f5f5f5;
+    --gris-oscuro:#e0e0e0;
+    --texto:#333;
+    --rojo:#e74c3c;
+    --amarillo:#f1c40f;
 }
 
-/* HEADER */
+/* Reset */
+body{
+    font-family: Arial, sans-serif;
+    margin:0;
+    padding:0;
+    background-color:var(--gris);
+    color:var(--texto);
+}
+
+/* Header */
+/* Header Nuevo Diseño */
 header{
-    background:#0b1f3a;
+    background: linear-gradient(135deg, var(--azul) 0%, var(--azul-sec) 100%);
     color:white;
-    padding:15px 30px;
+    padding:35px 20px 25px 20px;
+    box-shadow:0 6px 20px rgba(0,0,0,0.25);
+    position:relative;
+}
+
+.header-content{
+    max-width:1200px;
+    margin:0 auto;
     display:flex;
     justify-content:space-between;
     align-items:center;
+    flex-wrap:wrap;
+    gap:20px;
 }
 
-header h1{
-    font-size:18px;
+.header-left{
+    display:flex;
+    align-items:center;
+    gap:25px;
+}
+
+.header-left img{
+    height:110px;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
+}
+
+.header-title{
+    display:flex;
+    flex-direction:column;
+}
+
+.header-title h1{
     margin:0;
+    font-size:24px;
+    font-weight:700;
+    letter-spacing:1px;
 }
 
-nav a{
-    color:white;
-    text-decoration:none;
-    margin-left:20px;
+.header-title span{
+    font-size:13px;
+    opacity:0.85;
+    margin-top:4px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+}
+
+.header-contact{
+    text-align:right;
     font-size:14px;
+    line-height:1.7;
+    background:rgba(255,255,255,0.08);
+    padding:12px 18px;
+    border-radius:8px;
+    backdrop-filter: blur(4px);
 }
 
-/* SECCION RESULTADO */
-.container{
-    max-width:900px;
-    margin:40px auto;
-    background:white;
-    padding:40px;
-    border-radius:10px;
-    box-shadow:0 5px 15px rgba(0,0,0,0.08);
-}
-
-h2{
-    margin-top:0;
-    color:#0b1f3a;
-}
-
-.info{
-    margin:15px 0;
+.header-contact strong{
     font-size:15px;
+    display:block;
 }
 
-.label{
+.header-divider{
+    width:100%;
+    height:3px;
+    background:linear-gradient(to right, transparent, var(--azul-brillante), transparent);
+    margin-top:25px;
+    border-radius:2px;
+}
+
+/* Container */
+.container{
+    max-width:750px;
+    margin:40px auto;
+    padding:25px;
+    background:white;
+    box-shadow:0 0 15px rgba(0,0,0,0.1);
+    border-radius:10px;
+}
+
+/* Form */
+form{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+input{
+    padding:12px;
+    font-size:16px;
+    border-radius:5px;
+    border:1px solid var(--gris-oscuro);
+}
+
+/* Botones generales */
+button, .doc-btn{
+    padding:12px 16px;
+    font-size:15px;
+    border:none;
+    border-radius:6px;
+    background-color:var(--azul-sec);
+    color:white;
+    cursor:pointer;
+    transition:0.2s;
+    text-decoration:none;
+    display:inline-block;
+    text-align:center;
+}
+
+button:hover, .doc-btn:hover{
+    background-color:var(--azul-brillante);
+}
+
+/* Contenedor de botones */
+.botones-container{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-top:20px;
+}
+
+/* Separación botón PDF */
+.pdf-btn{
+    margin-top:25px;
+}
+
+/* Result */
+.result{
+    margin-top:25px;
+    padding:20px;
+    border-radius:10px;
+    background-color:var(--gris-oscuro);
+    display:none;
+    animation:fadeIn 0.4s ease-in-out;
+    position:relative;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(10px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+.status{
+    padding:5px 12px;
+    border-radius:5px;
+    color:white;
     font-weight:bold;
 }
 
-/* BOTONES */
-.btn{
-    display:inline-block;
-    margin-top:15px;
-    padding:10px 18px;
-    background:#0b1f3a;
-    color:white;
-    text-decoration:none;
-    border-radius:5px;
-    font-size:14px;
-}
+.aprobado{background-color:var(--azul-sec);}
+.pendiente{background-color:var(--amarillo); color:#333;}
+.rechazado{background-color:var(--rojo);}
 
-.btn:hover{
-    background:#142e57;
-}
-
-/* SECCION INSTITUCIONAL */
-.institucional{
-    max-width:900px;
-    margin:60px auto;
-    background:white;
-    padding:40px;
-    border-radius:10px;
-    box-shadow:0 5px 15px rgba(0,0,0,0.05);
-}
-
-/* FOOTER */
-footer{
-    margin-top:60px;
-    background:#0b1f3a;
-    color:white;
+/* Error */
+.error-box{
+    background:#ffe5e5;
+    color:#b30000;
+    padding:15px;
+    border-radius:8px;
+    font-weight:bold;
     text-align:center;
-    padding:20px;
-    font-size:13px;
+}
+
+/* Sello Digital Azul */
+.sello-digital{
+    margin-top:20px;
+    padding:14px;
+    border:2px solid var(--azul-sec);
+    border-radius:8px;
+    text-align:center;
+    font-weight:bold;
+    color:var(--azul-sec);
+    background:#eef4ff;
+    letter-spacing:1px;
+}
+
+/* Imagen Validado por */
+.validado-img{
+    position:absolute;
+    right:05px;
+    bottom:20px;
+    max-width:220px;
+    opacity:0.95;
+}
+
+/* Footer */
+footer{
+    background-color:var(--azul);
+    color:white;
+    padding:35px 20px;
+    margin-top:60px;
+    text-align:center;
+}
+
+.footer-line{
+    width:60px;
+    height:3px;
+    background-color:var(--azul-brillante);
+    margin:15px auto;
+}
+
+.footer-copy{
+    margin-top:15px;
+    font-size:12px;
+    opacity:0.7;
 }
 </style>
 </head>
@@ -102,79 +242,194 @@ footer{
 <body>
 
 <header>
-    <h1>DAS - Departamento de Auditoría y Supervisión</h1>
-    <nav>
-        <a href="#verificacion">Verificación</a>
-        <a href="#institucional">Institucional</a>
-    </nav>
+    <div class="header-content">
+
+        <div class="header-left">
+            <img src="https://i.postimg.cc/D0T5XNJX/file-00000000ea5c71f5af05c32a457144cb.png" alt="Logo DAS">
+
+            <div class="header-title">
+                <h1>Departamento de Auditoría y Servicios</h1>
+                <span>Plataforma Oficial de Verificación Documental</span>
+            </div>
+        </div>
+
+        <div class="header-contact">
+            <strong>Av. Corrientes 2654</strong>
+            Piso 2 – Oficina 14<br>
+            Ciudad Autónoma de Buenos Aires<br>
+            Tel: (011) 3160-2393
+        </div>
+
+    </div>
+
+    <div class="header-divider"></div>
 </header>
 
-<!-- SECCION VERIFICACION -->
-<div class="container" id="verificacion">
-    <h2>Resultado de Verificación</h2>
+<div class="container">
+    <h2>Sistema de Validación Documental Certificada</h2>
+    <p>A los efectos de verificar la autenticidad de la documentación registrada, deberá ingresar el Código Único de Validación (CUV) y su Documento Nacional de Identidad (DNI).</p>
 
-    <div class="info"><span class="label">Nombre:</span> Juan Pérez</div>
-    <div class="info"><span class="label">DNI:</span> 32.456.789</div>
-    <div class="info"><span class="label">Estado:</span> Documentación Validada</div>
-    <div class="info"><span class="label">Código de Registro:</span> DAS-2026-00145</div>
+    <form id="searchForm">
+        <input type="text" id="cu" placeholder="Código Único de Verificación (CUV)" pattern="[0-9]+" inputmode="numeric" required>
+        <input type="text" id="dni" placeholder="Documento Nacional de Identidad (DNI)" pattern="[0-9]+" inputmode="numeric" required>
+        <button type="submit">Buscar</button>
+    </form>
 
-    <!-- BOTONES -->
-    <a id="btnAnalitico" class="btn" target="_blank">Descargar Analítico</a>
-    <a id="btnTitulo" class="btn" target="_blank">Descargar Título</a>
-    <a id="btnCertificacion" class="btn" target="_blank">Descargar Certificación DAS</a>
-</div>
-
-<!-- SECCION INSTITUCIONAL -->
-<div class="institucional" id="institucional">
-    <h2>Sección Institucional</h2>
-
-    <p>
-        DAS es una consultora privada especializada en auditoría y
-        supervisión documental. Brinda servicios de verificación técnica,
-        control administrativo y certificación privada de documentación.
-    </p>
-
-    <p>
-        Nuestro equipo técnico realiza procesos de revisión estructural,
-        validación de datos y emisión de constancias digitales bajo estándares
-        internos de control y trazabilidad.
-    </p>
-
-    <p>
-        La información publicada en este sitio corresponde a verificaciones
-        internas realizadas por la consultora y no representa organismos
-        públicos ni entidades gubernamentales.
-    </p>
+    <div class="result" id="resultBox"></div>
 </div>
 
 <footer>
-    © 2026 DAS - Consultora Privada en Auditoría y Supervisión Documental
+    <div>DAS – Departamento de Auditoría y Servicios</div>
+    <div class="footer-line"></div>
+    Registro Institucional Nº 2026-AR-DAS-4581<br>
+    Certificaciones oficiales con registro electrónico verificable
+    <div class="footer-copy">
+        © 2026 DAS – Todos los derechos reservados.<br>
+        Este sitio web constituye una plataforma informativa de verificación documental.
+    </div>
 </footer>
 
 <script>
+const registros=[
 
-/* ===== LINKS EDITABLES ===== */
-/* Si un link queda vacío "", el botón se oculta automáticamente */
+{
+    tramite:"DAS-2026-2488",
+    cu:"24639",
+    dni:"41932030",
+    nombre:"Milena Milagros Adoracion, Díaz",
+    tipo:"Analítico y Título – Nivel Secundario",
+    fecha:"13/02/2026 | 16:14 hs.",
+    estado:"aprobado",
+    responsable:"Daiana Jaqueline Báez",
+    observaciones:"La documentación fue sometida a procedimiento de auditoría técnica documental bajo estándares internos de validación y control registral de DAS. Se efectuó análisis de legitimidad formal, verificación de autenticidad material, contraste de datos con soporte declarativo y revisión de integridad estructural del contenido, conforme a protocolo vigente. No se detectaron observaciones técnicas ni inconsistencias al momento de la evaluación. El trámite posee registro electrónico activo, con trazabilidad y constancia verificable en el sistema institucional.",
+    documentos:[
+        {nombre:"Descargar Documento 1", link:"https://drive.google.com/uc?export=view&id=ID1"},
+        {nombre:"Descargar Documento 2", link:"https://drive.google.com/uc?export=view&id=ID1"}
+    ],
+    certificado:"https://drive.google.com/file/d/1lRxTi0o32XV82xXgwcV1LMeYaF3VY9uJ/view?usp=drivesdk"
+},
+    {
+    tramite:"DAS-2026-xxxx",
+    cu:"24639",
+    dni:"xxxxxxxxx",
+    nombre:"xxxxxxxx",
+    tipo:"Analítico y Título – Nivel xxxxxxx",
+    fecha:"00/02/2026 | 00:00 hs.",
+    estado:"aprobado",
+    responsable:"Daiana Jaqueline Báez",
+    observaciones:"La documentación fue sometida a procedimiento de auditoría técnica documental bajo estándares internos de validación y control registral de DAS. Se efectuó análisis de legitimidad formal, verificación de autenticidad material, contraste de datos con soporte declarativo y revisión de integridad estructural del contenido, conforme a protocolo vigente. No se detectaron observaciones técnicas ni inconsistencias al momento de la evaluación. El trámite posee registro electrónico activo, con trazabilidad y constancia verificable en el sistema institucional.",
+    documentos:[
+        {nombre:"Descargar Documento 1", link:"xxxxxxxx"},
+        {nombre:"Descargar Documento 2", link:"xxxxxxxx"}
+    ],
+    certificado:"xxxxxxx"
+},
+    {
+    tramite:"DAS-2026-xxxx",
+    cu:"24639",
+    dni:"xxxxxxxxx",
+    nombre:"xxxxxxxx",
+    tipo:"Analítico y Título – Nivel xxxxxxx",
+    fecha:"00/02/2026 | 00:00 hs.",
+    estado:"aprobado",
+    responsable:"Daiana Jaqueline Báez",
+    observaciones:"La documentación fue sometida a procedimiento de auditoría técnica documental bajo estándares internos de validación y control registral de DAS. Se efectuó análisis de legitimidad formal, verificación de autenticidad material, contraste de datos con soporte declarativo y revisión de integridad estructural del contenido, conforme a protocolo vigente. No se detectaron observaciones técnicas ni inconsistencias al momento de la evaluación. El trámite posee registro electrónico activo, con trazabilidad y constancia verificable en el sistema institucional.",
+    documentos:[
+        {nombre:"Descargar Documento 1", link:"xxxxxxxx"},
+        {nombre:"Descargar Documento 2", link:"xxxxxxxx"}
+    ],
+    certificado:"xxxxxxx"
+},
+    {
+    tramite:"DAS-2026-xxxx",
+    cu:"24639",
+    dni:"xxxxxxxxx",
+    nombre:"xxxxxxxx",
+    tipo:"Analítico y Título – Nivel xxxxxxx",
+    fecha:"00/02/2026 | 00:00 hs.",
+    estado:"aprobado",
+    responsable:"Daiana Jaqueline Báez",
+    observaciones:"La documentación fue sometida a procedimiento de auditoría técnica documental bajo estándares internos de validación y control registral de DAS. Se efectuó análisis de legitimidad formal, verificación de autenticidad material, contraste de datos con soporte declarativo y revisión de integridad estructural del contenido, conforme a protocolo vigente. No se detectaron observaciones técnicas ni inconsistencias al momento de la evaluación. El trámite posee registro electrónico activo, con trazabilidad y constancia verificable en el sistema institucional.",
+    documentos:[
+        {nombre:"Descargar Documento 1", link:"xxxxxxxx"},
+        {nombre:"Descargar Documento 2", link:"xxxxxxxx"}
+    ],
+    certificado:"xxxxxxx"
+},
+    {
+    tramite:"DAS-2026-xxxx",
+    cu:"24639",
+    dni:"xxxxxxxxx",
+    nombre:"xxxxxxxx",
+    tipo:"Analítico y Título – Nivel xxxxxxx",
+    fecha:"00/02/2026 | 00:00 hs.",
+    estado:"aprobado",
+    responsable:"Daiana Jaqueline Báez",
+    observaciones:"La documentación fue sometida a procedimiento de auditoría técnica documental bajo estándares internos de validación y control registral de DAS. Se efectuó análisis de legitimidad formal, verificación de autenticidad material, contraste de datos con soporte declarativo y revisión de integridad estructural del contenido, conforme a protocolo vigente. No se detectaron observaciones técnicas ni inconsistencias al momento de la evaluación. El trámite posee registro electrónico activo, con trazabilidad y constancia verificable en el sistema institucional.",
+    documentos:[
+        {nombre:"Descargar Documento 1", link:"xxxxxxxx"},
+        {nombre:"Descargar Documento 2", link:"xxxxxxxx"}
+    ],
+    certificado:"xxxxxxx"
+},
 
-const linkAnalitico = "https://tusitio.com/analitico.pdf";
-const linkTitulo = "";
-const linkCertificacion = "https://tusitio.com/certificacion.pdf";
+];
 
-/* ===== LOGICA AUTOMATICA ===== */
+let registroActual=null;
 
-function configurarBoton(id, link){
-    const boton = document.getElementById(id);
-    if(link && link.trim() !== ""){
-        boton.href = link;
+document.getElementById("searchForm").addEventListener("submit",function(e){
+    e.preventDefault();
+
+    const cu=document.getElementById("cu").value.trim();
+    const dni=document.getElementById("dni").value.trim();
+    const box=document.getElementById("resultBox");
+
+    registroActual=registros.find(r=>r.cu===cu && r.dni===dni);
+
+    if(registroActual){
+
+        let botonesDocs="";
+        if(registroActual.documentos && registroActual.documentos.length>0){
+            registroActual.documentos.forEach(doc=>{
+                botonesDocs+=`<a href="${doc.link}" target="_blank" class="doc-btn">${doc.nombre}</a>`;
+            });
+        }
+
+        box.innerHTML=`
+            <p><strong>Titular:</strong> ${registroActual.nombre}</p>
+            <p><strong>(DNI):</strong> ${registroActual.dni}</p>
+            <p><strong>(CUV):</strong> ${registroActual.cu}</p>
+            <p><strong>Documentación:</strong> ${registroActual.tipo}</p>
+            <p><strong>Fecha de Validación:</strong> ${registroActual.fecha}</p>
+            <p><strong>Estado del Documento:</strong> <span class="status ${registroActual.estado}">
+            ${registroActual.estado.toUpperCase()}
+            </span></p>
+            <p><strong>Auditoria Técnica Responsable:</strong> ${registroActual.responsable}</p>
+            <p><strong>Detalle Técnico:</strong> ${registroActual.observaciones}</p>
+
+            <div class="sello-digital">
+                ✔ VERIFICACIÓN DIGITAL ACTIVA
+            </div>
+
+            <h4 style="margin-top:20px;">Documentación Certificada:</h4>
+            <div class="botones-container">
+                ${botonesDocs}
+            </div>
+
+            <div class="pdf-btn">
+                <a href="${registroActual.certificado}" target="_blank" class="doc-btn">Descargar Certificación</a>
+            </div>
+
+            <img src="https://i.postimg.cc/qRb5kmz9/file-00000000f488720ea6de77b1628683b5.png" class="validado-img" alt="Validado por">
+        `;
+
+        box.style.display="block";
+
     } else {
-        boton.style.display = "none";
+        box.innerHTML='<div class="error-box">No se encontró ningún registro con los datos ingresados.</div>';
+        box.style.display="block";
     }
-}
-
-configurarBoton("btnAnalitico", linkAnalitico);
-configurarBoton("btnTitulo", linkTitulo);
-configurarBoton("btnCertificacion", linkCertificacion);
-
+});
 </script>
 
 </body>
