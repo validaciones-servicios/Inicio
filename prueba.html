@@ -3,185 +3,332 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Resultado de Verificación | DAS</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<title>DAS - Verificación de Trámite</title>
 
 <style>
-body {
-    margin: 0;
-    background: linear-gradient(135deg, #0f172a, #1e293b);
-    font-family: 'Inter', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+:root {
+    --azul:#0B1F3A;
+    --azul-sec:#163A6B;
+    --azul-brillante:#1F4E8C;
+    --gris:#f5f5f5;
+    --gris-oscuro:#e0e0e0;
+    --texto:#333;
+    --rojo:#e74c3c;
+    --amarillo:#f1c40f;
 }
 
-/* Marca de agua editable */
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background-image: url('LINK_DE_TU_MARCA_DE_AGUA');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 600px;
-    opacity: 0.04;
-    pointer-events: none;
+/* Reset */
+body{
+    font-family: Arial, sans-serif;
+    margin:0;
+    padding:0;
+    background-color:var(--gris);
+    color:var(--texto);
 }
 
-/* Tarjeta principal */
-.container {
-    width: 900px;
-    background: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 25px 60px rgba(0,0,0,0.35);
-    padding: 50px;
-    animation: fadeIn 0.4s ease-out;
+/* Header */
+header{
+    background-color:var(--azul);
+    color:white;
+    padding:25px 20px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.2);
 }
 
-/* Encabezado */
-.header {
-    text-align: center;
-    border-bottom: 1px solid #e5e7eb;
-    padding-bottom: 25px;
-    margin-bottom: 35px;
+.header-content{
+    max-width:1200px;
+    margin:0 auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 }
 
-.header h1 {
-    font-family: 'Cinzel', serif;
-    font-size: 26px;
-    letter-spacing: 2px;
-    color: #0f172a;
-    margin: 0;
+.header-left{
+    display:flex;
+    align-items:center;
+    gap:20px;
 }
 
-.header span {
-    font-size: 12px;
-    color: #6b7280;
-    letter-spacing: 1px;
+.header-left img{
+    height:150px;
 }
 
-/* Datos */
-.data-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 28px;
+.header-title{
+    font-size:20px;
+    font-weight:600;
+    letter-spacing:1px;
 }
 
-.data-box {
-    border: 1px solid #e5e7eb;
-    padding: 16px 18px;
-    border-radius: 6px;
-    background: #f9fafb;
+.header-contact{
+    text-align:right;
+    font-size:14px;
+    line-height:1.6;
 }
 
-.data-box h3 {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #6b7280;
-    margin-bottom: 6px;
+.header-divider{
+    height:2px;
+    background:var(--azul-brillante);
+    margin-top:20px;
 }
 
-.data-box p {
-    font-size: 15px;
-    font-weight: 500;
-    color: #111827;
+/* Container */
+.container{
+    max-width:750px;
+    margin:40px auto;
+    padding:25px;
+    background:white;
+    box-shadow:0 0 15px rgba(0,0,0,0.1);
+    border-radius:10px;
 }
 
-/* Estado */
-.status {
-    margin-top: 40px;
-    padding: 16px;
-    border-radius: 6px;
-    text-align: center;
-    font-weight: 600;
-    font-size: 14px;
-    background: #ecfdf5;
-    color: #065f46;
-    border: 1px solid #a7f3d0;
+/* Form */
+form{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
 }
 
-/* QR */
-.qr-section {
-    margin-top: 30px;
-    text-align: center;
+input{
+    padding:12px;
+    font-size:16px;
+    border-radius:5px;
+    border:1px solid var(--gris-oscuro);
 }
 
-.qr-section img {
-    width: 110px;
-    height: 110px;
-    border: 1px solid #e5e7eb;
-    padding: 6px;
-    border-radius: 4px;
+button, .doc-btn{
+    padding:12px 16px;
+    font-size:15px;
+    border:none;
+    border-radius:6px;
+    background-color:var(--azul-sec);
+    color:white;
+    cursor:pointer;
+    transition:0.2s;
+    text-decoration:none;
+    display:inline-block;
+    text-align:center;
 }
 
-/* Footer original institucional */
-.footer {
-    margin-top: 40px;
-    text-align: center;
-    font-size: 12px;
-    color: #6b7280;
-    border-top: 1px solid #e5e7eb;
-    padding-top: 18px;
+button:hover, .doc-btn:hover{
+    background-color:var(--azul-brillante);
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(6px); }
-    to { opacity: 1; transform: translateY(0); }
+.botones-container{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-top:20px;
+}
+
+.pdf-btn{
+    margin-top:25px;
+}
+
+.result{
+    margin-top:25px;
+    padding:20px;
+    border-radius:10px;
+    background-color:var(--gris-oscuro);
+    display:none;
+    animation:fadeIn 0.4s ease-in-out;
+    position:relative;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(10px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+.status{
+    padding:5px 12px;
+    border-radius:5px;
+    color:white;
+    font-weight:bold;
+}
+
+.aprobado{background-color:var(--azul-sec);}
+.pendiente{background-color:var(--amarillo); color:#333;}
+.rechazado{background-color:var(--rojo);}
+
+.error-box{
+    background:#ffe5e5;
+    color:#b30000;
+    padding:15px;
+    border-radius:8px;
+    font-weight:bold;
+    text-align:center;
+}
+
+.sello-digital{
+    margin-top:20px;
+    padding:14px;
+    border:2px solid var(--azul-sec);
+    border-radius:8px;
+    text-align:center;
+    font-weight:bold;
+    color:var(--azul-sec);
+    background:#eef4ff;
+    letter-spacing:1px;
+}
+
+.validado-img{
+    position:absolute;
+    right:05px;
+    bottom:20px;
+    max-width:220px;
+    opacity:0.95;
+}
+
+/* Panel Admin */
+.admin-panel{
+position:fixed;
+bottom:20px;
+right:20px;
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
+display:none;
+width:280px;
+font-size:13px;
+z-index:999;
+}
+
+/* Footer */
+footer{
+    background-color:var(--azul);
+    color:white;
+    padding:35px 20px;
+    margin-top:60px;
+    text-align:center;
+    font-size:13px;
 }
 </style>
 </head>
 
 <body>
 
+<header>
+    <div class="header-content">
+        <div class="header-left">
+            <img src="https://i.postimg.cc/D0T5XNJX/file-00000000ea5c71f5af05c32a457144cb.png">
+            <div class="header-title">
+                Departamento de Auditoría y Servicios
+            </div>
+        </div>
+        <div class="header-contact">
+            <strong>Av. Corrientes 2654</strong><br>
+            Piso 2 – Oficina 14<br>
+            Ciudad Autónoma de Buenos Aires<br>
+            Tel: (011) 3160-2393
+        </div>
+    </div>
+    <div class="header-divider"></div>
+</header>
+
 <div class="container">
+    <h2>Sistema de Validación Documental Certificada</h2>
+    <p>Ingrese CUV y DNI para verificar autenticidad y registro electrónico.</p>
 
-    <div class="header">
-        <h1>DAS</h1>
-        <span>Auditoría Técnica Privada</span>
-    </div>
+    <form id="searchForm">
+        <input type="text" id="cu" placeholder="Código Único de Verificación (CUV)" required>
+        <input type="text" id="dni" placeholder="Documento Nacional de Identidad (DNI)" required>
+        <button type="submit">Buscar</button>
+    </form>
 
-    <div class="data-grid">
-        <div class="data-box">
-            <h3>Nombre Completo</h3>
-            <p>Juan Pérez González</p>
-        </div>
-
-        <div class="data-box">
-            <h3>DNI</h3>
-            <p>32.456.789</p>
-        </div>
-
-        <div class="data-box">
-            <h3>Fecha de Emisión</h3>
-            <p>19/02/2026</p>
-        </div>
-
-        <div class="data-box">
-            <h3>ID de Registro</h3>
-            <p>DAS-AR-2026-94821</p>
-        </div>
-    </div>
-
-    <div class="status">
-        ✔ CERTIFICACIÓN TÉCNICA VALIDADA
-    </div>
-
-    <div class="qr-section">
-        <p style="font-size:12px; color:#6b7280; margin-bottom:8px;">
-            Código de verificación
-        </p>
-        <img src="LINK_DE_TU_QR" alt="QR Verificación">
-    </div>
-
-    <div class="footer">
-        © 2026 DAS | Sistema de Verificación Técnica
-    </div>
-
+    <div class="result" id="resultBox"></div>
 </div>
+
+<footer>
+Infraestructura protegida bajo protocolo TLS.<br>
+Estándares internos DAS-REG v2.6<br><br>
+Registro Institucional Nº 2026-AR-DAS-4581<br>
+© 2026 DAS – Todos los derechos reservados.
+</footer>
+
+<div class="admin-panel" id="adminPanel">
+<h4>Panel Administrativo</h4>
+<p><strong>Verificaciones realizadas:</strong> <span id="contador">0</span></p>
+<p><strong>Último ID Consulta:</strong> <span id="lastId">-</span></p>
+</div>
+
+<script>
+const registros=[{
+    tramite:"DAS-2026-2488",
+    cu:"24639",
+    dni:"41932030",
+    nombre:"Milena Milagros Adoracion Díaz",
+    tipo:"Analítico y Título – Nivel Secundario",
+    fecha:"13/02/2026 | 16:14 hs.",
+    estado:"aprobado",
+    responsable:"Daiana Jaqueline Báez",
+    observaciones:"Documentación auditada bajo protocolo técnico DAS-REG v2.6. Registro electrónico activo con trazabilidad verificable.",
+    certificado:"#"
+}];
+
+let contadorVerificaciones=0;
+
+async function generarHash(texto){
+const encoder=new TextEncoder();
+const data=encoder.encode(texto);
+const hash=await crypto.subtle.digest("SHA-256",data);
+return Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,"0")).join("");
+}
+
+document.getElementById("searchForm").addEventListener("submit",async function(e){
+e.preventDefault();
+
+const cu=document.getElementById("cu").value.trim();
+const dni=document.getElementById("dni").value.trim();
+const box=document.getElementById("resultBox");
+
+box.style.display="block";
+box.innerHTML="Consultando base de datos segura...";
+
+setTimeout(async()=>{
+const registro=registros.find(r=>r.cu===cu && r.dni===dni);
+
+if(registro){
+
+contadorVerificaciones++;
+const consultaId="DAS-VRF-"+Math.floor(Math.random()*999999);
+const hash=await generarHash(registro.nombre+registro.dni+Date.now());
+
+document.getElementById("contador").innerText=contadorVerificaciones;
+document.getElementById("lastId").innerText=consultaId;
+
+box.innerHTML=`
+<p><strong>Titular:</strong> ${registro.nombre}</p>
+<p><strong>DNI:</strong> ${registro.dni}</p>
+<p><strong>CUV:</strong> ${registro.cu}</p>
+<p><strong>Trámite:</strong> ${registro.tramite}</p>
+<p><strong>Documentación:</strong> ${registro.tipo}</p>
+<p><strong>Fecha de Validación:</strong> ${registro.fecha}</p>
+<p><strong>Estado:</strong> <span class="status ${registro.estado}">
+${registro.estado.toUpperCase()}</span></p>
+<p><strong>Auditor Responsable:</strong> ${registro.responsable}</p>
+<p><strong>Detalle Técnico:</strong> ${registro.observaciones}</p>
+<p><strong>ID Consulta:</strong> ${consultaId}</p>
+<p style="font-size:11px;word-break:break-all;">
+<strong>Hash SHA-256:</strong><br>${hash}
+</p>
+<div class="sello-digital">
+✔ VERIFICACIÓN DIGITAL ACTIVA
+</div>
+`;
+
+}else{
+box.innerHTML='<div class="error-box">No se encontró ningún registro con los datos ingresados.</div>';
+}
+},1200);
+});
+
+document.addEventListener("keydown",function(e){
+if(e.ctrlKey && e.shiftKey && e.key==="D"){
+const panel=document.getElementById("adminPanel");
+panel.style.display=panel.style.display==="block"?"none":"block";
+}
+});
+</script>
 
 </body>
 </html>
