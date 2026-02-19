@@ -10,138 +10,164 @@
     --azul:#0B1F3A;
     --azul-sec:#163A6B;
     --azul-brillante:#1F4E8C;
-    --gris:#f5f5f5;
-    --gris-oscuro:#e0e0e0;
-    --texto:#333;
+    --gris:#f4f6f9;
+    --texto:#2c3e50;
 }
 
 body{
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Arial, sans-serif;
     margin:0;
     padding:0;
-    background: radial-gradient(circle at 20% 20%, #122b52 0%, #0B1F3A 40%, #071426 100%);
+    background:linear-gradient(180deg,#eef2f7 0%,#e6ecf3 100%);
     color:var(--texto);
-    overflow-x:hidden;
 }
 
-/* EFECTO HOLOGRÁFICO GLOBAL */
+/* Fondo institucional sutil */
 body::before{
     content:"";
     position:fixed;
-    width:200%;
-    height:200%;
-    top:-50%;
-    left:-50%;
-    background:linear-gradient(
-        60deg,
-        rgba(255,255,255,0.05) 0%,
-        rgba(255,255,255,0.02) 25%,
-        transparent 50%,
-        rgba(0,255,255,0.04) 75%,
-        transparent 100%
-    );
-    animation:holoMove 12s linear infinite;
+    inset:0;
+    background:
+        radial-gradient(circle at 80% 20%, rgba(31,78,140,0.06), transparent 40%),
+        radial-gradient(circle at 20% 80%, rgba(11,31,58,0.05), transparent 40%);
     pointer-events:none;
 }
 
-@keyframes holoMove{
-    0%{transform:rotate(0deg);}
-    100%{transform:rotate(360deg);}
-}
-
+/* Header */
 header{
-    background-color:var(--azul);
+    background:linear-gradient(135deg,var(--azul),var(--azul-sec));
     color:white;
-    padding:25px 20px;
-    box-shadow:0 4px 20px rgba(0,0,0,0.4);
-    position:relative;
-    z-index:2;
+    padding:28px 20px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.15);
 }
 
+.header-title{
+    font-size:20px;
+    font-weight:600;
+    letter-spacing:.5px;
+}
+
+/* Container */
 .container{
     max-width:750px;
-    margin:40px auto;
-    padding:25px;
-    background:rgba(255,255,255,0.95);
-    backdrop-filter:blur(6px);
-    box-shadow:0 0 30px rgba(0, 255, 255, 0.2);
-    border-radius:12px;
+    margin:50px auto;
+    padding:35px;
+    background:white;
+    border-radius:14px;
+    box-shadow:
+        0 10px 40px rgba(0,0,0,0.08),
+        0 2px 8px rgba(0,0,0,0.04);
     position:relative;
-    z-index:2;
 }
 
-.result{
-    margin-top:25px;
-    padding:25px;
-    border-radius:10px;
-    background:rgba(240,240,240,0.95);
-    display:none;
-    position:relative;
-    overflow:hidden;
-}
-
-/* Scan line */
-.result::after{
+/* Línea superior decorativa */
+.container::before{
     content:"";
     position:absolute;
     top:0;
     left:0;
     width:100%;
-    height:3px;
-    background:linear-gradient(90deg,transparent,#00ffff,transparent);
-    animation:scanline 3s linear infinite;
+    height:4px;
+    background:linear-gradient(90deg,var(--azul-sec),var(--azul-brillante));
+    border-radius:14px 14px 0 0;
 }
 
-@keyframes scanline{
-    0%{top:0%;}
-    100%{top:100%;}
+/* Form */
+form{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+    margin-top:20px;
+}
+
+input{
+    padding:14px;
+    font-size:15px;
+    border-radius:8px;
+    border:1px solid #d9e1ea;
+    transition:.2s;
+}
+
+input:focus{
+    border-color:var(--azul-brillante);
+    outline:none;
+    box-shadow:0 0 0 3px rgba(31,78,140,0.08);
+}
+
+button{
+    padding:14px;
+    border:none;
+    border-radius:8px;
+    background:linear-gradient(135deg,var(--azul-sec),var(--azul-brillante));
+    color:white;
+    font-weight:600;
+    cursor:pointer;
+    transition:.2s;
+}
+
+button:hover{
+    transform:translateY(-1px);
+    box-shadow:0 6px 18px rgba(31,78,140,0.25);
+}
+
+/* Resultado */
+.result{
+    margin-top:30px;
+    padding:25px;
+    border-radius:12px;
+    background:#f9fbfd;
+    border:1px solid #e3e9f1;
+    display:none;
+    position:relative;
+}
+
+/* Marca de agua sutil */
+.result::after{
+    content:"DAS";
+    position:absolute;
+    font-size:120px;
+    font-weight:700;
+    color:rgba(11,31,58,0.03);
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    pointer-events:none;
 }
 
 .status{
-    padding:5px 12px;
-    border-radius:5px;
+    padding:6px 14px;
+    border-radius:6px;
+    font-size:13px;
+    font-weight:600;
+    background:var(--azul-sec);
     color:white;
-    font-weight:bold;
-    background:linear-gradient(135deg,#163A6B,#1F4E8C);
 }
 
 .sello-digital{
     margin-top:20px;
     padding:14px;
-    border:2px solid #1F4E8C;
     border-radius:8px;
+    border:1px solid var(--azul-brillante);
+    background:#eef4fb;
+    color:var(--azul-sec);
+    font-weight:600;
     text-align:center;
-    font-weight:bold;
-    color:#163A6B;
-    background:#eef4ff;
-    letter-spacing:1px;
-    box-shadow:0 0 15px rgba(0,255,255,0.3);
 }
 
+/* QR */
 .qr-box{
     margin-top:20px;
     text-align:center;
 }
 
+/* Footer */
 footer{
-    background-color:var(--azul);
+    background:var(--azul);
     color:white;
     padding:35px 20px;
-    margin-top:60px;
+    margin-top:80px;
     text-align:center;
     font-size:13px;
-    position:relative;
-    z-index:2;
-}
-
-button{
-    padding:12px 16px;
-    font-size:15px;
-    border:none;
-    border-radius:6px;
-    background:linear-gradient(135deg,#163A6B,#1F4E8C);
-    color:white;
-    cursor:pointer;
 }
 </style>
 </head>
@@ -149,16 +175,18 @@ button{
 <body>
 
 <header>
-<h2 style="margin:0;">Departamento de Auditoría y Servicios</h2>
+<div class="header-title">
+Departamento de Auditoría y Servicios
+</div>
 </header>
 
 <div class="container">
 <h2>Sistema de Validación Documental</h2>
 
 <form id="searchForm">
-<input type="text" id="cu" placeholder="CUV" required>
-<input type="text" id="dni" placeholder="DNI" required>
-<button type="submit">Buscar</button>
+<input type="text" id="cu" placeholder="Código Único de Verificación (CUV)" required>
+<input type="text" id="dni" placeholder="Documento Nacional de Identidad (DNI)" required>
+<button type="submit">Verificar Documento</button>
 </form>
 
 <div class="result" id="resultBox"></div>
@@ -167,7 +195,7 @@ button{
 <footer>
 Infraestructura protegida bajo protocolo TLS.<br>
 Estándares internos DAS-REG v2.6<br>
-© 2026 DAS
+© 2026 DAS – Todos los derechos reservados.
 </footer>
 
 <script>
@@ -202,11 +230,11 @@ box.innerHTML=`
 <p><strong>DNI:</strong> ${registro.dni}</p>
 <p><strong>CUV:</strong> ${registro.cu}</p>
 <p><strong>Estado:</strong> <span class="status">APROBADO</span></p>
-<p><strong>Auditor:</strong> ${registro.responsable}</p>
+<p><strong>Auditor Responsable:</strong> ${registro.responsable}</p>
 <p><strong>IP Registro:</strong> ${generarIP()}</p>
 
 <div class="sello-digital">
-✔ VERIFICACIÓN DIGITAL ACTIVA
+✔ Verificación Digital Activa
 </div>
 
 <div class="qr-box">
@@ -218,7 +246,7 @@ box.innerHTML=`
 box.style.display="block";
 
 }else{
-box.innerHTML='<div style="color:red;font-weight:bold;">No se encontró ningún registro.</div>';
+box.innerHTML='<div style="color:#b30000;font-weight:bold;">No se encontró ningún registro.</div>';
 box.style.display="block";
 }
 });
