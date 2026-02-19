@@ -3,23 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Resultado de Verificación | DAS</title>
+<title>Informe de Verificación | DAS</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
 body {
     margin: 0;
-    background: linear-gradient(135deg, #0f172a, #1e293b);
+    background: linear-gradient(145deg, #0c0f14, #1a1f26);
     font-family: 'Inter', sans-serif;
-    color: #1f2937;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
 }
 
-/* Fondo institucional sutil */
+/* Marca de agua editable */
 body::before {
     content: "";
     position: fixed;
@@ -27,84 +26,94 @@ body::before {
     background-image: url('LINK_DE_TU_MARCA_DE_AGUA');
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 600px;
-    opacity: 0.04;
+    background-size: 700px;
+    opacity: 0.035;
     pointer-events: none;
 }
 
-/* Tarjeta principal */
+/* Contenedor principal */
 .container {
-    width: 900px;
+    width: 950px;
     background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
-    padding: 50px;
+    border-radius: 14px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.45);
+    padding: 55px;
     position: relative;
-    animation: fadeIn 0.6s ease-out;
+    animation: fadeUp 0.5s ease-out;
 }
 
-/* Encabezado */
+/* Línea superior premium */
+.container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(90deg, #b89c4d, #e5c77a, #b89c4d);
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+}
+
+/* Header */
 .header {
     text-align: center;
-    border-bottom: 1px solid #e5e7eb;
-    padding-bottom: 25px;
-    margin-bottom: 35px;
+    margin-bottom: 40px;
 }
 
 .header h1 {
-    font-family: 'Cinzel', serif;
-    font-weight: 600;
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
     letter-spacing: 2px;
-    font-size: 28px;
-    color: #0f172a;
+    color: #111827;
+    margin-bottom: 8px;
 }
 
 .header span {
     font-size: 13px;
-    color: #6b7280;
     letter-spacing: 1px;
+    color: #6b7280;
 }
 
-/* Datos */
+/* Grid de datos */
 .data-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 30px;
+    gap: 28px;
 }
 
 .data-box {
-    border: 1px solid #e5e7eb;
-    padding: 18px;
+    padding: 18px 20px;
     border-radius: 8px;
-    background: #f9fafb;
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
 }
 
 .data-box h3 {
-    font-size: 12px;
+    font-size: 11px;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #6b7280;
-    margin-bottom: 8px;
+    letter-spacing: 1.5px;
+    color: #9ca3af;
+    margin-bottom: 6px;
 }
 
 .data-box p {
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 600;
     color: #111827;
 }
 
 /* Estado */
 .status {
-    margin-top: 40px;
-    padding: 18px;
-    border-radius: 8px;
+    margin-top: 45px;
+    padding: 20px;
     text-align: center;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #fdfaf3, #f7f2e4);
+    border: 1px solid #e6d8a8;
     font-weight: 600;
     letter-spacing: 1px;
-    font-size: 15px;
-    background: #ecfdf5;
-    color: #065f46;
-    border: 1px solid #a7f3d0;
+    color: #8a6d2f;
 }
 
 /* QR */
@@ -116,24 +125,25 @@ body::before {
 .qr-section img {
     width: 120px;
     height: 120px;
-    border: 1px solid #e5e7eb;
     padding: 8px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
     border-radius: 6px;
 }
 
 /* Footer */
 .footer {
-    margin-top: 40px;
+    margin-top: 45px;
     text-align: center;
     font-size: 12px;
-    color: #6b7280;
+    color: #9ca3af;
     border-top: 1px solid #e5e7eb;
     padding-top: 20px;
 }
 
 /* Animación sutil */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
     to { opacity: 1; transform: translateY(0); }
 }
 </style>
@@ -145,7 +155,7 @@ body::before {
 
     <div class="header">
         <h1>DAS</h1>
-        <span>Dirección de Auditoría y Supervisión</span>
+        <span>Auditoría Técnica Privada</span>
     </div>
 
     <div class="data-grid">
@@ -165,24 +175,24 @@ body::before {
         </div>
 
         <div class="data-box">
-            <h3>ID de Registro</h3>
-            <p>DAS-2026-AR-94821</p>
+            <h3>ID de Registro Técnico</h3>
+            <p>DAS-AR-2026-94821</p>
         </div>
     </div>
 
     <div class="status">
-        ✔ DOCUMENTACIÓN CERTIFICADA
+        ✔ CERTIFICACIÓN TÉCNICA VALIDADA
     </div>
 
     <div class="qr-section">
-        <p style="font-size:12px; color:#6b7280; margin-bottom:10px;">
-            Código de verificación
+        <p style="font-size:12px; color:#9ca3af; margin-bottom:10px;">
+            Código de verificación institucional
         </p>
         <img src="LINK_DE_TU_QR" alt="QR Verificación">
     </div>
 
     <div class="footer">
-        © 2026 DAS | Sistema de Verificación Institucional
+        © 2026 DAS | Auditoría Técnica y Supervisión Documental
     </div>
 
 </div>
