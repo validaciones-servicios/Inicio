@@ -3,306 +3,244 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DAS - Verificación de Trámite</title>
+<title>DAS - Plataforma Institucional</title>
 
 <style>
-:root {
+:root{
     --azul:#0B1F3A;
     --azul-sec:#163A6B;
     --azul-brillante:#1F4E8C;
-    --gris:#f5f5f5;
-    --gris-oscuro:#e0e0e0;
-    --texto:#333;
-    --rojo:#e74c3c;
-    --amarillo:#f1c40f;
+    --verde:#00B386;
+    --rojo:#c0392b;
+    --gris:#f4f6f9;
 }
 
-/* Reset */
 body{
-    font-family: Arial, sans-serif;
     margin:0;
-    padding:0;
-    background-color:var(--gris);
-    color:var(--texto);
+    font-family:Arial, Helvetica, sans-serif;
+    background:var(--gris);
 }
 
-/* Header */
 header{
-    background-color:var(--azul);
+    background:var(--azul);
     color:white;
-    padding:25px 20px;
-    box-shadow:0 4px 15px rgba(0,0,0,0.2);
+    padding:20px;
+    text-align:center;
 }
 
-.header-content{
-    max-width:1200px;
-    margin:0 auto;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.header-left{
-    display:flex;
-    align-items:center;
-    gap:20px;
-}
-
-.header-left img{
-    height:150px;
-}
-
-.header-title{
-    font-size:20px;
-    font-weight:600;
-    letter-spacing:1px;
-}
-
-.header-contact{
-    text-align:right;
-    font-size:14px;
-    line-height:1.6;
-}
-
-.header-contact strong{
-    font-size:15px;
-}
-
-.header-divider{
-    height:2px;
-    background:var(--azul-brillante);
-    margin-top:20px;
-}
-
-/* Container */
-.container{
-    max-width:750px;
-    margin:40px auto;
-    padding:25px;
+.section{
     background:white;
-    box-shadow:0 0 15px rgba(0,0,0,0.1);
-    border-radius:10px;
+    margin:30px auto;
+    padding:30px;
+    max-width:1000px;
+    border-radius:12px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.08);
 }
 
-/* Form */
-form{
-    display:flex;
-    flex-direction:column;
-    gap:15px;
-}
+h2{ color:var(--azul-sec); }
 
-input{
+input, select{
+    width:100%;
     padding:12px;
-    font-size:16px;
-    border-radius:5px;
-    border:1px solid var(--gris-oscuro);
+    margin:8px 0;
+    border:1px solid #ccc;
+    border-radius:6px;
 }
 
-/* Botones generales */
-button, .doc-btn{
-    padding:12px 16px;
-    font-size:15px;
+button{
+    padding:12px 20px;
+    background:var(--azul-brillante);
+    color:white;
     border:none;
     border-radius:6px;
-    background-color:var(--azul-sec);
-    color:white;
     cursor:pointer;
-    transition:0.2s;
-    text-decoration:none;
-    display:inline-block;
-    text-align:center;
+    margin-top:10px;
 }
 
-button:hover, .doc-btn:hover{
-    background-color:var(--azul-brillante);
-}
+button:hover{ background:var(--azul-sec); }
 
-/* Contenedor de botones */
-.botones-container{
-    display:flex;
-    flex-wrap:wrap;
-    gap:12px;
+.logout{ background:var(--rojo); }
+
+.hidden{ display:none; }
+
+table{
+    width:100%;
+    border-collapse:collapse;
     margin-top:20px;
 }
 
-/* Separación botón PDF */
-.pdf-btn{
-    margin-top:25px;
+th, td{
+    border:1px solid #ddd;
+    padding:10px;
+    text-align:center;
 }
 
-/* Result */
-.result{
-    margin-top:25px;
-    padding:20px;
-    border-radius:10px;
-    background-color:var(--gris-oscuro);
-    display:none;
-    animation:fadeIn 0.4s ease-in-out;
-    position:relative;
-}
-
-@keyframes fadeIn{
-    from{opacity:0; transform:translateY(10px);}
-    to{opacity:1; transform:translateY(0);}
-}
-
-.status{
-    padding:5px 12px;
-    border-radius:5px;
+th{
+    background:var(--azul-sec);
     color:white;
-    font-weight:bold;
 }
 
-.aprobado{background-color:var(--azul-sec);}
-.pendiente{background-color:var(--amarillo); color:#333;}
-.rechazado{background-color:var(--rojo);}
-
-/* Error */
-.error-box{
-    background:#ffe5e5;
-    color:#b30000;
+.info-box{
+    background:#eaf2ff;
     padding:15px;
     border-radius:8px;
-    font-weight:bold;
-    text-align:center;
+    margin-bottom:15px;
 }
 
-/* Sello Digital Azul */
-.sello-digital{
-    margin-top:20px;
-    padding:14px;
-    border:2px solid var(--azul-sec);
-    border-radius:8px;
-    text-align:center;
-    font-weight:bold;
-    color:var(--azul-sec);
-    background:#eef4ff;
-    letter-spacing:1px;
+@media(max-width:768px){
+    .section{ margin:20px; padding:20px; }
 }
-
-/* Imagen Validado por */
-.validado-img{
-    position:absolute;
-    right:05px;
-    bottom:20px;
-    max-width:220px;
-    opacity:0.95;
-}
-
-/* Footer */
-footer{
-    background-color:var(--azul);
-    color:white;
-    padding:35px 20px;
-    margin-top:60px;
-    text-align:center;
-}
-
-.footer-line{
-    width:60px;
-    height:3px;
-    background-color:var(--azul-brillante);
-    margin:15px auto;
-}
-
-.footer-copy{
-    margin-top:15px;
-    font-size:12px;
-    opacity:0.7;
-}
-
-/* ========================= */
-/* 📱 OPTIMIZACIÓN MOBILE */
-/* ========================= */
-
-@media (max-width: 768px){
-
-    .header-content{
-        flex-direction:column;
-        text-align:center;
-    }
-
-    .header-left{
-        flex-direction:column;
-        gap:15px;
-    }
-
-    .header-left img{
-        height:85px;
-    }
-
-    .header-title{
-        font-size:18px;
-    }
-
-    .header-contact{
-        text-align:center;
-        font-size:13px;
-        width:100%;
-    }
-
-    .container{
-        width:92%;
-        margin:25px auto;
-        padding:18px;
-    }
-
-    h2{
-        font-size:18px;
-        text-align:center;
-    }
-
-    p{
-        font-size:14px;
-    }
-
-    input{
-        font-size:15px;
-        padding:11px;
-    }
-
-    button{
-        font-size:15px;
-        padding:12px;
-    }
-
-    .result{
-        font-size:14px;
-        padding:16px;
-    }
-
-    .botones-container{
-        flex-direction:column;
-    }
-
-    .doc-btn{
-        width:100%;
-    }
-
-    .pdf-btn .doc-btn{
-        width:100%;
-    }
-
-    .validado-img{
-        position:relative;
-        right:auto;
-        bottom:auto;
-        margin-top:20px;
-        max-width:160px;
-        display:block;
-        margin-left:auto;
-        margin-right:auto;
-    }
-
-    footer{
-        padding:25px 15px;
-        font-size:13px;
-    }
-
-    .footer-copy{
-        font-size:11px;
-    }
-}
-
 </style>
 </head>
+
+<body>
+
+<header>
+    <h1>DAS - Sistema de Gestión Institucional</h1>
+</header>
+
+<!-- LOGIN -->
+<div class="section" id="loginSection">
+    <h2>Acceso Plataforma</h2>
+    <input type="text" id="usuario" placeholder="Usuario">
+    <input type="password" id="password" placeholder="Contraseña">
+    <button onclick="login()">Ingresar</button>
+</div>
+
+<!-- PANEL CAPACITADOR -->
+<div class="section hidden" id="panelCapacitador">
+
+    <h2>Panel del Capacitador</h2>
+    <button class="logout" onclick="logout()">Cerrar sesión</button>
+
+    <div class="info-box">
+        <strong>Plan activo:</strong> Suscripción Mensual<br>
+        <strong>Solicitudes utilizadas:</strong> 
+        <span id="contador">0</span> / 15
+    </div>
+
+    <h3>Registrar Alumno</h3>
+    <input type="text" id="nombreAlumno" placeholder="Nombre completo">
+    <input type="text" id="dniAlumno" placeholder="DNI">
+    <input type="text" id="cursoAlumno" placeholder="Curso realizado">
+    <button onclick="agregarAlumno()">Generar Solicitud</button>
+
+    <h3>Solicitudes Generadas</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Alumno</th>
+                <th>DNI</th>
+                <th>Curso</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody id="tablaAlumnos"></tbody>
+    </table>
+</div>
+
+<!-- PANEL ADMIN -->
+<div class="section hidden" id="panelAdmin">
+
+    <h2>Panel Administrador DAS</h2>
+    <button class="logout" onclick="logout()">Cerrar sesión</button>
+
+    <div class="info-box">
+        <strong>Total solicitudes registradas:</strong> 
+        <span id="totalSolicitudes">0</span>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Capacitador</th>
+                <th>Alumno</th>
+                <th>DNI</th>
+                <th>Curso</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody id="tablaAdmin"></tbody>
+    </table>
+</div>
+
+<script>
+
+let contador = 0;
+let totalGlobal = 0;
+const LIMITE = 15;
+
+/* LOGIN */
+function login(){
+    const user = document.getElementById("usuario").value;
+    const pass = document.getElementById("password").value;
+
+    if(user === "capacitador" && pass === "1234"){
+        document.getElementById("loginSection").classList.add("hidden");
+        document.getElementById("panelCapacitador").classList.remove("hidden");
+    }
+    else if(user === "admin" && pass === "admin123"){
+        document.getElementById("loginSection").classList.add("hidden");
+        document.getElementById("panelAdmin").classList.remove("hidden");
+    }
+    else{
+        alert("Usuario o contraseña incorrectos");
+    }
+}
+
+/* LOGOUT */
+function logout(){
+    document.getElementById("panelCapacitador").classList.add("hidden");
+    document.getElementById("panelAdmin").classList.add("hidden");
+    document.getElementById("loginSection").classList.remove("hidden");
+}
+
+/* AGREGAR ALUMNO */
+function agregarAlumno(){
+
+    if(contador >= LIMITE){
+        alert("Ha alcanzado el límite mensual de 15 solicitudes.");
+        return;
+    }
+
+    const nombre = document.getElementById("nombreAlumno").value;
+    const dni = document.getElementById("dniAlumno").value;
+    const curso = document.getElementById("cursoAlumno").value;
+
+    if(nombre === "" || dni === "" || curso === ""){
+        alert("Complete todos los campos");
+        return;
+    }
+
+    contador++;
+    totalGlobal++;
+
+    document.getElementById("contador").innerText = contador;
+    document.getElementById("totalSolicitudes").innerText = totalGlobal;
+
+    /* Tabla Capacitador */
+    const tabla = document.getElementById("tablaAlumnos");
+    const fila = tabla.insertRow();
+    fila.insertCell(0).innerText = nombre;
+    fila.insertCell(1).innerText = dni;
+    fila.insertCell(2).innerText = curso;
+    fila.insertCell(3).innerText = "En proceso";
+
+    /* Tabla Admin */
+    const tablaAdmin = document.getElementById("tablaAdmin");
+    const filaAdmin = tablaAdmin.insertRow();
+    filaAdmin.insertCell(0).innerText = "Capacitador";
+    filaAdmin.insertCell(1).innerText = nombre;
+    filaAdmin.insertCell(2).innerText = dni;
+    filaAdmin.insertCell(3).innerText = curso;
+    filaAdmin.insertCell(4).innerText = "Pendiente revisión";
+
+    document.getElementById("nombreAlumno").value = "";
+    document.getElementById("dniAlumno").value = "";
+    document.getElementById("cursoAlumno").value = "";
+}
+
+</script>
+
+</body>
+    </html>
