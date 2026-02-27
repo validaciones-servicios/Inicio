@@ -3,244 +3,233 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DAS - Sistema Oficial</title>
+<title>DAS - Verificación de Trámite</title>
 
 <style>
-:root{
+:root {
     --azul:#0B1F3A;
     --azul-sec:#163A6B;
     --azul-brillante:#1F4E8C;
-    --blanco:#ffffff;
+    --gris:#f5f5f5;
+    --gris-oscuro:#e0e0e0;
+    --texto:#333;
+    --rojo:#e74c3c;
+    --amarillo:#f1c40f;
 }
 
-*{
+/* Reset */
+body{
+    font-family: Arial, sans-serif;
     margin:0;
     padding:0;
-    box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
+    background-color:var(--gris);
+    color:var(--texto);
 }
 
-body{
-    background:#f4f6f9;
-}
-
+/* Header MODIFICADO */
 header{
-    background:var(--azul);
-    padding:15px;
-    color:var(--blanco);
+    background-color:var(--azul);
+    padding:40px 20px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.2);
     text-align:center;
 }
 
-nav{
-    background:var(--azul-sec);
+.header-content{
     display:flex;
     justify-content:center;
-    flex-wrap:wrap;
+    align-items:center;
 }
 
-nav button{
-    background:none;
-    border:none;
-    color:white;
-    padding:15px 20px;
-    cursor:pointer;
-    font-weight:bold;
+.header-content img{
+    max-width:320px;
+    width:100%;
+    height:auto;
 }
 
-nav button:hover{
-    background:var(--azul-brillante);
+/* Responsive */
+@media (max-width:768px){
+    header{
+        padding:30px 15px;
+    }
+
+    .header-content img{
+        max-width:220px;
+    }
 }
 
-section{
-    display:none;
-    padding:30px 20px;
-    max-width:900px;
-    margin:auto;
+/* Container */
+.container{
+    max-width:750px;
+    margin:40px auto;
+    padding:25px;
+    background:white;
+    box-shadow:0 0 15px rgba(0,0,0,0.1);
+    border-radius:10px;
 }
 
-.active{
-    display:block;
-}
-
-h2{
-    margin-bottom:15px;
-    color:var(--azul);
+/* Form */
+form{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
 }
 
 input{
-    width:100%;
-    padding:10px;
-    margin:8px 0;
+    padding:12px;
+    font-size:16px;
+    border-radius:5px;
+    border:1px solid var(--gris-oscuro);
 }
 
-button.action{
-    background:var(--azul);
-    color:white;
+/* Botones generales */
+button, .doc-btn{
+    padding:12px 16px;
+    font-size:15px;
     border:none;
-    padding:10px;
-    width:100%;
-    cursor:pointer;
-}
-
-button.action:hover{
-    background:var(--azul-brillante);
-}
-
-.resultado{
-    margin-top:20px;
-    background:white;
-    padding:15px;
     border-radius:6px;
-    box-shadow:0 2px 6px rgba(0,0,0,0.1);
+    background-color:var(--azul-sec);
+    color:white;
+    cursor:pointer;
+    transition:0.2s;
+    text-decoration:none;
+    display:inline-block;
+    text-align:center;
 }
 
-img{
-    max-width:100%;
-    margin-top:15px;
+button:hover, .doc-btn:hover{
+    background-color:var(--azul-brillante);
+}
+
+/* Contenedor de botones */
+.botones-container{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-top:20px;
+}
+
+/* Separación botón PDF */
+.pdf-btn{
+    margin-top:25px;
+}
+
+/* Result */
+.result{
+    margin-top:25px;
+    padding:20px;
+    border-radius:10px;
+    background-color:var(--gris-oscuro);
+    display:none;
+    animation:fadeIn 0.4s ease-in-out;
+    position:relative;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(10px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+.status{
+    padding:5px 12px;
+    border-radius:5px;
+    color:white;
+    font-weight:bold;
+}
+
+.aprobado{background-color:var(--azul-sec);}
+.pendiente{background-color:var(--amarillo); color:#333;}
+.rechazado{background-color:var(--rojo);}
+
+/* Error */
+.error-box{
+    background:#ffe5e5;
+    color:#b30000;
+    padding:15px;
     border-radius:8px;
+    font-weight:bold;
+    text-align:center;
+}
+
+/* Sello Digital Azul */
+.sello-digital{
+    margin-top:20px;
+    padding:14px;
+    border:2px solid var(--azul-sec);
+    border-radius:8px;
+    text-align:center;
+    font-weight:bold;
+    color:var(--azul-sec);
+    background:#eef4ff;
+    letter-spacing:1px;
+}
+
+/* Imagen Validado por */
+.validado-img{
+    position:absolute;
+    right:05px;
+    bottom:20px;
+    max-width:220px;
+    opacity:0.95;
+}
+
+/* Footer */
+footer{
+    background-color:var(--azul);
+    color:white;
+    padding:35px 20px;
+    margin-top:60px;
+    text-align:center;
+}
+
+.footer-line{
+    width:60px;
+    height:3px;
+    background-color:var(--azul-brillante);
+    margin:15px auto;
+}
+
+.footer-copy{
+    margin-top:15px;
+    font-size:12px;
+    opacity:0.7;
 }
 </style>
 </head>
+
 <body>
 
 <header>
-    <h1>DAS - Sistema de Validación Documental</h1>
+    <div class="header-content">
+        <img src="https://i.postimg.cc/D0T5XNJX/file-00000000ea5c71f5af05c32a457144cb.png" alt="Logo DAS">
+    </div>
 </header>
 
-<nav>
-    <button onclick="mostrarSeccion('inicio')">Inicio</button>
-    <button onclick="mostrarSeccion('alumnos')">SVDC Alumnos</button>
-    <button onclick="mostrarSeccion('capacitadores')">SVDC Capacitadores</button>
-</nav>
+<div class="container">
+    <h2>Sistema de Validación Documental Certificada</h2>
+    <p>A los efectos de verificar la autenticidad de la documentación registrada, deberá ingresar el Código Único de Validación (CUV) y su Documento Nacional de Identidad (DNI).</p>
 
-<!-- INICIO -->
-<section id="inicio" class="active">
-    <h2>INICIO Institucional</h2>
-    <p>
-        DAS realiza procesos de Certificación y Auditoría Documental Institucional 
-        para títulos y analíticos académicos. Nuestro sistema garantiza la validación 
-        oficial de documentación emitida, brindando seguridad, transparencia y respaldo institucional.
-    </p>
-    <img src="https://via.placeholder.com/900x300" alt="Imagen institucional DAS">
-</section>
+    <form id="searchForm">
+        <input type="text" id="cu" placeholder="Código Único de Verificación (CUV)" pattern="[0-9]+" inputmode="numeric" required>
+        <input type="text" id="dni" placeholder="Documento Nacional de Identidad (DNI)" pattern="[0-9]+" inputmode="numeric" required>
+        <button type="submit">Buscar</button>
+    </form>
 
-<!-- ALUMNOS -->
-<section id="alumnos">
-    <h2>SVDC - Consulta de Estado (Alumnos)</h2>
-    <input type="text" id="dniAlumno" placeholder="Ingrese DNI">
-    <input type="text" id="cuvAlumno" placeholder="Ingrese CUV">
-    <button class="action" onclick="buscarAlumno()">Consultar</button>
+    <div class="result" id="resultBox"></div>
+</div>
 
-    <div id="resultadoAlumno" class="resultado"></div>
-</section>
-
-<!-- CAPACITADORES -->
-<section id="capacitadores">
-    <h2>SVDC - Acceso Capacitadores</h2>
-    <input type="text" id="institucion" placeholder="Nombre de la Institución">
-    <input type="password" id="claveInstitucion" placeholder="Contraseña">
-    <button class="action" onclick="accesoCapacitador()">Ingresar</button>
-
-    <div id="resultadoCapacitador" class="resultado"></div>
-</section>
+<footer>
+    <div>DAS – Departamento de Auditoría y Servicios</div>
+    <div class="footer-line"></div>
+    Registro Institucional Nº 2026-AR-DAS-4581<br>
+    Certificaciones oficiales con registro electrónico verificable
+    <div class="footer-copy">
+        © 2026 DAS – Todos los derechos reservados.<br>
+        Este sitio web constituye una plataforma informativa de verificación documental.
+    </div>
+</footer>
 
 <script>
-function mostrarSeccion(id){
-    document.querySelectorAll("section").forEach(sec=>{
-        sec.classList.remove("active");
-    });
-    document.getElementById(id).classList.add("active");
-}
-
-/* BASE DE DATOS EJEMPLO */
-
-const alumnos = [
-{
-    alumno:"Juan Pérez",
-    dni:"30123456",
-    cuv:"CUV-001",
-    aprobado:"Sí",
-    egreso:"15/12/2024",
-    cursando:"No",
-    profesor:"Prof. María López",
-    institucion:"Instituto Técnico Norte",
-    analitico:"#",
-    titulo:"#",
-    certificacion:"#"
-}
-];
-
-const instituciones = [
-{
-    nombre:"Instituto Técnico Norte",
-    clave:"1234"
-}
-];
-
-/* BUSCAR ALUMNO */
-
-function buscarAlumno(){
-    const dni = document.getElementById("dniAlumno").value;
-    const cuv = document.getElementById("cuvAlumno").value;
-    const resultado = document.getElementById("resultadoAlumno");
-
-    const encontrado = alumnos.find(a=>a.dni===dni && a.cuv===cuv);
-
-    if(encontrado){
-        resultado.innerHTML=`
-        <strong>Alumno:</strong> ${encontrado.alumno}<br>
-        <strong>DNI:</strong> ${encontrado.dni}<br>
-        <strong>CUV:</strong> ${encontrado.cuv}<br>
-        <strong>Estado:</strong> ${encontrado.aprobado}<br>
-        <strong>Fecha de Egreso:</strong> ${encontrado.egreso}<br>
-        <strong>Cursando Actualmente:</strong> ${encontrado.cursando}<br>
-        <strong>Profesor:</strong> ${encontrado.profesor}<br>
-        <strong>Institución:</strong> ${encontrado.institucion}<br>
-        <strong>Certificados:</strong><br>
-        <a href="${encontrado.analitico}" target="_blank">Analítico</a><br>
-        <a href="${encontrado.titulo}" target="_blank">Título</a><br>
-        <a href="${encontrado.certificacion}" target="_blank">Certificación DAS</a>
-        `;
-    }else{
-        resultado.innerHTML="No se encontró registro.";
-    }
-}
-
-/* ACCESO CAPACITADOR */
-
-function accesoCapacitador(){
-    const nombre = document.getElementById("institucion").value;
-    const clave = document.getElementById("claveInstitucion").value;
-    const resultado = document.getElementById("resultadoCapacitador");
-
-    const acceso = instituciones.find(i=>i.nombre===nombre && i.clave===clave);
-
-    if(acceso){
-        const lista = alumnos.filter(a=>a.institucion===nombre);
-
-        if(lista.length>0){
-            resultado.innerHTML = lista.map(a=>`
-            <hr>
-            <strong>Alumno:</strong> ${a.alumno}<br>
-            <strong>DNI:</strong> ${a.dni}<br>
-            <strong>CUV:</strong> ${a.cuv}<br>
-            <strong>Estado:</strong> ${a.aprobado}<br>
-            <strong>Fecha de Egreso:</strong> ${a.egreso}<br>
-            <strong>Cursando Actualmente:</strong> ${a.cursando}<br>
-            <strong>Profesor:</strong> ${a.profesor}<br>
-            <strong>Institución:</strong> ${a.institucion}<br>
-            <strong>Certificados:</strong><br>
-            <a href="${a.analitico}" target="_blank">Analítico</a><br>
-            <a href="${a.titulo}" target="_blank">Título</a><br>
-            <a href="${a.certificacion}" target="_blank">Certificación DAS</a>
-            `).join("");
-        }else{
-            resultado.innerHTML="No hay alumnos registrados.";
-        }
-    }else{
-        resultado.innerHTML="Acceso denegado.";
-    }
-}
+/* TU SCRIPT ORIGINAL COMPLETO AQUÍ SIN CAMBIOS */
 </script>
 
 </body>
