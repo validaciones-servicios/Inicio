@@ -3,40 +3,83 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DAS - Inicio de Certificación</title>
+<title>DAS - Verificación de Trámite</title>
 
 <style>
-:root{
+:root {
     --azul:#0B1F3A;
     --azul-sec:#163A6B;
     --azul-brillante:#1F4E8C;
-    --verde:#8DC21F;
-    --gris:#f4f6f9;
-    --gris-oscuro:#e2e6ec;
+    --gris:#f5f5f5;
+    --gris-oscuro:#e0e0e0;
+    --texto:#333;
+    --rojo:#e74c3c;
+    --amarillo:#f1c40f;
 }
 
+/* Reset */
 body{
+    font-family: Arial, sans-serif;
     margin:0;
-    font-family: Arial, Helvetica, sans-serif;
-    background:var(--gris);
+    padding:0;
+    background-color:var(--gris);
+    color:var(--texto);
 }
 
-.hidden{ display:none; }
+/* ================= MENU ================= */
 
-.fade{
-    animation:fadeSlide 0.5s ease forwards;
+.menu-btn{
+    position:absolute;
+    left:20px;
+    top:28px;
+    cursor:pointer;
+    z-index:1001;
 }
 
-@keyframes fadeSlide{
-    from{ opacity:0; transform:translateY(15px); }
-    to{ opacity:1; transform:translateY(0); }
+.menu-btn div{
+    width:22px;
+    height:2px;
+    background:white;
+    margin:5px 0;
 }
+
+.side-menu{
+    position:fixed;
+    top:0;
+    left:-260px;
+    width:260px;
+    height:100%;
+    background:var(--azul);
+    color:white;
+    padding:80px 25px;
+    transition:0.3s;
+    z-index:1000;
+}
+
+.side-menu a{
+    display:block;
+    color:white;
+    text-decoration:none;
+    margin-bottom:20px;
+    font-weight:500;
+}
+
+.side-menu a:hover{
+    color:var(--azul-brillante);
+}
+
+.side-menu.active{
+    left:0;
+}
+
+/* ================= HEADER ================= */
 
 header{
-    background-color:var(--azul);
+    background:linear-gradient(135deg,var(--azul),var(--azul-sec));
     color:white;
-    padding:25px 20px;
+    padding:30px 20px 25px 70px;
     box-shadow:0 4px 15px rgba(0,0,0,0.2);
+    position:relative;
 }
 
 .header-content{
@@ -54,23 +97,29 @@ header{
 }
 
 .header-left img{
-    height:140px;
+    height:130px;
 }
 
 .header-title{
-    font-size:20px;
+    font-size:22px;
     font-weight:600;
     letter-spacing:1px;
 }
 
+.header-subtitle{
+    font-size:13px;
+    opacity:0.8;
+    margin-top:4px;
+}
+
 .header-contact{
     text-align:right;
-    font-size:14px;
-    line-height:1.6;
+    font-size:13px;
+    line-height:1.7;
 }
 
 .header-contact strong{
-    font-size:15px;
+    font-size:14px;
 }
 
 .header-divider{
@@ -78,458 +127,3 @@ header{
     background:var(--azul-brillante);
     margin-top:20px;
 }
-
-.container{
-    max-width:950px;
-    margin:40px auto 60px auto;
-    background:white;
-    padding:40px;
-    border-radius:12px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.1);
-}
-
-.section{
-    background:var(--gris);
-    padding:25px;
-    border-radius:10px;
-    margin-bottom:25px;
-    border:1px solid var(--gris-oscuro);
-}
-
-h2{ color:var(--azul-sec); margin-top:0; }
-
-label{ font-weight:bold; font-size:14px; display:block; margin-top:10px; }
-select,input{ width:100%; padding:12px; margin:8px 0 18px 0; border-radius:6px; border:1px solid #ccc; font-size:14px; }
-
-button{
-    background:var(--azul-sec);
-    color:white;
-    border:none;
-    padding:14px 25px;
-    border-radius:6px;
-    cursor:pointer;
-    font-weight:bold;
-    transition:0.2s;
-}
-button:hover{ background:var(--azul-brillante); }
-
-#precio{
-    font-size:20px;
-    color:var(--azul-sec);
-    font-weight:bold;
-    opacity:0;
-    transform:translateY(-10px);
-    transition:0.4s ease;
-}
-#precio.visible{ opacity:1; transform:translateY(0); }
-
-.confirmacion{
-    text-align:center;
-    padding:30px;
-}
-.confirmacion h2{ color:var(--azul-sec); }
-
-.firma{
-    margin-top:30px;
-    font-style:italic;
-    color:var(--azul);
-    border-top:1px solid var(--gris-oscuro);
-    padding-top:15px;
-}
-
-footer{
-    background-color:var(--azul);
-    color:white;
-    padding:35px 20px;
-    margin-top:60px;
-    text-align:center;
-}
-
-.footer-line{
-    width:60px;
-    height:3px;
-    background-color:var(--azul-brillante);
-    margin:15px auto;
-}
-
-.footer-copy{
-    margin-top:15px;
-    font-size:12px;
-    opacity:0.7;
-}
-</style>
-</head>
-
-<body>
-
-<header>
-    <div class="header-content">
-        <div class="header-left">
-            <img src="https://i.postimg.cc/D0T5XNJX/file-00000000ea5c71f5af05c32a457144cb.png" alt="Logo DAS">
-            <div class="header-title">
-                Departamento de Auditoría y Servicios
-            </div>
-        </div>
-
-        <div class="header-contact">
-            <strong>Av. Corrientes 2654</strong><br>
-            Piso 2 – Oficina 14<br>
-            Ciudad Autónoma de Buenos Aires<br>
-            Tel: (011) 3160-2393
-        </div>
-    </div>
-    <div class="header-divider"></div>
-</header>
-
-<div class="container">
-
-<div id="paso1" class="section fade">
-<h2>Selección del Trámite</h2>
-
-<label>Tipo de documentación</label>
-<select id="tipoDoc" onchange="actualizarPrecio(); actualizarCampos();">
-<option value="">Seleccionar</option>
-<option value="Secundario">Analítico y Título – Secundario</option>
-<option value="Secundario Técnico">Analítico y Título – Secundario Técnico</option>
-<option value="Terciario">Analítico y Título – Nivel Terciario</option>
-<option value="Profesorado">Analítico y Título – Profesorado</option>
-<option value="Universitario">Analítico y Título – Nivel Universitario</option>
-<option value="Constancia Alumno Regular">Constancia de Alumno Regular</option>
-<option value="Certificación DAS">Certificación DAS</option>
-</select>
-
-<label>Modalidad</label>
-<select id="modalidad" onchange="actualizarPrecio()">
-<option value="">Seleccionar</option>
-<option value="Auditoría">Con Auditoría Integral</option>
-</select>
-
-<div id="precio"></div>
-
-<button onclick="continuar()">Continuar con el trámite</button>
-</div>
-
-<div id="paso2" class="hidden">
-
-<div class="section">
-<h2>Datos Personales</h2>
-
-<label>Nombre(s) y Apellido</label>
-<input type="text" id="nombre">
-
-<label>Número de DNI</label>
-<input type="number" id="dni">
-
-<label>Fecha de nacimiento del solicitante</label>
-<input type="date" id="nacimiento">
-
-<label>Lugar de nacimiento</label>
-<input type="text" id="lugarNacimiento">
-
-<label>Provincia de nacimiento</label>
-<input type="text" id="provinciaNacimiento">
-
-<label>Nacionalidad</label>
-<input type="text" id="nacionalidad">
-
-<label>Email</label>
-<input type="email" id="email">
-</div>
-
-<div class="section">
-<h2>Datos Académicos / Institucionales</h2>
-
-<div id="bloqueGeneral">
-
-<label>Nombre de la Institución</label>
-<input type="text" id="institucion">
-
-<label>Dirección</label>
-<input type="text" id="direccion">
-
-<label>Localidad</label>
-<input type="text" id="localidad">
-
-<label>Provincia</label>
-<input type="text" id="provincia">
-
-<label>Título</label>
-<input type="text" id="titulo">
-
-<label>Fecha de egreso del documento académico</label>
-<input type="date" id="egreso">
-
-</div>
-
-<div id="bloqueConstancia" class="hidden">
-
-<label>Nombre de la Institución</label>
-<input type="text" id="institucionConstancia">
-
-<label>Ciclo Lectivo</label>
-<input type="text" id="cicloLectivo">
-
-<label>Fecha de emisión de la constancia</label>
-<input type="date" id="fechaConstancia">
-
-</div>
-
-<div id="bloqueCertificacion" class="hidden">
-
-<label>Nombre de la Institución</label>
-<input type="text" id="institucionCertificacion">
-
-<label>Tipo de documentación a certificar</label>
-<select id="tipoCertificacion">
-<option value="">Seleccionar</option>
-<option value="Analítico">Analítico</option>
-<option value="Título">Título</option>
-<option value="Certificado">Certificado</option>
-<option value="Otro">Otro</option>
-</select>
-
-</div>
-
-</div>
-
-<button onclick="mostrarResumen()">Ver resumen previo</button>
-</div>
-
-<div id="paso3" class="hidden section">
-<h2>Confirmación Final</h2>
-<div id="resumen"></div>
-<br>
-<button onclick="enviarWhatsApp()">Finalizar y Enviar a DAS</button>
-</div>
-
-<div id="paso4" class="hidden confirmacion">
-<h2>✔ Trámite iniciado correctamente</h2>
-<p>Su solicitud fue enviada al Departamento de Auditoría y Servicios.</p>
-<div class="firma">
-DAS – Departamento de Auditoría y Servicios<br>
-Certificación y Auditoría Documental Institucional
-</div>
-</div>
-
-</div>
-
-<footer>
-    <div>DAS – Departamento de Auditoría y Servicios</div>
-    <div class="footer-line"></div>
-    Registro Institucional Nº 2026-AR-DAS-4581<br>
-    Certificaciones oficiales con registro electrónico verificable
-    <div class="footer-copy">
-        © 2026 DAS – Todos los derechos reservados.<br>
-        Este sitio web constituye una plataforma informativa de certificación documental.
-    </div>
-</footer>
-
-<script>
-const precios = {
-    "Secundario": { "Auditoría":150000 },
-    "Secundario Técnico": { "Auditoría":160000 },
-    "Terciario": { "Auditoría":170000 },
-    "Profesorado": { "Auditoría":190000 },
-    "Universitario": { "Auditoría":210000 },
-    "Constancia Alumno Regular": { "Auditoría":75000 },
-    "Certificación DAS": { "Auditoría":60000 }
-};
-
-let codigoUnico="";
-
-function generarCodigo(){
-    const año = new Date().getFullYear();
-    const random = Math.floor(1000 + Math.random()*9000);
-    codigoUnico = "DAS-" + año + "-" + random;
-}
-
-function actualizarPrecio(){
-    const tipo = tipoDoc.value;
-    const mod = modalidad.value;
-    const precioDiv = document.getElementById("precio");
-
-    if(tipo && mod){
-        const valor = precios[tipo][mod];
-        precioDiv.innerText = "Valor del trámite: $"+valor.toLocaleString();
-        precioDiv.classList.add("visible");
-    } else {
-        precioDiv.classList.remove("visible");
-    }
-}
-
-function actualizarCampos(){
-    const tipo = tipoDoc.value;
-
-    document.getElementById("bloqueGeneral").classList.add("hidden");
-    document.getElementById("bloqueConstancia").classList.add("hidden");
-    document.getElementById("bloqueCertificacion").classList.add("hidden");
-
-    if(tipo === "Constancia Alumno Regular"){
-        document.getElementById("bloqueConstancia").classList.remove("hidden");
-    }
-    else if(tipo === "Certificación DAS"){
-        document.getElementById("bloqueCertificacion").classList.remove("hidden");
-    }
-    else{
-        document.getElementById("bloqueGeneral").classList.remove("hidden");
-    }
-}
-
-function mostrarPaso(idMostrar, idOcultar){
-    document.getElementById(idOcultar).classList.add("hidden");
-    const paso = document.getElementById(idMostrar);
-    paso.classList.remove("hidden");
-    paso.classList.add("fade");
-}
-
-function continuar(){
-    if(!tipoDoc.value || !modalidad.value){
-        alert("Debe seleccionar tipo de documentación y modalidad.");
-        return;
-    }
-    generarCodigo();
-    mostrarPaso("paso2","paso1");
-}
-
-function formatFecha(fecha){
-    if(!fecha) return "";
-    const d = new Date(fecha);
-    const dia = String(d.getDate()).padStart(2,'0');
-    const mes = String(d.getMonth()+1).padStart(2,'0');
-    const año = d.getFullYear();
-    return `${dia}/${mes}/${año}`;
-}
-
-function mostrarResumen(){
-
-    if(!nombre.value || !dni.value){
-        alert("Complete los datos obligatorios.");
-        return;
-    }
-
-    const tipo = tipoDoc.value;
-    const mod = modalidad.value;
-    const valor = precios[tipo][mod];
-
-    let datosAcademicos = "";
-
-    if(tipo === "Constancia Alumno Regular"){
-        if(!institucionConstancia.value){
-            alert("Complete los datos obligatorios.");
-            return;
-        }
-
-        datosAcademicos = `
-        Institución: ${institucionConstancia.value}
-        Ciclo Lectivo: ${cicloLectivo.value}
-        Fecha de constancia: ${formatFecha(fechaConstancia.value)}
-        `;
-    }
-    else if(tipo === "Certificación DAS"){
-        if(!institucionCertificacion.value || !tipoCertificacion.value){
-            alert("Complete los datos obligatorios.");
-            return;
-        }
-
-        datosAcademicos = `
-        Institución: ${institucionCertificacion.value}
-        Documentación a certificar: ${tipoCertificacion.value}
-        `;
-    }
-    else{
-        if(!institucion.value){
-            alert("Complete los datos obligatorios.");
-            return;
-        }
-
-        datosAcademicos = `
-        Institución: ${institucion.value}
-        Dirección: ${direccion.value}
-        Localidad: ${localidad.value}
-        Provincia: ${provincia.value}
-        Título: ${titulo.value}
-        Fecha de egreso: ${formatFecha(egreso.value)}
-        `;
-    }
-
-    resumen.innerHTML = `
-    Número de Registro: ${codigoUnico}
-    Tipo: ${tipo}
-    Modalidad: ${mod}
-    Valor: $${valor.toLocaleString()}
-
-    Nombre: ${nombre.value}
-    DNI: ${dni.value}
-    Fecha de nacimiento: ${formatFecha(nacimiento.value)}
-    Lugar de nacimiento: ${lugarNacimiento.value}
-    Provincia de nacimiento: ${provinciaNacimiento.value}
-    Nacionalidad: ${nacionalidad.value}
-    Email: ${email.value}
-
-    ${datosAcademicos}
-    `;
-
-    mostrarPaso("paso3","paso2");
-}
-
-function enviarWhatsApp(){
-
-    const tipo = tipoDoc.value;
-    const mod = modalidad.value;
-    const valor = precios[tipo][mod];
-
-    let datosAcademicos = "";
-
-    if(tipo === "Constancia Alumno Regular"){
-        datosAcademicos = `
-Institución: ${institucionConstancia.value}
-Ciclo Lectivo: ${cicloLectivo.value}
-Fecha de constancia: ${formatFecha(fechaConstancia.value)}
-`;
-    }
-    else if(tipo === "Certificación DAS"){
-        datosAcademicos = `
-Institución: ${institucionCertificacion.value}
-Documentación a certificar: ${tipoCertificacion.value}
-`;
-    }
-    else{
-        datosAcademicos = `
-Institución: ${institucion.value}
-Dirección: ${direccion.value}
-Localidad: ${localidad.value}
-Provincia: ${provincia.value}
-Título: ${titulo.value}
-Fecha de egreso: ${formatFecha(egreso.value)}
-`;
-    }
-
-    const mensaje = `Nueva solicitud de Trámite
-Número de Registro: ${codigoUnico}
-
-Tipo: ${tipo}
-Modalidad: ${mod}
-Valor: $${valor.toLocaleString()}
-
---- DATOS PERSONALES ---
-Nombre: ${nombre.value}
-DNI: ${dni.value}
-Fecha de nacimiento: ${formatFecha(nacimiento.value)}
-Lugar de nacimiento: ${lugarNacimiento.value}
-Provincia de nacimiento: ${provinciaNacimiento.value}
-Nacionalidad: ${nacionalidad.value}
-Email: ${email.value}
-
---- DATOS ACADÉMICOS ---
-${datosAcademicos}
-`;
-
-    const url = "https://wa.me/+5491131602393?text=" + encodeURIComponent(mensaje);
-    window.open(url,'_blank');
-
-    mostrarPaso("paso4","paso3");
-}
-</script>
-
-</body>
-</html>
