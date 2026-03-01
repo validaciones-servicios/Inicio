@@ -3,234 +3,195 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DAS - Verificación de Trámite</title>
+<title>Credencial</title>
 
 <style>
-:root {
-    --azul:#0B1F3A;
-    --azul-sec:#163A6B;
-    --azul-brillante:#1F4E8C;
-    --gris:#f5f5f5;
-    --gris-oscuro:#e0e0e0;
-    --texto:#333;
-    --rojo:#e74c3c;
-    --amarillo:#f1c40f;
-}
-
-/* Reset */
 body{
-    font-family: Arial, sans-serif;
-    margin:0;
-    padding:0;
-    background-color:var(--gris);
-    color:var(--texto);
-}
-
-/* Header MODIFICADO */
-header{
-    background-color:var(--azul);
-    padding:40px 20px;
-    box-shadow:0 4px 15px rgba(0,0,0,0.2);
-    text-align:center;
-}
-
-.header-content{
+    background:#f4f4f4;
     display:flex;
     justify-content:center;
     align-items:center;
+    height:100vh;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-.header-content img{
-    max-width:320px;
-    width:100%;
-    height:auto;
+.credencial{
+    width:850px;
+    height:500px;
+    background:#fff;
+    border-radius:20px;
+    overflow:hidden;
+    display:flex;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
 }
 
-/* Responsive */
-@media (max-width:768px){
-    header{
-        padding:30px 15px;
-    }
-
-    .header-content img{
-        max-width:220px;
-    }
-}
-
-/* Container */
-.container{
-    max-width:750px;
-    margin:40px auto;
-    padding:25px;
-    background:white;
-    box-shadow:0 0 15px rgba(0,0,0,0.1);
-    border-radius:10px;
-}
-
-/* Form */
-form{
+/* LADO IZQUIERDO */
+.lado-izq{
+    width:50%;
+    background:linear-gradient(180deg,#0d1b3d,#123a7a);
+    color:#fff;
+    padding:40px;
     display:flex;
     flex-direction:column;
-    gap:15px;
+    align-items:center;
+    justify-content:space-between;
 }
 
-input{
-    padding:12px;
-    font-size:16px;
-    border-radius:5px;
-    border:1px solid var(--gris-oscuro);
-}
-
-/* Botones generales */
-button, .doc-btn{
-    padding:12px 16px;
-    font-size:15px;
-    border:none;
-    border-radius:6px;
-    background-color:var(--azul-sec);
-    color:white;
-    cursor:pointer;
-    transition:0.2s;
-    text-decoration:none;
-    display:inline-block;
-    text-align:center;
-}
-
-button:hover, .doc-btn:hover{
-    background-color:var(--azul-brillante);
-}
-
-/* Contenedor de botones */
-.botones-container{
-    display:flex;
-    flex-wrap:wrap;
-    gap:12px;
-    margin-top:20px;
-}
-
-/* Separación botón PDF */
-.pdf-btn{
-    margin-top:25px;
-}
-
-/* Result */
-.result{
-    margin-top:25px;
-    padding:20px;
+.foto{
+    width:180px;
+    height:180px;
+    background:#ccc;
     border-radius:10px;
-    background-color:var(--gris-oscuro);
-    display:none;
-    animation:fadeIn 0.4s ease-in-out;
-    position:relative;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
-@keyframes fadeIn{
-    from{opacity:0; transform:translateY(10px);}
-    to{opacity:1; transform:translateY(0);}
+.foto img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
 }
 
-.status{
-    padding:5px 12px;
-    border-radius:5px;
-    color:white;
-    font-weight:bold;
-}
-
-.aprobado{background-color:var(--azul-sec);}
-.pendiente{background-color:var(--amarillo); color:#333;}
-.rechazado{background-color:var(--rojo);}
-
-/* Error */
-.error-box{
-    background:#ffe5e5;
-    color:#b30000;
-    padding:15px;
-    border-radius:8px;
-    font-weight:bold;
+.nombre{
     text-align:center;
 }
 
-/* Sello Digital Azul */
-.sello-digital{
-    margin-top:20px;
-    padding:14px;
-    border:2px solid var(--azul-sec);
-    border-radius:8px;
-    text-align:center;
-    font-weight:bold;
-    color:var(--azul-sec);
-    background:#eef4ff;
-    letter-spacing:1px;
+.nombre h1{
+    margin:20px 0 5px 0;
+    font-size:28px;
+    letter-spacing:2px;
 }
 
-/* Imagen Validado por */
-.validado-img{
-    position:absolute;
-    right:05px;
-    bottom:20px;
-    max-width:220px;
-    opacity:0.95;
+.nombre p{
+    margin:0;
+    font-size:18px;
 }
 
-/* Footer */
-footer{
-    background-color:var(--azul);
-    color:white;
-    padding:35px 20px;
-    margin-top:60px;
-    text-align:center;
+.barra{
+    width:100%;
+    height:60px;
+    background:repeating-linear-gradient(
+        90deg,
+        #000,
+        #000 3px,
+        #fff 3px,
+        #fff 6px
+    );
+    border-radius:6px;
 }
 
-.footer-line{
-    width:60px;
-    height:3px;
-    background-color:var(--azul-brillante);
-    margin:15px auto;
+/* LADO DERECHO */
+.lado-der{
+    width:50%;
+    padding:40px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
 }
 
-.footer-copy{
-    margin-top:15px;
+.header{
+    text-align:right;
+}
+
+.header h2{
+    margin:0;
+    font-size:24px;
+}
+
+.header p{
+    margin:5px 0;
+    font-size:14px;
+}
+
+.datos{
+    margin-top:30px;
+}
+
+.dato{
+    margin-bottom:20px;
+}
+
+.dato span{
+    display:block;
     font-size:12px;
-    opacity:0.7;
+    color:#777;
+}
+
+.dato strong{
+    font-size:18px;
+}
+
+.footer{
+    text-align:right;
+    font-size:14px;
+    color:#999;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+    .credencial{
+        width:95%;
+        height:auto;
+        flex-direction:column;
+    }
+
+    .lado-izq, .lado-der{
+        width:100%;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<header>
-    <div class="header-content">
-        <img src="https://i.postimg.cc/D0T5XNJX/file-00000000ea5c71f5af05c32a457144cb.png" alt="Logo DAS">
+<div class="credencial">
+
+    <div class="lado-izq">
+        <div class="foto">
+            <!-- Reemplazar por foto real -->
+            <img src="https://via.placeholder.com/180" alt="Foto">
+        </div>
+
+        <div class="nombre">
+            <h1>NOMBRE APELLIDO</h1>
+            <p>Cargo / Matrícula</p>
+        </div>
+
+        <div class="barra"></div>
     </div>
-</header>
 
-<div class="container">
-    <h2>Sistema de Validación Documental Certificada</h2>
-    <p>A los efectos de verificar la autenticidad de la documentación registrada, deberá ingresar el Código Único de Validación (CUV) y su Documento Nacional de Identidad (DNI).</p>
+    <div class="lado-der">
+        <div class="header">
+            <h2>NOMBRE INSTITUCIÓN</h2>
+            <p>Dirección institucional</p>
+            <p>Ciudad - Provincia</p>
+        </div>
 
-    <form id="searchForm">
-        <input type="text" id="cu" placeholder="Código Único de Verificación (CUV)" pattern="[0-9]+" inputmode="numeric" required>
-        <input type="text" id="dni" placeholder="Documento Nacional de Identidad (DNI)" pattern="[0-9]+" inputmode="numeric" required>
-        <button type="submit">Buscar</button>
-    </form>
+        <div class="datos">
+            <div class="dato">
+                <span>CÓDIGO</span>
+                <strong>00000001</strong>
+            </div>
 
-    <div class="result" id="resultBox"></div>
+            <div class="dato">
+                <span>FECHA DE NACIMIENTO</span>
+                <strong>01-01-1990</strong>
+            </div>
+
+            <div class="dato">
+                <span>VENCIMIENTO</span>
+                <strong>01-01-2028</strong>
+            </div>
+        </div>
+
+        <div class="footer">
+            Registro Institucional
+        </div>
+    </div>
+
 </div>
-
-<footer>
-    <div>DAS – Departamento de Auditoría y Servicios</div>
-    <div class="footer-line"></div>
-    Registro Institucional Nº 2026-AR-DAS-4581<br>
-    Certificaciones oficiales con registro electrónico verificable
-    <div class="footer-copy">
-        © 2026 DAS – Todos los derechos reservados.<br>
-        Este sitio web constituye una plataforma informativa de verificación documental.
-    </div>
-</footer>
-
-<script>
-/* TU SCRIPT ORIGINAL COMPLETO AQUÍ SIN CAMBIOS */
-</script>
 
 </body>
 </html>
