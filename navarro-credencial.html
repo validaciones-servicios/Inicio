@@ -17,10 +17,31 @@
 body{
     background:#f2f4f8;
     display:flex;
+    flex-direction:column;
     justify-content:center;
     align-items:center;
     min-height:100vh;
     padding:20px;
+}
+
+/* BOTÓN PDF */
+.boton-pdf{
+    margin-bottom:20px;
+}
+
+.boton-pdf button{
+    padding:12px 25px;
+    border:none;
+    border-radius:8px;
+    background:#1e4ea1;
+    color:#fff;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.boton-pdf button:hover{
+    background:#0c1d45;
 }
 
 /* TARJETA */
@@ -165,7 +186,11 @@ body{
 </head>
 <body>
 
-<div class="credencial">
+<div class="boton-pdf">
+    <button onclick="descargarPDF()">Descargar en PDF</button>
+</div>
+
+<div class="credencial" id="credencial">
 
     <div class="lado-izq">
         <div class="foto">
@@ -210,6 +235,23 @@ body{
     </div>
 
 </div>
+
+<!-- Librería html2pdf -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<script>
+function descargarPDF(){
+    const elemento = document.getElementById("credencial");
+    const opciones = {
+        margin: 0,
+        filename: 'credencial.pdf',
+        image: { type: 'jpeg', quality: 1 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+    };
+    html2pdf().set(opciones).from(elemento).save();
+}
+</script>
 
 </body>
 </html>
