@@ -24,7 +24,7 @@ body{
     padding:20px;
 }
 
-/* BOTÓN PDF */
+/* BOTÓN */
 .boton-pdf{
     margin-bottom:20px;
 }
@@ -37,11 +37,6 @@ body{
     color:#fff;
     font-size:16px;
     cursor:pointer;
-    transition:0.3s;
-}
-
-.boton-pdf button:hover{
-    background:#0c1d45;
 }
 
 /* TARJETA */
@@ -158,27 +153,10 @@ body{
 
 /* 📱 MOBILE */
 @media(max-width:768px){
-
     .credencial{
         flex-direction:column;
         aspect-ratio:auto;
         max-width:400px;
-    }
-
-    .lado-izq{
-        padding:20px;
-    }
-
-    .lado-der{
-        padding:20px;
-    }
-
-    .header{
-        text-align:left;
-    }
-
-    .footer{
-        text-align:left;
     }
 }
 
@@ -187,14 +165,14 @@ body{
 <body>
 
 <div class="boton-pdf">
-    <button onclick="descargarPDF()">Descargar en PDF</button>
+    <button onclick="descargarPDF()">Descargar Credencial en PDF</button>
 </div>
 
 <div class="credencial" id="credencial">
 
     <div class="lado-izq">
         <div class="foto">
-            <img src="https://i.postimg.cc/XXT81vWh/IMG-20260301-WA0064.jpg" alt="Foto">
+            <img src="https://i.postimg.cc/XXT81vWh/IMG-20260301-WA0064.jpg" crossorigin="anonymous">
         </div>
 
         <div class="nombre">
@@ -236,20 +214,30 @@ body{
 
 </div>
 
-<!-- Librería html2pdf -->
+<!-- Librería -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <script>
 function descargarPDF(){
     const elemento = document.getElementById("credencial");
-    const opciones = {
+
+    const ancho = elemento.offsetWidth;
+    const alto = elemento.offsetHeight;
+
+    html2pdf().set({
         margin: 0,
         filename: 'credencial.pdf',
         image: { type: 'jpeg', quality: 1 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
-    };
-    html2pdf().set(opciones).from(elemento).save();
+        html2canvas: { 
+            scale: 3,
+            useCORS: true
+        },
+        jsPDF: {
+            unit: 'px',
+            format: [ancho, alto],
+            orientation: ancho > alto ? 'landscape' : 'portrait'
+        }
+    }).from(elemento).save();
 }
 </script>
 
