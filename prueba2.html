@@ -3,173 +3,47 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DAS - Inicio de Certificación</title>
+<title>DAS - Verificación de Trámite</title>
 
 <style>
-:root{
+:root {
     --azul:#0B1F3A;
     --azul-sec:#163A6B;
     --azul-brillante:#1F4E8C;
-    --verde:#8DC21F;
-    --gris:#f4f6f9;
-    --gris-oscuro:#e2e6ec;
+    --gris:#f5f5f5;
+    --gris-oscuro:#e0e0e0;
+    --texto:#333;
+    --rojo:#e74c3c;
+    --amarillo:#f1c40f;
 }
-
-/* Base */
-body{
-    margin:0;
-    font-family: Arial, Helvetica, sans-serif;
-    background:var(--gris);
-}
-
-/* 🔹 ocultar pasos */
-.hidden{ display:none; }
-
-/* 🔹 animación suave */
-.fade{
-    animation:fadeSlide 0.5s ease forwards;
-}
-
-@keyframes fadeSlide{
-    from{ opacity:0; transform:translateY(15px); }
-    to{ opacity:1; transform:translateY(0); }
-}
-
-/* ================= HEADER ================= */
-
-header{
-    background-color:var(--azul);
-    color:white;
-    padding:25px 20px;
-    box-shadow:0 4px 15px rgba(0,0,0,0.2);
-}
-
-.header-content{
-    max-width:1200px;
-    margin:0 auto;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.header-left{
-    display:flex;
-    align-items:center;
-    gap:20px;
-}
-
-.header-left img{
-    height:140px;
-}
-
-.header-title{
-    font-size:20px;
-    font-weight:600;
-    letter-spacing:1px;
-}
-
-.header-contact{
-    text-align:right;
-    font-size:14px;
-    line-height:1.6;
-}
-
-.header-contact strong{
-    font-size:15px;
-}
-
-.header-divider{
-    height:2px;
-    background:var(--azul-brillante);
-    margin-top:20px;
-}
-
-/* CONTENEDOR */
-.container{
-    max-width:950px;
-    margin:40px auto 60px auto;
-    background:white;
-    padding:40px;
-    border-radius:12px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.1);
-}
-
-/* SECCIONES */
-.section{
-    background:var(--gris);
-    padding:25px;
-    border-radius:10px;
-    margin-bottom:25px;
-    border:1px solid var(--gris-oscuro);
-}
-
-h2{ color:var(--azul-sec); margin-top:0; }
-
-/* FORM */
-label{ font-weight:bold; font-size:14px; display:block; margin-top:10px; }
-select,input{ width:100%; padding:12px; margin:8px 0 18px 0; border-radius:6px; border:1px solid #ccc; font-size:14px; }
-
-/* BOTONES */
-button{
-    background:var(--azul-sec);
-    color:white;
-    border:none;
-    padding:14px 25px;
-    border-radius:6px;
-    cursor:pointer;
-    font-weight:bold;
-    transition:0.2s;
-}
-button:hover{ background:var(--azul-brillante); }
-
-/* PRECIO */
-#precio{
-    font-size:20px;
-    color:var(--azul-sec);
-    font-weight:bold;
-    opacity:0;
-    transform:translateY(-10px);
-    transition:0.4s ease;
-}
-#precio.visible{ opacity:1; transform:translateY(0); }
-
-/* CONFIRMACION */
-.confirmacion{
-    text-align:center;
-    padding:30px;
-}
-.confirmacion h2{ color:var(--azul-sec); }
-
-.firma{
-    margin-top:30px;
-    font-style:italic;
-    color:var(--azul);
-    border-top:1px solid var(--gris-oscuro);
-    padding-top:15px;
-}
-
-/* ================= FOOTER ================= */
-
-footer{
-    background-color:var(--azul);
-    color:white;
-    padding:35px 20px;
-    margin-top:60px;
-    text-align:center;
-}
-
-.footer-line{
-    width:60px;
-    height:3px;
-    background-color:var(--azul-brillante);
-    margin:15px auto;
-}
-
-.footer-copy{
-    margin-top:15px;
-    font-size:12px;
-    opacity:0.7;
-}
+body{font-family: Arial, sans-serif;margin:0;padding:0;background-color:var(--gris);color:var(--texto);}
+header{background-color:var(--azul);color:white;padding:25px 20px;box-shadow:0 4px 15px rgba(0,0,0,0.2);}
+.header-content{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;}
+.header-left{display:flex;align-items:center;gap:20px;}
+.header-left img{height:150px;}
+.header-title{font-size:20px;font-weight:600;letter-spacing:1px;}
+.header-contact{text-align:right;font-size:14px;line-height:1.6;}
+.header-contact strong{font-size:15px;}
+.header-divider{height:2px;background:var(--azul-brillante);margin-top:20px;}
+.container{max-width:750px;margin:40px auto;padding:25px;background:white;box-shadow:0 0 15px rgba(0,0,0,0.1);border-radius:10px;}
+form{display:flex;flex-direction:column;gap:15px;}
+input{padding:12px;font-size:16px;border-radius:5px;border:1px solid var(--gris-oscuro);}
+button, .doc-btn{padding:12px 16px;font-size:15px;border:none;border-radius:6px;background-color:var(--azul-sec);color:white;cursor:pointer;transition:0.2s;text-decoration:none;display:inline-block;text-align:center;}
+button:hover, .doc-btn:hover{background-color:var(--azul-brillante);}
+.botones-container{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px;}
+.pdf-btn{margin-top:25px;}
+.result{margin-top:25px;padding:20px;border-radius:10px;background-color:var(--gris-oscuro);display:none;animation:fadeIn 0.4s ease-in-out;position:relative;}
+@keyframes fadeIn{from{opacity:0; transform:translateY(10px);}to{opacity:1; transform:translateY(0);}}
+.status{padding:5px 12px;border-radius:5px;color:white;font-weight:bold;}
+.aprobado{background-color:var(--azul-sec);}
+.pendiente{background-color:var(--amarillo); color:#333;}
+.rechazado{background-color:var(--rojo);}
+.error-box{background:#ffe5e5;color:#b30000;padding:15px;border-radius:8px;font-weight:bold;text-align:center;}
+.sello-digital{margin-top:20px;padding:14px;border:2px solid var(--azul-sec);border-radius:8px;text-align:center;font-weight:bold;color:var(--azul-sec);background:#eef4ff;letter-spacing:1px;}
+.validado-img{position:absolute;right:05px;bottom:20px;max-width:220px;opacity:0.95;}
+footer{background-color:var(--azul);color:white;padding:35px 20px;margin-top:60px;text-align:center;}
+.footer-line{width:60px;height:3px;background-color:var(--azul-brillante);margin:15px auto;}
+.footer-copy{margin-top:15px;font-size:12px;opacity:0.7;}
 </style>
 </head>
 
@@ -191,107 +65,21 @@ footer{
             Tel: (011) 3160-2393
         </div>
     </div>
+
     <div class="header-divider"></div>
 </header>
 
 <div class="container">
+    <h2>Sistema de Validación Documental Certificada</h2>
+    <p>A los efectos de verificar la autenticidad de la documentación registrada, deberá ingresar el Código Único de Validación (CUV) y su Documento Nacional de Identidad (DNI).</p>
 
-<!-- PASO 1 -->
-<div id="paso1" class="section fade">
-<h2>Selección del Trámite</h2>
+    <form id="searchForm">
+        <input type="text" id="cu" placeholder="Código Único de Verificación (CUV)" pattern="[0-9]+" inputmode="numeric" required>
+        <input type="text" id="dni" placeholder="Documento Nacional de Identidad (DNI)" pattern="[0-9]+" inputmode="numeric" required>
+        <button type="submit">Buscar</button>
+    </form>
 
-<label>Tipo de documentación</label>
-<select id="tipoDoc" onchange="actualizarPrecio()">
-<option value="">Seleccionar</option>
-<option value="Secundario">Analítico y Título – Secundario</option>
-<option value="Secundario Técnico">Analítico y Título – Secundario Técnico</option>
-<option value="Terciario">Analítico y Título – Nivel Terciario</option>
-<option value="Profesorado">Analítico y Título – Profesorado</option>
-<option value="Universitario">Analítico y Título – Nivel Universitario</option>
-</select>
-
-<label>Modalidad</label>
-<select id="modalidad" onchange="actualizarPrecio()">
-<option value="">Seleccionar</option>
-<option value="Estándar">Certificación Estándar</option>
-<option value="Auditoría">Con Auditoría Integral</option>
-</select>
-
-<div id="precio"></div>
-
-<button onclick="continuar()">Continuar con el trámite</button>
-</div>
-
-<!-- PASO 2 -->
-<div id="paso2" class="hidden">
-<div class="section">
-<h2>Datos Personales</h2>
-
-<label>Nombre(s) y Apellido</label>
-<input type="text" id="nombre">
-
-<label>Número de DNI</label>
-<input type="number" id="dni">
-
-<label>Fecha de nacimiento del solicitante</label>
-<input type="date" id="nacimiento">
-
-<label>Lugar de nacimiento</label>
-<input type="text" id="lugarNacimiento">
-
-<label>Provincia de nacimiento</label>
-<input type="text" id="provinciaNacimiento">
-
-<label>Nacionalidad</label>
-<input type="text" id="nacionalidad">
-
-<label>Email</label>
-<input type="email" id="email">
-</div>
-
-<div class="section">
-<h2>Datos Académicos</h2>
-
-<label>Nombre de la Institución</label>
-<input type="text" id="institucion">
-
-<label>Dirección</label>
-<input type="text" id="direccion">
-
-<label>Localidad</label>
-<input type="text" id="localidad">
-
-<label>Provincia</label>
-<input type="text" id="provincia">
-
-<label>Título</label>
-<input type="text" id="titulo">
-
-<label>Fecha de egreso del documento académico</label>
-<input type="date" id="egreso">
-</div>
-
-<button onclick="mostrarResumen()">Ver resumen previo</button>
-</div>
-
-<!-- PASO 3 -->
-<div id="paso3" class="hidden section">
-<h2>Confirmación Final</h2>
-<div id="resumen"></div>
-<br>
-<button onclick="enviarWhatsApp()">Finalizar y Enviar a DAS</button>
-</div>
-
-<!-- PASO 4 -->
-<div id="paso4" class="hidden confirmacion">
-<h2>✔ Trámite iniciado correctamente</h2>
-<p>Su solicitud fue enviada al Departamento de Auditoría y Servicios.</p>
-<div class="firma">
-DAS – Departamento de Auditoría y Servicios<br>
-Certificación y Auditoría Documental Institucional
-</div>
-</div>
-
+    <div class="result" id="resultBox"></div>
 </div>
 
 <footer>
@@ -301,135 +89,214 @@ Certificación y Auditoría Documental Institucional
     Certificaciones oficiales con registro electrónico verificable
     <div class="footer-copy">
         © 2026 DAS – Todos los derechos reservados.<br>
-        Este sitio web constituye una plataforma informativa de certificación documental.
+        Este sitio web constituye una plataforma informativa de verificación documental.
     </div>
 </footer>
 
 <script>
-const precios = {
-    "Secundario": { "Estándar":100000, "Auditoría":150000 },
-    "Secundario Técnico": { "Estándar":110000, "Auditoría":160000 },
-    "Terciario": { "Estándar":120000, "Auditoría":170000 },
-    "Profesorado": { "Estándar":140000, "Auditoría":190000 },
-    "Universitario": { "Estándar":160000, "Auditoría":210000 }
-};
+const registros=[
 
-let codigoUnico="";
-
-function generarCodigo(){
-    const año = new Date().getFullYear();
-    const random = Math.floor(1000 + Math.random()*9000);
-    codigoUnico = "DAS-" + año + "-" + random;
-}
-
-function actualizarPrecio(){
-    const tipo = tipoDoc.value;
-    const mod = modalidad.value;
-    const precioDiv = document.getElementById("precio");
-
-    if(tipo && mod){
-        const valor = precios[tipo][mod];
-        precioDiv.innerText = "Valor del trámite: $"+valor.toLocaleString();
-        precioDiv.classList.add("visible");
-    } else {
-        precioDiv.classList.remove("visible");
-    }
-}
-
-function mostrarPaso(idMostrar, idOcultar){
-    document.getElementById(idOcultar).classList.add("hidden");
-    const paso = document.getElementById(idMostrar);
-    paso.classList.remove("hidden");
-    paso.classList.add("fade");
-}
-
-function continuar(){
-    if(!tipoDoc.value || !modalidad.value){
-        alert("Debe seleccionar tipo de documentación y modalidad.");
-        return;
-    }
-    generarCodigo();
-    mostrarPaso("paso2","paso1");
-}
-
-function formatFecha(fecha){
-    if(!fecha) return "";
-    const d = new Date(fecha);
-    const dia = String(d.getDate()).padStart(2,'0');
-    const mes = String(d.getMonth()+1).padStart(2,'0');
-    const año = d.getFullYear();
-    return `${dia}/${mes}/${año}`;
-}
-
-function mostrarResumen(){
-    if(!nombre.value || !dni.value || !institucion.value){
-        alert("Complete los datos obligatorios.");
-        return;
-    }
-
-    const tipo = tipoDoc.value;
-    const mod = modalidad.value;
-    const valor = precios[tipo][mod];
-
-    resumen.innerHTML = `
-    <strong>Número de Registro:</strong> ${codigoUnico}<br>
-    <strong>Tipo:</strong> ${tipo}<br>
-    <strong>Modalidad:</strong> ${mod}<br>
-    <strong>Valor:</strong> $${valor.toLocaleString()}<br><br>
-    <strong>Nombre:</strong> ${nombre.value}<br>
-    <strong>DNI:</strong> ${dni.value}<br>
-    <strong>Fecha de nacimiento:</strong> ${formatFecha(nacimiento.value)}<br>
-    <strong>Lugar de nacimiento:</strong> ${lugarNacimiento.value}<br>
-    <strong>Provincia de nacimiento:</strong> ${provinciaNacimiento.value}<br>
-    <strong>Nacionalidad:</strong> ${nacionalidad.value}<br>
-    <strong>Email:</strong> ${email.value}<br><br>
-    <strong>Institución:</strong> ${institucion.value}<br>
-    <strong>Dirección:</strong> ${direccion.value}<br>
-    <strong>Localidad:</strong> ${localidad.value}<br>
-    <strong>Provincia:</strong> ${provincia.value}<br>
-    <strong>Título:</strong> ${titulo.value}<br>
-    <strong>Fecha de egreso:</strong> ${formatFecha(egreso.value)}<br>
-    `;
-
-    mostrarPaso("paso3","paso2");
-}
-
-function enviarWhatsApp(){
-    const tipo = tipoDoc.value;
-    const mod = modalidad.value;
-    const valor = precios[tipo][mod];
-
-    const mensaje = `Nueva solicitud de Trámite
-Número de Registro: ${codigoUnico}
-
-Tipo: ${tipo}
-Modalidad: ${mod}
-Valor: $${valor.toLocaleString()}
-
---- DATOS PERSONALES ---
-Nombre: ${nombre.value}
-DNI: ${dni.value}
-Fecha de nacimiento: ${formatFecha(nacimiento.value)}
-Lugar de nacimiento: ${lugarNacimiento.value}
-Provincia de nacimiento: ${provinciaNacimiento.value}
-Nacionalidad: ${nacionalidad.value}
-Email: ${email.value}
-
---- DATOS ACADÉMICOS ---
-Institución: ${institucion.value}
-Dirección: ${direccion.value}
-Localidad: ${localidad.value}
-Provincia: ${provincia.value}
-Título: ${titulo.value}
-Fecha de egreso: ${formatFecha(egreso.value)}
-`;
-
-    const url = "https://wa.me/5491131602393?text=" + encodeURIComponent(mensaje);
-    window.open(url,'_blank');
-
-    mostrarPaso("paso4","paso3");
-}
-</script>
-
-</body>
-        </html>
+{
+    tramite:"DAS-2026-2488",
+    cu:"24639",
+    dni:"41932030",
+    nombre:"Milena Milagros Adoracion, Díaz",
+    tipo:"Analítico y Título – Nivel Secundario",
+    fecha:"13/02/2026 | 16:14 hs.",
+    estado:"aprobado",
+    responsable:"Daiana Jaqueline Báez",
+    observaciones:"La documentación fue sometida a procedimiento de auditoría técnica documental bajo estándares internos de validación y control registral de DAS. Se efectuó análisis de legitimidad formal, verificación de autenticidad material, contraste de datos con soporte declarativo y revisión de integridad estructural del contenido, conforme a protocolo vigente. No se detectaron observaciones técnicas ni inconsistencias al momento de la evaluación. El trámite posee registro electrónico activo, con trazabilidad y constancia verificable en el sistema institucional.",
+    documentos:[
+        {nombre:"Descargar Documento 1", link:"https://drive.google.com/uc?export=view&id=ID1"},
+        {nombre:"Descargar Documento 2", link:"https://drive.google.com/uc?export=view&id=ID1"}
+    ],
+    certificado:"https://drive.google.com/file/d/1lRxTi0o32XV82xXgwcV1LMeYaF3VY9uJ/view?usp=drivesdk"
+},
+    {
+    tramite:"DAS-2026-6920",
+    cu:"35740",
+    dni:"46552520",
+    nombre:"ALEJANDRO OSCAR CHÁVEZ",
+    tipo:"Analítico y Título – Nivel Secundario Técnico",
+    fecha:"23/02/2026 | 19:46 hs.",
+    estado:"aprobado",
+    responsable:"Daiana Jaqueline Báez",
+    observaciones:"La documentación fue sometida a procedimiento de auditoría técnica documental bajo estándares internos de validación y control registral de DAS. Se efectuó análisis de legitimidad formal, verificación de autenticidad material, contraste de datos con soporte declarativo y revisión de integridad estructural del contenido, conforme a protocolo vigente. No se detectaron observaciones técnicas ni inconsistencias al momento de la evaluación. El trámite posee registro electrónico activo, con trazabilidad y constancia verificable en el sistema institucional.",
+    documentos:[
+        {nombre:"Descargar Documento 1", link:"https://drive.google.com/file/d/1i-AAh3Y1Yp3s-7wlKj6McOVivfIWM7TP/view?usp=drivesdk"},
+        {nombre:"Descargar Documento 2", link:"https://drive.google.com/file/d/1QkA5Kof7IO-bYNQPt27RfMwdzUottW-e/view?usp=drivesdk"}
+    ],
+    certificado:"https://drive.google.com/file/d/18xM2oNOXovDGFgmeYr2HoW-N948BKfMX/view?usp=drivesdk"
+},
+    {
+    tramite:"DAS-2026-1305",
+    cu:"46851",
+    dni:"48610704",
+    nombre:"AUGUSTO NAHUEL CHÁVEZ",
+    tipo:"Analítico y Título – Nivel Secundario Técnico",
+    fecha:"15/12/2026 | 09:10 hs.",
+    estado:"aprobado",
+    responsable:"Daiana Jaqueline Báez",
+    observaciones:"La documentación fue sometida a procedimiento de auditoría técnica documental bajo estándares internos de validación y control registral de DAS. Se efectuó análisis de legitimidad formal, verificación de autenticidad material, contraste de datos con soporte declarativo y revisión de integridad estructural del contenido, conforme a protocolo vigente. No se detectaron observaciones técnicas ni inconsistencias al momento de la evaluación. El trámite posee registro electrónico activo, con trazabilidad y constancia verificable en el sistema institucional.",
+    documentos:[
+        {nombre:"Descargar Documento 1", link:"https://drive.google.com/file/d/1DGfThCD6yUtogP0qdwgOeVgH8d2t9xLY/view?usp=drivesdk"},
+        {nombre:"Descargar Documento 2", link:"https://drive.google.com/file/d/1BURjZMwXbq1V_qR_bhdLr2okGyAW7HeY/view?usp=drivesdk"}
+    ],
+    certificado:"https://drive.google.com/file/d/1XEr1xOewRDsjwPvIJpoaJft2lDUd1MfG/view?usp=drivesdk"
+},
+    {
+    tramite:"DAS-2026-7777",
+    cu:"68073",
+    dni:"25873395",
+    nombre:"MARÍA DE LOS ÁNGELES SILVA",
+    tipo:"Analítico y Título – (Nivel Universitario) LICENCIATURA",
+    fecha:"28/02/2026 | 15:30 hs.",
+    estado:"aprobado",
+    responsable:"Daiana Jaqueline Báez",
+    observaciones:"La documentación fue sometida a procedimiento de auditoría técnica documental bajo estándares internos de validación y control registral de DAS. Se efectuó análisis de legitimidad formal, verificación de autenticidad material, contraste de datos con soporte declarativo y revisión de integridad estructural del contenido, conforme a protocolo vigente. No se detectaron observaciones técnicas ni inconsistencias al momento de la evaluación. El trámite posee registro electrónico activo, con trazabilidad y constancia verificable en el sistema institucional.",
+    documentos:[
+        {nombre:"Descargar Documento 1", link:"https://drive.google.com/file/d/1H4UIAGriCrSE8mhqo3vuP1EMn6geXJXs/view?usp=drivesdk"},
+        {nombre:"Descargar Documento 2", link:"https://drive.google.com/file/d/1MtTG88yonqkPxUrdLEAbqbiDvIm1hbP5/view?usp=drivesdk"}
+    ],
+    certificado:"https://drive.google.com/file/d/15_LbsTPygzmU0xfLmJBjOUScQWdD2ZaZ/view?usp=drivesdk"
+},
+    {
+    tramite:"DAS-2026-9826",
+    cu:"79184",
+    dni:"27426666",
+    nombre:"DANTE ALEJANDRO ARAOZ",
+    tipo:"Analítico y Título – Nivel Universitario",
+    fecha:"01/03/2026 | 04:26 hs.",
+    estado:"aprobado",
+    responsable:"Daiana Jaqueline Báez",
+    observaciones:"La documentación fue sometida a procedimiento de auditoría técnica documental bajo estándares internos de validación y control registral de DAS. Se efectuó análisis de legitimidad formal, verificación de autenticidad material, contraste de datos con soporte declarativo y revisión de integridad estructural del contenido, conforme a protocolo vigente. No se detectaron observaciones técnicas ni inconsistencias al momento de la evaluación. El trámite posee registro electrónico activo, con trazabilidad y constancia verificable en el sistema institucional.",
+    documentos:[
+        {nombre:"Descargar Documento 1", link:"https://drive.google.com/file/d/1fAhbivN_tnFr9If036YPdu6gFS99s9Ea/view?usp=drivesdk"},
+        {nombre:"Descargar Documento 2", link:"https://drive.google.com/file/d/1aP0ntmFzjxlS8KX1ORZ0J1LFjRwfrKFG/view?usp=drivesdk"}
+    ],
+    certificado:"https://drive.google.com/file/d/1sqohWx3q3u0JZkUcWZOGLySyWcS6bmUM/view?usp=drivesdk",
+    credencial:"https://das-auditoria.github.io/Inicio/credencial.html"
+},
+    {
+    tramite:"DAS-2026-7686",
+    cu:"80295",
+    dni:"28798016",
+    nombre:"MARIANA GABRIELA AGUIRRE",
+    tipo:"Analítico y Título – Nivel Terciario",
+    fecha:"01/03/2026 | 12:24 hs.",
+    estado:"aprobado",
+    responsable:"Daiana Jaqueline Báez",
+    observaciones:"La documentación fue sometida a procedimiento de auditoría técnica documental bajo estándares internos de validación y control registral de DAS. Se efectuó análisis de legitimidad formal, verificación de autenticidad material, contraste de datos con soporte declarativo y revisión de integridad estructural del contenido, conforme a protocolo vigente. No se detectaron observaciones técnicas ni inconsistencias al momento de la evaluación. El trámite posee registro electrónico activo, con trazabilidad y constancia verificable en el sistema institucional.",
+    documentos:[
+        {nombre:"Descargar Documento 1", link:"https://drive.google.com/file/d/1rHynEsMHPdeggiHKbogCGlkH8-ShuAUo/view?usp=drivesdk"},
+        {nombre:"Descargar Documento 2", link:"https://drive.google.com/file/d/1HbQqubPYAoa7cgH-BLG2DVdm_9DmHQg6/view?usp=drivesdk"}
+    ],
+    certificado:"https://drive.google.com/file/d/1-UAwi6iqaI3A2KY9BgHNnGffIZA6uX5F/view?usp=drivesdk"
+},
+    {
+    tramite:"DAS-2026-9001",
+    cu:"91306",
+    dni:"28981399",
+    nombre:"MAURICIO LUIS NAVARRO",
+    tipo:"Certificación de PERSONAL TRAINER c/ CREDENCIAL",
+    fecha:"01/03/2026 | 20:02 hs.",
+    estado:"aprobado",
+    responsable:"Daiana Jaqueline Báez",
+    observaciones:"La documentación fue sometida a procedimiento de auditoría técnica documental bajo estándares internos de validación y control registral de DAS. Se efectuó análisis de legitimidad formal, verificación de autenticidad material, contraste de datos con soporte declarativo y revisión de integridad estructural del contenido, conforme a protocolo vigente. No se detectaron observaciones técnicas ni inconsistencias al momento de la evaluación. El trámite posee registro electrónico activo, con trazabilidad y constancia verificable en el sistema institucional.",
+    documentos:[
+        {nombre:"Descargar Documento 1", link:"https://drive.google.com/file/d/1tXsy93S6NXKaXbnXzwSowi6nhrzVbrQH/view?usp=drivesdk"},
+        {nombre:"Descargar Documento 2", link:"https://drive.google.com/file/d/1tXsy93S6NXKaXbnXzwSowi6nhrzVbrQH/view?usp=drivesdk"}
+    ],
+        certificado:"https://drive.google.com/file/d/1oeqLP-cuhmr0G6pXLknz0BEhAsjto_Ra/view?usp=drivesdk",
+        credencial:"https://das-auditoria.github.io/Inicio/navarro-credencial.html"
+},
+    {
+    tramite:"DAS-2026-2223",
+    cu:"46851",
+    dni:"28981399",
+    nombre:"MAURICIO LUIS NAVARRO",
+    tipo:"Certificación de Analítico y Título",
+    fecha:"04/03/2026 | 12:09 hs.",
+    estado:"aprobado",
+    responsable:"Daiana Jaqueline Báez",
+    observaciones:"La documentación fue sometida a procedimiento de auditoría técnica documental bajo estándares internos de validación y control registral de DAS. Se efectuó análisis de legitimidad formal, verificación de autenticidad material, contraste de datos con soporte declarativo y revisión de integridad estructural del contenido, conforme a protocolo vigente. No se detectaron observaciones técnicas ni inconsistencias al momento de la evaluación. El trámite posee registro electrónico activo, con trazabilidad y constancia verificable en el sistema institucional.",
+    documentos:[
+        {nombre:"Descargar Documento 1", link:"https://drive.google.com/file/d/13wrxpLjXOkO0y-z1Rmx-Eumk8Czzz9II/view?usp=drivesdk"},
+        {nombre:"Descargar Documento 2", link:"https://drive.google.com/file/d/1egYkW1somtrvg0lVnP_dqrm9gZtD-QP8/view?usp=drivesdkk"}
+    ],
+        certificado:"https://drive.google.com/file/d/15ZwNvN78f0H1ze3JOs0Yjp8i7Zvn4tO3/view?usp=drivesdk"
+},
+    {
+    tramite:"DAS-2026-1423",
+    cu:"57962",
+    dni:"28981399",
+    nombre:"MAURICIO LUIS NAVARRO",
+    tipo:"Certificación de Analítico y Título",
+    fecha:"04/03/2026 | 15:37 hs.",
+    estado:"aprobado",
+    responsable:"Daiana Jaqueline Báez",
+    observaciones:"La documentación fue sometida a procedimiento de auditoría técnica documental bajo estándares internos de validación y control registral de DAS. Se efectuó análisis de legitimidad formal, verificación de autenticidad material, contraste de datos con soporte declarativo y revisión de integridad estructural del contenido, conforme a protocolo vigente. No se detectaron observaciones técnicas ni inconsistencias al momento de la evaluación. El trámite posee registro electrónico activo, con trazabilidad y constancia verificable en el sistema institucional.",
+    documentos:[
+        {nombre:"Descargar Documento 1", link:"https://drive.google.com/file/d/1UvHQaodFLeD-24go31_s4RDCDq5aSFMH/view?usp=drivesdk"},
+        {nombre:"Descargar Documento 2", link:"https://drive.google.com/file/d/137lr7-xG4r40Zr9Jjj0od4B7fi3OFTvP/view?usp=drivesdk"}
+    ],
+        certificado:"https://drive.google.com/file/d/1PNRoPx64NnKMc1j-GheCROkfUeBPEQRx/view?usp=drivesdk"
+},
+    {
+    tramite:"DAS-2026-4974",
+    cu:"13528",
+    dni:"33377538",
+    nombre:"SILVIA PATRICIA ESCALANTE",
+    tipo:"Certificación de Analítico y Título - Nivel Superior",
+    fecha:"03/03/2026 | 21:49 hs.",
+    estado:"aprobado",
+    responsable:"Daiana Jaqueline Báez",
+    observaciones:"La documentación fue sometida a procedimiento de auditoría técnica documental bajo estándares internos de validación y control registral de DAS. Se efectuó análisis de legitimidad formal, verificación de autenticidad material, contraste de datos con soporte declarativo y revisión de integridad estructural del contenido, conforme a protocolo vigente. No se detectaron observaciones técnicas ni inconsistencias al momento de la evaluación. El trámite posee registro electrónico activo, con trazabilidad y constancia verificable en el sistema institucional.",
+    documentos:[
+        {nombre:"Descargar Documento 1", link:"https://drive.google.com/file/d/1t05DQX_Jf3ndDyB7gT8HTVkXMzHkuuVE/view?usp=drivesdk"},
+        {nombre:"Descargar Documento 2", link:"https://drive.google.com/file/d/1KhwsHYAYhFHrhnXYerSIJ5agLi-_nc1M/view?usp=drivesdk"}
+    ],
+        certificado:"https://drive.google.com/file/d/1CVxLJL8xm5I-dDOf3ooVRAU9bH-8YoGk/view?usp=drivesdk"
+},
+    {
+    tramite:"DAS-2026-2222",
+    cu:"24639",
+    dni:"40151212",
+    nombre:"AYELEN DAIANA VARGA",
+    tipo:"Certificación de Analítico y Título - Nivel Secundario",
+    fecha:"05/03/2026 | 20:28 hs.",
+    estado:"aprobado",
+    responsable:"Daiana Jaqueline Báez",
+    observaciones:"La documentación fue sometida a procedimiento de auditoría técnica documental bajo estándares internos de validación y control registral de DAS. Se efectuó análisis de legitimidad formal, verificación de autenticidad material, contraste de datos con soporte declarativo y revisión de integridad estructural del contenido, conforme a protocolo vigente. No se detectaron observaciones técnicas ni inconsistencias al momento de la evaluación. El trámite posee registro electrónico activo, con trazabilidad y constancia verificable en el sistema institucional.",
+    documentos:[
+        {nombre:"Descargar Documento 1", link:"https://drive.google.com/file/d/1-9qvl73wLo9MYT5Q4Dv5hoAERRopu-SJ/view?usp=drivesdk"},
+        {nombre:"Descargar Documento 2", link:"https://drive.google.com/file/d/1tHXkvjIZXl5FxKSX-SOf5_5_Aba9-IT0/view?usp=drivesdk"}
+    ],
+        certificado:"https://drive.google.com/file/d/11ODNZ0Do-yTx1oPmPuQXoTL7HzXV__YH/view?usp=drivesdk"
+},  
+    {
+    tramite:"DAS-2026-6932",
+    cu:"35740",
+    dni:"40151212",
+    nombre:"AYELEN DAIANA VARGA",
+    tipo:"Certificación de Analítico y Título - Nivel Universitario",
+    fecha:"05/03/2026 | 23:19 hs.",
+    estado:"aprobado",
+    responsable:"Daiana Jaqueline Báez",
+    observaciones:"La documentación fue sometida a procedimiento de auditoría técnica documental bajo estándares internos de validación y control registral de DAS. Se efectuó análisis de legitimidad formal, verificación de autenticidad material, contraste de datos con soporte declarativo y revisión de integridad estructural del contenido, conforme a protocolo vigente. No se detectaron observaciones técnicas ni inconsistencias al momento de la evaluación. El trámite posee registro electrónico activo, con trazabilidad y constancia verificable en el sistema institucional.",
+    documentos:[
+        {nombre:"Descargar Documento 1", link:"https://drive.google.com/file/d/1sYYmr_sLIxzrXGLXHJ0IH7_ATbpRrxR8/view?usp=drivesdk"},
+        {nombre:"Descargar Documento 2", link:"https://drive.google.com/file/d/1DkEtQxCNfOKOju2Gse2zkuVGOqr3YI-2/view?usp=drivesdk"}
+    ],
+        certificado:"https://drive.google.com/file/d/1MI44RPYPIOrM91JvWZiIS9B3G8gcXjAm/view?usp=drivesdk"
+},  
+    {
+    tramite:"DAS-2026-9845",
+    cu:"35740",
+    dni:"41511413",
+    nombre:"NADIA AILEN D'AGOSTINO",
+    tipo:"Certificación de Analítico y Título - Nivel Secundario",
+    fecha:"04/03/2026 | 10:56 hs.",
+    estado:"aprobado",
+    responsable:"Daiana Jaqueline Báez",
+    observaciones:"La documentación fue sometida a procedimiento de auditoría técnica documental bajo estándares internos de validación y control registral de DAS
