@@ -39,8 +39,6 @@ button:hover, .doc-btn:hover{background-color:var(--azul-brillante);}
 .pendiente{background-color:var(--amarillo); color:#333;}
 .rechazado{background-color:var(--rojo);}
 .error-box{background:#ffe5e5;color:#b30000;padding:15px;border-radius:8px;font-weight:bold;text-align:center;}
-.sello-digital{margin-top:20px;padding:14px;border:2px solid var(--azul-sec);border-radius:8px;text-align:center;font-weight:bold;color:var(--azul-sec);background:#eef4ff;letter-spacing:1px;}
-.validado-img{position:absolute;right:05px;bottom:20px;max-width:220px;opacity:0.95;}
 footer{background-color:var(--azul);color:white;padding:35px 20px;margin-top:60px;text-align:center;}
 .footer-line{width:60px;height:3px;background-color:var(--azul-brillante);margin:15px auto;}
 .footer-copy{margin-top:15px;font-size:12px;opacity:0.7;}
@@ -107,8 +105,8 @@ const registros=[
         responsable:"Dra. Daiana Jaqueline Báez – Escribana Pública",
         observaciones:"Documento de Cesión de Derechos verificado conforme a protocolos notariales vigentes. La transferencia de derechos se encuentra registrada y autenticada electrónicamente, con constancia legal y trazabilidad en el sistema notarial. Registro activo y verificado por la escribana responsable.",
         documentos:[
-            {nombre:"Escritura Completa", link:"https://drive.google.com/file/d/1sqmbUsN80MAFfx6E1pxQZU0YI5uNIwEQ/view?usp=drivesdk"},
-        ],
+            {nombre:"Escritura Completa", link:"https://drive.google.com/file/d/1sqmbUsN80MAFfx6E1pxQZU0YI5uNIwEQ/view?usp=drivesdk"}
+        ]
     },
     {
         tramite:"173/2026",
@@ -122,9 +120,9 @@ const registros=[
         observaciones:"Documento certificado conforme a protocolos notariales vigentes. La escritura ha sido revisada y autenticada por la escribana pública, con registro electrónico activo y constancia legal verificable.",
         documentos:[
             {nombre:"Certificación Completa", link:"https://drive.google.com/file/d/1HEXzVImxJt5hySGx-EoZsLF-IuQ9b2Kd/preview"}
-        ],
-     },
-        {
+        ]
+    },
+    {
         tramite:"90133/2026",
         cu:"35740",
         dni:"48458329",
@@ -135,8 +133,8 @@ const registros=[
         responsable:"Dra. Daiana Jaqueline Báez – Escribana Pública",
         observaciones:"Documento de Cesión de Derechos verificado conforme a protocolos notariales vigentes. La transferencia de derechos se encuentra registrada y autenticada electrónicamente, con constancia legal y trazabilidad en el sistema notarial. Registro activo y verificado por la escribana responsable.",
         documentos:[
-            {nombre:"Escritura Completa", link:"https://drive.google.com/file/d/1fQxQYZkC599Zylxd06olXPRRzKF6IFof/view?usp=drivesdk"},
-        ],
+            {nombre:"Escritura Completa", link:"https://drive.google.com/file/d/1fQxQYZkC599Zylxd06olXPRRzKF6IFof/view?usp=drivesdk"}
+        ]
     }
 ];
 
@@ -156,9 +154,6 @@ document.getElementById("searchForm").addEventListener("submit",function(e){
                 botonesDocs += `
                 <div class="botones-container">
                     <a href="${doc.link}" target="_blank" class="doc-btn">Ver ${doc.nombre}</a>
-                    <div class="documento-embed">
-                        <img src="https://i.postimg.cc/XYk5ZPmD/sello-validacion-das.png" alt="Sello de Validación DAS">
-                    </div>
                 </div>`;
             });
         }
